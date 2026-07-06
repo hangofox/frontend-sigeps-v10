@@ -1,0 +1,217 @@
+<!-- COMPONENTE: AGREGAR / MODIFICAR / ELIMINAR USUARIO — SIGEPS V1.0 -->
+<!-- Este componente actúa como ventana modal flotante controlada por el padre (listado-usuarios) -->
+<div class="modal-formulario" *ngIf="usuariosForm">
+
+  <!-- ADVERTENCIA MODO ELIMINAR -->
+  <div class="alerta-eliminar" *ngIf="banderaCrudEliminar">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    Esta acción eliminará permanentemente el registro del usuario del sistema. ¿Desea continuar?
+  </div>
+
+  <!-- FORMULARIO -->
+  <form [formGroup]="usuariosForm" (ngSubmit)="accionesGuardarModificarEliminarRegistro(usuariosForm.value);">
+
+    <!-- CAMPOS OCULTOS -->
+    <input type="hidden" formControlName="ctextIdUsuario">
+    <input type="hidden" formControlName="ctextNombreArchivoFotoExtensionoFormatoUsuario">
+
+    <!-- SECCIÓN: BÚSQUEDA POR DOCUMENTO (SÓLO EN MODO GUARDAR) -->
+    <div class="form-seccion" *ngIf="banderaCrudGuardar">
+      <div class="seccion-titulo">Búsqueda de Empleado</div>
+      <div class="form-fila">
+        <div class="form-group">
+          <label>Número de Documento de Identificación</label>
+          <input type="text" formControlName="ctextPalabraClaveNumeroDocumentoIdentificacionUsuario" placeholder="Ingrese el número de documento...">
+        </div>
+        <div class="form-group-btn">
+          <button type="button" class="btn-sigeps btn-secundario" (click)="cargarDatosSiathEmpleadoporNumeroDocumentoIdentificacion()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Cargar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN: CREDENCIALES DE ACCESO -->
+    <div class="form-seccion">
+      <div class="seccion-titulo">Credenciales de Acceso</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Nickname (*)</label>
+          <input type="text" formControlName="ctextNicknameUsuario" placeholder="Ej. jperez" [attr.disabled]="banderaCrudEliminar ? '' : null">
+        </div>
+        <div class="form-group"><!-- espacio --></div>
+        <div class="form-group">
+          <label>Contraseña (*)</label>
+          <input type="password" formControlName="ctextPasswordUsuario1" placeholder="••••••••" [attr.disabled]="banderaCrudEliminar ? '' : null">
+        </div>
+        <div class="form-group">
+          <label>Confirmar Contraseña (*)</label>
+          <input type="password" formControlName="ctextPasswordUsuario2" placeholder="••••••••" [attr.disabled]="banderaCrudEliminar ? '' : null">
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN: IDENTIFICACIÓN PERSONAL -->
+    <div class="form-seccion">
+      <div class="seccion-titulo">Identificación Personal</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Tipo de Documento (*)</label>
+          <select formControlName="cboxNombreTipoDocumentoIdentificacionSeleccionado" [attr.disabled]="banderaCrudEliminar ? '' : null">
+            <option value="">-- Seleccione --</option>
+            <option *ngFor="let td of tiposDocumentosIdentificacion1" [value]="td.idTipoDocumentoIdentificacion">
+              {{ td.nombreTipoDocumentoIdentificacion }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Número de Documento (*)</label>
+          <input type="text" formControlName="ctextNumeroDocumentoIdentificacionUsuario" [attr.disabled]="banderaCrudEliminar ? '' : null">
+        </div>
+        <div class="form-group">
+          <label>Lugar de Expedición (*)</label>
+          <input type="text" formControlName="ctextLugarExpedicionDocumentoIdentificacionUsuario" placeholder="Ej. BOGOTÁ D.C.">
+        </div>
+        <div class="form-group">
+          <label>Nombres (*)</label>
+          <input type="text" formControlName="ctextNombresUsuario" [attr.disabled]="banderaCrudEliminar ? '' : null">
+        </div>
+        <div class="form-group">
+          <label>Primer Apellido (*)</label>
+          <input type="text" formControlName="ctextPrimerApellidoUsuario" [attr.disabled]="banderaCrudEliminar ? '' : null">
+        </div>
+        <div class="form-group">
+          <label>Segundo Apellido</label>
+          <input type="text" formControlName="ctextSegundoApellidoUsuario">
+        </div>
+        <div class="form-group">
+          <label>Fecha de Nacimiento (*)</label>
+          <input type="datetime-local" formControlName="ctextFechaHMSNacimientoUsuario">
+        </div>
+        <div class="form-group">
+          <label>Sexo (*)</label>
+          <select formControlName="cboxSexoUsuarioSeleccionado">
+            <option value="">-- Seleccione --</option>
+            <option value="MASCULINO">MASCULINO</option>
+            <option value="FEMENINO">FEMENINO</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN: DATOS DE CONTACTO -->
+    <div class="form-seccion">
+      <div class="seccion-titulo">Datos de Contacto</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Dirección (*)</label>
+          <input type="text" formControlName="ctextDireccionUsuario">
+        </div>
+        <div class="form-group">
+          <label>Teléfono</label>
+          <input type="text" formControlName="ctextTelefonoUsuario">
+        </div>
+        <div class="form-group">
+          <label>Celular (*)</label>
+          <input type="text" formControlName="ctextMovilUsuario">
+        </div>
+        <div class="form-group">
+          <label>Correo Personal (*)</label>
+          <input type="text" formControlName="ctextCorreoElectronicoPersonalUsuario">
+        </div>
+        <div class="form-group">
+          <label>Correo Institucional</label>
+          <input type="text" formControlName="ctextCorreoElectronicoInstitucionalUsuario">
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN: ORIGEN Y CLASIFICACIÓN -->
+    <div class="form-seccion">
+      <div class="seccion-titulo">Origen y Clasificación</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>País de Origen</label>
+          <input type="text" formControlName="ctextNombrePaisMundoOrigenUsuario" placeholder="Ej. COLOMBIA"
+                 (blur)="cargarCiudadesDesdeFormulario()">
+        </div>
+        <div class="form-group">
+          <label>Departamento / Estado de Origen</label>
+          <input type="text" formControlName="ctextNombreDepartamentooEstadoMundoOrigenUsuario" placeholder="Ej. CUNDINAMARCA"
+                 (blur)="cargarCiudadesDesdeFormulario()">
+        </div>
+        <div class="form-group">
+          <label>Ciudad de Origen (*)</label>
+          <select formControlName="dlistNombreCiudadMundoOrigenUsuario">
+            <option value="">-- Seleccione --</option>
+            <option *ngFor="let ciudad of ciudadesMundo" [value]="ciudad.nombreCiudadMundo">
+              {{ ciudad.nombreCiudadMundo }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tipo de Usuario (*)</label>
+          <select formControlName="cboxNombreTipoUsuarioSeleccionado">
+            <option value="">-- Seleccione --</option>
+            <option *ngFor="let tipo of tiposUsuarios1" [value]="tipo.idTipoUsuario">
+              {{ tipo.nombreTipoUsuario }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Fecha de Ingreso</label>
+          <input type="datetime-local" formControlName="ctextFechaHMSIngresoUsuario">
+        </div>
+        <div class="form-group">
+          <label>Fecha de Modificación</label>
+          <input type="datetime-local" formControlName="ctextFechaHMSModificacionUsuario">
+        </div>
+        <div class="form-group">
+          <label>Estado (*)</label>
+          <select formControlName="cboxEstadoUsuarioSeleccionado">
+            <option value="">-- Seleccione --</option>
+            <option value="ACTIVO">ACTIVO</option>
+            <option value="INACTIVO">INACTIVO</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTONES DE ACCIÓN -->
+    <div class="form-acciones">
+      <button type="button" class="btn-sigeps btn-secundario" (click)="closeModal()">Cancelar</button>
+      <button type="submit" class="btn-sigeps btn-primario" *ngIf="banderaCrudGuardar || banderaCrudModificar"
+        [disabled]="!usuariosForm.valid">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        {{ banderaCrudGuardar ? 'Guardar' : 'Modificar' }}
+      </button>
+      <button type="button" class="btn-sigeps btn-peligro" *ngIf="banderaCrudEliminar" (click)="accionesGuardarModificarEliminarRegistro(usuariosForm.value)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+        Eliminar
+      </button>
+    </div>
+
+  </form>
+</div>
+
+<!-- DIÁLOGO DE CONFIRMACIÓN DE ELIMINACIÓN — SI / NO -->
+<div class="confirmacion-overlay" *ngIf="banderaConfirmacionEliminacion">
+  <div class="confirmacion-caja">
+    <div class="confirmacion-icono">
+      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    </div>
+    <h4 class="confirmacion-titulo">Confirmación de eliminación</h4>
+    <p class="confirmacion-mensaje">¿Está seguro de que desea eliminar este registro? Esta acción no se puede deshacer.</p>
+    <div class="confirmacion-botones">
+      <button type="button" class="btn-confirmacion btn-si" (click)="siConfirmacionEliminacionRegistro()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Sí, eliminar
+      </button>
+      <button type="button" class="btn-confirmacion btn-no" (click)="noConfirmacionEliminacionRegistro()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        No, cancelar
+      </button>
+    </div>
+  </div>
+</div>

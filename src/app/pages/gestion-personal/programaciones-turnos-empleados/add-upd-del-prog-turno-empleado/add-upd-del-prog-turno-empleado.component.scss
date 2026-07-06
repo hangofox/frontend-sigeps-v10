@@ -1,0 +1,131 @@
+/* ============================================
+   AGREGAR / MODIFICAR / ELIMINAR PROGRAMACIÓN DE TURNO — SIGEPS V1.0
+   ============================================ */
+
+.crud-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.alerta-eliminar {
+  padding: 14px 16px;
+  border-radius: var(--radio-borde);
+  background-color: rgba(239, 68, 68, 0.06);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #b91c1c;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.5;
+
+  svg { flex-shrink: 0; margin-top: 1px; }
+  p { margin: 4px 0 0; font-size: 13px; font-weight: 400; }
+}
+
+.form-seccion {
+  border: 1px solid var(--color-bordes);
+  border-radius: var(--radio-borde);
+  overflow: hidden;
+}
+.seccion-titulo {
+  padding: 10px 16px;
+  background-color: var(--color-fondo-pagina);
+  border-bottom: 1px solid var(--color-bordes);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-texto-secundario);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin: 0;
+}
+.form-grid {
+  padding: 14px 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 20px;
+
+  @media (max-width: 580px) { grid-template-columns: 1fr; }
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  &.form-group-full { grid-column: 1 / -1; }
+
+  label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--color-texto-secundario);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+
+  .req { color: var(--color-error); }
+
+  input[type="text"],
+  input[type="number"],
+  input[type="date"],
+  input[type="datetime-local"],
+  select,
+  textarea {
+    padding: 8px 11px;
+    border: 1px solid var(--color-bordes);
+    border-radius: var(--radio-borde);
+    font-family: var(--fuente-cuerpo);
+    font-size: 13px;
+    color: var(--color-texto-main);
+    background-color: var(--color-fondo);
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-acento);
+      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+    }
+    &:disabled { background-color: var(--color-fondo-pagina); color: var(--color-texto-secundario); cursor: not-allowed; }
+  }
+}
+
+.form-acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 4px;
+}
+.btn-sigeps {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  border-radius: var(--radio-borde);
+  font-family: var(--fuente-cuerpo);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+
+  &.btn-primario { background-color: var(--color-principal); color: #fff; &:hover { background-color: var(--color-acento); } }
+  &.btn-secundario { background: transparent; color: var(--color-texto-main); border: 1px solid var(--color-bordes); &:hover { border-color: var(--color-acento); color: var(--color-acento); } }
+  &.btn-peligro { background-color: var(--color-error); color: #fff; &:hover { background-color: #b91c1c; } }
+
+  &:disabled { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+}
+
+.confirmacion-overlay { position: fixed; inset: 0; background-color: rgba(15, 23, 42, 0.7); z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(2px); }
+.confirmacion-caja { background-color: var(--color-fondo); border-radius: var(--radio-card); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); padding: 32px 28px; max-width: 400px; width: 100%; text-align: center; animation: modalEntrarConfirmacion 0.2s ease; }
+@keyframes modalEntrarConfirmacion { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+.confirmacion-icono { width: 64px; height: 64px; border-radius: 50%; background-color: rgba(239, 68, 68, 0.1); color: var(--color-error); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+.confirmacion-titulo { font-family: var(--fuente-titulos); font-size: 16px; font-weight: 700; color: var(--color-texto-main); margin: 0 0 8px; }
+.confirmacion-mensaje { font-size: 13px; color: var(--color-texto-secundario); margin: 0 0 24px; line-height: 1.5; }
+.confirmacion-botones { display: flex; gap: 12px; justify-content: center; }
+.btn-confirmacion { padding: 9px 22px; border-radius: var(--radio-borde); font-family: var(--fuente-cuerpo); font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; border: none;
+  &.btn-no { background: transparent; color: var(--color-texto-main); border: 1px solid var(--color-bordes); &:hover { border-color: var(--color-acento); color: var(--color-acento); } }
+  &.btn-si { background-color: var(--color-error); color: #fff; &:hover { background-color: #b91c1c; } }
+}

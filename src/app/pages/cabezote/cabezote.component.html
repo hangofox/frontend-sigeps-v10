@@ -1,0 +1,24 @@
+<header class="cabezote-container">
+
+  <div class="cabezote-logo">
+    <svg class="logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <path d="M100,20 L170,45 L170,110 C170,155 100,185 100,185 C100,185 30,155 30,110 L30,45 Z"
+            fill="none" stroke="#0F172A" stroke-width="12"/>
+      <polyline points="135,70 65,70 65,100 135,100 135,135 65,135"
+                fill="none" stroke="#0EA5E9" stroke-width="10"/>
+    </svg>
+    <span class="cabezote-nombre">SIGEPS</span>
+  </div>
+
+  <div class="cabezote-acciones">
+    <div class="cabezote-usuario" *ngIf="nombreUsuario">
+      <div class="avatar">{{ nombreUsuario[0].toUpperCase() }}</div>
+      <span>{{ nombreUsuario }}</span>
+    </div>
+    <button class="btn-cerrar-sesion" (click)="cerrarSesion()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Salir
+    </button>
+  </div>
+
+</header>

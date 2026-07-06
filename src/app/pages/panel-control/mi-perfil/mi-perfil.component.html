@@ -1,0 +1,235 @@
+<!-- COMPONENTE: MI PERFIL — SIGEPS V1.0 -->
+<div class="panel-seccion" *ngIf="miPerfilForm">
+
+  <!-- ENCABEZADO -->
+  <div class="panel-header">
+    <div class="panel-header-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </div>
+    <div>
+      <h2 class="panel-titulo">Mi Perfil</h2>
+      <p class="panel-subtitulo">Actualice sus datos personales y credenciales de acceso.</p>
+    </div>
+  </div>
+
+  <!-- ALERTA DE ERROR DE VALIDACIÓN -->
+  <div class="alerta-error" *ngIf="mensajeError">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    {{ mensajeError }}
+  </div>
+
+  <!-- FORMULARIO DE MI PERFIL -->
+  <form [formGroup]="miPerfilForm" (ngSubmit)="accionModificarRegistro(miPerfilForm.value);">
+
+    <!-- CAMPO OCULTO: ID DEL USUARIO -->
+    <input type="hidden" formControlName="ctextIdUsuario">
+    <input type="hidden" formControlName="ctextIdTipoDocumentoIdentificacion">
+    <input type="hidden" formControlName="ctextIdTipoUsuario">
+
+    <!-- SECCIÓN: CREDENCIALES DE ACCESO -->
+    <div class="form-card">
+      <div class="form-card-header">
+        <h3>Credenciales de Acceso</h3>
+      </div>
+      <div class="form-card-body">
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label>Nickname (*)</label>
+            <input type="text" formControlName="ctextNicknameUsuario" placeholder="Ej. jperez">
+          </div>
+
+          <div class="form-group">
+            <!-- ESPACIO RESERVADO PARA CAMPO ESPEJO -->
+          </div>
+
+          <div class="form-group">
+            <label>Contraseña (*)</label>
+            <input type="password" formControlName="ctextPasswordUsuario1" placeholder="••••••••">
+          </div>
+
+          <div class="form-group">
+            <label>Confirmar Contraseña (*)</label>
+            <input type="password" formControlName="ctextPasswordUsuario2" placeholder="••••••••">
+          </div>
+
+        </div>
+        <div class="nota-politicas">
+          Políticas de contraseña: mínimo 8 caracteres, al menos una mayúscula y un número.
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN: IDENTIFICACIÓN PERSONAL -->
+    <div class="form-card">
+      <div class="form-card-header">
+        <h3>Identificación Personal</h3>
+      </div>
+      <div class="form-card-body">
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label>Tipo de Documento de Identificación (*)</label>
+            <input type="text" formControlName="ctextNombreTipoDocumentoIdentificacion" readonly>
+          </div>
+
+          <div class="form-group">
+            <label>Número de Documento de Identificación (*)</label>
+            <input type="text" formControlName="ctextNumeroDocumentoIdentificacionUsuario" readonly>
+          </div>
+
+          <div class="form-group">
+            <label>Lugar de Expedición del Documento (*)</label>
+            <input type="text" formControlName="ctextLugarExpedicionDocumentoIdentificacionUsuario">
+          </div>
+
+          <div class="form-group">
+            <label>Nombres (*)</label>
+            <input type="text" formControlName="ctextNombresUsuario" readonly>
+          </div>
+
+          <div class="form-group">
+            <label>Primer Apellido (*)</label>
+            <input type="text" formControlName="ctextPrimerApellidoUsuario" readonly>
+          </div>
+
+          <div class="form-group">
+            <label>Segundo Apellido</label>
+            <input type="text" formControlName="ctextSegundoApellidoUsuario" readonly>
+          </div>
+
+          <div class="form-group">
+            <label>Fecha de Nacimiento (*)</label>
+            <input type="datetime-local" formControlName="ctextFechaHMSNacimientoUsuario" readonly>
+          </div>
+
+          <div class="form-group">
+            <label>Sexo (*)</label>
+            <input type="text" formControlName="ctextSexoUsuario" readonly>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN: DATOS DE CONTACTO -->
+    <div class="form-card">
+      <div class="form-card-header">
+        <h3>Datos de Contacto</h3>
+      </div>
+      <div class="form-card-body">
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label>Dirección (*)</label>
+            <input type="text" formControlName="ctextDireccionUsuario" placeholder="Carrera, Calle, etc.">
+          </div>
+
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input type="text" formControlName="ctextTelefonoUsuario" placeholder="Ej. 6012345678">
+          </div>
+
+          <div class="form-group">
+            <label>Célular (*)</label>
+            <input type="text" formControlName="ctextMovilUsuario" placeholder="Ej. 3001234567">
+          </div>
+
+          <div class="form-group">
+            <label>Correo Electrónico Personal (*)</label>
+            <input type="text" formControlName="ctextCorreoElectronicoPersonalUsuario" placeholder="Ej. usuario@gmail.com">
+          </div>
+
+          <div class="form-group">
+            <label>Correo Electrónico Institucional</label>
+            <input type="text" formControlName="ctextCorreoElectronicoInstitucionalUsuario" placeholder="Ej. usuario@sigeps.mil.co">
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN: ORIGEN Y TIPO -->
+    <div class="form-card">
+      <div class="form-card-header">
+        <h3>Origen y Clasificación</h3>
+      </div>
+      <div class="form-card-body">
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label>País de Origen (*)</label>
+            <input type="text" formControlName="ctextNombrePaisMundoOrigenUsuario" readonly>
+          </div>
+
+          <div class="form-group">
+            <label>Departamento o Estado de Origen (*)</label>
+            <input type="text" formControlName="ctextNombreDepartamentooEstadoMundoOrigenUsuario" readonly>
+          </div>
+
+          <div class="form-group">
+            <label>Ciudad de Origen (*)</label>
+            <input type="text" formControlName="ctextNombreCiudadMundoOrigenUsuario" readonly>
+          </div>
+
+          <div class="form-group">
+            <label>Tipo de Usuario (*)</label>
+            <input type="text" formControlName="ctextNombreTipoUsuario" readonly>
+          </div>
+
+          <div class="form-group">
+            <label>Fecha de Ingreso</label>
+            <input type="datetime-local" formControlName="ctextFechaHMSIngresoUsuario" readonly>
+          </div>
+
+          <div class="form-group">
+            <label>Estado (*)</label>
+            <input type="text" formControlName="ctextEstadoUsuario" readonly>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN: FOTO DE PERFIL -->
+    <div class="form-card">
+      <div class="form-card-header">
+        <h3>Foto de Perfil (*.jpg, *.gif, *.png, *.bmp — Máximo 2 MB)</h3>
+      </div>
+      <div class="form-card-body">
+        <input type="hidden" formControlName="ctextNombreArchivoFotoExtensionoFormatoUsuario">
+        <div class="foto-upload-area">
+          <!-- AVATAR SIMULADO -->
+          <div class="avatar-grande">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div class="foto-upload-controles">
+            <label class="btn-archivo">
+              <input type="file" accept="image/*" (change)="onSelectFileUserPhoto($event)" style="display:none">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              Seleccionar Archivo
+            </label>
+            <button type="button" class="btn-quitar" *ngIf="isSelectedFileUserPhoto" (click)="onRemoveFileUserPhoto()">Quitar</button>
+            <span class="foto-nombre" *ngIf="nombreArchivoFotoExtensionoFormatoUsuario">{{ nombreArchivoFotoExtensionoFormatoUsuario }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTONES DE ACCIÓN -->
+    <div class="form-acciones">
+      <button type="submit" class="btn-sigeps btn-primario" [disabled]="!miPerfilForm.valid">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        Modificar
+      </button>
+    </div>
+
+  </form>
+</div>
+
+<!-- TOAST DE NOTIFICACIÓN -->
+<div class="toast-global" *ngIf="toastMensaje" [ngClass]="toastTipo === 'exito' ? 'toast-exito' : 'toast-error'">
+  <svg *ngIf="toastTipo === 'exito'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+  <svg *ngIf="toastTipo === 'error'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+  <span>{{ toastMensaje }}</span>
+</div>

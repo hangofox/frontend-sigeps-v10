@@ -1,0 +1,22 @@
+/* ============================================
+   GRÁFICAS DE ESTADÍSTICA — SIGEPS V1.0
+   ============================================ */
+
+.panel-seccion { display: flex; flex-direction: column; gap: 20px; }
+
+.panel-header { display: flex; align-items: center; gap: 12px; }
+.panel-header-icon { width: 40px; height: 40px; border-radius: var(--radio-borde); background-color: rgba(14, 165, 233, 0.1); color: var(--color-acento); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.panel-titulo { font-family: var(--fuente-titulos); font-size: 17px; font-weight: 700; color: var(--color-texto-main); margin: 0 0 2px; }
+.panel-subtitulo { font-size: 13px; color: var(--color-texto-secundario); margin: 0; }
+
+.bloque-estadistica { background-color: var(--color-fondo); border-radius: var(--radio-card); border: 1px solid var(--color-bordes); box-shadow: var(--sombra-card); padding: 18px; display: flex; flex-direction: column; gap: 16px; }
+
+.semaforo { display: flex; gap: 10px; flex-wrap: wrap; }
+.semaforo-item { display: flex; flex-direction: column; align-items: center; padding: 10px 18px; border-radius: var(--radio-card); border: 1px solid var(--color-bordes); background-color: var(--color-fondo-pagina); min-width: 100px; }
+.semaforo-numero { font-family: var(--fuente-titulos); font-size: 22px; font-weight: 700; }
+.semaforo-etiqueta { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-texto-secundario); }
+.semaforo-total .semaforo-numero { color: var(--color-principal); }
+.semaforo-activos .semaforo-numero { color: #16a34a; }
+.semaforo-inactivos .semaforo-numero { color: var(--color-error); }
+
+.grafica-contenedor { position: relative; height: 260px; width: 100%; }

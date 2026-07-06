@@ -1,0 +1,277 @@
+<div class="inicio-layout">
+
+  <!-- ===== CABEZOTE SUPERIOR (full width) ===== -->
+  <header class="top-header">
+    <div class="header-brand">
+      <img src="assets/images/logo.PNG" alt="SIGEPS" class="header-logo" />
+      <div class="header-brand-texto">
+        <span class="header-titulo">SIGEPS V1.0</span>
+        <span class="header-subtitulo">Sistema de Gestión de Vigilancia de Personal de Seguridad</span>
+      </div>
+    </div>
+    <div class="user-profile">
+      <div class="user-info-texto">
+        <span class="user-label">Usuario conectado</span>
+        <span class="user-nombre">{{ nombreUsuarioLogueado || nicknameUsuarioLogueado }}</span>
+      </div>
+      <div class="avatar">{{ inicialUsuario }}</div>
+    </div>
+  </header>
+
+  <!-- ===== CUERPO: SIDEBAR + CONTENIDO ===== -->
+  <div class="body-area">
+
+    <!-- SIDEBAR -->
+    <app-menu-principal-lateral-izquierdo
+      [menuActivo]="menuActivo"
+      (menuActivoChange)="setMenuActivo($event)"
+      (onCerrarSesion)="cerrarSesion()">
+    </app-menu-principal-lateral-izquierdo>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="main-wrapper">
+      <main class="dashboard-area">
+
+        <!-- ====================================================== -->
+        <!-- GESTIÓN DE PERSONAL                                     -->
+        <!-- ====================================================== -->
+        <app-listado-empleados *ngIf="menuActivo === 'gestion-personal/listado-empleados'"></app-listado-empleados>
+        <app-listado-prog-turnos-empleados *ngIf="menuActivo === 'gestion-personal/programaciones-turnos-empleados/listado-prog-turnos-empleados'"></app-listado-prog-turnos-empleados>
+        <app-listado-historial-movimientos-empleados *ngIf="menuActivo === 'gestion-personal/historial-movimientos-empleados/listado-historial-movimientos-empleados'"></app-listado-historial-movimientos-empleados>
+        <app-listado-historial-novedades-empleados *ngIf="menuActivo === 'gestion-personal/historial-novedades-empleados/listado-historial-novedades-empleados'"></app-listado-historial-novedades-empleados>
+        <app-liquidacion-empleados *ngIf="menuActivo === 'gestion-personal/liquidacion-empleados/listado-liquidaciones-empleados'"></app-liquidacion-empleados>
+
+        <!-- ====================================================== -->
+        <!-- REPORTES Y ESTADÍSTICAS                                 -->
+        <!-- ====================================================== -->
+        <app-reportes *ngIf="menuActivo === 'reportes-estadisticas/reportes'"></app-reportes>
+        <app-graficas-estadisticas *ngIf="menuActivo === 'reportes-estadisticas/graficas-estadisticas'"></app-graficas-estadisticas>
+
+        <!-- ====================================================== -->
+        <!-- REPORTES DE SEGURIDAD                                   -->
+        <!-- ====================================================== -->
+        <app-reportes-seguridad *ngIf="menuActivo === 'seguridad'"></app-reportes-seguridad>
+
+        <!-- ====================================================== -->
+        <!-- PANEL DE CONTROL                                        -->
+        <!-- ====================================================== -->
+        <app-creditos *ngIf="menuActivo === 'panel-control/creditos'"></app-creditos>
+        <app-mi-perfil *ngIf="menuActivo === 'panel-control/mi-perfil'"></app-mi-perfil>
+        <app-parametros-sistema *ngIf="menuActivo === 'panel-control/parametros-sistema'"></app-parametros-sistema>
+        <app-listado-auditorias-sistema *ngIf="menuActivo === 'panel-control/auditorias-sistema/listado-auditorias-sistema'"></app-listado-auditorias-sistema>
+        <app-listado-usuarios *ngIf="menuActivo === 'panel-control/usuarios/listado-usuarios'"></app-listado-usuarios>
+        <app-listado-establecimientos-clientes *ngIf="menuActivo === 'panel-control/gestion-establecimientos-clientes/listado-establecimientos-clientes'"></app-listado-establecimientos-clientes>
+        <app-listado-turnos *ngIf="menuActivo === 'panel-control/turnos/listado-turnos'"></app-listado-turnos>
+
+        <!-- ====================================================== -->
+        <!-- DASHBOARD PRINCIPAL (sólo en Inicio)                   -->
+        <!-- ====================================================== -->
+
+        <div class="bienvenida-seccion" *ngIf="menuActivo === 'inicio'">
+          <p class="bienvenida-titulo"><strong>Bienvenido.</strong></p>
+          <p class="bienvenida-usuario">Señor(a), {{ nicknameUsuarioLogueado || nombreUsuarioLogueado }}</p>
+          <p class="bienvenida-descripcion">
+            Este es el Sistema de Gestión de Vigilancia de Personal de Seguridad — SIGEPS V1.0.
+            Desde aquí podrá administrar el personal, asignar turnos, generar reportes
+            y controlar el acceso al sistema. Cada acción realizada será administrada por el Sistema.
+          </p>
+        </div>
+
+        <div class="cards-grid" *ngIf="menuActivo === 'inicio'">
+          <div class="indicador-card">
+            <div class="indicador-icono icono-azul">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="indicador-datos">
+              <span class="indicador-valor">{{ totalEmpleadosActivos }}</span>
+              <span class="indicador-label">Personal Activo</span>
+              <span class="indicador-variacion positivo">En estado activo</span>
+            </div>
+          </div>
+
+          <div class="indicador-card">
+            <div class="indicador-icono icono-gris">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="indicador-datos">
+              <span class="indicador-valor">{{ totalEmpleadosInactivos }}</span>
+              <span class="indicador-label">Personal Inactivo</span>
+              <span class="indicador-variacion neutro">En estado inactivo</span>
+            </div>
+          </div>
+
+          <div class="indicador-card">
+            <div class="indicador-icono icono-verde">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <div class="indicador-datos">
+              <span class="indicador-valor">342</span>
+              <span class="indicador-label">Turnos en Ejecución</span>
+              <span class="indicador-variacion neutro">En 15 sedes</span>
+            </div>
+          </div>
+
+          <div class="indicador-card">
+            <div class="indicador-icono icono-rojo">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <div class="indicador-datos">
+              <span class="indicador-valor rojo">{{ totalAlertasSeguridad }}</span>
+              <span class="indicador-label">Alertas de Seguridad</span>
+              <span class="indicador-variacion negativo">Requieren revisión</span>
+            </div>
+          </div>
+
+          <div class="indicador-card">
+            <div class="indicador-icono icono-amarillo">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="indicador-datos">
+              <span class="indicador-valor">{{ totalPuestosActivos }}</span>
+              <span class="indicador-label">Puestos Activos</span>
+              <span class="indicador-variacion neutro">En estado activo</span>
+            </div>
+          </div>
+
+          <div class="indicador-card">
+            <div class="indicador-icono icono-gris">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="indicador-datos">
+              <span class="indicador-valor">{{ totalPuestosInactivos }}</span>
+              <span class="indicador-label">Puestos Inactivos</span>
+              <span class="indicador-variacion neutro">En estado inactivo</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabla-card" *ngIf="menuActivo === 'inicio'">
+          <div class="tabla-header">
+            <h3>Últimos Movimientos de Personal</h3>
+          </div>
+          <div class="tabla-contenido">
+            <table>
+              <thead>
+                <tr>
+                  <th>Número de Documento de Identificación de Empleado</th>
+                  <th>Nombre Completo</th>
+                  <th>Ubicación Asignada</th>
+                  <th>Estado de Actividad</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let movimiento of ultimosMovimientosPersonal">
+                  <td>{{ movimiento.empleadoDTO?.numeroDocumentoIdentificacionEmpleado }}</td>
+                  <td>{{ movimiento.empleadoDTO?.nombresEmpleado }} {{ movimiento.empleadoDTO?.primerApellidoEmpleado }} {{ movimiento.empleadoDTO?.segundoApellidoEmpleado }}</td>
+                  <td>
+                    <ng-container *ngIf="movimiento.programacionTurnoEmpleadoDTO?.puestoSedeEstablecimientoClienteDTO as puesto; else sinUbicacion">
+                      {{ puesto.sedeEstablecimientoClienteDTO?.nombreSedeEstablecimientoCliente }} – {{ puesto.nombrePuestoSedeEstablecimientoCliente }}
+                    </ng-container>
+                    <ng-template #sinUbicacion>Sin asignación</ng-template>
+                  </td>
+                  <td>
+                    <span class="badge-actividad"
+                      [ngClass]="obtenerEstadoActividadMovimiento(movimiento) === 'EN TURNO' ? 'badge-en-turno badge-clickeable' : (obtenerEstadoActividadMovimiento(movimiento) === 'EN DESCANSO' ? 'badge-en-descanso' : 'badge-sin-registros')"
+                      [title]="obtenerEstadoActividadMovimiento(movimiento) === 'EN TURNO' ? 'Ver puesto donde está de turno' : ''"
+                      (click)="abrirUbicacionTurno(movimiento)">
+                      {{ obtenerEstadoActividadMovimiento(movimiento) }}
+                    </span>
+                  </td>
+                </tr>
+                <tr *ngIf="ultimosMovimientosPersonal.length === 0">
+                  <td colspan="4" class="tabla-vacia">No hay movimientos de personal registrados.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- PAGINACIÓN -->
+          <div class="paginacion">
+            <div class="paginacion-info">
+              <span>Registros por página:</span>
+              <select [value]="tandaNumeroRegistrosporPaginaMovimientos" (change)="seleccionarTandaNumeroRegistrosporPaginaMovimientos($any($event.target).value)">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+              </select>
+            </div>
+            <div class="paginacion-controles">
+              <button class="btn-pag" [disabled]="paginaActualMovimientos === 0" (click)="cambiarPaginaMovimientos(paginaActualMovimientos - 1)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <span class="paginacion-texto">{{ paginaActualMovimientos + 1 }} / {{ calcularTotalPaginasMovimientos() }}</span>
+              <button class="btn-pag" [disabled]="paginaActualMovimientos >= calcularTotalPaginasMovimientos() - 1" (click)="cambiarPaginaMovimientos(paginaActualMovimientos + 1)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </main>
+
+      <footer class="inicio-footer">
+        Todos los derechos reservados Bogotá, Colombia © {{ anioActual }} SIGEPS V1.0 – Sistema de Gestión de Vigilancia de Personal de Seguridad.
+      </footer>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODAL DE UBICACIÓN DEL TURNO ACTUAL (ESTABLECIMIENTO → SEDE → PUESTO), IGUAL QUE EN listado-empleados -->
+<div class="modal-overlay" *ngIf="modalUbicacionTurnoVisible" (click)="cerrarModalUbicacionTurno()">
+  <div class="modal-caja" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Ubicación del Turno Actual</h3>
+      <button class="modal-cerrar" (click)="cerrarModalUbicacionTurno()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-cuerpo">
+      <div class="ubicacion-turno-cadena">
+
+        <!-- NIVEL 1: ESTABLECIMIENTO CLIENTE -->
+        <div class="ubicacion-turno-nivel" *ngIf="establecimientoEnTurno">
+          <div class="ubicacion-turno-etiqueta">Establecimiento Cliente</div>
+          <div class="ubicacion-turno-nombre">{{ establecimientoEnTurno.nombreRazonSocialEstablecimientoCliente }}</div>
+          <div class="ubicacion-turno-detalle">NIT: {{ establecimientoEnTurno.numeroDocumentoIdentificacionEstablecimientoCliente }}</div>
+        </div>
+
+        <div class="ubicacion-turno-flecha" *ngIf="establecimientoEnTurno && sedeEnTurno">↓</div>
+
+        <!-- NIVEL 2: SEDE -->
+        <div class="ubicacion-turno-nivel" *ngIf="sedeEnTurno">
+          <div class="ubicacion-turno-etiqueta">Sede</div>
+          <div class="ubicacion-turno-nombre">{{ sedeEnTurno.nombreSedeEstablecimientoCliente }}</div>
+          <div class="ubicacion-turno-detalle">{{ sedeEnTurno.direccionSedeEstablecimientoCliente }} — {{ sedeEnTurno.ciudadOrigenSedeEstablecimientoCliente }}</div>
+        </div>
+
+        <div class="ubicacion-turno-flecha" *ngIf="sedeEnTurno && puestoEnTurno">↓</div>
+
+        <!-- NIVEL 3: PUESTO -->
+        <div class="ubicacion-turno-nivel ubicacion-turno-nivel-final" *ngIf="puestoEnTurno">
+          <div class="ubicacion-turno-etiqueta">Puesto de Trabajo</div>
+          <div class="ubicacion-turno-nombre">{{ puestoEnTurno.nombrePuestoSedeEstablecimientoCliente }}</div>
+          <div class="ubicacion-turno-detalle">{{ puestoEnTurno.descripcionPuestoSedeEstablecimientoCliente || 'Sin descripción' }}</div>
+        </div>
+
+      </div>
+
+      <!-- PERÍODO DE LA PROGRAMACIÓN DEL TURNO: FECHA/HORA DE INGRESO Y DE SALIDA -->
+      <div class="ubicacion-turno-periodo" *ngIf="programacionEnTurno">
+        <div class="dato-grupo">
+          <span class="dato-label">Fecha y Hora de Ingreso</span>
+          <span class="dato-valor">{{ programacionEnTurno.fechaHMSIniciacionProgramacionTurnoEmpleado }}</span>
+        </div>
+        <div class="dato-grupo">
+          <span class="dato-label">Fecha y Hora de Salida</span>
+          <span class="dato-valor">{{ programacionEnTurno.fechaHMSFinalizacionProgramacionTurnoEmpleado }}</span>
+        </div>
+      </div>
+
+      <div class="vista-acciones">
+        <button type="button" class="btn-sigeps btn-secundario" (click)="cerrarModalUbicacionTurno()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

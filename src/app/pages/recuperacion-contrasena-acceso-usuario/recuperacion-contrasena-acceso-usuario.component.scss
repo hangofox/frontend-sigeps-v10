@@ -1,0 +1,92 @@
+.index-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--color-fondo-pagina);
+}
+
+.index-cuerpo {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+}
+
+.login-card {
+  background-color: var(--color-fondo);
+  padding: 48px 40px;
+  border-radius: var(--radio-card);
+  box-shadow: var(--sombra-modal);
+  width: 460px;
+  max-width: 100%;
+  border: 1px solid var(--color-bordes);
+}
+
+/* ---- Brand ---- */
+.login-brand {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.login-logo-wrapper {
+  display: inline-block;
+  margin: 0 auto 16px;
+  border-radius: 10px;
+}
+
+.login-logo-img {
+  display: block;
+  height: 72px;
+  width: auto;
+  object-fit: contain;
+}
+
+.login-titulo {
+  font-family: var(--fuente-titulos);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-principal);
+  margin: 0 0 6px;
+  letter-spacing: -0.3px;
+}
+
+.login-subtitulo {
+  font-size: 13px;
+  color: var(--color-texto-secundario);
+  margin: 0;
+}
+
+/* ---- Texto de instrucciones ---- */
+.texto-instrucciones {
+  font-size: 13px;
+  color: var(--color-texto-main);
+  line-height: 1.6;
+  margin: 0 0 20px;
+}
+
+/* ---- Inputs ---- */
+.input-group {
+  text-align: left;
+  margin-bottom: 18px;
+
+  label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 7px;
+    color: var(--color-texto-main);
+  }
+}
+
+/* ---- Mensajes de validación por campo ---- */
+.texto-campo-nulo {
+  margin-top: 5px;
+  font-size: 12px;
+  color: var(--color-texto-secundario);
+  font-weight: 500;
+}
+
+/* ---- Botones apilados ---- */
+.btn-primary { margin-top: 6px; }
+.btn-secondary { margin-top: 10px; }

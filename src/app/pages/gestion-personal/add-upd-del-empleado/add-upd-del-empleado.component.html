@@ -1,0 +1,252 @@
+<!-- COMPONENTE: FORMULARIO CRUD DE EMPLEADO — SIGEPS V1.0 -->
+<div class="crud-form" *ngIf="empleadoForm" [formGroup]="empleadoForm">
+
+  <!-- ALERTA DE ELIMINACIÓN -->
+  <div class="alerta-eliminar" *ngIf="banderaCrudEliminar">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    <div>
+      <strong>¿Está seguro de eliminar este empleado?</strong>
+      <p>Esta acción eliminará permanentemente todos los datos del empleado del sistema.</p>
+    </div>
+  </div>
+
+  <input type="hidden" formControlName="ctextIdEmpleado">
+
+  <!-- SECCIÓN: IDENTIFICACIÓN -->
+  <div class="form-seccion">
+    <p class="seccion-titulo">Identificación</p>
+    <div class="form-grid">
+
+      <div class="form-group">
+        <label>Tipo de Documento de Identificación <span class="req">*</span></label>
+        <select formControlName="cboxIdTipoDocumentoIdentificacion"
+          [attr.disabled]="banderaCrudEliminar ? '' : null">
+          <option value="">Seleccione...</option>
+          <option *ngFor="let td of tiposDocumentosIdentificacion" [value]="td.idTipoDocumentoIdentificacion">
+            {{ td.nombreTipoDocumentoIdentificacion }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Número de Documento <span class="req">*</span></label>
+        <input type="text" formControlName="ctextNumeroDocumentoIdentificacionEmpleado"
+          placeholder="Número de documento"
+          [attr.disabled]="banderaCrudEliminar ? '' : null">
+      </div>
+
+      <div class="form-group">
+        <label>Nombres <span class="req">*</span></label>
+        <input type="text" formControlName="ctextNombresEmpleado"
+          placeholder="Nombres completos"
+          [attr.disabled]="banderaCrudEliminar ? '' : null">
+      </div>
+
+      <div class="form-group">
+        <label>Primer Apellido <span class="req">*</span></label>
+        <input type="text" formControlName="ctextPrimerApellidoEmpleado"
+          placeholder="Primer apellido"
+          [attr.disabled]="banderaCrudEliminar ? '' : null">
+      </div>
+
+      <div class="form-group">
+        <label>Segundo Apellido</label>
+        <input type="text" formControlName="ctextSegundoApellidoEmpleado"
+          placeholder="Segundo apellido"
+          [attr.disabled]="banderaCrudEliminar ? '' : null">
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECCIÓN: CLASIFICACIÓN -->
+  <div class="form-seccion">
+    <p class="seccion-titulo">Clasificación de Planta</p>
+    <div class="form-grid">
+
+      <div class="form-group">
+        <label>Tipo de Empleado <span class="req">*</span></label>
+        <select formControlName="cboxIdTipoEmpleado" (change)="cambiarTipoEmpleado()"
+          [attr.disabled]="banderaCrudEliminar ? '' : null">
+          <option value="">Seleccione...</option>
+          <option *ngFor="let te of tiposEmpleados" [value]="te.idTipoEmpleado">
+            {{ te.nombreTipoEmpleado }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Tipo Empleado Planta <span class="req">*</span></label>
+        <select formControlName="cboxIdTipoEmpleadoPlanta" (change)="cambiarTipoEmpleadoPlanta()"
+          [attr.disabled]="banderaCrudEliminar ? '' : null">
+          <option value="">Seleccione...</option>
+          <option *ngFor="let tep of tiposEmpleadosPlanta" [value]="tep.idTipoEmpleadoPlanta">
+            {{ tep.nombreTipoEmpleadoPlanta }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Clasificación <span class="req">*</span></label>
+        <select formControlName="cboxIdClasificacionEmpleadoPlanta" (change)="cambiarClasificacion()"
+          [attr.disabled]="banderaCrudEliminar ? '' : null">
+          <option value="">Seleccione...</option>
+          <option *ngFor="let cle of clasificacionesEmpleadosPlanta" [value]="cle.idClasificacionEmpleadoPlanta">
+            {{ cle.nombreClasificacionEmpleadoPlanta }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Subclasificación <span class="req">*</span></label>
+        <select formControlName="cboxIdSubclasificacionEmpleadoPlanta"
+          [attr.disabled]="banderaCrudEliminar ? '' : null">
+          <option value="">Seleccione...</option>
+          <option *ngFor="let scle of subclasificacionesEmpleadosPlanta" [value]="scle.idSubclasificacionEmpleadoPlanta">
+            {{ scle.nombreSubclasificacionEmpleadoPlanta }}
+          </option>
+        </select>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECCIÓN: CONTACTO -->
+  <div class="form-seccion">
+    <p class="seccion-titulo">Contacto</p>
+    <div class="form-grid">
+
+      <div class="form-group form-group-full">
+        <label>Dirección</label>
+        <input type="text" formControlName="ctextDireccionEmpleado"
+          placeholder="Dirección de residencia"
+          [attr.disabled]="banderaCrudEliminar ? '' : null">
+      </div>
+
+      <div class="form-group">
+        <label>Teléfono</label>
+        <input type="text" formControlName="ctextTelefonoEmpleado"
+          placeholder="Teléfono fijo"
+          [attr.disabled]="banderaCrudEliminar ? '' : null">
+      </div>
+
+      <div class="form-group">
+        <label>Móvil <span class="req">*</span></label>
+        <input type="text" formControlName="ctextMovilEmpleado"
+          placeholder="Número de celular"
+          [attr.disabled]="banderaCrudEliminar ? '' : null">
+      </div>
+
+      <div class="form-group">
+        <label>Correo Personal</label>
+        <input type="text" formControlName="ctextCorreoElectronicoPersonalEmpleado"
+          placeholder="correo@personal.com"
+          [attr.disabled]="banderaCrudEliminar ? '' : null">
+      </div>
+
+      <div class="form-group">
+        <label>Correo Institucional</label>
+        <input type="text" formControlName="ctextCorreoElectronicoInstitucionalEmpleado"
+          placeholder="correo@empresa.com"
+          [attr.disabled]="banderaCrudEliminar ? '' : null">
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECCIÓN: ORIGEN -->
+  <div class="form-seccion">
+    <p class="seccion-titulo">Origen</p>
+    <div class="form-grid">
+
+      <div class="form-group">
+        <label>País</label>
+        <input type="text" formControlName="ctextPaisOrigenEmpleado"
+          placeholder="País de origen"
+          [attr.disabled]="banderaCrudEliminar ? '' : null">
+      </div>
+
+      <div class="form-group">
+        <label>Departamento / Estado</label>
+        <input type="text" formControlName="ctextDepartamentooEstadoOrigenEmpleado"
+          placeholder="Departamento o estado"
+          [attr.disabled]="banderaCrudEliminar ? '' : null">
+      </div>
+
+      <div class="form-group">
+        <label>Ciudad</label>
+        <input type="text" formControlName="ctextCiudadOrigenEmpleado"
+          placeholder="Ciudad de origen"
+          [attr.disabled]="banderaCrudEliminar ? '' : null">
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECCIÓN: FOTO Y ESTADO -->
+  <div class="form-seccion">
+    <p class="seccion-titulo">Foto y Estado</p>
+    <div class="form-grid">
+
+      <div class="form-group">
+        <label>Archivo de Foto</label>
+        <input type="text" formControlName="ctextNombreArchivoFotoExtensionOFormatoEmpleado"
+          placeholder="Nombre del archivo de foto"
+          [attr.disabled]="banderaCrudEliminar ? '' : null">
+      </div>
+
+      <div class="form-group">
+        <label>Estado <span class="req">*</span></label>
+        <select formControlName="cboxEstadoEmpleado"
+          [attr.disabled]="banderaCrudEliminar ? '' : null">
+          <option value="ACTIVO">ACTIVO</option>
+          <option value="INACTIVO">INACTIVO</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Fecha de Ingreso</label>
+        <input type="datetime-local" formControlName="ctextFechaHMSIngresoEmpleado">
+      </div>
+
+      <div class="form-group">
+        <label>Fecha de Modificación</label>
+        <input type="datetime-local" formControlName="ctextFechaHMSModificacionEmpleado">
+      </div>
+
+    </div>
+  </div>
+
+  <!-- BOTONES DE ACCIÓN -->
+  <div class="form-acciones">
+    <button type="button" class="btn-sigeps btn-secundario" (click)="closeModal()">Cancelar</button>
+    <button type="button" class="btn-sigeps btn-primario"
+      *ngIf="banderaCrudGuardar || banderaCrudModificar"
+      [disabled]="!empleadoForm.valid"
+      (click)="accionesGuardarModificarEliminarRegistro(empleadoForm.value)">
+      <span *ngIf="banderaCrudGuardar">Guardar Empleado</span>
+      <span *ngIf="banderaCrudModificar">Modificar Empleado</span>
+    </button>
+    <button type="button" class="btn-sigeps btn-peligro"
+      *ngIf="banderaCrudEliminar"
+      (click)="accionesGuardarModificarEliminarRegistro(empleadoForm.value)">
+      Eliminar Empleado
+    </button>
+  </div>
+
+</div>
+
+<!-- DIÁLOGO DE CONFIRMACIÓN DE ELIMINACIÓN -->
+<div class="confirmacion-overlay" *ngIf="banderaConfirmacionEliminacion">
+  <div class="confirmacion-caja">
+    <div class="confirmacion-icono">
+      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    </div>
+    <h4 class="confirmacion-titulo">Confirmar Eliminación</h4>
+    <p class="confirmacion-mensaje">¿Está seguro de que desea eliminar este empleado? Esta acción no se puede deshacer.</p>
+    <div class="confirmacion-botones">
+      <button class="btn-confirmacion btn-no" (click)="noConfirmacionEliminacionRegistro()">No, Cancelar</button>
+      <button class="btn-confirmacion btn-si" (click)="siConfirmacionEliminacionRegistro()">Sí, Eliminar</button>
+    </div>
+  </div>
+</div>

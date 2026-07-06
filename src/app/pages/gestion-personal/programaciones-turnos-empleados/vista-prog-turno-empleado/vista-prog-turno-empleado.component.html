@@ -1,0 +1,72 @@
+<!-- COMPONENTE: VISTA DE PROGRAMACIÓN DE TURNO — SIGEPS V1.0 -->
+<div class="vista-detalle" *ngIf="programacion">
+
+  <!-- CABECERA -->
+  <div class="vista-cabecera">
+    <div class="vista-icono">
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="14" x2="8.01" y2="14"/><line x1="12" y1="14" x2="12.01" y2="14"/><line x1="16" y1="14" x2="16.01" y2="14"/></svg>
+    </div>
+    <div class="vista-cabecera-info">
+      <h3 class="vista-nombre">{{ nombreCompletoEmpleado }}</h3>
+      <p class="vista-descripcion">DOC. ID: {{ programacion.empleadoDTO.numeroDocumentoIdentificacionEmpleado }}</p>
+      <div class="vista-badges">
+        <span class="badge-estado" [ngClass]="programacion.estadoProgramacionTurnoEmpleado === 'ACTIVO' ? 'badge-activo' : 'badge-inactivo'">
+          {{ programacion.estadoProgramacionTurnoEmpleado }}
+        </span>
+        <span class="badge-turno-vista">{{ programacion.turnoDTO.nombreTurno }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN: DATOS DEL PUESTO Y TURNO -->
+  <div class="seccion-titulo-vista">Asignación de Turno</div>
+  <div class="datos-grid">
+    <div class="dato-grupo dato-grupo-full">
+      <span class="dato-label">Puesto de Trabajo</span>
+      <span class="dato-valor">{{ programacion.puestoSedeEstablecimientoClienteDTO.nombrePuestoSedeEstablecimientoCliente }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">Sede</span>
+      <span class="dato-valor">{{ programacion.puestoSedeEstablecimientoClienteDTO.sedeEstablecimientoClienteDTO.nombreSedeEstablecimientoCliente }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">Establecimiento Cliente</span>
+      <span class="dato-valor">{{ programacion.puestoSedeEstablecimientoClienteDTO.sedeEstablecimientoClienteDTO.establecimientoClienteDTO.nombreRazonSocialEstablecimientoCliente }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">Turno Asignado</span>
+      <span class="dato-valor">{{ programacion.turnoDTO.nombreTurno }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">Horario</span>
+      <span class="dato-valor">{{ programacion.turnoDTO.hmsiniciacionTurno }} — {{ programacion.turnoDTO.hmsfinalizacionTurno }}</span>
+    </div>
+  </div>
+
+  <!-- SECCIÓN: PERÍODO DE PROGRAMACIÓN -->
+  <div class="seccion-titulo-vista">Período de Programación</div>
+  <div class="datos-grid">
+    <div class="dato-grupo">
+      <span class="dato-label">Fecha y Hora de Inicio</span>
+      <span class="dato-valor">{{ programacion.fechaHMSIniciacionProgramacionTurnoEmpleado }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">Fecha y Hora de Finalización</span>
+      <span class="dato-valor">{{ programacion.fechaHMSFinalizacionProgramacionTurnoEmpleado }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">Estado</span>
+      <span class="dato-valor">{{ programacion.estadoProgramacionTurnoEmpleado }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">ID Programación</span>
+      <span class="dato-valor">#{{ programacion.idProgramacionTurnoEmpleado }}</span>
+    </div>
+  </div>
+
+  <!-- ACCIÓN CERRAR -->
+  <div class="vista-acciones">
+    <button type="button" class="btn-sigeps btn-secundario" (click)="closeModal()">Cerrar</button>
+  </div>
+
+</div>

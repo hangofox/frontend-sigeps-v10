@@ -1,0 +1,55 @@
+<!-- COMPONENTE: ELIMINAR AUDITORÍA DEL SISTEMA — SIGEPS V1.0 -->
+<div class="crud-form" *ngIf="auditoria">
+
+  <!-- ALERTA DE ELIMINACIÓN -->
+  <div class="alerta-eliminar">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    <div>
+      <strong>¿Está seguro de eliminar este registro de auditoría?</strong>
+      <p>Esta acción no se puede deshacer. El registro será eliminado permanentemente del historial del sistema.</p>
+    </div>
+  </div>
+
+  <!-- RESUMEN DEL REGISTRO A ELIMINAR -->
+  <div class="form-seccion">
+    <p class="seccion-titulo">Registro a Eliminar</p>
+    <div class="datos-resumen">
+      <div class="dato-grupo">
+        <span class="dato-label">ID Auditoría</span>
+        <span class="dato-valor"># {{ auditoria.idAuditoriaSistema }}</span>
+      </div>
+      <div class="dato-grupo">
+        <span class="dato-label">Fecha / Hora</span>
+        <span class="dato-valor">{{ auditoria.fechaHMSAuditoriaSistema }}</span>
+      </div>
+      <div class="dato-grupo dato-grupo-full">
+        <span class="dato-label">Usuario</span>
+        <span class="dato-valor dato-monospace">
+          {{ auditoria.usuarioDTO.nicknameUsuario }} —
+          {{ auditoria.usuarioDTO.nombresUsuario }}
+          {{ auditoria.usuarioDTO.primerApellidoUsuario }}
+          {{ auditoria.usuarioDTO.segundoApellidoUsuario }}
+        </span>
+      </div>
+      <div class="dato-grupo">
+        <span class="dato-label">Acción</span>
+        <span class="dato-valor">{{ auditoria.accionUsuarioSistema }}</span>
+      </div>
+      <div class="dato-grupo dato-grupo-full">
+        <span class="dato-label">Descripción</span>
+        <span class="dato-valor">{{ auditoria.descripcionAuditoriaSistema }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTONES DE ACCIÓN -->
+  <div class="form-acciones">
+    <button type="button" class="btn-sigeps btn-secundario" (click)="closeModal()" [disabled]="eliminando">Cancelar</button>
+    <button type="button" class="btn-sigeps btn-peligro" (click)="accionEliminar()" [disabled]="eliminando">
+      <svg *ngIf="!eliminando" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+      <svg *ngIf="eliminando" class="spin" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
+      {{ eliminando ? 'Eliminando...' : 'Eliminar Registro' }}
+    </button>
+  </div>
+
+</div>

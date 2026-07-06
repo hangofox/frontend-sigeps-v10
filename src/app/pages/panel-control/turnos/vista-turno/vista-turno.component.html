@@ -1,0 +1,43 @@
+<!-- COMPONENTE: VISTA DE TURNO — SIGEPS V1.0 -->
+<div class="vista-detalle" *ngIf="turno">
+
+  <!-- CABECERA -->
+  <div class="vista-cabecera">
+    <div class="vista-icono">
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    </div>
+    <div class="vista-cabecera-info">
+      <h3 class="vista-nombre">{{ turno.nombreTurno }}</h3>
+      <p class="vista-descripcion">{{ turno.descripcionTurno || 'Sin descripción' }}</p>
+      <span class="badge-estado" [ngClass]="turno.estadoTurno === 'ACTIVO' ? 'badge-activo' : 'badge-inactivo'">
+        {{ turno.estadoTurno }}
+      </span>
+    </div>
+  </div>
+
+  <!-- DATOS DEL TURNO -->
+  <div class="datos-grid">
+    <div class="dato-grupo">
+      <span class="dato-label">Hora de Inicio</span>
+      <span class="dato-valor">{{ turno.horaInicioTurno }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">Hora de Fin</span>
+      <span class="dato-valor">{{ turno.horaFinTurno }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">Duración</span>
+      <span class="dato-valor">{{ turno.numeroHorasTurno }} horas</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">Estado</span>
+      <span class="dato-valor">{{ turno.estadoTurno }}</span>
+    </div>
+  </div>
+
+  <!-- ACCIÓN CERRAR -->
+  <div class="vista-acciones">
+    <button type="button" class="btn-sigeps btn-secundario" (click)="closeModal()">Cerrar</button>
+  </div>
+
+</div>

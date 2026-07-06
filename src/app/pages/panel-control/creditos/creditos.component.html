@@ -1,0 +1,83 @@
+<!-- COMPONENTE: CRÉDITOS DEL SISTEMA — SIGEPS V1.0 -->
+<div class="panel-seccion" *ngIf="creditosForm">
+
+  <!-- ENCABEZADO DE LA SECCIÓN -->
+  <div class="panel-header">
+    <div class="panel-header-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+    </div>
+    <div>
+      <h2 class="panel-titulo">Créditos del Sistema</h2>
+      <p class="panel-subtitulo">Equipo de desarrollo y derechos intelectuales de SIGEPS V1.0.</p>
+    </div>
+  </div>
+
+  <!-- TARJETA: INFORMACIÓN GENERAL DEL SISTEMA -->
+  <div class="info-card">
+    <div class="info-card-header">
+      <span class="info-badge">SIGEPS V1.0</span>
+      <h3>Sistema de Gestión de Vigilancia de Personal de Seguridad</h3>
+    </div>
+    <div class="info-card-body">
+      <div class="info-fila">
+        <span class="info-label">Versión:</span>
+        <span class="info-valor">1.0.0 — 2026</span>
+      </div>
+      <div class="info-fila">
+        <span class="info-label">Framework Frontend:</span>
+        <span class="info-valor">Angular 18.2 — TypeScript — SCSS</span>
+      </div>
+      <div class="info-fila">
+        <span class="info-label">Framework Backend:</span>
+        <span class="info-valor">Spring Boot 3 — Java 21 — PostgreSQL</span>
+      </div>
+      <div class="info-fila">
+        <span class="info-label">Tipo de Arquitectura:</span>
+        <span class="info-valor">Monolítica modular — API REST</span>
+      </div>
+      <div class="info-fila">
+        <span class="info-label">Derechos Intelectuales:</span>
+        <span class="info-valor">{{ textoDerechosIntelectuales }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLA DEL EQUIPO DE DESARROLLO -->
+  <div class="tabla-card">
+    <div class="tabla-header">
+      <h3>Equipo de Desarrollo</h3>
+    </div>
+    <div class="tabla-contenido">
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Cargo</th>
+            <th>Correo Electrónico</th>
+            <th>Rol en el Proyecto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let miembro of equipoDesarrollo">
+            <td>
+              <div class="miembro-nombre">
+                <div class="avatar-mini">{{ miembro.nombre[0] }}</div>
+                {{ miembro.nombre }}
+              </div>
+            </td>
+            <td>{{ miembro.cargo }}</td>
+            <td>{{ miembro.correo }}</td>
+            <td>{{ miembro.rol }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- NOTA LEGAL -->
+  <div class="nota-legal">
+    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <span>{{ textoDerechosIntelectuales }} El uso no autorizado de este sistema está prohibido y será sancionado conforme a la normativa vigente.</span>
+  </div>
+
+</div>

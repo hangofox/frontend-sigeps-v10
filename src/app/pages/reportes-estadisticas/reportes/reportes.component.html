@@ -1,0 +1,192 @@
+<!-- COMPONENTE: REPORTES — SIGEPS V1.0 -->
+<div class="panel-seccion" *ngIf="reportesForm" [formGroup]="reportesForm">
+
+  <!-- ENCABEZADO -->
+  <div class="panel-header">
+    <div class="panel-header-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+    </div>
+    <div>
+      <h2 class="panel-titulo">Reportes</h2>
+      <p class="panel-subtitulo">Genere y descargue reportes individuales de los empleados registrados en el sistema.</p>
+    </div>
+  </div>
+
+  <!-- FORMULARIO DE BÚSQUEDA -->
+  <div class="form-seccion">
+    <div class="form-grid">
+
+      <div class="form-group">
+        <label>Tipo de Reporte <span class="req">*</span></label>
+        <select formControlName="cboxTipoReporteSeleccionado" (change)="cambiarTipoReporte()">
+          <option value="hojaVida">Hoja de Vida del Empleado (PDF)</option>
+          <option value="entradasSalidas">Entradas y Salidas del Empleado (Excel)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Número de Documento de Identificación <span class="req">*</span></label>
+        <input type="text" formControlName="ctextNumeroDocumentoIdentificacion"
+          placeholder="Digite el número de documento"
+          (keyup.enter)="consultarEmpleado()">
+      </div>
+
+      <div class="form-group form-group-boton">
+        <button type="button" class="btn-sigeps btn-buscar" (click)="consultarEmpleado()" [disabled]="consultando">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          {{ consultando ? 'Consultando...' : 'Consultar' }}
+        </button>
+      </div>
+
+      <!-- FILTRO DE RANGO DE FECHAS — SOLO PARA EL HISTORIAL DE MOVIMIENTOS (ENTRADAS Y SALIDAS) -->
+      <ng-container *ngIf="reportesForm.value.cboxTipoReporteSeleccionado === 'entradasSalidas'">
+        <div class="form-group">
+          <label>Fecha Inicio</label>
+          <input type="date" formControlName="ctextFechaInicioMovimientos">
+        </div>
+        <div class="form-group">
+          <label>Fecha Final</label>
+          <input type="date" formControlName="ctextFechaFinMovimientos">
+        </div>
+        <div class="form-group form-group-boton">
+          <button type="button" class="btn-sigeps btn-buscar" (click)="aplicarFiltroFechasMovimientos()" [disabled]="!consultaRealizada">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+            Filtrar por Fecha
+          </button>
+        </div>
+      </ng-container>
+
+    </div>
+  </div>
+
+  <!-- RESULTADO DE LA CONSULTA -->
+  <div class="resultado-consulta" *ngIf="consultaRealizada && empleadoConsultado">
+
+    <!-- FICHA DEL EMPLEADO -->
+    <div class="ficha-empleado">
+      <div class="ficha-avatar">{{ nombreCompletoEmpleado ? nombreCompletoEmpleado[0] : 'E' }}</div>
+      <div class="ficha-datos">
+        <h3>{{ nombreCompletoEmpleado }}</h3>
+        <p>{{ empleadoConsultado.tipoDocumentoIdentificacionDTO.nombreTipoDocumentoIdentificacion }}: {{ empleadoConsultado.numeroDocumentoIdentificacionEmpleado }}</p>
+        <span class="badge-estado" [ngClass]="empleadoConsultado.estadoEmpleado === 'ACTIVO' ? 'badge-activo' : 'badge-inactivo'">
+          {{ empleadoConsultado.estadoEmpleado }}
+        </span>
+      </div>
+      <div class="ficha-accion">
+        <button *ngIf="reportesForm.value.cboxTipoReporteSeleccionado === 'hojaVida'"
+          type="button" class="btn-sigeps btn-primario" (click)="descargarHojaVidaPdf()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Descargar PDF
+        </button>
+        <button *ngIf="reportesForm.value.cboxTipoReporteSeleccionado === 'entradasSalidas'"
+          type="button" class="btn-sigeps btn-primario" (click)="descargarEntradasySalidasExcel()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Descargar Excel
+        </button>
+      </div>
+    </div>
+
+    <!-- VISTA PREVIA — HOJA DE VIDA -->
+    <div *ngIf="reportesForm.value.cboxTipoReporteSeleccionado === 'hojaVida'">
+
+      <div class="tabla-card">
+        <div class="tabla-header"><h4>Historial de Novedades</h4></div>
+        <div class="tabla-contenido">
+          <table>
+            <thead>
+              <tr><th>Fecha</th><th>Tipo de Novedad</th><th>Descripción</th></tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let n of novedadesEmpleado">
+                <td>{{ n.fechaHMSHistorialNovedadEmpleado }}</td>
+                <td>{{ n.tipoNovedadEmpleadoDTO.nombreTipoNovedadEmpleado }}</td>
+                <td>{{ n.descripcionHistorialNovedadEmpleado }}</td>
+              </tr>
+              <tr *ngIf="novedadesEmpleado.length === 0">
+                <td colspan="3" class="tabla-vacia">No se registran novedades para este empleado.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="tabla-card">
+        <div class="tabla-header"><h4>Altas (Ingresos)</h4></div>
+        <div class="tabla-contenido">
+          <table>
+            <thead>
+              <tr><th>Fecha</th><th>N° Contrato / Acto Administrativo</th></tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let a of altasEmpleado">
+                <td>{{ a.fechaHMSAltaEmpleado }}</td>
+                <td>{{ a.numeroContratoOActoAdmvoNombEmpleado }}</td>
+              </tr>
+              <tr *ngIf="altasEmpleado.length === 0">
+                <td colspan="2" class="tabla-vacia">No se registran altas para este empleado.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="tabla-card">
+        <div class="tabla-header"><h4>Bajas (Retiros)</h4></div>
+        <div class="tabla-contenido">
+          <table>
+            <thead>
+              <tr><th>Fecha</th><th>N° Contrato / Acto Administrativo</th></tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let b of bajasEmpleado">
+                <td>{{ b.fechaHMSBajaEmpleado }}</td>
+                <td>{{ b.numeroContratoOActoAdmvoNombEmpleado }}</td>
+              </tr>
+              <tr *ngIf="bajasEmpleado.length === 0">
+                <td colspan="2" class="tabla-vacia">No se registran bajas para este empleado.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- VISTA PREVIA — ENTRADAS Y SALIDAS (HISTORIAL DE MOVIMIENTOS) -->
+    <div *ngIf="reportesForm.value.cboxTipoReporteSeleccionado === 'entradasSalidas'">
+      <div class="tabla-card">
+        <div class="tabla-header"><h4>Historial de Movimientos (Entradas y Salidas)</h4></div>
+        <div class="tabla-contenido">
+          <table>
+            <thead>
+              <tr><th>Tipo de Movimiento</th><th>Fecha</th><th>Puesto</th><th>Turno</th></tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let m of movimientosEmpleado">
+                <td><span class="badge-movimiento">{{ m.tipoMovimientoDTO.nombreTipoMovimiento }}</span></td>
+                <td>{{ m.fechaHMSHistorialMovimientoEmpleado }}</td>
+                <td>{{ m.programacionTurnoEmpleadoDTO.puestoSedeEstablecimientoClienteDTO.nombrePuestoSedeEstablecimientoCliente }}</td>
+                <td>{{ m.programacionTurnoEmpleadoDTO.turnoDTO.nombreTurno }}</td>
+              </tr>
+              <tr *ngIf="movimientosEmpleado.length === 0">
+                <td colspan="4" class="tabla-vacia">No se registran movimientos de entrada o salida para este empleado.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TOAST GLOBAL -->
+  <div class="toast-global toast-exito" *ngIf="toastMensaje && toastTipo === 'exito'">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    <span>{{ toastMensaje }}</span>
+  </div>
+  <div class="toast-global toast-error" *ngIf="toastMensaje && toastTipo === 'error'">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <span>{{ toastMensaje }}</span>
+  </div>
+
+</div>

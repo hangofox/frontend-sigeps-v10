@@ -1,0 +1,32 @@
+/* ============================================
+   ELIMINAR AUDITORÍA DEL SISTEMA — SIGEPS V1.0
+   ============================================ */
+
+.crud-form { display: flex; flex-direction: column; gap: 20px; }
+
+.alerta-eliminar { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; border-radius: var(--radio-borde); background-color: rgba(239, 68, 68, 0.07); border: 1px solid rgba(239, 68, 68, 0.2); color: var(--color-error);
+  svg { flex-shrink: 0; margin-top: 2px; }
+  strong { display: block; font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  p { font-size: 13px; color: var(--color-texto-secundario); margin: 0; }
+}
+
+.form-seccion { display: flex; flex-direction: column; gap: 12px; }
+.seccion-titulo { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--color-texto-secundario); margin: 0; }
+
+.datos-resumen { display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  .dato-grupo-full { grid-column: 1 / -1; }
+}
+.dato-grupo { display: flex; flex-direction: column; gap: 3px; }
+.dato-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-texto-secundario); }
+.dato-valor { font-size: 14px; color: var(--color-texto-main); padding: 8px 12px; background-color: var(--color-fondo-pagina); border: 1px solid var(--color-bordes-suave); border-radius: var(--radio-borde); }
+.dato-monospace { font-family: monospace; font-size: 13px; }
+
+.form-acciones { display: flex; align-items: center; justify-content: flex-end; gap: 10px; padding-top: 4px; }
+
+.spin { animation: girar 1s linear infinite; }
+@keyframes girar { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+.btn-sigeps { display: inline-flex; align-items: center; gap: 7px; padding: 9px 20px; border-radius: var(--radio-borde); font-family: var(--fuente-cuerpo); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; border: none;
+  &.btn-secundario { background-color: var(--color-fondo-pagina); color: var(--color-texto-main); border: 1px solid var(--color-bordes); &:hover:not(:disabled) { border-color: var(--color-texto-secundario); } &:disabled { opacity: 0.5; cursor: not-allowed; } }
+  &.btn-peligro { background-color: var(--color-error); color: #fff; &:hover:not(:disabled) { opacity: 0.88; } &:disabled { opacity: 0.5; cursor: not-allowed; } }
+}

@@ -1,0 +1,359 @@
+/* ============================================
+   LISTADO DE PROGRAMACIONES DE TURNOS — SIGEPS V1.0
+   ============================================ */
+
+.panel-seccion {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.panel-header-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background-color: rgba(14, 165, 233, 0.1);
+  color: var(--color-acento);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.panel-titulo {
+  font-family: var(--fuente-titulos);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-principal);
+  margin: 0 0 4px;
+}
+.panel-subtitulo {
+  font-size: 13px;
+  color: var(--color-texto-secundario);
+  margin: 0;
+}
+
+.semaforo {
+  display: flex;
+  gap: 12px;
+}
+.semaforo-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px 24px;
+  border-radius: var(--radio-card);
+  border: 1px solid var(--color-bordes);
+  background-color: var(--color-fondo);
+  box-shadow: var(--sombra-card);
+  min-width: 90px;
+}
+.semaforo-numero {
+  font-family: var(--fuente-titulos);
+  font-size: 26px;
+  font-weight: 700;
+}
+.semaforo-etiqueta {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-texto-secundario);
+}
+.semaforo-total .semaforo-numero { color: var(--color-principal); }
+.semaforo-activos .semaforo-numero { color: #16a34a; }
+.semaforo-inactivos .semaforo-numero { color: var(--color-error); }
+
+.barra-acciones {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  input[type="text"],
+  select {
+    padding: 9px 12px;
+    border: 1px solid var(--color-bordes);
+    border-radius: var(--radio-borde);
+    font-family: var(--fuente-cuerpo);
+    font-size: 14px;
+    color: var(--color-texto-main);
+    background-color: var(--color-fondo);
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-acento);
+      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+    }
+  }
+
+  input[type="text"] { flex: 1; min-width: 220px; }
+  select { min-width: 180px; }
+}
+
+.btn-sigeps {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 16px;
+  border-radius: var(--radio-borde);
+  font-family: var(--fuente-cuerpo);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  white-space: nowrap;
+
+  &.btn-buscar {
+    background-color: var(--color-fondo-pagina);
+    color: var(--color-texto-main);
+    border: 1px solid var(--color-bordes);
+    &:hover { border-color: var(--color-acento); color: var(--color-acento); }
+  }
+  &.btn-nuevo {
+    background-color: var(--color-principal);
+    color: #fff;
+    &:hover { background-color: var(--color-acento); }
+  }
+}
+
+.tabla-card {
+  background-color: var(--color-fondo);
+  border-radius: var(--radio-card);
+  border: 1px solid var(--color-bordes);
+  box-shadow: var(--sombra-card);
+  overflow: hidden;
+}
+.tabla-contenido {
+  overflow-x: auto;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+      background-color: var(--color-fondo-pagina);
+      padding: 10px 16px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--color-texto-secundario);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--color-bordes);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 11px 16px;
+      font-size: 13px;
+      color: var(--color-texto-main);
+      border-bottom: 1px solid var(--color-bordes-suave);
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background-color: rgba(14, 165, 233, 0.03); }
+  }
+}
+
+.tabla-vacia {
+  text-align: center;
+  padding: 32px !important;
+  color: var(--color-texto-secundario) !important;
+  font-size: 14px !important;
+  white-space: normal !important;
+}
+
+/* CELDAS CON INFORMACIÓN APILADA */
+.info-principal {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-texto-main);
+  white-space: nowrap;
+}
+.info-secundaria {
+  display: block;
+  font-size: 11px;
+  color: var(--color-texto-secundario);
+  margin-top: 2px;
+  white-space: nowrap;
+}
+
+.badge-turno {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  background-color: rgba(14, 165, 233, 0.1);
+  color: var(--color-acento);
+}
+
+.badge-estado {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.badge-activo { background-color: rgba(22, 163, 74, 0.1); color: #15803d; }
+.badge-inactivo { background-color: rgba(239, 68, 68, 0.1); color: #b91c1c; }
+
+.acciones-celda {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.btn-accion {
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+
+  &.btn-ver { background-color: rgba(14, 165, 233, 0.1); color: var(--color-acento); &:hover { background-color: var(--color-acento); color: #fff; } }
+  &.btn-editar { background-color: rgba(234, 179, 8, 0.1); color: #ca8a04; &:hover { background-color: #ca8a04; color: #fff; } }
+  &.btn-eliminar { background-color: rgba(239, 68, 68, 0.1); color: var(--color-error); &:hover { background-color: var(--color-error); color: #fff; } }
+}
+
+.paginacion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-top: 1px solid var(--color-bordes);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.paginacion-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--color-texto-secundario);
+
+  select {
+    padding: 5px 8px;
+    border: 1px solid var(--color-bordes);
+    border-radius: var(--radio-borde);
+    font-size: 13px;
+    color: var(--color-texto-main);
+    background-color: var(--color-fondo);
+  }
+}
+.paginacion-controles {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.paginacion-texto {
+  font-size: 13px;
+  color: var(--color-texto-main);
+  font-weight: 600;
+  min-width: 60px;
+  text-align: center;
+}
+.btn-pag {
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--color-bordes);
+  border-radius: var(--radio-borde);
+  background-color: var(--color-fondo);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-texto-main);
+  transition: all 0.2s;
+
+  &:hover:not(:disabled) { border-color: var(--color-acento); color: var(--color-acento); }
+  &:disabled { opacity: 0.4; cursor: not-allowed; }
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.6);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 40px 16px;
+  overflow-y: auto;
+  backdrop-filter: blur(2px);
+}
+.modal-caja {
+  background-color: var(--color-fondo);
+  border-radius: var(--radio-card);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  max-width: 760px;
+  overflow: hidden;
+  animation: modalEntrar 0.2s ease;
+}
+@keyframes modalEntrar {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--color-bordes);
+  background-color: var(--color-fondo-pagina);
+
+  h3 {
+    font-family: var(--fuente-titulos);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-texto-main);
+    margin: 0;
+  }
+}
+.modal-cerrar {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-texto-secundario);
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 6px;
+  transition: all 0.2s;
+
+  &:hover { background-color: rgba(239, 68, 68, 0.1); color: var(--color-error); }
+}
+.modal-cuerpo {
+  padding: 20px;
+  max-height: 75vh;
+  overflow-y: auto;
+}
+
+.toast-global {
+  position: fixed; top: 24px; right: 24px; z-index: 9999; min-width: 300px; max-width: 440px;
+  padding: 14px 18px; border-radius: var(--radio-borde); font-size: 13px; font-weight: 500;
+  display: flex; align-items: center; gap: 10px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18); line-height: 1.4;
+  animation: toastEntrar 0.25s ease;
+  span { flex: 1; }
+}
+.toast-exito { background-color: #f0fdf4; border: 1px solid rgba(34, 197, 94, 0.4); border-left: 4px solid #22c55e; color: #15803d; }
+.toast-error { background-color: #fef2f2; border: 1px solid rgba(239, 68, 68, 0.4); border-left: 4px solid #ef4444; color: #b91c1c; }
+@keyframes toastEntrar {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

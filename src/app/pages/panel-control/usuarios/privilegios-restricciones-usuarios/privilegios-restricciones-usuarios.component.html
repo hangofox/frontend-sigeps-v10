@@ -1,0 +1,85 @@
+<!-- COMPONENTE: PRIVILEGIOS Y RESTRICCIONES DE USUARIOS — SIGEPS V1.0 -->
+<!-- Modal flotante controlado por listado-usuarios vía @Input / @Output -->
+
+<!-- ESTADO DE CARGA -->
+<div class="estado-cargando" *ngIf="cargandoDatos">
+  <div class="spinner"></div>
+  <span>Cargando funcionalidades, roles y privilegios del usuario...</span>
+</div>
+
+<!-- ESTADO DE ERROR -->
+<div class="alerta-error" *ngIf="mensajeError && !cargandoDatos">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+  {{ mensajeError }}
+</div>
+
+<div class="privilegios-contenido" *ngIf="privilegiosyRestriccForm && !cargandoDatos" [formGroup]="privilegiosyRestriccForm">
+
+  <!-- USUARIO AL QUE SE ASIGNAN LOS PRIVILEGIOS Y RESTRICCIONES -->
+  <div class="usuario-seleccionado" *ngIf="usuarioData">
+    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <span><strong>{{ usuarioData.nicknameUsuario }}</strong> — {{ usuarioData.nombresUsuario }} {{ usuarioData.primerApellidoUsuario }} — {{ usuarioData.tipoUsuarioDTO?.nombreTipoUsuario }}</span>
+  </div>
+
+  <!-- NOTA INFORMATIVA -->
+  <div class="nota-info">
+    Marque los privilegios que desea habilitar para el usuario. Los privilegios desmarcados se eliminarán (si ya existían) al guardar.
+  </div>
+
+  <!-- TABLA DE FUNCIONALIDADES Y ROLES -->
+  <div class="tabla-privilegios">
+    <div class="privilegio-fila privilegio-fila-header">
+      <div class="col-funcionalidad">Funcionalidad</div>
+      <div class="col-rol">Rol / Acción</div>
+      <div class="col-check">Acceso</div>
+    </div>
+
+    <!-- FILA MAESTRA: SELECCIONAR / DESELECCIONAR TODOS LOS ROLES -->
+    <div class="privilegio-fila fila-maestra">
+      <div class="col-funcionalidad">
+        <strong>Todas las Funcionalidades y Roles</strong>
+      </div>
+      <div class="col-rol"></div>
+      <div class="col-check">
+        <label class="check-wrapper">
+          <input type="checkbox" formControlName="checkboxSeleccionarTodasFuncionalidadesyRoles" (change)="onCambioSeleccionarTodos()">
+          <span class="checkmark"></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- ITERAR FUNCIONALIDADES Y SUS ROLES -->
+    <ng-container *ngFor="let grupo of funcionalidadesConRoles">
+      <div class="privilegio-fila" *ngFor="let rol of grupo.roles; let ri = index"
+           [ngClass]="ri === 0 ? 'fila-primera-rol' : 'fila-rol-adicional'">
+
+        <!-- NOMBRE DE LA FUNCIONALIDAD (SÓLO EN LA PRIMERA FILA DE CADA FUNCIONALIDAD) -->
+        <div class="col-funcionalidad">
+          <span *ngIf="ri === 0">{{ grupo.funcionalidad.nombreFuncionalidad }}</span>
+        </div>
+
+        <!-- NOMBRE DEL ROL -->
+        <div class="col-rol">{{ rol.nombreRol }}</div>
+
+        <!-- CHECKBOX -->
+        <div class="col-check">
+          <label class="check-wrapper">
+            <input type="checkbox" [formControlName]="obtenerNombreControl(rol.idRol)" (change)="onCambioRolIndividual()">
+            <span class="checkmark"></span>
+          </label>
+        </div>
+
+      </div>
+    </ng-container>
+  </div>
+
+  <!-- BOTONES DE ACCIÓN -->
+  <div class="form-acciones">
+    <button type="button" class="btn-sigeps btn-secundario" [disabled]="guardandoDatos" (click)="closeModal()">Cancelar</button>
+    <button type="button" class="btn-sigeps btn-primario" [disabled]="guardandoDatos || !privilegiosyRestriccForm.valid || privilegiosyRestriccForm.pristine" (click)="accionGuardarPrivilegios()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+      {{ guardandoDatos ? 'Guardando...' : 'Guardar Privilegios y Restricciones' }}
+    </button>
+  </div>
+
+</div>

@@ -1,0 +1,47 @@
+<!-- COMPONENTE: VISTA DE HISTORIAL DE MOVIMIENTO — SIGEPS V1.0 -->
+<div class="vista-detalle" *ngIf="movimiento">
+
+  <div class="perfil-cabecera">
+    <div class="avatar-grande">
+      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+    </div>
+    <div class="perfil-info">
+      <h2 class="perfil-nombre">{{ movimiento.tipoMovimientoDTO.nombreTipoMovimiento }}</h2>
+      <p class="perfil-tipo">
+        {{ movimiento.empleadoDTO.nombresEmpleado }} {{ movimiento.empleadoDTO.primerApellidoEmpleado }} {{ movimiento.empleadoDTO.segundoApellidoEmpleado }}
+      </p>
+    </div>
+  </div>
+
+  <div class="datos-grid">
+    <div class="dato-grupo">
+      <span class="dato-label">Empleado</span>
+      <span class="dato-valor">{{ movimiento.empleadoDTO.nombresEmpleado }} {{ movimiento.empleadoDTO.primerApellidoEmpleado }} {{ movimiento.empleadoDTO.segundoApellidoEmpleado }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">N° Documento</span>
+      <span class="dato-valor">{{ movimiento.empleadoDTO.numeroDocumentoIdentificacionEmpleado }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">Tipo de Movimiento</span>
+      <span class="dato-valor">{{ movimiento.tipoMovimientoDTO.nombreTipoMovimiento }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">Fecha y Hora</span>
+      <span class="dato-valor">{{ movimiento.fechaHMSHistorialMovimientoEmpleado }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">ID Programación de Turno</span>
+      <span class="dato-valor">{{ movimiento.programacionTurnoEmpleadoDTO.idProgramacionTurnoEmpleado }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">Estado Programación</span>
+      <span class="dato-valor">{{ movimiento.programacionTurnoEmpleadoDTO.estadoProgramacionTurnoEmpleado }}</span>
+    </div>
+  </div>
+
+  <div class="vista-acciones">
+    <button type="button" class="btn-sigeps btn-secundario" (click)="closeModal()">Cerrar</button>
+  </div>
+
+</div>

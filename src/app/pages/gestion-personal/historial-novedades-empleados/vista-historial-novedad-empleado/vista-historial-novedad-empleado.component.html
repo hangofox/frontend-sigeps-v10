@@ -1,0 +1,43 @@
+<!-- COMPONENTE: VISTA DE NOVEDAD — SIGEPS V1.0 -->
+<div class="vista-detalle" *ngIf="novedad">
+
+  <div class="perfil-cabecera">
+    <div class="avatar-grande">
+      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+    </div>
+    <div class="perfil-info">
+      <h2 class="perfil-nombre">{{ novedad.tipoNovedadEmpleadoDTO.nombreTipoNovedadEmpleado }}</h2>
+      <p class="perfil-tipo">
+        {{ novedad.empleadoDTO.nombresEmpleado }} {{ novedad.empleadoDTO.primerApellidoEmpleado }} {{ novedad.empleadoDTO.segundoApellidoEmpleado }}
+      </p>
+    </div>
+  </div>
+
+  <div class="datos-grid">
+    <div class="dato-grupo">
+      <span class="dato-label">Empleado</span>
+      <span class="dato-valor">{{ novedad.empleadoDTO.nombresEmpleado }} {{ novedad.empleadoDTO.primerApellidoEmpleado }} {{ novedad.empleadoDTO.segundoApellidoEmpleado }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">N° Documento</span>
+      <span class="dato-valor">{{ novedad.empleadoDTO.numeroDocumentoIdentificacionEmpleado }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">Tipo de Novedad</span>
+      <span class="dato-valor">{{ novedad.tipoNovedadEmpleadoDTO.nombreTipoNovedadEmpleado }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">Fecha y Hora</span>
+      <span class="dato-valor">{{ novedad.fechaHMSHistorialNovedadEmpleado }}</span>
+    </div>
+    <div class="dato-grupo dato-grupo-full" *ngIf="novedad.descripcionHistorialNovedadEmpleado">
+      <span class="dato-label">Descripción</span>
+      <span class="dato-valor">{{ novedad.descripcionHistorialNovedadEmpleado }}</span>
+    </div>
+  </div>
+
+  <div class="vista-acciones">
+    <button type="button" class="btn-sigeps btn-secundario" (click)="closeModal()">Cerrar</button>
+  </div>
+
+</div>

@@ -1,0 +1,116 @@
+<!-- COMPONENTE: VISTA DE USUARIO — SIGEPS V1.0 -->
+<!-- Funciona como modal de sólo lectura, invocado desde listado-usuarios -->
+<div class="vista-usuario" *ngIf="usuarios">
+
+  <!-- CABECERA DEL PERFIL -->
+  <div class="perfil-cabecera">
+    <div class="avatar-grande">
+      <img *ngIf="rutaEstaticaArchivoFotoObtenida" [src]="rutaEstaticaArchivoFotoObtenida" alt="Foto de perfil"
+           [style.width]="tamanoArchivoFotoAnchura" [style.height]="tamanoArchivoFotoAltura">
+      <svg *ngIf="!rutaEstaticaArchivoFotoObtenida" xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+           viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+      </svg>
+    </div>
+    <div class="perfil-info">
+      <h2 class="perfil-nombre">{{ usuarios.nombresUsuario }} {{ usuarios.primerApellidoUsuario }} {{ usuarios.segundoApellidoUsuario }}</h2>
+      <p class="perfil-tipo">{{ usuarios.tipoUsuarioDTO.nombreTipoUsuario }}</p>
+      <span class="badge-estado" [ngClass]="usuarios.estadoUsuario === 'ACTIVO' ? 'badge-activo' : 'badge-inactivo'">
+        {{ usuarios.estadoUsuario }}
+      </span>
+    </div>
+  </div>
+
+  <!-- DATOS DEL USUARIO -->
+  <div class="datos-grid">
+
+    <div class="dato-grupo">
+      <span class="dato-label">Nickname</span>
+      <span class="dato-valor">{{ usuarios.nicknameUsuario }}</span>
+    </div>
+
+    <div class="dato-grupo">
+      <span class="dato-label">Tipo de Documento</span>
+      <span class="dato-valor">{{ usuarios.tipoDocumentoIdentificacionDTO.nombreTipoDocumentoIdentificacion }}</span>
+    </div>
+
+    <div class="dato-grupo">
+      <span class="dato-label">Número de Documento</span>
+      <span class="dato-valor">{{ usuarios.numeroDocumentoIdentificacionUsuario }}</span>
+    </div>
+
+    <div class="dato-grupo">
+      <span class="dato-label">Lugar de Expedición</span>
+      <span class="dato-valor">{{ usuarios.lugarExpedicionDocumentoIdentificacionUsuario }}</span>
+    </div>
+
+    <div class="dato-grupo">
+      <span class="dato-label">Fecha de Nacimiento</span>
+      <span class="dato-valor">{{ usuarios.fechaHMSNacimientoUsuario }}</span>
+    </div>
+
+    <div class="dato-grupo">
+      <span class="dato-label">Sexo</span>
+      <span class="dato-valor">{{ usuarios.sexoUsuario }}</span>
+    </div>
+
+    <div class="dato-grupo">
+      <span class="dato-label">Dirección</span>
+      <span class="dato-valor">{{ usuarios.direccionUsuario }}</span>
+    </div>
+
+    <div class="dato-grupo">
+      <span class="dato-label">Teléfono</span>
+      <span class="dato-valor">{{ usuarios.telefonoUsuario || 'No registrado' }}</span>
+    </div>
+
+    <div class="dato-grupo">
+      <span class="dato-label">Celular</span>
+      <span class="dato-valor">{{ usuarios.movilUsuario }}</span>
+    </div>
+
+    <div class="dato-grupo">
+      <span class="dato-label">Correo Personal</span>
+      <span class="dato-valor">{{ usuarios.correoElectronicoPersonalUsuario }}</span>
+    </div>
+
+    <div class="dato-grupo">
+      <span class="dato-label">Correo Institucional</span>
+      <span class="dato-valor">{{ usuarios.correoElectronicoInstitucionalUsuario || 'No registrado' }}</span>
+    </div>
+
+    <div class="dato-grupo">
+      <span class="dato-label">País de Origen</span>
+      <span class="dato-valor">{{ usuarios.paisOrigenUsuario }}</span>
+    </div>
+
+    <div class="dato-grupo">
+      <span class="dato-label">Dpto. / Estado de Origen</span>
+      <span class="dato-valor">{{ usuarios.departamentooEstadoOrigenUsuario }}</span>
+    </div>
+
+    <div class="dato-grupo">
+      <span class="dato-label">Ciudad de Origen</span>
+      <span class="dato-valor">{{ usuarios.ciudadOrigenUsuario }}</span>
+    </div>
+
+    <div class="dato-grupo">
+      <span class="dato-label">Fecha de Ingreso</span>
+      <span class="dato-valor">{{ usuarios.fechaHMSIngresoUsuario }}</span>
+    </div>
+
+    <div class="dato-grupo">
+      <span class="dato-label">Fecha de Modificación</span>
+      <span class="dato-valor">{{ usuarios.fechaHMSModificacionUsuario || 'Sin modificaciones' }}</span>
+    </div>
+
+  </div>
+
+  <!-- ACCIÓN CERRAR -->
+  <div class="vista-acciones">
+    <button type="button" class="btn-sigeps btn-secundario" (click)="closeModal()">
+      Cerrar
+    </button>
+  </div>
+
+</div>

@@ -1,0 +1,222 @@
+<!-- COMPONENTE: PARÁMETROS DEL SISTEMA — SIGEPS V1.0 -->
+<div class="panel-seccion">
+
+  <!-- ENCABEZADO -->
+  <div class="panel-header">
+    <div class="panel-header-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </div>
+    <div>
+      <h2 class="panel-titulo">Parámetros del Sistema</h2>
+      <p class="panel-subtitulo">Configure los parámetros globales de funcionamiento del sistema.</p>
+    </div>
+  </div>
+
+  <!-- INDICADOR DE CARGA -->
+  <div class="cargando-datos" *ngIf="cargandoDatos">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="spin"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
+    Cargando parámetros del sistema...
+  </div>
+
+  <!-- ALERTA DE ERROR DE VALIDACIÓN -->
+  <div class="alerta-error" *ngIf="mensajeError">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    {{ mensajeError }}
+  </div>
+
+  <!-- FORMULARIO -->
+  <form [formGroup]="parametrosSistemaForm" (ngSubmit)="accionModificarRegistro();" *ngIf="!cargandoDatos && parametrosSistemaForm">
+
+    <input type="hidden" formControlName="ctextIdParametrosSistema">
+
+    <!-- SECCIÓN: ACCESO AL SISTEMA -->
+    <div class="form-card">
+      <div class="form-card-header">
+        <h3>Acceso al Sistema</h3>
+      </div>
+      <div class="form-card-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Tiempo en Minutos de Sesión Inactiva del Sistema (*)</label>
+            <input type="number" formControlName="ctextTiempoMinutosSesionInactivaSistema" placeholder="Ej. 30">
+          </div>
+          <div class="form-group">
+            <label>Tiempo en Minutos de Validez del Código de Activación del Sistema (*)</label>
+            <input type="number" formControlName="ctextTiempoMinutosValidezCodigoActivacionSistema" placeholder="Ej. 15">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN: RUTAS DE ARCHIVOS -->
+    <div class="form-card" style="margin-top: 20px;">
+      <div class="form-card-header">
+        <h3>Rutas de Destino de Archivos del Sistema</h3>
+      </div>
+      <div class="form-card-body">
+        <div class="form-grid">
+          <div class="form-group form-group-full">
+            <label>Ruta de Destino de Carpeta Principal del Servidor de Aplicaciones (*)</label>
+            <input type="text" formControlName="ctextRutaDestinoCarpetaPrincipalServidorAplicaciones" placeholder="Ej. C:/sigeps/archivos/">
+          </div>
+          <div class="form-group form-group-full">
+            <label>Ruta de Destino de Carpeta de Cargue Temporal de Archivos (*)</label>
+            <input type="text" formControlName="ctextRutaDestinoCarpetaCargueTemporalArchivos" placeholder="Ej. C:/sigeps/archivos/temp/">
+          </div>
+          <div class="form-group">
+            <label>Ruta de Destino de Archivos de Usuarios (*)</label>
+            <input type="text" formControlName="ctextRutaDestinoArchivosUsuarios" placeholder="Ej. C:/sigeps/archivos/usuarios/">
+          </div>
+          <div class="form-group">
+            <label>Ruta de Destino de Archivos de Empleados (*)</label>
+            <input type="text" formControlName="ctextRutaDestinoArchivosEmpleados" placeholder="Ej. C:/sigeps/archivos/empleados/">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN: CORREO ELECTRÓNICO DEL REMITENTE -->
+    <div class="form-card" style="margin-top: 20px;">
+      <div class="form-card-header">
+        <h3>Correo Electrónico del Remitente</h3>
+      </div>
+      <div class="form-card-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Autenticación Activada</label>
+            <select formControlName="cboxAuthEnableSeleccionado">
+              <option value="">-- Seleccione --</option>
+              <option value="true">ACTIVO</option>
+              <option value="false">INACTIVO</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Cifrado de la Conexión Start TTLS</label>
+            <select formControlName="cboxStartTtlsEnableSeleccionado">
+              <option value="">-- Seleccione --</option>
+              <option value="true">ACTIVO</option>
+              <option value="false">INACTIVO</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>SMTP Host</label>
+            <input type="text" formControlName="ctextSmtpHost" placeholder="Ej. smtp.gmail.com">
+          </div>
+          <div class="form-group">
+            <label>SMTP Port (Puerto)</label>
+            <input type="text" formControlName="ctextSmtpPort" placeholder="Ej. 587">
+          </div>
+          <div class="form-group">
+            <label>SMTP Protocols</label>
+            <input type="text" formControlName="ctextSmtpProtocols" placeholder="Ej. TLS">
+          </div>
+          <div class="form-group">
+            <label>Usuario Remitente</label>
+            <input type="text" formControlName="ctextUsuarioRemitente" placeholder="Ej. noreply@sigeps.gov.co">
+          </div>
+          <div class="form-group">
+            <label>Password del Remitente</label>
+            <input type="password" formControlName="ctextPasswordRemitente" placeholder="••••••••">
+          </div>
+          <div class="form-group">
+            <label>Correo Electrónico del Remitente</label>
+            <input type="text" formControlName="ctextCorreoElectronicoRemitente" placeholder="Ej. noreply@sigeps.gov.co">
+          </div>
+          <div class="form-group form-group-full">
+            <label>Asunto del Mensaje de Recuperación de Contraseña</label>
+            <input type="text" formControlName="ctextAsuntoDestinatarioRecuperacionContrasena">
+          </div>
+          <div class="form-group form-group-full">
+            <label>Cuerpo del Mensaje HTML de Recuperación de Contraseña</label>
+
+            <!-- PESTAÑAS EDITOR / CÓDIGO / VISTA PREVIA -->
+            <div class="editor-tabs">
+              <button type="button" class="editor-tab" [class.active]="editorPestanaActiva === 'editor'" (click)="cambiarPestana('editor')">Editor</button>
+              <button type="button" class="editor-tab editor-tab-codigo" [class.active]="editorPestanaActiva === 'codigo'" (click)="cambiarPestana('codigo')" title="Ver código fuente HTML">&lt;/&gt;</button>
+              <button type="button" class="editor-tab" [class.active]="editorPestanaActiva === 'preview'" (click)="cambiarPestana('preview')">Vista Previa</button>
+            </div>
+
+            <!-- PESTAÑA: EDITOR WYSIWYG -->
+            <div *ngIf="editorPestanaActiva === 'editor'" class="editor-bloque">
+              <div class="editor-toolbar">
+                <button type="button" class="tb" title="Negrita" (click)="formatear('bold')"><b>B</b></button>
+                <button type="button" class="tb" title="Cursiva" (click)="formatear('italic')"><i>I</i></button>
+                <button type="button" class="tb" title="Subrayado" (click)="formatear('underline')"><u>U</u></button>
+                <span class="tb-sep"></span>
+                <button type="button" class="tb" title="Alinear izquierda" (click)="formatear('justifyLeft')">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg>
+                </button>
+                <button type="button" class="tb" title="Centrar" (click)="formatear('justifyCenter')">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="21" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="21" y1="18" x2="3" y2="18"/></svg>
+                </button>
+                <button type="button" class="tb" title="Alinear derecha" (click)="formatear('justifyRight')">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="21" y1="10" x2="7" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="7" y2="14"/><line x1="21" y1="18" x2="3" y2="18"/></svg>
+                </button>
+                <span class="tb-sep"></span>
+                <button type="button" class="tb" title="Lista con viñetas" (click)="formatear('insertUnorderedList')">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="9" y1="6" x2="20" y2="6"/><line x1="9" y1="12" x2="20" y2="12"/><line x1="9" y1="18" x2="20" y2="18"/><circle cx="4" cy="6" r="1" fill="currentColor"/><circle cx="4" cy="12" r="1" fill="currentColor"/><circle cx="4" cy="18" r="1" fill="currentColor"/></svg>
+                </button>
+                <button type="button" class="tb" title="Lista numerada" (click)="formatear('insertOrderedList')">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="10" y1="6" x2="21" y2="6"/><line x1="10" y1="12" x2="21" y2="12"/><line x1="10" y1="18" x2="21" y2="18"/><path d="M4 6h1v4"/><path d="M4 10H6"/><path d="M6 18H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+                </button>
+                <span class="tb-sep"></span>
+                <button type="button" class="tb" title="Insertar enlace" (click)="insertarEnlace()">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                </button>
+                <span class="tb-sep"></span>
+                <select class="tb-select" title="Tamaño de letra" (change)="formatearConValor('fontSize', $any($event.target).value)">
+                  <option value="">Tamaño</option>
+                  <option value="1">Pequeño</option>
+                  <option value="3">Normal</option>
+                  <option value="5">Grande</option>
+                  <option value="7">Muy grande</option>
+                </select>
+                <input type="color" class="tb-color" title="Color de texto" (change)="formatearConValor('foreColor', $any($event.target).value)" value="#334155">
+              </div>
+              <div #editorHtml
+                class="editor-contenido"
+                contenteditable="true"
+                (input)="sincronizarEditor()"
+                (blur)="sincronizarEditor()"
+                [innerHTML]="editorContenidoHtml">
+              </div>
+            </div>
+
+            <!-- PESTAÑA: CÓDIGO FUENTE -->
+            <div *ngIf="editorPestanaActiva === 'codigo'" class="editor-bloque">
+              <textarea
+                class="editor-codigo-fuente"
+                [value]="codigoFuenteHtml"
+                (input)="sincronizarCodigoFuente($any($event.target).value)"
+                spellcheck="false"
+                placeholder="<!-- Escriba o pegue el código HTML aquí -->"></textarea>
+            </div>
+
+            <!-- PESTAÑA: VISTA PREVIA -->
+            <div *ngIf="editorPestanaActiva === 'preview'" class="editor-preview" [innerHTML]="editorContenidoHtml"></div>
+
+            <!-- CAMPO OCULTO QUE SINCRONIZA CON EL FORMULARIO REACTIVO -->
+            <input type="hidden" formControlName="ctextMultilineaCuerpoMensajeHtmlRecuperacionContrasena">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTONES DE ACCIÓN -->
+    <div class="form-acciones" style="margin-top: 20px;">
+      <button type="submit" class="btn-sigeps btn-primario" [disabled]="!parametrosSistemaForm.valid || cargandoDatos">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        Modificar Parámetros
+      </button>
+    </div>
+
+  </form>
+
+</div>
+
+<!-- TOAST DE NOTIFICACIÓN -->
+<div class="toast-global" *ngIf="toastMensaje" [ngClass]="toastTipo === 'exito' ? 'toast-exito' : 'toast-error'">
+  <svg *ngIf="toastTipo === 'exito'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+  <svg *ngIf="toastTipo === 'error'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+  <span>{{ toastMensaje }}</span>
+</div>

@@ -1,0 +1,169 @@
+<!-- COMPONENTE: LISTADO DE AUDITORÍAS DEL SISTEMA — SIGEPS V1.0 -->
+<div class="panel-seccion">
+
+  <!-- ENCABEZADO -->
+  <div class="panel-header">
+    <div class="panel-header-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+    </div>
+    <div>
+      <h2 class="panel-titulo">Auditorías del Sistema</h2>
+      <p class="panel-subtitulo">Registro de todas las acciones realizadas por los usuarios en el sistema.</p>
+    </div>
+  </div>
+
+  <!-- SEMÁFORO DE TOTALES -->
+  <div class="semaforo">
+    <div class="semaforo-item semaforo-total">
+      <span class="semaforo-numero">{{ totalRegistros }}</span>
+      <span class="semaforo-etiqueta">Total Registros</span>
+    </div>
+  </div>
+
+  <!-- BARRA DE BÚSQUEDA -->
+  <div class="barra-filtros-avanzados">
+    <div class="filtros-fila">
+      <input type="text" [formControl]="ctextPalabraClave"
+        placeholder="Buscar por usuario, acción o descripción..." (keyup.enter)="accionListar()" class="input-busqueda">
+    </div>
+    <div class="filtros-acciones">
+      <button type="button" class="btn-sigeps btn-buscar" (click)="accionListar()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Buscar
+      </button>
+      <button type="button" class="btn-sigeps btn-limpiar" (click)="limpiarFiltros()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.9L1 10"/></svg>
+        Limpiar
+      </button>
+    </div>
+  </div>
+
+  <!-- INDICADOR DE CARGA -->
+  <div class="cargando-datos" *ngIf="cargandoDatos">
+    <svg class="spin" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
+    Cargando registros de auditoría...
+  </div>
+
+  <!-- TABLA DE AUDITORÍAS -->
+  <div class="tabla-card" *ngIf="!cargandoDatos">
+    <div class="tabla-contenido">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Fecha / Hora</th>
+            <th>Usuario</th>
+            <th>Acción</th>
+            <th>Descripción</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let auditoria of auditorias; let i = index">
+            <td>{{ auditoria.idAuditoriaSistema }}</td>
+            <td class="td-fecha">{{ auditoria.fechaHMSAuditoriaSistema }}</td>
+            <td>
+              <span class="badge-usuario">{{ auditoria.usuarioDTO.nicknameUsuario }}</span>
+              <span class="nombre-usuario">
+                {{ auditoria.usuarioDTO.nombresUsuario }}
+                {{ auditoria.usuarioDTO.primerApellidoUsuario }}
+                {{ auditoria.usuarioDTO.segundoApellidoUsuario }}
+              </span>
+            </td>
+            <td>
+              <span class="badge-accion" [ngClass]="getBadgeAccion(auditoria.accionUsuarioSistema + '')">
+                {{ auditoria.accionUsuarioSistema }}
+              </span>
+            </td>
+            <td class="td-descripcion">{{ auditoria.descripcionAuditoriaSistema }}</td>
+            <td>
+              <div class="acciones-celda">
+                <button *ngIf="sioNoPrivilegioyRestriccionAccesoUsuarioCRUDVer === 'SI'"
+                  class="btn-accion btn-ver" title="Ver Detalle"
+                  (click)="OpenModalVistaAuditoriaSistemaComponent(auditoria.idAuditoriaSistema!)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+                <button *ngIf="sioNoPrivilegioyRestriccionAccesoUsuarioCRUDEliminar === 'SI'"
+                  class="btn-accion btn-eliminar" title="Eliminar Registro"
+                  (click)="OpenModalAddUpdDelAuditoriaSistemaComponent('eliminar/' + auditoria.idAuditoriaSistema)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="auditorias.length === 0">
+            <td colspan="6" class="tabla-vacia">No se encontraron registros de auditoría con los filtros aplicados.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- PAGINACIÓN -->
+    <div class="paginacion">
+      <div class="paginacion-info">
+        <span>Registros por página:</span>
+        <select [formControl]="cboxTandaNumeroRegistrosporPaginaSeleccionado" (change)="seleccionarTandaNumeroRegistrosporPagina()">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+        </select>
+      </div>
+      <div class="paginacion-controles">
+        <button class="btn-pag" [disabled]="paginaActual === 0" (click)="cambiarPagina(paginaActual - 1)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <span class="paginacion-texto">{{ paginaActual + 1 }} / {{ calcularTotalPaginas() }}</span>
+        <button class="btn-pag" [disabled]="paginaActual >= calcularTotalPaginas() - 1" (click)="cambiarPagina(paginaActual + 1)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- MODAL: ELIMINAR AUDITORÍA -->
+<div class="modal-overlay" *ngIf="modalAddUpdDelVisible" (click)="cerrarModalAddUpdDel()">
+  <div class="modal-caja" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Eliminar Registro de Auditoría</h3>
+      <button class="modal-cerrar" (click)="cerrarModalAddUpdDel()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-cuerpo">
+      <app-add-upd-del-auditoria-sistema
+        [modo]="modalModo"
+        [auditoriaSistemaData]="auditoriaSeleccionada"
+        (cerrarModal)="cerrarModalAddUpdDel()"
+        (toastEvento)="recibirToast($event)">
+      </app-add-upd-del-auditoria-sistema>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: VISTA DE AUDITORÍA -->
+<div class="modal-overlay" *ngIf="modalVistaVisible" (click)="cerrarModalVista()">
+  <div class="modal-caja" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Detalle del Registro de Auditoría</h3>
+      <button class="modal-cerrar" (click)="cerrarModalVista()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-cuerpo">
+      <app-vista-auditoria-sistema
+        [auditoriaSistemaData]="auditoriaSeleccionada"
+        (cerrarModal)="cerrarModalVista()">
+      </app-vista-auditoria-sistema>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST DE NOTIFICACIÓN -->
+<div class="toast-global" *ngIf="toastMensaje" [ngClass]="toastTipo === 'exito' ? 'toast-exito' : 'toast-error'">
+  <svg *ngIf="toastTipo === 'exito'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+  <svg *ngIf="toastTipo === 'error'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+  <span>{{ toastMensaje }}</span>
+</div>

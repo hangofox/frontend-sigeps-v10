@@ -1,0 +1,78 @@
+<div class="index-page">
+
+  <div class="index-cuerpo">
+    <div class="login-card">
+
+      <!-- Logo + nombre -->
+      <div class="login-brand">
+        <div class="login-logo-wrapper">
+          <img src="assets/images/logo.PNG" alt="SIGEPS Logo" class="login-logo-img" />
+        </div>
+        <h1 class="login-titulo">SIGEPS V1.0.</h1>
+        <p class="login-subtitulo">Restablecimiento de Contraseña de Acceso</p>
+      </div>
+
+      <form *ngIf="restablecimientoForm" [formGroup]="restablecimientoForm" (ngSubmit)="restablecerContrasenaAccesoUsuario()" autocomplete="off">
+
+        <p class="texto-instrucciones">
+          Digita el código de verificación que enviamos a tu correo electrónico, junto con tu nueva contraseña de acceso.
+        </p>
+
+        <div class="input-group">
+          <label for="codigoActivacion">Código de Activación</label>
+          <input
+            id="codigoActivacion"
+            type="text"
+            placeholder="Ej. 483920"
+            formControlName="ctextCodigoActivacionContrasenaAccesoUsuario"
+            maxlength="6"
+            autocomplete="off"
+          />
+        </div>
+
+        <div class="input-group">
+          <label for="password1">Nueva Contraseña</label>
+          <input
+            id="password1"
+            type="password"
+            placeholder="••••••••"
+            formControlName="ctextPasswordUsuario1"
+            autocomplete="new-password"
+          />
+        </div>
+
+        <div class="input-group">
+          <label for="password2">Confirmar Nueva Contraseña</label>
+          <input
+            id="password2"
+            type="password"
+            placeholder="••••••••"
+            formControlName="ctextPasswordUsuario2"
+            autocomplete="new-password"
+          />
+          <div class="texto-campo-nulo">
+            Mínimo 8 caracteres, con al menos una letra mayúscula y al menos un número.
+          </div>
+        </div>
+
+        <div class="mensaje-error" *ngIf="mensajeError">
+          {{ mensajeError }}
+        </div>
+
+        <div class="mensaje-exito" *ngIf="mensajeExito">
+          {{ mensajeExito }} Redirigiendo al inicio de sesión...
+        </div>
+
+        <button type="submit" class="btn-primary" [disabled]="restablecimientoForm.invalid || cargando">
+          {{ cargando ? 'PROCESANDO...' : 'RESTABLECER CONTRASEÑA' }}
+        </button>
+        <button type="button" class="btn-secondary" (click)="loginUsuario()">CANCELAR</button>
+
+      </form>
+
+    </div>
+  </div>
+
+  <app-pie-pagina></app-pie-pagina>
+
+</div>

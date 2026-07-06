@@ -1,0 +1,241 @@
+/* ============================================
+   LIQUIDACIONES DE PERSONAL — SIGEPS V1.0
+   ============================================ */
+
+.panel-seccion {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.panel-header-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background-color: rgba(14, 165, 233, 0.1);
+  color: var(--color-acento);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.panel-titulo {
+  font-family: var(--fuente-titulos);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-principal);
+  margin: 0 0 4px;
+}
+.panel-subtitulo {
+  font-size: 13px;
+  color: var(--color-texto-secundario);
+  margin: 0;
+}
+
+.semaforo {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.semaforo-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px 24px;
+  border-radius: var(--radio-card);
+  border: 1px solid var(--color-bordes);
+  background-color: var(--color-fondo);
+  box-shadow: var(--sombra-card);
+  min-width: 120px;
+}
+.semaforo-numero {
+  font-family: var(--fuente-titulos);
+  font-size: 20px;
+  font-weight: 700;
+}
+.semaforo-etiqueta {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-texto-secundario);
+}
+.semaforo-total .semaforo-numero { color: var(--color-principal); }
+.semaforo-activos .semaforo-numero { color: #16a34a; }
+.semaforo-inactivos .semaforo-numero { color: var(--color-acento); }
+
+.barra-acciones {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.barra-filtros {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  flex-wrap: wrap;
+
+  input[type="text"],
+  select {
+    padding: 9px 12px;
+    border: 1px solid var(--color-bordes);
+    border-radius: var(--radio-borde);
+    font-family: var(--fuente-cuerpo);
+    font-size: 14px;
+    color: var(--color-texto-main);
+    background-color: var(--color-fondo);
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-acento);
+      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+    }
+  }
+
+  input[type="text"] { flex: 1; min-width: 200px; }
+  select { min-width: 180px; }
+}
+
+.btn-sigeps {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 16px;
+  border-radius: var(--radio-borde);
+  font-family: var(--fuente-cuerpo);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  white-space: nowrap;
+
+  &.btn-buscar {
+    background-color: var(--color-fondo-pagina);
+    color: var(--color-texto-main);
+    border: 1px solid var(--color-bordes);
+    &:hover { border-color: var(--color-acento); color: var(--color-acento); }
+  }
+}
+
+.tabla-card {
+  background-color: var(--color-fondo);
+  border-radius: var(--radio-card);
+  border: 1px solid var(--color-bordes);
+  box-shadow: var(--sombra-card);
+  overflow: hidden;
+}
+.tabla-contenido {
+  overflow-x: auto;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+      background-color: var(--color-fondo-pagina);
+      padding: 10px 16px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--color-texto-secundario);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--color-bordes);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 11px 16px;
+      font-size: 13px;
+      color: var(--color-texto-main);
+      border-bottom: 1px solid var(--color-bordes-suave);
+      white-space: nowrap;
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background-color: rgba(14, 165, 233, 0.03); }
+  }
+}
+
+.tabla-vacia {
+  text-align: center;
+  padding: 32px !important;
+  color: var(--color-texto-secundario) !important;
+  font-size: 14px !important;
+  white-space: normal !important;
+}
+
+.badge-estado {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.badge-activo { background-color: rgba(22, 163, 74, 0.1); color: #15803d; }
+.badge-pendiente { background-color: rgba(234, 179, 8, 0.1); color: #92400e; }
+
+.paginacion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-top: 1px solid var(--color-bordes);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.paginacion-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--color-texto-secundario);
+
+  select {
+    padding: 5px 8px;
+    border: 1px solid var(--color-bordes);
+    border-radius: var(--radio-borde);
+    font-size: 13px;
+    color: var(--color-texto-main);
+    background-color: var(--color-fondo);
+  }
+}
+.paginacion-controles {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.paginacion-texto {
+  font-size: 13px;
+  color: var(--color-texto-main);
+  font-weight: 600;
+  min-width: 60px;
+  text-align: center;
+}
+.btn-pag {
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--color-bordes);
+  border-radius: var(--radio-borde);
+  background-color: var(--color-fondo);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-texto-main);
+  transition: all 0.2s;
+
+  &:hover:not(:disabled) { border-color: var(--color-acento); color: var(--color-acento); }
+  &:disabled { opacity: 0.4; cursor: not-allowed; }
+}

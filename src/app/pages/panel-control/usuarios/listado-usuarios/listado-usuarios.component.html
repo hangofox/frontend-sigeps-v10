@@ -1,0 +1,245 @@
+<!-- COMPONENTE: LISTADO DE USUARIOS — SIGEPS V1.0 -->
+<div class="panel-seccion" *ngIf="usuariosForm" [formGroup]="usuariosForm">
+
+  <!-- ENCABEZADO -->
+  <div class="panel-header">
+    <div class="panel-header-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    </div>
+    <div>
+      <h2 class="panel-titulo">Usuarios del Sistema</h2>
+      <p class="panel-subtitulo">Gestión de cuentas de acceso, privilegios y restricciones de usuarios.</p>
+    </div>
+  </div>
+
+  <!-- SEMÁFORO DE TOTALES -->
+  <div class="semaforo">
+    <div class="semaforo-item semaforo-total">
+      <span class="semaforo-numero">{{ totalRegistros }}</span>
+      <span class="semaforo-etiqueta">Total</span>
+    </div>
+    <div class="semaforo-item semaforo-activos">
+      <span class="semaforo-numero">{{ totalRegistrosEstadosActivos }}</span>
+      <span class="semaforo-etiqueta">Activos</span>
+    </div>
+    <div class="semaforo-item semaforo-inactivos">
+      <span class="semaforo-numero">{{ totalRegistrosEstadosInactivos }}</span>
+      <span class="semaforo-etiqueta">Inactivos</span>
+    </div>
+  </div>
+
+  <!-- BARRA DE BÚSQUEDA Y ACCIONES -->
+  <div class="barra-acciones">
+
+    <!-- FILTRO: PALABRA CLAVE -->
+    <input
+      type="text"
+      formControlName="ctextPalabraClave"
+      placeholder="Buscar por número de documento, nombre o celular..."
+      (keyup.enter)="buscar()">
+
+    <!-- BOTÓN BUSCAR -->
+    <button type="button" class="btn-sigeps btn-buscar" (click)="buscar()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      Buscar
+    </button>
+
+    <!-- FILTRO: TIPO DE USUARIO -->
+    <select formControlName="cboxTipoUsuarioSeleccionado" (change)="buscar()">
+      <option value="">TODOS LOS TIPOS DE USUARIOS</option>
+      <option *ngFor="let tipo of tiposUsuarios" [value]="tipo.nombreTipoUsuario">
+        {{ tipo.nombreTipoUsuario }}
+      </option>
+    </select>
+
+    <!-- BOTÓN NUEVO USUARIO (SI TIENE PRIVILEGIO Y RESTRICCIÓN) -->
+    <button
+      type="button"
+      class="btn-sigeps btn-nuevo"
+      *ngIf="sioNoPrivilegioyRestriccionAccesoUsuarioCRUDGuardar === 'SI'"
+      (click)="OpenModalAddUpdDelUsuarioComponent('guardar')">
+      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Nuevo Usuario
+    </button>
+
+  </div>
+
+  <!-- TABLA DE USUARIOS -->
+  <div class="tabla-card">
+    <div class="tabla-contenido">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Número de Documento de Identificación</th>
+            <th>Nombre Completo</th>
+            <th>Tipo de Usuario</th>
+            <th>Celular</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let usuario of usuarios; let i = index">
+            <td>{{ i + 1 + (paginaActual * tandaNumeroRegistrosporPagina) }}</td>
+            <td>{{ usuario.numeroDocumentoIdentificacionUsuario }}</td>
+            <td>{{ usuario.nombresUsuario }} {{ usuario.primerApellidoUsuario }} {{ usuario.segundoApellidoUsuario }}</td>
+            <td>{{ usuario.tipoUsuarioDTO.nombreTipoUsuario }}</td>
+            <td>{{ usuario.movilUsuario }}</td>
+            <td>
+              <span class="badge-estado" [ngClass]="usuario.estadoUsuario === 'ACTIVO' ? 'badge-activo' : 'badge-inactivo'">
+                {{ usuario.estadoUsuario }}
+              </span>
+            </td>
+            <td>
+              <div class="acciones-celda">
+
+                <!-- VER USUARIO -->
+                <button
+                  *ngIf="sioNoPrivilegioyRestriccionAccesoUsuarioCRUDVer === 'SI'"
+                  class="btn-accion btn-ver"
+                  title="Ver"
+                  (click)="OpenModalVistaUsuarioComponent('ver/' + usuario.idUsuario)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+
+                <!-- MODIFICAR USUARIO -->
+                <button
+                  *ngIf="sioNoPrivilegioyRestriccionAccesoUsuarioCRUDModificar === 'SI'"
+                  class="btn-accion btn-editar"
+                  title="Modificar"
+                  (click)="OpenModalAddUpdDelUsuarioComponent('modificar/' + usuario.idUsuario)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                </button>
+
+                <!-- ELIMINAR USUARIO -->
+                <button
+                  *ngIf="sioNoPrivilegioyRestriccionAccesoUsuarioCRUDEliminar === 'SI'"
+                  class="btn-accion btn-eliminar"
+                  title="Eliminar"
+                  (click)="OpenModalAddUpdDelUsuarioComponent('eliminar/' + usuario.idUsuario)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+                </button>
+
+                <!-- PRIVILEGIOS Y RESTRICCIONES -->
+                <button
+                  *ngIf="sioNoPrivilegioyRestriccionAccesoUsuarioCRUDPrivilegiosyRestricciones === 'SI'"
+                  class="btn-accion btn-privilegios"
+                  title="Privilegios y Restricciones"
+                  (click)="OpenModalPrivilegiosyRestriccionesUsuarioComponent('privilegios/' + usuario.idUsuario)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                </button>
+
+              </div>
+            </td>
+          </tr>
+
+          <!-- FILA VACÍA -->
+          <tr *ngIf="usuarios.length === 0">
+            <td colspan="7" class="tabla-vacia">No se encontraron registros de usuarios.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- PAGINACIÓN -->
+    <div class="paginacion">
+      <div class="paginacion-info">
+        <span>Registros por página:</span>
+        <select formControlName="cboxTandaNumeroRegistrosporPaginaSeleccionado" (change)="seleccionarTandaNumeroRegistrosporPagina()">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+        </select>
+      </div>
+      <div class="paginacion-controles">
+        <button class="btn-pag" [disabled]="paginaActual === 0" (click)="cambiarPagina(paginaActual - 1)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <span class="paginacion-texto">{{ paginaActual + 1 }} / {{ calcularTotalPaginas() }}</span>
+        <button class="btn-pag" [disabled]="paginaActual >= calcularTotalPaginas() - 1" (click)="cambiarPagina(paginaActual + 1)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- MODAL: CREAR, MODIFICAR O ELIMINAR USUARIO                   -->
+<!-- ============================================================ -->
+<div class="modal-overlay" *ngIf="modalAddUpdDelVisible" (click)="cerrarModalAddUpdDel()">
+  <div class="modal-caja" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>
+        <span *ngIf="modalModo === 'guardar'">Nuevo Usuario</span>
+        <span *ngIf="modalModo === 'modificar'">Modificar Usuario</span>
+        <span *ngIf="modalModo === 'eliminar'">Eliminar Usuario</span>
+      </h3>
+      <button class="modal-cerrar" (click)="cerrarModalAddUpdDel()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-cuerpo">
+      <app-add-upd-del-usuario
+        [modo]="modalModo"
+        [usuarioData]="usuarioSeleccionado"
+        (cerrarModal)="cerrarModalAddUpdDel()"
+        (toastEvento)="recibirToast($event)">
+      </app-add-upd-del-usuario>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- MODAL: VISTA DE USUARIO                                      -->
+<!-- ============================================================ -->
+<div class="modal-overlay" *ngIf="modalVistaVisible" (click)="cerrarModalVista()">
+  <div class="modal-caja" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Detalle del Usuario</h3>
+      <button class="modal-cerrar" (click)="cerrarModalVista()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-cuerpo">
+      <app-vista-usuario
+        [usuarioData]="usuarioSeleccionado"
+        (cerrarModal)="cerrarModalVista()">
+      </app-vista-usuario>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- MODAL: PRIVILEGIOS Y RESTRICCIONES                           -->
+<!-- ============================================================ -->
+<div class="modal-overlay" *ngIf="modalPrivilegiosVisible" (click)="cerrarModalPrivilegios()">
+  <div class="modal-caja modal-extra-grande" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Privilegios y Restricciones del Usuario</h3>
+      <button class="modal-cerrar" (click)="cerrarModalPrivilegios()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-cuerpo">
+      <app-privilegios-restricciones-usuarios
+        [usuarioData]="usuarioSeleccionado"
+        (cerrarModal)="cerrarModalPrivilegios()"
+        (toastEvento)="recibirToast($event)">
+      </app-privilegios-restricciones-usuarios>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST GLOBAL — independiente de los modales -->
+<div class="toast-global toast-exito" *ngIf="toastMensaje && toastTipo === 'exito'">
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+  <span>{{ toastMensaje }}</span>
+</div>
+<div class="toast-global toast-error" *ngIf="toastMensaje && toastTipo === 'error'">
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+  <span>{{ toastMensaje }}</span>
+</div>

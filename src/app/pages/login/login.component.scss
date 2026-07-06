@@ -1,0 +1,203 @@
+.login-card {
+  background-color: var(--color-fondo);
+  padding: 48px 40px;
+  border-radius: var(--radio-card);
+  box-shadow: var(--sombra-modal);
+  width: 460px;
+  max-width: 100%;
+  border: 1px solid var(--color-bordes);
+}
+
+/* ---- Brand ---- */
+.login-brand {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+/* ---- Logo con efecto destello ---- */
+@keyframes destello {
+  0%   { left: -80%; opacity: 0; }
+  10%  { opacity: 1; }
+  60%  { left: 130%; opacity: 1; }
+  61%  { opacity: 0; }
+  100% { left: 130%; opacity: 0; }
+}
+
+.login-logo-wrapper {
+  position: relative;
+  display: inline-block;
+  margin: 0 auto 16px;
+  overflow: hidden;
+  border-radius: 10px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -20%;
+    left: -80%;
+    width: 50%;
+    height: 140%;
+    background: linear-gradient(
+      105deg,
+      rgba(255, 255, 255, 0)    0%,
+      rgba(255, 255, 255, 0.55) 45%,
+      rgba(14, 165, 233, 0.25)  55%,
+      rgba(255, 255, 255, 0)    100%
+    );
+    transform: skewX(-15deg);
+    animation: destello 3.5s ease-in-out infinite;
+    pointer-events: none;
+  }
+}
+
+.login-logo-img {
+  display: block;
+  height: 72px;
+  width: auto;
+  object-fit: contain;
+}
+
+.login-titulo {
+  font-family: var(--fuente-titulos);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-principal);
+  margin: 0 0 6px;
+  letter-spacing: -0.3px;
+}
+
+.login-subtitulo {
+  font-size: 13px;
+  color: var(--color-texto-secundario);
+  margin: 0;
+}
+
+/* ---- Inputs ---- */
+.input-group {
+  text-align: left;
+  margin-bottom: 18px;
+
+  label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 7px;
+    color: var(--color-texto-main);
+  }
+}
+
+.input-password {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  input {
+    padding-right: 44px;
+  }
+
+  .toggle-pass {
+    position: absolute;
+    right: 12px;
+    background: transparent;
+    border: none;
+    color: var(--color-texto-secundario);
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    width: auto;
+    transition: color 0.2s;
+
+    &:hover { color: var(--color-acento); }
+  }
+}
+
+/* ---- Captcha ---- */
+.captcha-display {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.captcha-codigo {
+  flex: 1;
+  display: block;
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  border: 1px dashed var(--color-bordes-suave);
+  border-radius: var(--radio-borde);
+  padding: 11px;
+  font-family: 'Courier New', monospace;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-principal);
+  letter-spacing: 10px;
+  text-align: center;
+  user-select: none;
+}
+
+.btn-refresh {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  background: transparent;
+  border: 1px solid var(--color-bordes-suave);
+  border-radius: var(--radio-borde);
+  color: var(--color-texto-secundario);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  padding: 0;
+
+  &:hover {
+    background-color: var(--color-acento);
+    border-color: var(--color-acento);
+    color: #fff;
+  }
+}
+
+/* ---- Botón ingresar ---- */
+.btn-primary {
+  margin-top: 6px;
+}
+
+/* ---- Mensajes de validación por campo ---- */
+.texto-campo-nulo {
+  margin-top: 5px;
+  font-size: 12px;
+  color: var(--color-error);
+  font-weight: 500;
+}
+
+/* ---- Alerta de acceso concedido ---- */
+.alerta-acceso-concedido {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: rgba(34, 197, 94, 0.08);
+  border: 1px solid rgba(34, 197, 94, 0.35);
+  border-radius: var(--radio-borde);
+  color: #16a34a;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 10px 14px;
+  margin-bottom: 12px;
+
+  svg { flex-shrink: 0; }
+}
+
+/* ---- Enlace recuperación contraseña ---- */
+.alineacion-link {
+  text-align: right;
+  margin-bottom: 12px;
+
+  a {
+    font-size: 12px;
+    color: var(--color-acento);
+    cursor: pointer;
+    text-decoration: none;
+
+    &:hover { text-decoration: underline; }
+  }
+}

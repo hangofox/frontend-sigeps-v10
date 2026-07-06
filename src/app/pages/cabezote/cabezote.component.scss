@@ -1,0 +1,82 @@
+.cabezote-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-fondo);
+  border-bottom: 1px solid var(--color-bordes-suave);
+  padding: 0 40px;
+  height: 64px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.cabezote-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .logo-svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  .cabezote-nombre {
+    font-family: var(--fuente-titulos);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-principal);
+    letter-spacing: -0.3px;
+  }
+}
+
+.cabezote-acciones {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cabezote-usuario {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-texto-main);
+}
+
+.avatar {
+  width: 34px;
+  height: 34px;
+  background-color: var(--color-principal);
+  color: var(--color-fondo);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.btn-cerrar-sesion {
+  background: transparent;
+  border: 1px solid var(--color-bordes-suave);
+  color: var(--color-texto-secundario);
+  padding: 7px 14px;
+  border-radius: var(--radio-borde);
+  cursor: pointer;
+  font-size: 13px;
+  font-family: var(--fuente-cuerpo);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: var(--color-error);
+    color: var(--color-error);
+  }
+}

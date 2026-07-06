@@ -1,0 +1,99 @@
+<!-- COMPONENTE: GRÁFICAS DE ESTADÍSTICA — SIGEPS V1.0 -->
+<div class="panel-seccion">
+
+  <!-- ENCABEZADO -->
+  <div class="panel-header">
+    <div class="panel-header-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+    </div>
+    <div>
+      <h2 class="panel-titulo">Gráficas de Estadística</h2>
+      <p class="panel-subtitulo">Totales de registros activos e inactivos en los principales módulos del sistema.</p>
+    </div>
+  </div>
+
+  <!-- BLOQUE: EMPLEADOS -->
+  <div class="bloque-estadistica">
+    <div class="semaforo">
+      <div class="semaforo-item semaforo-total">
+        <span class="semaforo-numero">{{ totalEmpleados }}</span>
+        <span class="semaforo-etiqueta">Total Empleados</span>
+      </div>
+      <div class="semaforo-item semaforo-activos">
+        <span class="semaforo-numero">{{ totalEmpleadosActivos }}</span>
+        <span class="semaforo-etiqueta">Activos</span>
+      </div>
+      <div class="semaforo-item semaforo-inactivos">
+        <span class="semaforo-numero">{{ totalEmpleadosInactivos }}</span>
+        <span class="semaforo-etiqueta">Inactivos</span>
+      </div>
+    </div>
+    <div class="grafica-contenedor">
+      <canvas #graficaEmpleados></canvas>
+    </div>
+  </div>
+
+  <!-- BLOQUE: ESTABLECIMIENTOS CLIENTES -->
+  <div class="bloque-estadistica">
+    <div class="semaforo">
+      <div class="semaforo-item semaforo-total">
+        <span class="semaforo-numero">{{ totalEstablecimientos }}</span>
+        <span class="semaforo-etiqueta">Total Establecimientos</span>
+      </div>
+      <div class="semaforo-item semaforo-activos">
+        <span class="semaforo-numero">{{ totalEstablecimientosActivos }}</span>
+        <span class="semaforo-etiqueta">Activos</span>
+      </div>
+      <div class="semaforo-item semaforo-inactivos">
+        <span class="semaforo-numero">{{ totalEstablecimientosInactivos }}</span>
+        <span class="semaforo-etiqueta">Inactivos</span>
+      </div>
+    </div>
+    <div class="grafica-contenedor">
+      <canvas #graficaEstablecimientos></canvas>
+    </div>
+  </div>
+
+  <!-- BLOQUE: SEDES DE ESTABLECIMIENTOS CLIENTES -->
+  <div class="bloque-estadistica">
+    <div class="semaforo">
+      <div class="semaforo-item semaforo-total">
+        <span class="semaforo-numero">{{ totalSedes }}</span>
+        <span class="semaforo-etiqueta">Total Sedes</span>
+      </div>
+      <div class="semaforo-item semaforo-activos">
+        <span class="semaforo-numero">{{ totalSedesActivas }}</span>
+        <span class="semaforo-etiqueta">Activas</span>
+      </div>
+      <div class="semaforo-item semaforo-inactivos">
+        <span class="semaforo-numero">{{ totalSedesInactivas }}</span>
+        <span class="semaforo-etiqueta">Inactivas</span>
+      </div>
+    </div>
+    <div class="grafica-contenedor">
+      <canvas #graficaSedes></canvas>
+    </div>
+  </div>
+
+  <!-- BLOQUE: PUESTOS DE SEDES DE ESTABLECIMIENTOS CLIENTES -->
+  <div class="bloque-estadistica">
+    <div class="semaforo">
+      <div class="semaforo-item semaforo-total">
+        <span class="semaforo-numero">{{ totalPuestos }}</span>
+        <span class="semaforo-etiqueta">Total Puestos</span>
+      </div>
+      <div class="semaforo-item semaforo-activos">
+        <span class="semaforo-numero">{{ totalPuestosActivos }}</span>
+        <span class="semaforo-etiqueta">Activos</span>
+      </div>
+      <div class="semaforo-item semaforo-inactivos">
+        <span class="semaforo-numero">{{ totalPuestosInactivos }}</span>
+        <span class="semaforo-etiqueta">Inactivos</span>
+      </div>
+    </div>
+    <div class="grafica-contenedor">
+      <canvas #graficaPuestos></canvas>
+    </div>
+  </div>
+
+</div>

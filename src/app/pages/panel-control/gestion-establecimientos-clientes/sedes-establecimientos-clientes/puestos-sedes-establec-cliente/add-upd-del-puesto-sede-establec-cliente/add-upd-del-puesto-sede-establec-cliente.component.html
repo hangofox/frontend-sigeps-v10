@@ -1,0 +1,96 @@
+<!-- COMPONENTE: FORMULARIO CRUD DE PUESTO — SIGEPS V1.0 -->
+<div class="crud-form" *ngIf="puestoForm" [formGroup]="puestoForm">
+
+  <!-- ALERTA DE ELIMINACIÓN -->
+  <div class="alerta-eliminar" *ngIf="banderaCrudEliminar">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    <div>
+      <strong>¿Está seguro de eliminar este puesto?</strong>
+      <p>Esta acción no se puede deshacer.</p>
+    </div>
+  </div>
+
+  <input type="hidden" formControlName="ctextIdPuestoSedeEstablecimientoCliente">
+
+  <!-- SEDE A LA QUE PERTENECE -->
+  <div class="info-padre" *ngIf="sedeData">
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/></svg>
+    Sede: <strong>{{ sedeData.nombreSedeEstablecimientoCliente }}</strong>
+  </div>
+
+  <!-- SECCIÓN: INFORMACIÓN DEL PUESTO -->
+  <div class="form-seccion">
+    <p class="seccion-titulo">Información del Puesto</p>
+    <div class="form-grid">
+
+      <div class="form-group form-group-full">
+        <label>Nombre del Puesto <span class="req">*</span></label>
+        <input type="text" formControlName="ctextNombrePuestoSedeEstablecimientoCliente" placeholder="Ej: ACCESO PRINCIPAL"
+          [attr.disabled]="banderaCrudEliminar ? '' : null">
+      </div>
+
+      <div class="form-group form-group-full">
+        <label>Descripción</label>
+        <input type="text" formControlName="ctextDescripcionPuestoSedeEstablecimientoCliente" placeholder="Descripción del puesto"
+          [attr.disabled]="banderaCrudEliminar ? '' : null">
+      </div>
+
+      <div class="form-group">
+        <label>Estado <span class="req">*</span></label>
+        <select formControlName="cboxEstadoPuestoSedeEstablecimientoCliente" [attr.disabled]="banderaCrudEliminar ? '' : null">
+          <option value="ACTIVO">ACTIVO</option>
+          <option value="INACTIVO">INACTIVO</option>
+        </select>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECCIÓN: FECHAS -->
+  <div class="form-seccion" *ngIf="banderaCrudModificar || banderaCrudEliminar">
+    <p class="seccion-titulo">Fechas</p>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Fecha de Ingreso</label>
+        <input type="datetime-local" formControlName="ctextFechaHMSIngresoPuestoSedeEstablecimientoCliente">
+      </div>
+      <div class="form-group" *ngIf="banderaCrudModificar">
+        <label>Fecha de Modificación</label>
+        <input type="datetime-local" formControlName="ctextFechaHMSModificacionPuestoSedeEstablecimientoCliente">
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTONES DE ACCIÓN -->
+  <div class="form-acciones">
+    <button type="button" class="btn-sigeps btn-secundario" (click)="closeModal()">Cancelar</button>
+    <button type="button" class="btn-sigeps btn-primario"
+      *ngIf="banderaCrudGuardar || banderaCrudModificar"
+      [disabled]="!puestoForm.valid"
+      (click)="accionesGuardarModificarEliminarRegistro(puestoForm.value)">
+      <span *ngIf="banderaCrudGuardar">Guardar Puesto</span>
+      <span *ngIf="banderaCrudModificar">Modificar Puesto</span>
+    </button>
+    <button type="button" class="btn-sigeps btn-peligro"
+      *ngIf="banderaCrudEliminar"
+      (click)="accionesGuardarModificarEliminarRegistro(puestoForm.value)">
+      Eliminar Puesto
+    </button>
+  </div>
+
+</div>
+
+<!-- DIÁLOGO DE CONFIRMACIÓN DE ELIMINACIÓN -->
+<div class="confirmacion-overlay" *ngIf="banderaConfirmacionEliminacion">
+  <div class="confirmacion-caja">
+    <div class="confirmacion-icono">
+      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    </div>
+    <h4 class="confirmacion-titulo">Confirmar Eliminación</h4>
+    <p class="confirmacion-mensaje">¿Está seguro de que desea eliminar este puesto? Esta acción no se puede deshacer.</p>
+    <div class="confirmacion-botones">
+      <button class="btn-confirmacion btn-no" (click)="noConfirmacionEliminacionRegistro()">No, Cancelar</button>
+      <button class="btn-confirmacion btn-si" (click)="siConfirmacionEliminacionRegistro()">Sí, Eliminar</button>
+    </div>
+  </div>
+</div>

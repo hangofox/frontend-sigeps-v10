@@ -1,0 +1,198 @@
+/* ============================================
+   CRÉDITOS — SIGEPS V1.0
+   ============================================ */
+
+.panel-seccion {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Encabezado */
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.panel-header-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background-color: rgba(14, 165, 233, 0.1);
+  color: var(--color-acento);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.panel-titulo {
+  font-family: var(--fuente-titulos);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-principal);
+  margin: 0 0 4px;
+}
+
+.panel-subtitulo {
+  font-size: 13px;
+  color: var(--color-texto-secundario);
+  margin: 0;
+}
+
+/* Tarjeta de información */
+.info-card {
+  background-color: var(--color-fondo);
+  border: 1px solid var(--color-bordes);
+  border-radius: var(--radio-card);
+  box-shadow: var(--sombra-card);
+  overflow: hidden;
+}
+
+.info-card-header {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--color-bordes);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  h3 {
+    font-family: var(--fuente-titulos);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-texto-main);
+    margin: 0;
+  }
+}
+
+.info-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  background-color: var(--color-principal);
+  color: #fff;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+
+.info-card-body {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.info-fila {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--color-bordes-suave);
+
+  &:last-child { border-bottom: none; }
+}
+
+.info-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-texto-secundario);
+  min-width: 200px;
+  flex-shrink: 0;
+}
+
+.info-valor {
+  font-size: 14px;
+  color: var(--color-texto-main);
+}
+
+/* Tabla del equipo */
+.tabla-card {
+  background-color: var(--color-fondo);
+  border-radius: var(--radio-card);
+  border: 1px solid var(--color-bordes);
+  box-shadow: var(--sombra-card);
+  overflow: hidden;
+}
+
+.tabla-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--color-bordes);
+
+  h3 {
+    font-family: var(--fuente-titulos);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-texto-main);
+    margin: 0;
+  }
+}
+
+.tabla-contenido {
+  overflow-x: auto;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+      background-color: var(--color-fondo-pagina);
+      padding: 11px 20px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-texto-secundario);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--color-bordes);
+    }
+
+    td {
+      padding: 13px 20px;
+      font-size: 14px;
+      color: var(--color-texto-main);
+      border-bottom: 1px solid var(--color-bordes-suave);
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background-color: rgba(14, 165, 233, 0.03); }
+  }
+}
+
+.miembro-nombre {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar-mini {
+  width: 28px;
+  height: 28px;
+  background-color: var(--color-principal);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* Nota legal */
+.nota-legal {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 14px 18px;
+  background-color: rgba(14, 165, 233, 0.05);
+  border: 1px solid rgba(14, 165, 233, 0.2);
+  border-radius: var(--radio-borde);
+  font-size: 13px;
+  color: var(--color-texto-secundario);
+  line-height: 1.5;
+
+  svg { flex-shrink: 0; margin-top: 1px; color: var(--color-acento); }
+}

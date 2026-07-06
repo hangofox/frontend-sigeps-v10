@@ -1,0 +1,175 @@
+<!-- COMPONENTE: REPORTES DE SEGURIDAD — SIGEPS V1.0 -->
+<div class="panel-seccion">
+
+  <!-- ENCABEZADO -->
+  <div class="panel-header">
+    <div class="panel-header-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    </div>
+    <div>
+      <h2 class="panel-titulo">Reportes de Seguridad</h2>
+      <p class="panel-subtitulo">Alertas calculadas en tiempo real a partir del personal, los puestos, las programaciones de turno y el historial de movimientos.</p>
+    </div>
+  </div>
+
+  <!-- SEMÁFORO DE TOTALES -->
+  <div class="semaforo">
+    <div class="semaforo-item semaforo-total">
+      <span class="semaforo-numero">{{ totalAlertas }}</span>
+      <span class="semaforo-etiqueta">Total Alertas</span>
+    </div>
+    <div class="semaforo-item semaforo-inactivos">
+      <span class="semaforo-numero">{{ alertaPuestosSinCobertura.length }}</span>
+      <span class="semaforo-etiqueta">Puestos Sin Cobertura</span>
+    </div>
+    <div class="semaforo-item semaforo-inactivos">
+      <span class="semaforo-numero">{{ alertaTurnosVencidosSinSalida.length }}</span>
+      <span class="semaforo-etiqueta">Turnos Vencidos</span>
+    </div>
+    <div class="semaforo-item semaforo-inactivos">
+      <span class="semaforo-numero">{{ alertaInasistencias.length }}</span>
+      <span class="semaforo-etiqueta">Inasistencias</span>
+    </div>
+    <div class="semaforo-item semaforo-inactivos">
+      <span class="semaforo-numero">{{ alertaPersonalInactivoConTurno.length }}</span>
+      <span class="semaforo-etiqueta">Personal Inactivo Con Turno</span>
+    </div>
+    <div class="semaforo-item semaforo-inactivos">
+      <span class="semaforo-numero">{{ alertaUbicacionInactivaConTurno.length }}</span>
+      <span class="semaforo-etiqueta">Ubicaciones Inactivas Con Turno</span>
+    </div>
+  </div>
+
+  <div class="cargando-aviso" *ngIf="cargando">Cargando alertas de seguridad...</div>
+
+  <ng-container *ngIf="!cargando">
+
+    <!-- ALERTA 1: PUESTOS SIN COBERTURA -->
+    <div class="tabla-card">
+      <div class="tabla-header">
+        <h4>Puestos Activos Sin Cobertura</h4>
+        <span class="badge-alerta-conteo">{{ alertaPuestosSinCobertura.length }}</span>
+      </div>
+      <div class="tabla-contenido">
+        <table>
+          <thead>
+            <tr><th>Puesto de Trabajo</th><th>Sede</th><th>Establecimiento Cliente</th></tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let puesto of alertaPuestosSinCobertura">
+              <td>{{ puesto.nombrePuestoSedeEstablecimientoCliente }}</td>
+              <td>{{ puesto.sedeEstablecimientoClienteDTO?.nombreSedeEstablecimientoCliente }}</td>
+              <td>{{ puesto.sedeEstablecimientoClienteDTO?.establecimientoClienteDTO?.nombreRazonSocialEstablecimientoCliente }}</td>
+            </tr>
+            <tr *ngIf="alertaPuestosSinCobertura.length === 0">
+              <td colspan="3" class="tabla-vacia">No hay puestos activos sin cobertura en este momento.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ALERTA 2: TURNOS VENCIDOS SIN MARCAR SALIDA -->
+    <div class="tabla-card">
+      <div class="tabla-header">
+        <h4>Turnos Vencidos Sin Marcar Salida</h4>
+        <span class="badge-alerta-conteo">{{ alertaTurnosVencidosSinSalida.length }}</span>
+      </div>
+      <div class="tabla-contenido">
+        <table>
+          <thead>
+            <tr><th>Empleado</th><th>Puesto</th><th>Fin de Turno Programado</th></tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let movimiento of alertaTurnosVencidosSinSalida">
+              <td>{{ movimiento.empleadoDTO?.nombresEmpleado }} {{ movimiento.empleadoDTO?.primerApellidoEmpleado }}</td>
+              <td>{{ movimiento.programacionTurnoEmpleadoDTO?.puestoSedeEstablecimientoClienteDTO?.nombrePuestoSedeEstablecimientoCliente }}</td>
+              <td>{{ movimiento.programacionTurnoEmpleadoDTO?.fechaHMSFinalizacionProgramacionTurnoEmpleado }}</td>
+            </tr>
+            <tr *ngIf="alertaTurnosVencidosSinSalida.length === 0">
+              <td colspan="3" class="tabla-vacia">No hay turnos vencidos sin marcar salida.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ALERTA 3: INASISTENCIAS -->
+    <div class="tabla-card">
+      <div class="tabla-header">
+        <h4>Inasistencias (Turnos Iniciados Sin Registro de Entrada)</h4>
+        <span class="badge-alerta-conteo">{{ alertaInasistencias.length }}</span>
+      </div>
+      <div class="tabla-contenido">
+        <table>
+          <thead>
+            <tr><th>Empleado</th><th>Puesto</th><th>Inicio de Turno Programado</th></tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let programacion of alertaInasistencias">
+              <td>{{ programacion.empleadoDTO?.nombresEmpleado }} {{ programacion.empleadoDTO?.primerApellidoEmpleado }}</td>
+              <td>{{ programacion.puestoSedeEstablecimientoClienteDTO?.nombrePuestoSedeEstablecimientoCliente }}</td>
+              <td>{{ programacion.fechaHMSIniciacionProgramacionTurnoEmpleado }}</td>
+            </tr>
+            <tr *ngIf="alertaInasistencias.length === 0">
+              <td colspan="3" class="tabla-vacia">No hay inasistencias registradas.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ALERTA 4: PERSONAL INACTIVO CON TURNO VIGENTE -->
+    <div class="tabla-card">
+      <div class="tabla-header">
+        <h4>Personal Inactivo Con Turno Vigente</h4>
+        <span class="badge-alerta-conteo">{{ alertaPersonalInactivoConTurno.length }}</span>
+      </div>
+      <div class="tabla-contenido">
+        <table>
+          <thead>
+            <tr><th>Empleado</th><th>Puesto</th><th>Período Programado</th></tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let programacion of alertaPersonalInactivoConTurno">
+              <td>{{ programacion.empleadoDTO?.nombresEmpleado }} {{ programacion.empleadoDTO?.primerApellidoEmpleado }}</td>
+              <td>{{ programacion.puestoSedeEstablecimientoClienteDTO?.nombrePuestoSedeEstablecimientoCliente }}</td>
+              <td>{{ programacion.fechaHMSIniciacionProgramacionTurnoEmpleado }} — {{ programacion.fechaHMSFinalizacionProgramacionTurnoEmpleado }}</td>
+            </tr>
+            <tr *ngIf="alertaPersonalInactivoConTurno.length === 0">
+              <td colspan="3" class="tabla-vacia">No hay personal inactivo con turnos vigentes.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ALERTA 5: UBICACIÓN INACTIVA CON TURNO VIGENTE -->
+    <div class="tabla-card">
+      <div class="tabla-header">
+        <h4>Puesto, Sede o Establecimiento Inactivo Con Turno Vigente</h4>
+        <span class="badge-alerta-conteo">{{ alertaUbicacionInactivaConTurno.length }}</span>
+      </div>
+      <div class="tabla-contenido">
+        <table>
+          <thead>
+            <tr><th>Empleado</th><th>Puesto</th><th>Sede</th><th>Establecimiento Cliente</th></tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let programacion of alertaUbicacionInactivaConTurno">
+              <td>{{ programacion.empleadoDTO?.nombresEmpleado }} {{ programacion.empleadoDTO?.primerApellidoEmpleado }}</td>
+              <td>{{ programacion.puestoSedeEstablecimientoClienteDTO?.nombrePuestoSedeEstablecimientoCliente }}</td>
+              <td>{{ programacion.puestoSedeEstablecimientoClienteDTO?.sedeEstablecimientoClienteDTO?.nombreSedeEstablecimientoCliente }}</td>
+              <td>{{ programacion.puestoSedeEstablecimientoClienteDTO?.sedeEstablecimientoClienteDTO?.establecimientoClienteDTO?.nombreRazonSocialEstablecimientoCliente }}</td>
+            </tr>
+            <tr *ngIf="alertaUbicacionInactivaConTurno.length === 0">
+              <td colspan="4" class="tabla-vacia">No hay ubicaciones inactivas con turnos vigentes.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </ng-container>
+
+</div>

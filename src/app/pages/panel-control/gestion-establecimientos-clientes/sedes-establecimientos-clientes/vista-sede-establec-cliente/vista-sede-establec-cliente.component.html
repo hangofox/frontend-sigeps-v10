@@ -1,0 +1,59 @@
+<!-- COMPONENTE: VISTA DE SEDE — SIGEPS V1.0 -->
+<div class="vista-detalle" *ngIf="sede">
+
+  <!-- CABECERA -->
+  <div class="vista-cabecera">
+    <div class="vista-icono">
+      <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    </div>
+    <div class="vista-cabecera-info">
+      <h3 class="vista-nombre">{{ sede.nombreSedeEstablecimientoCliente }}</h3>
+      <p class="vista-descripcion">{{ sede.ciudadOrigenSedeEstablecimientoCliente }}</p>
+      <span class="badge-estado" [ngClass]="sede.estadoSedeEstablecimientoCliente === 'ACTIVO' ? 'badge-activo' : 'badge-inactivo'">
+        {{ sede.estadoSedeEstablecimientoCliente }}
+      </span>
+    </div>
+  </div>
+
+  <!-- DATOS DE LA SEDE -->
+  <div class="datos-grid">
+    <div class="dato-grupo dato-grupo-full">
+      <span class="dato-label">Dirección</span>
+      <span class="dato-valor">{{ sede.direccionSedeEstablecimientoCliente }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">Ciudad</span>
+      <span class="dato-valor">{{ sede.ciudadOrigenSedeEstablecimientoCliente }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">Departamento / Estado</span>
+      <span class="dato-valor">{{ sede.departamentooEstadoOrigenSedeEstablecimientoCliente }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">País</span>
+      <span class="dato-valor">{{ sede.paisOrigenSedeEstablecimientoCliente }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">Teléfono</span>
+      <span class="dato-valor">{{ sede.telefonoSedeEstablecimientoCliente }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">Móvil</span>
+      <span class="dato-valor">{{ sede.movilSedeEstablecimientoCliente }}</span>
+    </div>
+    <div class="dato-grupo dato-grupo-full">
+      <span class="dato-label">Correo Institucional</span>
+      <span class="dato-valor">{{ sede.correoElectronicoInstitucionalSedeEstablecimientoCliente || 'No registrado' }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">Estado</span>
+      <span class="dato-valor">{{ sede.estadoSedeEstablecimientoCliente }}</span>
+    </div>
+  </div>
+
+  <!-- ACCIÓN CERRAR -->
+  <div class="vista-acciones">
+    <button type="button" class="btn-sigeps btn-secundario" (click)="closeModal()">Cerrar</button>
+  </div>
+
+</div>

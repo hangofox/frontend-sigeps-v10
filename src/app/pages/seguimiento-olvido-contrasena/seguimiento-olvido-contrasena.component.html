@@ -1,0 +1,94 @@
+<div class="index-page">
+
+  <div class="index-cuerpo">
+    <div class="login-card">
+
+      <!-- Logo + nombre -->
+      <div class="login-brand">
+        <div class="login-logo-wrapper">
+          <img src="assets/images/logo.PNG" alt="SIGEPS Logo" class="login-logo-img" />
+        </div>
+        <h1 class="login-titulo">SIGEPS V1.0.</h1>
+        <p class="login-subtitulo">Recuperación de Contraseña de Acceso</p>
+      </div>
+
+      <!-- PASO 1: BÚSQUEDA DEL USUARIO -->
+      <form *ngIf="!banderaRegistroConsultadoExitoso" (ngSubmit)="busquedaUsuarioRecuperacionContrasenaAcceso()" autocomplete="off">
+
+        <p class="texto-instrucciones">
+          Ingresa tu número de documento de identificación para iniciar la recuperación de tu contraseña de acceso.
+        </p>
+
+        <div class="input-group">
+          <label for="numeroDocumento">Número de Documento de Identificación</label>
+          <input
+            id="numeroDocumento"
+            type="text"
+            placeholder="Ej. 1234567890"
+            [(ngModel)]="ctextNumeroDocumentoIdentificacionUsuarioDigitado"
+            name="ctextNumeroDocumentoIdentificacionUsuario"
+            autocomplete="off"
+          />
+          <div class="texto-campo-nulo" *ngIf="mensajeNumeroDocumentoIdentificacionNulo">
+            {{ mensajeNumeroDocumentoIdentificacionNulo }}
+          </div>
+        </div>
+
+        <div class="mensaje-error" *ngIf="mensajeError">
+          {{ mensajeError }}
+        </div>
+
+        <button type="submit" class="btn-primary">BUSCAR</button>
+        <button type="button" class="btn-secondary" (click)="loginUsuario()">REGRESAR</button>
+
+      </form>
+
+      <!-- PASO 2: ELECCIÓN DEL MEDIO DE ENVÍO Y ENVÍO DEL CÓDIGO -->
+      <form *ngIf="banderaRegistroConsultadoExitoso" [formGroup]="envioMensajeForm" (ngSubmit)="enviarMensaje()" autocomplete="off">
+
+        <p class="texto-instrucciones">
+          Estás a punto de restablecer tu contraseña de acceso. Elige uno de los correos electrónicos registrados
+          para recibir el código de verificación.
+          Si no cuentas con ningún correo electrónico registrado o están mal registrados, contacta al administrador del sistema.
+        </p>
+
+        <div class="ficha-usuario">
+          <div class="ficha-dato"><strong>Nombres:</strong> {{ usuario.nombresUsuario }}</div>
+          <div class="ficha-dato"><strong>Primer Apellido:</strong> {{ usuario.primerApellidoUsuario }}</div>
+          <div class="ficha-dato" *ngIf="usuario.segundoApellidoUsuario">
+            <strong>Segundo Apellido:</strong> {{ usuario.segundoApellidoUsuario }}
+          </div>
+          <div class="ficha-dato" *ngIf="usuario.correoElectronicoInstitucionalUsuario">
+            <strong>Correo Electrónico Institucional:</strong> {{ usuario.correoElectronicoInstitucionalUsuario }}
+          </div>
+          <div class="ficha-dato">
+            <strong>Correo Electrónico Personal:</strong> {{ usuario.correoElectronicoPersonalUsuario }}
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Medio de Envío</label>
+          <select formControlName="cboxMedioEnvioMensajeSeleccionado">
+            <option value="MEDIO DE ENVÍO">MEDIO DE ENVÍO</option>
+            <option value="INSTITUCIONAL" *ngIf="usuario.correoElectronicoInstitucionalUsuario">CORREO ELECTRÓNICO INSTITUCIONAL</option>
+            <option value="PERSONAL">CORREO ELECTRÓNICO PERSONAL</option>
+          </select>
+        </div>
+
+        <div class="mensaje-error" *ngIf="mensajeError">
+          {{ mensajeError }}
+        </div>
+
+        <button type="submit" class="btn-primary" [disabled]="envioMensajeForm.invalid || !banderaHabilitacionBotonEnviarMensaje">
+          {{ spinnerEnvioMensaje ? 'ENVIANDO...' : 'ENVIAR CÓDIGO' }}
+        </button>
+        <button type="button" class="btn-secondary" (click)="loginUsuario()">CANCELAR</button>
+
+      </form>
+
+    </div>
+  </div>
+
+  <app-pie-pagina></app-pie-pagina>
+
+</div>

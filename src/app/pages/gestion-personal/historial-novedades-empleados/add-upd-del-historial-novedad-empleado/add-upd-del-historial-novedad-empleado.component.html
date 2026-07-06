@@ -1,0 +1,103 @@
+<!-- COMPONENTE: FORMULARIO CRUD DE NOVEDAD DE EMPLEADO — SIGEPS V1.0 -->
+<div class="crud-form" *ngIf="novedadForm" [formGroup]="novedadForm">
+
+  <input type="hidden" formControlName="ctextIdHistorialNovedadEmpleado">
+
+  <!-- SECCIÓN 1: EMPLEADO -->
+  <div class="form-seccion">
+    <p class="seccion-titulo">Empleado</p>
+    <div class="form-grid">
+
+      <div class="form-group form-group-full">
+        <label>N° Documento de Identificación <span class="req">*</span></label>
+        <div class="campo-busqueda">
+          <input type="text" formControlName="ctextNumeroDocumentoIdentificacionEmpleado"
+            placeholder="Ingrese el número de documento"
+            [attr.disabled]="banderaCrudEliminar ? '' : null">
+          <button type="button" class="btn-sigeps btn-buscar-doc"
+            *ngIf="!banderaCrudEliminar"
+            (click)="buscarEmpleadoPorDocumento()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Buscar
+          </button>
+        </div>
+        <span class="campo-mensaje-busqueda" *ngIf="mensajeBusquedaEmpleado">{{ mensajeBusquedaEmpleado }}</span>
+      </div>
+
+      <div class="form-group form-group-full">
+        <label>Nombre del Empleado</label>
+        <input type="text" formControlName="ctextNombreCompletoEmpleado" placeholder="Se llena automáticamente al buscar">
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECCIÓN 2: DATOS DE LA NOVEDAD -->
+  <div class="form-seccion">
+    <p class="seccion-titulo">Datos de la Novedad</p>
+    <div class="form-grid">
+
+      <div class="form-group form-group-full">
+        <label>Tipo de Novedad <span class="req">*</span></label>
+        <select formControlName="cboxIdTipoNovedadEmpleado" [attr.disabled]="banderaCrudEliminar ? '' : null">
+          <option value="">— Seleccione —</option>
+          <option *ngFor="let tipo of tiposNovedadesEmpleados" [value]="tipo.idTipoNovedadEmpleado">
+            {{ tipo.nombreTipoNovedadEmpleado }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group form-group-full">
+        <label>Fecha y Hora de la Novedad <span class="req">*</span></label>
+        <input type="datetime-local" formControlName="ctextFechaHMSHistorialNovedadEmpleado"
+          [attr.disabled]="banderaCrudEliminar ? '' : null">
+      </div>
+
+      <div class="form-group form-group-full">
+        <label>Descripción <span class="req">*</span></label>
+        <textarea formControlName="ctextDescripcionHistorialNovedadEmpleado"
+          rows="4" placeholder="Describa la novedad del empleado..."
+          [attr.disabled]="banderaCrudEliminar ? '' : null"></textarea>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- BOTONES DE ACCIÓN -->
+  <div class="form-acciones">
+    <button type="button" class="btn-sigeps btn-secundario" (click)="closeModal()">Cancelar</button>
+    <button type="button" class="btn-sigeps btn-primario" *ngIf="banderaCrudGuardar"
+      [disabled]="novedadForm.invalid"
+      (click)="accionGuardarNovedad()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+      Guardar Novedad
+    </button>
+    <button type="button" class="btn-sigeps btn-primario" *ngIf="banderaCrudModificar"
+      [disabled]="novedadForm.invalid"
+      (click)="accionModificarNovedad()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+      Modificar Novedad
+    </button>
+    <button type="button" class="btn-sigeps btn-peligro" *ngIf="banderaCrudEliminar"
+      (click)="banderaConfirmacionEliminacion = true">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+      Eliminar Novedad
+    </button>
+  </div>
+
+</div>
+
+<!-- OVERLAY DE CONFIRMACIÓN DE ELIMINACIÓN -->
+<div class="confirmacion-overlay" *ngIf="banderaConfirmacionEliminacion">
+  <div class="confirmacion-caja">
+    <div class="confirmacion-icono">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    </div>
+    <div class="confirmacion-titulo">¿Eliminar novedad?</div>
+    <div class="confirmacion-mensaje">Esta acción no se puede deshacer. La novedad del empleado será eliminada permanentemente.</div>
+    <div class="confirmacion-botones">
+      <button type="button" class="btn-confirmacion btn-no" (click)="banderaConfirmacionEliminacion = false">No, cancelar</button>
+      <button type="button" class="btn-confirmacion btn-si" (click)="accionEliminarNovedad()">Sí, eliminar</button>
+    </div>
+  </div>
+</div>

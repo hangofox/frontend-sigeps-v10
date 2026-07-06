@@ -1,0 +1,55 @@
+<!-- COMPONENTE: VISTA DE ESTABLECIMIENTO CLIENTE — SIGEPS V1.0 -->
+<div class="vista-detalle" *ngIf="establecimiento">
+
+  <!-- CABECERA -->
+  <div class="vista-cabecera">
+    <div class="vista-icono">
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    </div>
+    <div class="vista-cabecera-info">
+      <h3 class="vista-nombre">{{ establecimiento.nombreEstablecimientoCliente }}</h3>
+      <p class="vista-descripcion">NIT: {{ establecimiento.nitEstablecimientoCliente }}</p>
+      <span class="badge-estado" [ngClass]="establecimiento.estadoEstablecimientoCliente === 'ACTIVO' ? 'badge-activo' : 'badge-inactivo'">
+        {{ establecimiento.estadoEstablecimientoCliente }}
+      </span>
+    </div>
+  </div>
+
+  <!-- DATOS GENERALES -->
+  <div class="datos-grid">
+    <div class="dato-grupo">
+      <span class="dato-label">NIT</span>
+      <span class="dato-valor">{{ establecimiento.nitEstablecimientoCliente }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">Ciudad</span>
+      <span class="dato-valor">{{ establecimiento.ciudadEstablecimientoCliente }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">Teléfono</span>
+      <span class="dato-valor">{{ establecimiento.telefonoEstablecimientoCliente }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">Estado</span>
+      <span class="dato-valor">{{ establecimiento.estadoEstablecimientoCliente }}</span>
+    </div>
+    <div class="dato-grupo dato-grupo-full">
+      <span class="dato-label">Dirección</span>
+      <span class="dato-valor">{{ establecimiento.direccionEstablecimientoCliente }}</span>
+    </div>
+    <div class="dato-grupo dato-grupo-full">
+      <span class="dato-label">Correo Electrónico</span>
+      <span class="dato-valor">{{ establecimiento.correoElectronicoEstablecimientoCliente }}</span>
+    </div>
+    <div class="dato-grupo dato-grupo-full">
+      <span class="dato-label">Descripción</span>
+      <span class="dato-valor">{{ establecimiento.descripcionEstablecimientoCliente || 'Sin descripción' }}</span>
+    </div>
+  </div>
+
+  <!-- ACCIÓN CERRAR -->
+  <div class="vista-acciones">
+    <button type="button" class="btn-sigeps btn-secundario" (click)="closeModal()">Cerrar</button>
+  </div>
+
+</div>

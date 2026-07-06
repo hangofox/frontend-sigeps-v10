@@ -1,0 +1,61 @@
+<!-- COMPONENTE: VISTA DE AUDITORÍA DEL SISTEMA — SIGEPS V1.0 -->
+<div class="vista-form" *ngIf="auditoria">
+
+  <!-- ENCABEZADO DEL DETALLE -->
+  <div class="vista-encabezado">
+    <div class="vista-id-badge"># {{ auditoria.idAuditoriaSistema }}</div>
+    <div>
+      <span class="badge-accion" [ngClass]="getBadgeAccion(auditoria.accionUsuarioSistema + '')">
+        {{ auditoria.accionUsuarioSistema }}
+      </span>
+    </div>
+  </div>
+
+  <!-- INFORMACIÓN GENERAL -->
+  <div class="vista-seccion">
+    <p class="seccion-titulo">Información General</p>
+    <div class="datos-grid">
+      <div class="dato-item dato-full">
+        <span class="dato-label">Fecha y Hora</span>
+        <span class="dato-valor dato-mono">{{ auditoria.fechaHMSAuditoriaSistema }}</span>
+      </div>
+      <div class="dato-item dato-full">
+        <span class="dato-label">Usuario</span>
+        <span class="dato-valor dato-mono dato-destacado">
+          {{ auditoria.usuarioDTO.nicknameUsuario }} —
+          {{ auditoria.usuarioDTO.nombresUsuario }}
+          {{ auditoria.usuarioDTO.primerApellidoUsuario }}
+          {{ auditoria.usuarioDTO.segundoApellidoUsuario }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- DETALLES DE LA ACCIÓN -->
+  <div class="vista-seccion">
+    <p class="seccion-titulo">Detalles de la Acción</p>
+    <div class="datos-grid">
+      <div class="dato-item">
+        <span class="dato-label">Tipo de Acción</span>
+        <span class="dato-valor">
+          <span class="badge-accion" [ngClass]="getBadgeAccion(auditoria.accionUsuarioSistema + '')">
+            {{ auditoria.accionUsuarioSistema }}
+          </span>
+        </span>
+      </div>
+      <div class="dato-item dato-full">
+        <span class="dato-label">Descripción</span>
+        <span class="dato-valor dato-descripcion">{{ auditoria.descripcionAuditoriaSistema }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTÓN DE CIERRE -->
+  <div class="vista-acciones">
+    <button type="button" class="btn-sigeps btn-cerrar" (click)="closeModal()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      Cerrar
+    </button>
+  </div>
+
+</div>

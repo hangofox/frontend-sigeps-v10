@@ -1,0 +1,71 @@
+/* ============================================
+   REPORTES DE SEGURIDAD — SIGEPS V1.0
+   ============================================ */
+
+.panel-seccion { display: flex; flex-direction: column; gap: 20px; }
+
+.panel-header { display: flex; align-items: center; gap: 14px; }
+.panel-header-icon { width: 44px; height: 44px; border-radius: 10px; background-color: rgba(239, 68, 68, 0.1); color: var(--color-error); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.panel-titulo { font-family: var(--fuente-titulos); font-size: 18px; font-weight: 700; color: var(--color-principal); margin: 0 0 4px; }
+.panel-subtitulo { font-size: 13px; color: var(--color-texto-secundario); margin: 0; }
+
+.semaforo { display: flex; flex-wrap: wrap; gap: 12px; }
+.semaforo-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px 22px;
+  border-radius: var(--radio-card);
+  border: 1px solid var(--color-bordes);
+  background-color: var(--color-fondo);
+  box-shadow: var(--sombra-card);
+  min-width: 90px;
+}
+.semaforo-numero { font-family: var(--fuente-titulos); font-size: 26px; font-weight: 700; }
+.semaforo-etiqueta { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-texto-secundario); text-align: center; }
+.semaforo-total .semaforo-numero { color: var(--color-principal); }
+.semaforo-inactivos .semaforo-numero { color: var(--color-error); }
+
+.cargando-aviso {
+  padding: 18px;
+  text-align: center;
+  color: var(--color-texto-secundario);
+  font-size: 13px;
+  background-color: var(--color-fondo);
+  border-radius: var(--radio-card);
+  border: 1px solid var(--color-bordes);
+}
+
+.tabla-card { background-color: var(--color-fondo); border-radius: var(--radio-card); border: 1px solid var(--color-bordes); box-shadow: var(--sombra-card); overflow: hidden; }
+.tabla-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--color-bordes);
+  background-color: var(--color-fondo-pagina);
+
+  h4 { font-family: var(--fuente-titulos); font-size: 13px; font-weight: 700; color: var(--color-texto-main); margin: 0; }
+}
+.badge-alerta-conteo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 7px;
+  border-radius: 11px;
+  font-size: 12px;
+  font-weight: 700;
+  background-color: rgba(239, 68, 68, 0.1);
+  color: var(--color-error);
+}
+.tabla-contenido { overflow-x: auto;
+  table { width: 100%; border-collapse: collapse;
+    th { background-color: var(--color-fondo-pagina); padding: 9px 14px; text-align: left; font-size: 11px; font-weight: 700; color: var(--color-texto-secundario); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--color-bordes); white-space: nowrap; }
+    td { padding: 10px 14px; font-size: 13px; color: var(--color-texto-main); border-bottom: 1px solid var(--color-bordes-suave); }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background-color: rgba(14, 165, 233, 0.03); }
+  }
+}
+.tabla-vacia { text-align: center; padding: 22px !important; color: var(--color-texto-secundario) !important; font-size: 13px !important; white-space: normal !important; }
