@@ -86,7 +86,7 @@ export class AddUpdDelSedeEstablecClienteComponent implements OnInit, OnChanges 
       ctextDepartamentooEstadoOrigenSedeEstablecimientoCliente: new FormControl(''),
       ctextCiudadOrigenSedeEstablecimientoCliente: new FormControl('', Validators.required),
       ctextFechaHMSIngresoSedeEstablecimientoCliente: new FormControl({ value: this.obtenerFechaHoraActual(), disabled: true }),
-      ctextFechaHMSModificacionSedeEstablecimientoCliente: new FormControl({ value: '', disabled: true }),
+      ctextFechaHMSModificacionSedeEstablecimientoCliente: new FormControl({ value: this.obtenerFechaHoraActual(), disabled: true }),
       cboxEstadoSedeEstablecimientoCliente: new FormControl('ACTIVO', Validators.required)
     });
   }
@@ -152,7 +152,7 @@ export class AddUpdDelSedeEstablecClienteComponent implements OnInit, OnChanges 
       departamentooEstadoOrigenSedeEstablecimientoCliente: fv.ctextDepartamentooEstadoOrigenSedeEstablecimientoCliente || '',
       ciudadOrigenSedeEstablecimientoCliente: fv.ctextCiudadOrigenSedeEstablecimientoCliente,
       fechaHMSIngresoSedeEstablecimientoCliente: fv.ctextFechaHMSIngresoSedeEstablecimientoCliente || this.obtenerFechaHoraActual(),
-      fechaHMSModificacionSedeEstablecimientoCliente: esModificacion ? this.obtenerFechaHoraActual() : '',
+      fechaHMSModificacionSedeEstablecimientoCliente: this.obtenerFechaHoraActual(),
       estadoSedeEstablecimientoCliente: fv.cboxEstadoSedeEstablecimientoCliente,
       establecimientoClienteDTO: {
         idEstablecimientoCliente: this.establecimientoData?.idEstablecimientoCliente,

@@ -91,14 +91,14 @@
   </div>
 
   <!-- SECCIÓN: FECHAS -->
-  <div class="form-seccion" *ngIf="banderaCrudModificar || banderaCrudEliminar">
+  <div class="form-seccion">
     <p class="seccion-titulo">Fechas</p>
     <div class="form-grid">
       <div class="form-group">
         <label>Fecha de Ingreso</label>
         <input type="datetime-local" formControlName="ctextFechaHMSIngresoSedeEstablecimientoCliente">
       </div>
-      <div class="form-group" *ngIf="banderaCrudModificar">
+      <div class="form-group">
         <label>Fecha de Modificación</label>
         <input type="datetime-local" formControlName="ctextFechaHMSModificacionSedeEstablecimientoCliente">
       </div>
