@@ -25,6 +25,8 @@ import { NovedadesEmpleadosService } from '../../../services/gestion-personal/hi
 import { AltasEmpleadosService } from '../../../services/gestion-personal/empleados/altas-empleados/altasEmpleados.service';
 import { BajasEmpleadosService } from '../../../services/gestion-personal/empleados/bajas-empleados/bajasEmpleados.service';
 import { HistorialMovimientosEmpleadosService } from '../../../services/gestion-personal/historial-movimientos-empleados/historialMovimientosEmpleados.service';
+import { ParametrosSistemaService } from '../../../services/panel-control/parametros-sistema/parametros-sistema.service';
+import { GestionArchivosService } from '../../../services/gestion-archivos/gestion-archivos.service';
 
 //CONFIGURACIÓN DE FUENTES DE PDFMAKE (SE EJECUTA UNA SOLA VEZ AL CARGAR EL MÓDULO):
 //ASIGNAMOS LOS VALORES DE LOS CONTENIDOS DE LA FUENTE DE LETRA EN FORMATO BASE64 DEL ARCHIVO IMPORTADO:
@@ -68,6 +70,11 @@ export class ReportesComponent implements OnInit {
   movimientosEmpleadoCompleto: HistorialMovimientosEmpleadosI[] = [];
   movimientosEmpleado: HistorialMovimientosEmpleadosI[] = [];
 
+  //FOTO DEL EMPLEADO CONSULTADO: URL DE OBJETO PARA LA VISTA PREVIA EN PANTALLA Y BASE64 (DATA URI) PARA
+  //EMBEBERLA DENTRO DEL PDF DE LA HOJA DE VIDA (pdfMake EXIGE base64, NO ACEPTA blob: NI URLs REMOTAS):
+  previewUrlFotoEmpleadoConsultado: string | null = null;
+  private fotoEmpleadoBase64PDF: string | null = null;
+
   //TOAST GLOBAL:
   toastMensaje: string = '';
   toastTipo: string = '';
@@ -80,7 +87,9 @@ export class ReportesComponent implements OnInit {
     private novedadesEmpleadosService: NovedadesEmpleadosService,
     private altasEmpleadosService: AltasEmpleadosService,
     private bajasEmpleadosService: BajasEmpleadosService,
-    private historialMovimientosEmpleadosService: HistorialMovimientosEmpleadosService
+    private historialMovimientosEmpleadosService: HistorialMovimientosEmpleadosService,
+    private parametrosSistemaService: ParametrosSistemaService,
+    private gestionArchivosService: GestionArchivosService
   ) {}
 
   //MÉTODO PRINCIPAL DEL COMPONENTE:
@@ -112,6 +121,36 @@ export class ReportesComponent implements OnInit {
     this.bajasEmpleado = [];
     this.movimientosEmpleadoCompleto = [];
     this.movimientosEmpleado = [];
+    if (this.previewUrlFotoEmpleadoConsultado) URL.revokeObjectURL(this.previewUrlFotoEmpleadoConsultado);
+    this.previewUrlFotoEmpleadoConsultado = null;
+    this.fotoEmpleadoBase64PDF = null;
+  }
+
+  //RESUELVE LA FOTO DEL EMPLEADO CONSULTADO: UNA URL DE OBJETO PARA MOSTRARLA EN EL AVATAR DE LA FICHA, Y EN
+  //PARALELO SU VERSIÓN BASE64 (DATA URI) PARA PODER EMBEBERLA DENTRO DEL PDF DE LA HOJA DE VIDA:
+  private resolverFotoEmpleadoConsultado(nombreArchivo: string): void {
+    this.parametrosSistemaService.getSystemParameterbyId(1).subscribe({
+      next: (respuestaParametros) => {
+        const parametrosSistema = respuestaParametros.parametrosSistemaDTO;
+        const rutaCompleta = String(parametrosSistema.rutaDestinoCarpetaPrincipalServidorAplicaciones)
+          + String(parametrosSistema.rutaDestinoArchivosEmpleados) + nombreArchivo;
+        this.gestionArchivosService.getFile(rutaCompleta).subscribe({
+          next: (respuestaArchivo) => {
+            this.gestionArchivosService.getFileBytes(respuestaArchivo.rutaEstatica).subscribe({
+              next: (blob) => {
+                this.previewUrlFotoEmpleadoConsultado = URL.createObjectURL(blob);
+                const lector = new FileReader();
+                lector.onload = () => { this.fotoEmpleadoBase64PDF = lector.result as string; };
+                lector.readAsDataURL(blob);
+              },
+              error: () => { this.previewUrlFotoEmpleadoConsultado = null; this.fotoEmpleadoBase64PDF = null; }
+            });
+          },
+          error: () => { this.previewUrlFotoEmpleadoConsultado = null; this.fotoEmpleadoBase64PDF = null; }
+        });
+      },
+      error: (err) => console.error('ERROR AL OBTENER LOS PARÁMETROS DEL SISTEMA PARA LA FOTO DEL EMPLEADO: ', err)
+    });
   }
 
   //MÉTODO PRINCIPAL DE CONSULTA — TRAE EL EMPLEADO Y SU INFORMACIÓN RELACIONADA SEGÚN EL TIPO DE REPORTE SELECCIONADO:
@@ -133,6 +172,9 @@ export class ReportesComponent implements OnInit {
           return;
         }
         this.empleadoConsultado = respuesta.empleadoDTO;
+        if (respuesta.empleadoDTO.nombreArchivoFotoExtensionOFormatoEmpleado) {
+          this.resolverFotoEmpleadoConsultado(String(respuesta.empleadoDTO.nombreArchivoFotoExtensionOFormatoEmpleado));
+        }
         this.cargarInformacionRelacionada(Number(respuesta.empleadoDTO.idEmpleado));
       },
       error: (err) => {
@@ -227,6 +269,11 @@ export class ReportesComponent implements OnInit {
       { text: 'HOJA DE VIDA DEL EMPLEADO', style: 'tituloPrincipal' },
       { text: 'SIGEPS — Sistema de Gestión de Vigilancia de Personal de Seguridad', style: 'subtitulo' },
       { text: ' ', margin: [0, 6] },
+
+      //FOTO DEL EMPLEADO (SI TIENE UNA CARGADA) — SE INSERTA COMO IMAGEN BASE64, YA QUE pdfMake NO ACEPTA blob: NI URLs REMOTAS:
+      ...(this.fotoEmpleadoBase64PDF
+        ? [{ image: this.fotoEmpleadoBase64PDF, width: 90, alignment: 'center', margin: [0, 0, 0, 10] }]
+        : []),
 
       { text: 'DATOS PERSONALES', style: 'tituloSeccion' },
       {

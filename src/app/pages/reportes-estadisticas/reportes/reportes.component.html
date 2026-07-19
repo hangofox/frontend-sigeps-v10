@@ -64,7 +64,10 @@
 
     <!-- FICHA DEL EMPLEADO -->
     <div class="ficha-empleado">
-      <div class="ficha-avatar">{{ nombreCompletoEmpleado ? nombreCompletoEmpleado[0] : 'E' }}</div>
+      <div class="ficha-avatar">
+        <img *ngIf="previewUrlFotoEmpleadoConsultado" [src]="previewUrlFotoEmpleadoConsultado" (error)="previewUrlFotoEmpleadoConsultado = null" alt="Foto de empleado">
+        <span *ngIf="!previewUrlFotoEmpleadoConsultado">{{ nombreCompletoEmpleado ? nombreCompletoEmpleado[0] : 'E' }}</span>
+      </div>
       <div class="ficha-datos">
         <h3>{{ nombreCompletoEmpleado }}</h3>
         <p>{{ empleadoConsultado.tipoDocumentoIdentificacionDTO.nombreTipoDocumentoIdentificacion }}: {{ empleadoConsultado.numeroDocumentoIdentificacionEmpleado }}</p>
