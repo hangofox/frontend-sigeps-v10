@@ -10,6 +10,7 @@ import { TipoEmpleadoI } from '../../../interfaces/gestion-personal/tipos-emplea
 import { TipoEmpleadoPlantaI } from '../../../interfaces/gestion-personal/tipos-empleados-planta/tipos-empleados-planta.interface';
 import { ClasificacionEmpleadoPlantaI } from '../../../interfaces/gestion-personal/clasificaciones-empleados-planta/clasificaciones-empleados-planta.interface';
 import { SubclasificacionEmpleadoPlantaI } from '../../../interfaces/gestion-personal/clasificaciones-empleados-planta/subclasificaciones-empleados-planta/subclasificaciones-empleados-planta.interface';
+import { ParametrosSistemaI } from '../../../interfaces/panel-control/parametros-sistema/parametros-sistema.interface';
 
 //IMPORTACIÓN DE SERVICIOS:
 import { EmpleadosService } from '../../../services/gestion-personal/empleados/empleados.service';
@@ -19,6 +20,8 @@ import { TiposEmpleadosPlantaService } from '../../../services/gestion-personal/
 import { ClasificacionesEmpleadosPlantaService } from '../../../services/gestion-personal/clasificaciones-empleados-planta/clasificacionesEmpleadosPlanta.service';
 import { SubclasificacionesEmpleadosPlantaService } from '../../../services/gestion-personal/clasificaciones-empleados-planta/subclasificaciones-empleados-planta/subclasificacionesEmpleadosPlanta.service';
 import { AuditoriasSistemaService } from '../../../services/panel-control/auditorias-sistema/auditorias-sistema.service';
+import { ParametrosSistemaService } from '../../../services/panel-control/parametros-sistema/parametros-sistema.service';
+import { GestionArchivosService } from '../../../services/gestion-archivos/gestion-archivos.service';
 
 //SELECTOR, HTML, ESTILOS QUE INTEGRAN AL COMPONENTE:
 @Component({
@@ -43,7 +46,13 @@ export class AddUpdDelEmpleadoComponent implements OnInit, OnChanges {
   banderaCrudModificar: boolean = false;
   banderaCrudEliminar: boolean = false;
   banderaConfirmacionEliminacion: boolean = false;
+  banderaConfirmacionEliminacionFoto: boolean = false;
   private componenteInicializado: boolean = false;
+
+  //FOTO DEL EMPLEADO:
+  selectedFileUserPhoto: File | null = null;
+  isSelectedFileUserPhoto: boolean = false;
+  previewUrlFotoEmpleado: string | null = null;
 
   //LISTAS CARGADAS DESDE EL BACKEND:
   tiposDocumentosIdentificacion: TiposDocumentosIdentificacionI[] = [];
@@ -69,7 +78,9 @@ export class AddUpdDelEmpleadoComponent implements OnInit, OnChanges {
     private tiposEmpleadosPlantaService: TiposEmpleadosPlantaService,
     private clasificacionesEmpleadosPlantaService: ClasificacionesEmpleadosPlantaService,
     private subclasificacionesEmpleadosPlantaService: SubclasificacionesEmpleadosPlantaService,
-    private auditoriasSistemaService: AuditoriasSistemaService
+    private auditoriasSistemaService: AuditoriasSistemaService,
+    private parametrosSistemaService: ParametrosSistemaService,
+    private gestionArchivosService: GestionArchivosService
   ) {}
 
   //MÉTODO PRINCIPAL DEL COMPONENTE:
@@ -261,6 +272,9 @@ export class AddUpdDelEmpleadoComponent implements OnInit, OnChanges {
           this.empleado = respuesta.empleadoDTO;
           this.changeDetectorRef.detectChanges();
           this.chargueForm();
+          if (this.empleado.nombreArchivoFotoExtensionOFormatoEmpleado) {
+            this.resolverPreviewFotoEmpleado(String(this.empleado.nombreArchivoFotoExtensionOFormatoEmpleado));
+          }
         },
         error: (err) => {
           console.error('ERROR AL CARGAR DATOS DEL EMPLEADO: ', err);
@@ -338,56 +352,150 @@ export class AddUpdDelEmpleadoComponent implements OnInit, OnChanges {
     return s.length > 16 ? s.slice(0, 16) : s;
   }
 
+  //MÉTODO PARA MANEJAR LA SELECCIÓN DEL ARCHIVO DE FOTO — VALIDA PESO MÁXIMO (2 MB) Y EXTENSIÓN SOPORTADA ANTES DE ACEPTARLO:
+  onSelectFileUserPhoto(event: any): void {
+    const file: File = event.target.files[0];
+    if (!file) return;
+    const extension = (file.name.split('.').pop() || '').toString();
+    const extensionesPermitidas = ['jpg', 'JPG', 'jpeg', 'JPEG', 'bmp', 'BMP', 'png', 'PNG', 'gif', 'GIF'];
+    const tamanoMaximoBytes = 2000000; //2.0 MB.
+    if (file.size > tamanoMaximoBytes) {
+      this.alertaMensajeError('Error', 'El archivo excede el tamaño máximo permitido de 2.0 MB.');
+      event.target.value = '';
+      return;
+    }
+    if (!extensionesPermitidas.includes(extension)) {
+      this.alertaMensajeError('Error', 'El archivo debe tener una extensión válida (jpg, jpeg, bmp, png o gif).');
+      event.target.value = '';
+      return;
+    }
+    this.selectedFileUserPhoto = file;
+    this.isSelectedFileUserPhoto = true;
+  }
+
+  //MÉTODO PARA CANCELAR LA SELECCIÓN PENDIENTE DE UN ARCHIVO NUEVO (NO BORRA LA FOTO YA ALMACENADA):
+  onRemoveFileUserPhoto(): void {
+    this.selectedFileUserPhoto = null;
+    this.isSelectedFileUserPhoto = false;
+  }
+
+  //MÉTODO QUE ABRE EL DIÁLOGO DE CONFIRMACIÓN SI/NO ANTES DE ELIMINAR LA FOTO YA ALMACENADA DEL EMPLEADO:
+  confirmarEliminarFotoEmpleado(): void {
+    if (!this.empleado?.nombreArchivoFotoExtensionOFormatoEmpleado) return;
+    this.banderaConfirmacionEliminacionFoto = true;
+  }
+
+  //MÉTODO DE LA ALERTA DE CONFIRMACIÓN NO — CANCELA LA ELIMINACIÓN DE LA FOTO:
+  noEliminarFotoEmpleado(): void {
+    this.banderaConfirmacionEliminacionFoto = false;
+  }
+
+  //MÉTODO DE LA ALERTA DE CONFIRMACIÓN SI — ELIMINA DEFINITIVAMENTE LA FOTO YA ALMACENADA DEL EMPLEADO: BORRA EL ARCHIVO FÍSICO DEL SERVIDOR DE ARCHIVOS Y LIMPIA EL CAMPO EN BASE DE DATOS:
+  siEliminarFotoEmpleado(): void {
+    this.banderaConfirmacionEliminacionFoto = false;
+    const nombreArchivoAEliminar = this.empleado?.nombreArchivoFotoExtensionOFormatoEmpleado;
+    if (!nombreArchivoAEliminar) return;
+
+    this.parametrosSistemaService.getSystemParameterbyId(1).subscribe({
+      next: (respuestaParametros) => {
+        const parametrosSistema = respuestaParametros.parametrosSistemaDTO;
+        const ruta = String(parametrosSistema.rutaDestinoCarpetaPrincipalServidorAplicaciones)
+          + String(parametrosSistema.rutaDestinoArchivosEmpleados) + String(nombreArchivoAEliminar);
+
+        this.gestionArchivosService.deleteFile({ filePath: ruta }).subscribe({
+          next: () => {
+            //LIMPIA EL CAMPO DE LA FOTO EN EL REGISTRO DEL EMPLEADO:
+            const empleadoSinFoto: EmpleadosI = { ...this.empleado, nombreArchivoFotoExtensionOFormatoEmpleado: '' };
+            this.empleadosService.updateEmployee(empleadoSinFoto).subscribe({
+              next: () => {
+                this.previewUrlFotoEmpleado = null;
+                this.empleado.nombreArchivoFotoExtensionOFormatoEmpleado = '';
+                this.empleadoForm.controls['ctextNombreArchivoFotoExtensionOFormatoEmpleado'].setValue('');
+                this.alertaMensajeExito('Confirmación', 'Foto del empleado eliminada correctamente.');
+              },
+              error: (err) => {
+                console.error('ERROR AL LIMPIAR EL CAMPO DE LA FOTO DEL EMPLEADO: ', err);
+                this.alertaMensajeError('Error', 'Se eliminó el archivo, pero no se pudo actualizar el registro del empleado.');
+              }
+            });
+          },
+          error: (err) => {
+            console.error('ERROR AL ELIMINAR LA FOTO DEL EMPLEADO: ', err);
+            this.alertaMensajeError('Error', 'No se pudo eliminar la foto del empleado.');
+          }
+        });
+      },
+      error: (err) => {
+        console.error('ERROR AL OBTENER LOS PARÁMETROS DEL SISTEMA PARA ELIMINAR LA FOTO: ', err);
+        this.alertaMensajeError('Error', 'No se pudo obtener la configuración de archivos del sistema.');
+      }
+    });
+  }
+
+  //ENCRIPTA EL NÚMERO DE DOCUMENTO DE IDENTIFICACIÓN CON BTOA x2 PARA CONFORMAR EL NOMBRE DEL ARCHIVO DE LA FOTO:
+  obtenerNumeroDocumentoIdentificacionEmpleadoEncriptado(numeroDocumentoIdentificacion: any): string {
+    let numeroDocumentoIdentificacionEncriptado = numeroDocumentoIdentificacion;
+    for (let i = 0; i < 2; i++) {
+      numeroDocumentoIdentificacionEncriptado = btoa(numeroDocumentoIdentificacionEncriptado);
+    }
+    return numeroDocumentoIdentificacionEncriptado;
+  }
+
+  //RESUELVE LA URL PÚBLICA DE LA FOTO YA ALMACENADA EN EL SERVIDOR DE ARCHIVOS PARA MOSTRARLA COMO VISTA PREVIA:
+  resolverPreviewFotoEmpleado(nombreArchivo: string): void {
+    this.parametrosSistemaService.getSystemParameterbyId(1).subscribe({
+      next: (respuestaParametros) => {
+        const parametrosSistema = respuestaParametros.parametrosSistemaDTO;
+        //NOTA: NO SE CODIFICA AQUÍ EL NOMBRE DEL ARCHIVO — GestionArchivosService.getFile() YA ENVÍA LA RUTA COMPLETA
+        //A TRAVÉS DE HttpParams, QUE LA CODIFICA AUTOMÁTICAMENTE (CODIFICARLA AQUÍ TAMBIÉN LA DEJARÍA CODIFICADA DOS VECES):
+        const rutaCompleta = String(parametrosSistema.rutaDestinoCarpetaPrincipalServidorAplicaciones)
+          + String(parametrosSistema.rutaDestinoArchivosEmpleados) + nombreArchivo;
+        this.gestionArchivosService.getFile(rutaCompleta).subscribe({
+          next: (respuestaArchivo) => {
+            //SE DESCARGAN LOS BYTES DEL ARCHIVO AUTENTICADO (VER NOTA EN GestionArchivosService.getFileBytes) Y SE
+            //ARMA UNA URL LOCAL DE OBJETO PARA USARLA COMO <img [src]>:
+            this.gestionArchivosService.getFileBytes(respuestaArchivo.rutaEstatica).subscribe({
+              next: (blob) => {
+                if (this.previewUrlFotoEmpleado) URL.revokeObjectURL(this.previewUrlFotoEmpleado);
+                this.previewUrlFotoEmpleado = URL.createObjectURL(blob);
+              },
+              error: () => { this.previewUrlFotoEmpleado = null; }
+            });
+          },
+          error: () => { this.previewUrlFotoEmpleado = null; }
+        });
+      },
+      error: (err) => {
+        console.error('ERROR AL OBTENER LOS PARÁMETROS DEL SISTEMA PARA LA VISTA PREVIA DE LA FOTO: ', err);
+        this.previewUrlFotoEmpleado = null;
+      }
+    });
+  }
+
   //MÉTODO DE LOS CRUDS — GUARDAR, MODIFICAR O ELIMINAR REGISTRO:
   accionesGuardarModificarEliminarRegistro(formValues: any): void {
     const fv = this.empleadoForm.getRawValue();
 
-    //MODO GUARDAR:
+    //MODO GUARDAR Y MODO MODIFICAR — SE CONSULTAN LOS PARÁMETROS DEL SISTEMA UNA SOLA VEZ (RUTAS DE ARCHIVOS)
+    //ANTES DE CONTINUAR, YA QUE AMBOS MODOS PUEDEN NECESITAR CONFORMAR LA RUTA DE LA FOTO DEL EMPLEADO:
     if (this.banderaCrudGuardar) {
       if (this.empleadoForm.invalid) return;
-      const nuevoEmpleado: EmpleadosI = this.construirEmpleadoDesdeFormulario(fv, false);
-      this.empleadosService.addEmployee(nuevoEmpleado).subscribe({
-        next: (respuesta) => {
-          if (respuesta.mensaje && respuesta.mensaje.toLowerCase().includes('éxito')) {
-            //AQUÍ SE REGISTRA LA AUDITORÍA DEL SISTEMA AL CREAR UN EMPLEADO (VER AuditoriasSistemaService.registrarAuditoria):
-            this.auditoriasSistemaService.registerSystemAudit(
-              'CREAR EMPLEADO',
-              `Se creó el empleado ${nuevoEmpleado.nombresEmpleado} ${nuevoEmpleado.primerApellidoEmpleado} (documento ${nuevoEmpleado.numeroDocumentoIdentificacionEmpleado}).`
-            );
-            this.alertaMensajeExito('Confirmación', respuesta.mensaje);
-            setTimeout(() => this.closeModal(), 500);
-          } else {
-            this.alertaMensajeError('Error', respuesta.mensaje || 'Error al guardar el empleado.');
-          }
-        },
+      this.parametrosSistemaService.getSystemParameterbyId(1).subscribe({
+        next: (respuestaParametros) => this.procesarGuardarEmpleado(fv, respuestaParametros.parametrosSistemaDTO),
         error: (err) => {
-          console.error('ERROR AL GUARDAR EMPLEADO: ', err);
-          this.alertaMensajeError('Error', 'Error al guardar el empleado.');
+          console.error('ERROR AL OBTENER LOS PARÁMETROS DEL SISTEMA: ', err);
+          this.alertaMensajeError('Error', 'No se pudo obtener la configuración de rutas de archivos del sistema.');
         }
       });
     }
 
-    //MODO MODIFICAR:
     if (this.banderaCrudModificar) {
       if (this.empleadoForm.invalid) return;
-      const empleadoModificado: EmpleadosI = this.construirEmpleadoDesdeFormulario(fv, true);
-      this.empleadosService.updateEmployee(empleadoModificado).subscribe({
-        next: (respuesta) => {
-          if (respuesta.mensaje && respuesta.mensaje.toLowerCase().includes('éxito')) {
-            //AQUÍ SE REGISTRA LA AUDITORÍA DEL SISTEMA AL MODIFICAR UN EMPLEADO (VER AuditoriasSistemaService.registrarAuditoria):
-            this.auditoriasSistemaService.registerSystemAudit(
-              'MODIFICAR EMPLEADO',
-              `Se modificó el empleado ${empleadoModificado.nombresEmpleado} ${empleadoModificado.primerApellidoEmpleado} (documento ${empleadoModificado.numeroDocumentoIdentificacionEmpleado}).`
-            );
-            this.alertaMensajeExito('Confirmación', respuesta.mensaje);
-            setTimeout(() => this.closeModal(), 500);
-          } else {
-            this.alertaMensajeError('Error', respuesta.mensaje || 'Error al modificar el empleado.');
-          }
-        },
+      this.parametrosSistemaService.getSystemParameterbyId(1).subscribe({
+        next: (respuestaParametros) => this.procesarModificarEmpleado(fv, respuestaParametros.parametrosSistemaDTO),
         error: (err) => {
-          console.error('ERROR AL MODIFICAR EMPLEADO: ', err);
-          this.alertaMensajeError('Error', 'Error al modificar el empleado.');
+          console.error('ERROR AL OBTENER LOS PARÁMETROS DEL SISTEMA: ', err);
+          this.alertaMensajeError('Error', 'No se pudo obtener la configuración de rutas de archivos del sistema.');
         }
       });
     }
@@ -396,6 +504,127 @@ export class AddUpdDelEmpleadoComponent implements OnInit, OnChanges {
     if (this.banderaCrudEliminar) {
       this.confirmacionEliminacionRegistro();
     }
+  }
+
+  //PROCESA EL GUARDADO DEL EMPLEADO YA CON LOS PARÁMETROS DEL SISTEMA RESUELTOS (PARA LA RUTA DE LA FOTO):
+  private procesarGuardarEmpleado(fv: any, parametrosSistema: ParametrosSistemaI): void {
+    //SI SE SELECCIONÓ UNA FOTO NUEVA, SE CALCULA SU NOMBRE DE DESTINO (NÚMERO DE DOCUMENTO ENCRIPTADO + EXTENSIÓN)
+    //ANTES DE CONSTRUIR EL OBJETO DEL EMPLEADO, PARA QUE EL CAMPO DE LA FOTO QUEDE CORRECTO DESDE EL PRIMER GUARDADO:
+    let nombreArchivoNuevo: string | null = null;
+    if (this.selectedFileUserPhoto) {
+      const extension = (this.selectedFileUserPhoto.name.split('.').pop() || '').toString();
+      nombreArchivoNuevo = this.obtenerNumeroDocumentoIdentificacionEmpleadoEncriptado(fv.ctextNumeroDocumentoIdentificacionEmpleado) + '.' + extension;
+    }
+
+    const nuevoEmpleado: EmpleadosI = this.construirEmpleadoDesdeFormulario(fv, false);
+    nuevoEmpleado.nombreArchivoFotoExtensionOFormatoEmpleado = nombreArchivoNuevo || '';
+
+    this.empleadosService.addEmployee(nuevoEmpleado).subscribe({
+      next: (respuesta) => {
+        if (respuesta.mensaje && respuesta.mensaje.toLowerCase().includes('éxito')) {
+          //AQUÍ SE REGISTRA LA AUDITORÍA DEL SISTEMA AL CREAR UN EMPLEADO (VER AuditoriasSistemaService.registrarAuditoria):
+          this.auditoriasSistemaService.registerSystemAudit(
+            'CREAR EMPLEADO',
+            `Se creó el empleado ${nuevoEmpleado.nombresEmpleado} ${nuevoEmpleado.primerApellidoEmpleado} (documento ${nuevoEmpleado.numeroDocumentoIdentificacionEmpleado}).`
+          );
+          this.alertaMensajeExito('Confirmación', respuesta.mensaje);
+
+          //SI HABÍA UNA FOTO NUEVA SELECCIONADA, SE SUBE AL SERVIDOR DE ARCHIVOS DE FORMA INDEPENDIENTE:
+          if (nombreArchivoNuevo && this.selectedFileUserPhoto) {
+            const rutaDestino = String(parametrosSistema.rutaDestinoCarpetaPrincipalServidorAplicaciones)
+              + String(parametrosSistema.rutaDestinoArchivosEmpleados) + nombreArchivoNuevo;
+            this.gestionArchivosService.uploadFile(this.selectedFileUserPhoto, rutaDestino).subscribe({
+              next: () => {},
+              error: (err) => {
+                console.error('ERROR AL SUBIR LA FOTO DEL EMPLEADO: ', err);
+                this.alertaMensajeError('Aviso', 'El empleado se creó, pero no se pudo subir la foto.');
+              }
+            });
+          }
+
+          setTimeout(() => this.closeModal(), 500);
+        } else {
+          this.alertaMensajeError('Error', respuesta.mensaje || 'Error al guardar el empleado.');
+        }
+      },
+      error: (err) => {
+        console.error('ERROR AL GUARDAR EMPLEADO: ', err);
+        this.alertaMensajeError('Error', 'Error al guardar el empleado.');
+      }
+    });
+  }
+
+  //PROCESA LA MODIFICACIÓN DEL EMPLEADO YA CON LOS PARÁMETROS DEL SISTEMA RESUELTOS (PARA LA RUTA DE LA FOTO):
+  private procesarModificarEmpleado(fv: any, parametrosSistema: ParametrosSistemaI): void {
+    //DECIDE QUÉ HACER CON EL ARCHIVO DE LA FOTO: SUBIR UNO NUEVO, RENOMBRAR EL EXISTENTE (SI SOLO CAMBIÓ EL
+    //NÚMERO DE DOCUMENTO SIN SELECCIONAR UNA FOTO NUEVA) O NO HACER NADA:
+    const docNumeroAnterior = String(this.empleado.numeroDocumentoIdentificacionEmpleado);
+    const docNumeroNuevo = String(fv.ctextNumeroDocumentoIdentificacionEmpleado);
+    const nombreArchivoAnterior = this.empleado.nombreArchivoFotoExtensionOFormatoEmpleado ? String(this.empleado.nombreArchivoFotoExtensionOFormatoEmpleado) : '';
+    const docNumeroCambio = docNumeroAnterior !== docNumeroNuevo;
+    let nombreArchivoNuevo = nombreArchivoAnterior;
+    let accionArchivo: 'ninguna' | 'subir' | 'renombrar' = 'ninguna';
+
+    if (this.selectedFileUserPhoto) {
+      const extension = (this.selectedFileUserPhoto.name.split('.').pop() || '').toString();
+      nombreArchivoNuevo = this.obtenerNumeroDocumentoIdentificacionEmpleadoEncriptado(docNumeroNuevo) + '.' + extension;
+      accionArchivo = 'subir';
+    } else if (docNumeroCambio && nombreArchivoAnterior) {
+      const extensionAnterior = (nombreArchivoAnterior.split('.').pop() || '').toString();
+      nombreArchivoNuevo = this.obtenerNumeroDocumentoIdentificacionEmpleadoEncriptado(docNumeroNuevo) + '.' + extensionAnterior;
+      accionArchivo = 'renombrar';
+    }
+
+    const empleadoModificado: EmpleadosI = this.construirEmpleadoDesdeFormulario(fv, true);
+    empleadoModificado.nombreArchivoFotoExtensionOFormatoEmpleado = nombreArchivoNuevo || '';
+
+    this.empleadosService.updateEmployee(empleadoModificado).subscribe({
+      next: (respuesta) => {
+        if (respuesta.mensaje && respuesta.mensaje.toLowerCase().includes('éxito')) {
+          //AQUÍ SE REGISTRA LA AUDITORÍA DEL SISTEMA AL MODIFICAR UN EMPLEADO (VER AuditoriasSistemaService.registrarAuditoria):
+          this.auditoriasSistemaService.registerSystemAudit(
+            'MODIFICAR EMPLEADO',
+            `Se modificó el empleado ${empleadoModificado.nombresEmpleado} ${empleadoModificado.primerApellidoEmpleado} (documento ${empleadoModificado.numeroDocumentoIdentificacionEmpleado}).`
+          );
+          this.alertaMensajeExito('Confirmación', respuesta.mensaje);
+
+          //EJECUTA LA ACCIÓN DE ARCHIVO QUE CORRESPONDA SOBRE LA FOTO DEL EMPLEADO, DE FORMA INDEPENDIENTE AL GUARDADO DEL REGISTRO:
+          const rutaBase = String(parametrosSistema.rutaDestinoCarpetaPrincipalServidorAplicaciones) + String(parametrosSistema.rutaDestinoArchivosEmpleados);
+          if (accionArchivo === 'subir' && this.selectedFileUserPhoto) {
+            this.gestionArchivosService.uploadFile(this.selectedFileUserPhoto, rutaBase + nombreArchivoNuevo).subscribe({
+              next: () => {},
+              error: (err) => {
+                console.error('ERROR AL SUBIR LA FOTO DEL EMPLEADO: ', err);
+                this.alertaMensajeError('Aviso', 'El empleado se modificó, pero no se pudo subir la nueva foto.');
+              }
+            });
+            //LIMPIEZA DEL ARCHIVO ANTERIOR SI QUEDÓ CON UN NOMBRE DISTINTO (POR EJEMPLO, CAMBIÓ EL DOCUMENTO Y TAMBIÉN LA FOTO):
+            if (nombreArchivoAnterior && nombreArchivoAnterior !== nombreArchivoNuevo) {
+              this.gestionArchivosService.deleteFile({ filePath: rutaBase + nombreArchivoAnterior }).subscribe({
+                next: () => {},
+                error: (err) => console.error('ERROR AL ELIMINAR LA FOTO ANTERIOR DEL EMPLEADO: ', err)
+              });
+            }
+          } else if (accionArchivo === 'renombrar') {
+            this.gestionArchivosService.renameFile({ oldPath: rutaBase + nombreArchivoAnterior, newPath: rutaBase + nombreArchivoNuevo }).subscribe({
+              next: () => {},
+              error: (err) => {
+                console.error('ERROR AL RENOMBRAR LA FOTO DEL EMPLEADO: ', err);
+                this.alertaMensajeError('Aviso', 'El empleado se modificó, pero no se pudo renombrar el archivo de la foto.');
+              }
+            });
+          }
+
+          setTimeout(() => this.closeModal(), 500);
+        } else {
+          this.alertaMensajeError('Error', respuesta.mensaje || 'Error al modificar el empleado.');
+        }
+      },
+      error: (err) => {
+        console.error('ERROR AL MODIFICAR EMPLEADO: ', err);
+        this.alertaMensajeError('Error', 'Error al modificar el empleado.');
+      }
+    });
   }
 
   //CONSTRUYE EL OBJETO EmpleadosI DESDE LOS VALORES DEL FORMULARIO:
@@ -469,6 +698,24 @@ export class AddUpdDelEmpleadoComponent implements OnInit, OnChanges {
             `Se eliminó el empleado ${fv.ctextNombresEmpleado} ${fv.ctextPrimerApellidoEmpleado} (documento ${fv.ctextNumeroDocumentoIdentificacionEmpleado}).`
           );
           this.alertaMensajeExito('Confirmación', respuesta.mensaje);
+
+          //SI EL EMPLEADO ELIMINADO TENÍA UNA FOTO ASOCIADA, SE INTENTA BORRAR EL ARCHIVO FÍSICO DEL SERVIDOR
+          //DE ARCHIVOS (BEST-EFFORT, NO BLOQUEA EL CIERRE DEL MODAL AL YA HABERSE ELIMINADO EL REGISTRO):
+          const nombreArchivoExistente = this.empleado?.nombreArchivoFotoExtensionOFormatoEmpleado;
+          if (nombreArchivoExistente) {
+            this.parametrosSistemaService.getSystemParameterbyId(1).subscribe({
+              next: (respuestaParametros) => {
+                const ps = respuestaParametros.parametrosSistemaDTO;
+                const ruta = String(ps.rutaDestinoCarpetaPrincipalServidorAplicaciones) + String(ps.rutaDestinoArchivosEmpleados) + String(nombreArchivoExistente);
+                this.gestionArchivosService.deleteFile({ filePath: ruta }).subscribe({
+                  next: () => {},
+                  error: (err) => console.error('ERROR AL ELIMINAR LA FOTO DEL EMPLEADO: ', err)
+                });
+              },
+              error: (err) => console.error('ERROR AL OBTENER PARÁMETROS PARA ELIMINAR LA FOTO: ', err)
+            });
+          }
+
           setTimeout(() => this.closeModal(), 500);
         } else {
           this.alertaMensajeError('Error', respuesta.mensaje || 'Error al eliminar el empleado.');

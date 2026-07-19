@@ -1,3 +1,3 @@
 export interface CrearCarpetasI {
-    rutaCarpeta: String;
+    folderPath: String;
 }

@@ -1,50 +1,50 @@
-.error-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  background-color: var(--color-fondo-pagina);
-  text-align: center;
-  padding: 40px 24px;
+.error-container {//CONTENEDOR PRINCIPAL DE LA PÁGINA DE ERROR.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  justify-content: center;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS.*/
+  min-height: 100vh;/*ALTURA MÍNIMA DE LA PÁGINA.*/
+  background-color: var(--color-fondo-pagina);/*COLOR DE FONDO DE LA PÁGINA.*/
+  text-align: center;/*ALINEACIÓN DEL TEXTO.*/
+  padding: 40px 24px;/*ESPACIO INTERNO (RELLENO) DEL CONTENEDOR.*/
 }
 
-.error-code {
-  font-family: var(--fuente-titulos);
-  font-size: 7rem;
-  font-weight: 700;
-  color: var(--color-acento);
-  line-height: 1;
-  margin-bottom: 12px;
+.error-code {//CÓDIGO NUMÉRICO DEL ERROR (EJ. 404).
+  font-family: var(--fuente-titulos);/*TIPO DE LETRA DEL TEXTO.*/
+  font-size: 7rem;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 700;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  color: var(--color-acento);/*COLOR DE LETRA DEL TEXTO.*/
+  line-height: 1;/*ALTURA DE LÍNEA DEL TEXTO.*/
+  margin-bottom: 12px;/*ESPACIO DEL MARGEN INFERIOR.*/
 }
 
-.error-titulo {
-  font-size: 1.4rem;
-  color: var(--color-principal);
-  margin-bottom: 10px;
+.error-titulo {//TÍTULO DEL MENSAJE DE ERROR.
+  font-size: 1.4rem;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  color: var(--color-principal);/*COLOR DE LETRA DEL TEXTO.*/
+  margin-bottom: 10px;/*ESPACIO DEL MARGEN INFERIOR.*/
 }
 
-.error-desc {
-  color: var(--color-texto-secundario);
-  font-size: 14px;
-  max-width: 360px;
-  margin-bottom: 32px;
-  line-height: 1.6;
+.error-desc {//DESCRIPCIÓN DEL MENSAJE DE ERROR.
+  color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/
+  font-size: 14px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  max-width: 360px;/*ANCHURA MÁXIMA DE LA DESCRIPCIÓN.*/
+  margin-bottom: 32px;/*ESPACIO DEL MARGEN INFERIOR.*/
+  line-height: 1.6;/*ALTURA DE LÍNEA DEL TEXTO.*/
 }
 
-.btn-inicio {
-  background-color: var(--color-acento);
-  border: none;
-  border-radius: var(--radio-borde);
-  color: var(--color-fondo);
-  padding: 12px 28px;
-  font-size: 14px;
-  font-family: var(--fuente-cuerpo);
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+.btn-inicio {//BOTÓN PARA REGRESAR AL INICIO.
+  background-color: var(--color-acento);/*COLOR DE FONDO DEL BOTÓN.*/
+  border: none;/*GROSOR DEL BORDE.*/
+  border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BORDE.*/
+  color: var(--color-fondo);/*COLOR DE LETRA DEL TEXTO.*/
+  padding: 12px 28px;/*ESPACIO INTERNO (RELLENO) DEL BOTÓN.*/
+  font-size: 14px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-family: var(--fuente-cuerpo);/*TIPO DE LETRA DEL TEXTO.*/
+  font-weight: 500;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  cursor: pointer;/*ACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL BOTÓN.*/
+  transition: background-color 0.2s ease;/*TRANSICIÓN SUAVE PARA EL COLOR DE FONDO.*/
 
-  &:hover {
-    background-color: var(--color-acento-hover);
+  &:hover {//ESTILO DEL BOTÓN AL PASAR EL MOUSE POR ENCIMA.
+    background-color: var(--color-acento-hover);/*COLOR DE FONDO DEL BOTÓN AL PASAR EL MOUSE.*/
   }
 }

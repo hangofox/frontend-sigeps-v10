@@ -2,118 +2,118 @@
    AGREGAR / MODIFICAR / ELIMINAR MOVIMIENTO — SIGEPS V1.0
    ============================================ */
 
-.crud-form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+.crud-form {//CONTENEDOR PRINCIPAL DEL FORMULARIO CRUD.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES (EN COLUMNA).*/
+  gap: 16px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
 }
 
-.alerta-eliminar {
-  padding: 14px 16px;
-  border-radius: var(--radio-borde);
-  background-color: rgba(239, 68, 68, 0.06);
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  color: #b91c1c;
-  font-size: 14px;
-  font-weight: 500;
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  line-height: 1.5;
+.alerta-eliminar {//ALERTA DE CONFIRMACIÓN DE ELIMINACIÓN.
+  padding: 14px 16px;/*ESPACIO INTERNO (RELLENO) DE LA ALERTA.*/
+  border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BORDE.*/
+  background-color: rgba(239, 68, 68, 0.06);/*COLOR DE FONDO DE LA ALERTA.*/
+  border: 1px solid rgba(239, 68, 68, 0.3);/*GROSOR Y COLOR DEL BORDE.*/
+  color: #b91c1c;/*COLOR DE LETRA DEL TEXTO.*/
+  font-size: 14px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 500;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: flex-start;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 10px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
+  line-height: 1.5;/*ALTURA DE LÍNEA DEL TEXTO.*/
 
-  svg { flex-shrink: 0; margin-top: 1px; }
-  p { margin: 4px 0 0; font-size: 13px; font-weight: 400; }
+  svg {/*ÍCONO DE LA ALERTA DE ELIMINACIÓN.*/ flex-shrink: 0;/*EVITA QUE EL ÍCONO SE ENCOJA DENTRO DEL CONTENEDOR FLEXIBLE.*/ margin-top: 1px;/*ESPACIO DEL MARGEN SUPERIOR DEL ÍCONO.*/ }
+  p {/*TEXTO SECUNDARIO DE LA ALERTA.*/ margin: 4px 0 0;/*ESPACIO DE MARGEN SUPERIOR, DERECHO E INFERIOR DEL TEXTO.*/ font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/ font-weight: 400;/*NEGRILLA DE LETRA DEL TEXTO.*/ }
 }
 
-.form-seccion {
-  border: 1px solid var(--color-bordes);
-  border-radius: var(--radio-borde);
-  overflow: hidden;
+.form-seccion {//SECCIÓN DEL FORMULARIO.
+  border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE.*/
+  border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BORDE.*/
+  overflow: hidden;/*OCULTA EL CONTENIDO QUE SOBRESALGA DE LA SECCIÓN.*/
 }
-.seccion-titulo {
-  padding: 10px 16px;
-  background-color: var(--color-fondo-pagina);
-  border-bottom: 1px solid var(--color-bordes);
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--color-texto-secundario);
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
-  margin: 0;
+.seccion-titulo {//TÍTULO DE LA SECCIÓN DEL FORMULARIO.
+  padding: 10px 16px;/*ESPACIO INTERNO (RELLENO) DEL TÍTULO.*/
+  background-color: var(--color-fondo-pagina);/*COLOR DE FONDO DEL TÍTULO.*/
+  border-bottom: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE INFERIOR.*/
+  font-size: 11px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 700;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/
+  text-transform: uppercase;/*TRANSFORMACIÓN DE MAYÚSCULAS/MINÚSCULAS DEL TEXTO.*/
+  letter-spacing: 0.6px;/*ESPACIO ENTRE LAS LETRAS DEL TEXTO.*/
+  margin: 0;/*ELIMINA EL MARGEN DEL TÍTULO.*/
 }
-.form-grid {
-  padding: 14px 16px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px 20px;
+.form-grid {//CUADRÍCULA DE CAMPOS DEL FORMULARIO.
+  padding: 14px 16px;/*ESPACIO INTERNO (RELLENO) DE LA CUADRÍCULA.*/
+  display: grid;/*CONVIERTE EL ELEMENTO EN CUADRÍCULA.*/
+  grid-template-columns: 1fr 1fr;/*DEFINICIÓN DE LAS COLUMNAS DE LA CUADRÍCULA.*/
+  gap: 12px 20px;/*ESPACIO ENTRE LOS ELEMENTOS DE LA CUADRÍCULA.*/
 
-  @media (max-width: 580px) { grid-template-columns: 1fr; }
+  @media (max-width: 580px) {/*ESTILOS RESPONSIVOS PARA PANTALLAS PEQUEÑAS (MÓVILES).*/ grid-template-columns: 1fr;/*DEFINICIÓN DE LAS COLUMNAS DE LA CUADRÍCULA EN PANTALLAS PEQUEÑAS.*/ }
 }
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+.form-group {//GRUPO DE CAMPO DEL FORMULARIO (ETIQUETA MÁS CONTROL).
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES (EN COLUMNA).*/
+  gap: 5px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
 
-  &.form-group-full { grid-column: 1 / -1; }
+  &.form-group-full {/*GRUPO DE CAMPO QUE OCUPA TODO EL ANCHO DE LA CUADRÍCULA.*/ grid-column: 1 / -1;/*DEFINICIÓN DE LAS COLUMNAS QUE OCUPA EL ELEMENTO EN LA CUADRÍCULA.*/ }
 
-  label {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--color-texto-secundario);
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
+  label {//ETIQUETA DEL CAMPO DEL FORMULARIO.
+    font-size: 11px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+    font-weight: 600;/*NEGRILLA DE LETRA DEL TEXTO.*/
+    color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/
+    text-transform: uppercase;/*TRANSFORMACIÓN DE MAYÚSCULAS/MINÚSCULAS DEL TEXTO.*/
+    letter-spacing: 0.4px;/*ESPACIO ENTRE LAS LETRAS DEL TEXTO.*/
   }
 
-  .req { color: var(--color-error); }
+  .req {/*ASTERISCO DE CAMPO REQUERIDO.*/ color: var(--color-error);/*COLOR DE LETRA DEL TEXTO.*/ }
 
   input[type="text"],
   input[type="date"],
   select,
-  textarea {
-    padding: 8px 11px;
-    border: 1px solid var(--color-bordes);
-    border-radius: var(--radio-borde);
-    font-family: var(--fuente-cuerpo);
-    font-size: 13px;
-    color: var(--color-texto-main);
-    background-color: var(--color-fondo);
-    width: 100%;
-    box-sizing: border-box;
-    transition: border-color 0.2s;
+  textarea {//CAMPOS DE ENTRADA DEL FORMULARIO (TEXTO, FECHA, COMBO BOX Y ÁREA DE TEXTO).
+    padding: 8px 11px;/*ESPACIO INTERNO (RELLENO) DEL CAMPO.*/
+    border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE.*/
+    border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BORDE.*/
+    font-family: var(--fuente-cuerpo);/*TIPO DE LETRA DEL TEXTO.*/
+    font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+    color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/
+    background-color: var(--color-fondo);/*COLOR DE FONDO DEL CAMPO.*/
+    width: 100%;/*ANCHURA DEL CAMPO.*/
+    box-sizing: border-box;/*INCLUYE EL BORDE Y RELLENO DENTRO DE LA ANCHURA DEL CAMPO.*/
+    transition: border-color 0.2s;/*TRANSICIÓN SUAVE PARA EL COLOR DEL BORDE.*/
 
-    &:focus {
-      outline: none;
-      border-color: var(--color-acento);
-      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+    &:focus {//ESTILO DEL CAMPO CUANDO ESTÁ ENFOCADO.
+      outline: none;/*ELIMINA EL CONTORNO POR DEFECTO DEL NAVEGADOR.*/
+      border-color: var(--color-acento);/*COLOR DEL BORDE AL ENFOCAR.*/
+      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);/*SOMBRA DEL CAMPO AL ENFOCAR.*/
     }
-    &:disabled { background-color: var(--color-fondo-pagina); color: var(--color-texto-secundario); cursor: not-allowed; }
+    &:disabled {/*ESTILO DEL CAMPO CUANDO ESTÁ DESHABILITADO.*/ background-color: var(--color-fondo-pagina);/*COLOR DE FONDO DEL CAMPO DESHABILITADO.*/ color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO DESHABILITADO.*/ cursor: not-allowed;/*DESACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL CAMPO A MODO NO INTERACTIVO.*/ }
   }
 
-  textarea { resize: vertical; min-height: 80px; }
+  textarea {/*ÁREA DE TEXTO DEL FORMULARIO.*/ resize: vertical;/*PERMITE REDIMENSIONAR EL ÁREA DE TEXTO VERTICALMENTE.*/ min-height: 80px;/*ALTURA MÍNIMA DEL ÁREA DE TEXTO.*/ }
 }
 
-.form-acciones {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  padding-top: 4px;
+.form-acciones {//CONTENEDOR DE LOS BOTONES DE ACCIÓN DEL FORMULARIO.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  justify-content: flex-end;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS.*/
+  gap: 10px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
+  padding-top: 4px;/*ESPACIO INTERNO (RELLENO) SUPERIOR DEL CONTENEDOR.*/
 }
-.btn-sigeps {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 9px 18px;
-  border-radius: var(--radio-borde);
-  font-family: var(--fuente-cuerpo);
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  border: none;
+.btn-sigeps {//ESTILO BASE DE LOS BOTONES DEL SISTEMA.
+  display: inline-flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE EN LÍNEA.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 7px;/*ESPACIO ENTRE LOS ELEMENTOS DEL BOTÓN.*/
+  padding: 9px 18px;/*ESPACIO INTERNO (RELLENO) DEL BOTÓN.*/
+  border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BORDE.*/
+  font-family: var(--fuente-cuerpo);/*TIPO DE LETRA DEL TEXTO.*/
+  font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 600;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  cursor: pointer;/*ACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL BOTÓN.*/
+  transition: all 0.2s;/*TRANSICIÓN SUAVE PARA EL CAMBIO DE ESTADO DEL BOTÓN.*/
+  border: none;/*GROSOR DEL BORDE.*/
 
-  &.btn-primario { background-color: var(--color-principal); color: #fff; &:hover { background-color: var(--color-acento); } }
-  &.btn-secundario { background: transparent; color: var(--color-texto-main); border: 1px solid var(--color-bordes); &:hover { border-color: var(--color-acento); color: var(--color-acento); } }
-  &.btn-peligro { background-color: var(--color-error); color: #fff; &:hover { background-color: #b91c1c; } }
+  &.btn-primario {/*BOTÓN PRIMARIO DE GUARDAR.*/ background-color: var(--color-principal);/*COLOR DE FONDO DEL BOTÓN.*/ color: #fff;/*COLOR DE LETRA DEL TEXTO.*/ &:hover {/*ESTILO DEL BOTÓN PRIMARIO AL PASAR EL MOUSE.*/ background-color: var(--color-acento);/*COLOR DE FONDO DEL BOTÓN AL PASAR EL MOUSE.*/ } }
+  &.btn-secundario {/*BOTÓN SECUNDARIO DE CANCELAR.*/ background: transparent;/*COLOR DE FONDO DEL BOTÓN.*/ color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/ border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE.*/ &:hover {/*ESTILO DEL BOTÓN SECUNDARIO AL PASAR EL MOUSE.*/ border-color: var(--color-acento);/*COLOR DEL BORDE AL PASAR EL MOUSE.*/ color: var(--color-acento);/*COLOR DE LETRA DEL TEXTO AL PASAR EL MOUSE.*/ } }
+  &.btn-peligro {/*BOTÓN DE PELIGRO PARA CONFIRMAR ELIMINACIÓN.*/ background-color: var(--color-error);/*COLOR DE FONDO DEL BOTÓN.*/ color: #fff;/*COLOR DE LETRA DEL TEXTO.*/ &:hover {/*ESTILO DEL BOTÓN DE PELIGRO AL PASAR EL MOUSE.*/ background-color: #b91c1c;/*COLOR DE FONDO DEL BOTÓN AL PASAR EL MOUSE.*/ } }
 
-  &:disabled { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+  &:disabled {/*ESTILO DEL BOTÓN DESHABILITADO.*/ opacity: 0.5;/*OPACIDAD TOTAL DEL ELEMENTO (ELEMENTO VISIBLE), PUEDES AJUSTAR ESTE VALOR SEGÚN TUS PREFERENCIAS.*/ cursor: not-allowed;/*DESACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL BOTÓN A MODO NO INTERACTIVO.*/ pointer-events: none;/*HABILITA O DESHABILITA LA INTERACCIÓN DEL MOUSE CON EL BOTÓN.*/ }
 }

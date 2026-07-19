@@ -1,14 +1,14 @@
-.index-page {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background-color: var(--color-fondo-pagina);
+.index-page {//CONTENEDOR PRINCIPAL DE LA PÁGINA DE ÍNDICE (LOGIN).
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES.*/
+  min-height: 100vh;/*ALTURA MÍNIMA DE LA PÁGINA.*/
+  background-color: var(--color-fondo-pagina);/*COLOR DE FONDO DE LA PÁGINA.*/
 }
 
-.index-cuerpo {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 24px;
+.index-cuerpo {//CONTENEDOR DEL CUERPO CENTRAL DE LA PÁGINA (FORMULARIO DE LOGIN).
+  flex: 1;/*COMPORTAMIENTO DE CRECIMIENTO DEL ELEMENTO FLEXIBLE.*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  justify-content: center;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS.*/
+  padding: 40px 24px;/*ESPACIO INTERNO (RELLENO) DEL CUERPO.*/
 }

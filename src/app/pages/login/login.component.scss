@@ -1,203 +1,203 @@
-.login-card {
-  background-color: var(--color-fondo);
-  padding: 48px 40px;
-  border-radius: var(--radio-card);
-  box-shadow: var(--sombra-modal);
-  width: 460px;
-  max-width: 100%;
-  border: 1px solid var(--color-bordes);
+.login-card {//TARJETA CONTENEDORA DEL FORMULARIO DE LOGIN.
+  background-color: var(--color-fondo);/*COLOR DE FONDO DE LA TARJETA.*/
+  padding: 48px 40px;/*ESPACIO INTERNO (RELLENO) DE LA TARJETA.*/
+  border-radius: var(--radio-card);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BORDE.*/
+  box-shadow: var(--sombra-modal);/*SOMBRA DE LA TARJETA.*/
+  width: 460px;/*ANCHURA DE LA TARJETA.*/
+  max-width: 100%;/*ANCHURA MÁXIMA DE LA TARJETA.*/
+  border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE.*/
 }
 
 /* ---- Brand ---- */
-.login-brand {
-  text-align: center;
-  margin-bottom: 32px;
+.login-brand {//CONTENEDOR DE LA MARCA (LOGO Y TÍTULO) DEL LOGIN.
+  text-align: center;/*ALINEACIÓN DEL TEXTO.*/
+  margin-bottom: 32px;/*ESPACIO DEL MARGEN INFERIOR.*/
 }
 
 /* ---- Logo con efecto destello ---- */
-@keyframes destello {
-  0%   { left: -80%; opacity: 0; }
-  10%  { opacity: 1; }
-  60%  { left: 130%; opacity: 1; }
-  61%  { opacity: 0; }
-  100% { left: 130%; opacity: 0; }
+@keyframes destello {//DEFINICIÓN DE LOS FOTOGRAMAS CLAVE DE LA ANIMACIÓN DE DESTELLO DEL LOGO.
+  0%   { left: -80%;/*POSICIÓN INICIAL DEL DESTELLO.*/ opacity: 0;/*OPACIDAD INICIAL DEL DESTELLO.*/ }
+  10%  { opacity: 1;/*OPACIDAD DEL DESTELLO AL 10% DE LA ANIMACIÓN.*/ }
+  60%  { left: 130%;/*POSICIÓN DEL DESTELLO AL 60% DE LA ANIMACIÓN.*/ opacity: 1;/*OPACIDAD DEL DESTELLO AL 60% DE LA ANIMACIÓN.*/ }
+  61%  { opacity: 0;/*OPACIDAD DEL DESTELLO AL 61% DE LA ANIMACIÓN.*/ }
+  100% { left: 130%;/*POSICIÓN FINAL DEL DESTELLO.*/ opacity: 0;/*OPACIDAD FINAL DEL DESTELLO.*/ }
 }
 
-.login-logo-wrapper {
-  position: relative;
-  display: inline-block;
-  margin: 0 auto 16px;
-  overflow: hidden;
-  border-radius: 10px;
+.login-logo-wrapper {//CONTENEDOR DEL LOGO CON EFECTO DE DESTELLO.
+  position: relative;/*TIPO DE POSICIONAMIENTO DEL ELEMENTO.*/
+  display: inline-block;/*TIPO DE VISUALIZACIÓN DEL ELEMENTO.*/
+  margin: 0 auto 16px;/*ESPACIO DEL MARGEN GENERAL.*/
+  overflow: hidden;/*OCULTA EL CONTENIDO QUE SOBRESALGA DEL CONTENEDOR.*/
+  border-radius: 10px;/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BORDE.*/
 
-  &::after {
-    content: '';
-    position: absolute;
-    top: -20%;
-    left: -80%;
-    width: 50%;
-    height: 140%;
-    background: linear-gradient(
+  &::after {//PSEUDOELEMENTO QUE GENERA EL DESTELLO SOBRE EL LOGO.
+    content: '';/*CONTENIDO INSERTADO POR EL PSEUDOELEMENTO.*/
+    position: absolute;/*TIPO DE POSICIONAMIENTO DEL ELEMENTO.*/
+    top: -20%;/*DISTANCIA DESDE EL BORDE SUPERIOR.*/
+    left: -80%;/*DISTANCIA DESDE EL BORDE IZQUIERDO.*/
+    width: 50%;/*ANCHURA DEL DESTELLO.*/
+    height: 140%;/*ALTURA DEL DESTELLO.*/
+    background: linear-gradient(/*COLOR O DEGRADADO DE FONDO DEL DESTELLO.*/
       105deg,
       rgba(255, 255, 255, 0)    0%,
       rgba(255, 255, 255, 0.55) 45%,
       rgba(14, 165, 233, 0.25)  55%,
       rgba(255, 255, 255, 0)    100%
     );
-    transform: skewX(-15deg);
-    animation: destello 3.5s ease-in-out infinite;
-    pointer-events: none;
+    transform: skewX(-15deg);/*INCLINACIÓN DEL DESTELLO.*/
+    animation: destello 3.5s ease-in-out infinite;/*ANIMACIÓN APLICADA AL DESTELLO.*/
+    pointer-events: none;/*HABILITA O DESHABILITA LA INTERACCIÓN DEL MOUSE CON EL DESTELLO.*/
   }
 }
 
-.login-logo-img {
-  display: block;
-  height: 72px;
-  width: auto;
-  object-fit: contain;
+.login-logo-img {//IMAGEN DEL LOGO DEL LOGIN.
+  display: block;/*TIPO DE VISUALIZACIÓN DEL ELEMENTO.*/
+  height: 72px;/*ALTURA DEL LOGO.*/
+  width: auto;/*ANCHURA DEL LOGO.*/
+  object-fit: contain;/*AJUSTE DEL CONTENIDO DENTRO DEL LOGO.*/
 }
 
-.login-titulo {
-  font-family: var(--fuente-titulos);
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--color-principal);
-  margin: 0 0 6px;
-  letter-spacing: -0.3px;
+.login-titulo {//TÍTULO DEL LOGIN.
+  font-family: var(--fuente-titulos);/*TIPO DE LETRA DEL TEXTO.*/
+  font-size: 22px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 700;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  color: var(--color-principal);/*COLOR DE LETRA DEL TEXTO.*/
+  margin: 0 0 6px;/*ESPACIO DEL MARGEN GENERAL.*/
+  letter-spacing: -0.3px;/*ESPACIO ENTRE LAS LETRAS DEL TEXTO.*/
 }
 
-.login-subtitulo {
-  font-size: 13px;
-  color: var(--color-texto-secundario);
-  margin: 0;
+.login-subtitulo {//SUBTÍTULO DEL LOGIN.
+  font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/
+  margin: 0;/*ESPACIO DEL MARGEN GENERAL.*/
 }
 
 /* ---- Inputs ---- */
-.input-group {
-  text-align: left;
-  margin-bottom: 18px;
+.input-group {//GRUPO DE ETIQUETA Y CAMPO DE ENTRADA.
+  text-align: left;/*ALINEACIÓN DEL TEXTO.*/
+  margin-bottom: 18px;/*ESPACIO DEL MARGEN INFERIOR.*/
 
-  label {
-    display: block;
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 7px;
-    color: var(--color-texto-main);
+  label {//ETIQUETA DEL CAMPO DE ENTRADA.
+    display: block;/*TIPO DE VISUALIZACIÓN DEL ELEMENTO.*/
+    font-size: 14px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+    font-weight: 500;/*NEGRILLA DE LETRA DEL TEXTO.*/
+    margin-bottom: 7px;/*ESPACIO DEL MARGEN INFERIOR.*/
+    color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/
   }
 }
 
-.input-password {
-  position: relative;
-  display: flex;
-  align-items: center;
+.input-password {//CONTENEDOR DEL CAMPO DE CONTRASEÑA CON BOTÓN DE MOSTRAR/OCULTAR.
+  position: relative;/*TIPO DE POSICIONAMIENTO DEL ELEMENTO.*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
 
-  input {
-    padding-right: 44px;
+  input {//CAMPO DE ENTRADA DE LA CONTRASEÑA.
+    padding-right: 44px;/*ESPACIO INTERNO (RELLENO) DERECHO DEL CAMPO.*/
   }
 
-  .toggle-pass {
-    position: absolute;
-    right: 12px;
-    background: transparent;
-    border: none;
-    color: var(--color-texto-secundario);
-    cursor: pointer;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    width: auto;
-    transition: color 0.2s;
+  .toggle-pass {//BOTÓN PARA MOSTRAR/OCULTAR LA CONTRASEÑA.
+    position: absolute;/*TIPO DE POSICIONAMIENTO DEL ELEMENTO.*/
+    right: 12px;/*DISTANCIA DESDE EL BORDE DERECHO.*/
+    background: transparent;/*COLOR DE FONDO DEL BOTÓN.*/
+    border: none;/*GROSOR DEL BORDE.*/
+    color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/
+    cursor: pointer;/*ACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL BOTÓN.*/
+    padding: 0;/*ESPACIO INTERNO (RELLENO) DEL BOTÓN.*/
+    display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+    align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+    width: auto;/*ANCHURA DEL BOTÓN.*/
+    transition: color 0.2s;/*TRANSICIÓN SUAVE PARA EL COLOR DE LETRA.*/
 
-    &:hover { color: var(--color-acento); }
+    &:hover { color: var(--color-acento);/*COLOR DE LETRA DEL BOTÓN AL PASAR EL MOUSE.*/ }
   }
 }
 
 /* ---- Captcha ---- */
-.captcha-display {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.captcha-display {//CONTENEDOR DEL CAPTCHA Y SU BOTÓN DE ACTUALIZAR.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 10px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
 }
 
-.captcha-codigo {
-  flex: 1;
-  display: block;
-  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
-  border: 1px dashed var(--color-bordes-suave);
-  border-radius: var(--radio-borde);
-  padding: 11px;
-  font-family: 'Courier New', monospace;
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--color-principal);
-  letter-spacing: 10px;
-  text-align: center;
-  user-select: none;
+.captcha-codigo {//TEXTO DEL CÓDIGO CAPTCHA.
+  flex: 1;/*COMPORTAMIENTO DE CRECIMIENTO DEL ELEMENTO FLEXIBLE.*/
+  display: block;/*TIPO DE VISUALIZACIÓN DEL ELEMENTO.*/
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);/*COLOR O DEGRADADO DE FONDO DEL CAPTCHA.*/
+  border: 1px dashed var(--color-bordes-suave);/*GROSOR Y COLOR DEL BORDE.*/
+  border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BORDE.*/
+  padding: 11px;/*ESPACIO INTERNO (RELLENO) DEL CAPTCHA.*/
+  font-family: 'Courier New', monospace;/*TIPO DE LETRA DEL TEXTO.*/
+  font-size: 1.3rem;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 700;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  color: var(--color-principal);/*COLOR DE LETRA DEL TEXTO.*/
+  letter-spacing: 10px;/*ESPACIO ENTRE LAS LETRAS DEL TEXTO.*/
+  text-align: center;/*ALINEACIÓN DEL TEXTO.*/
+  user-select: none;/*DESACTIVA LA SELECCIÓN DE TEXTO DEL CAPTCHA.*/
 }
 
-.btn-refresh {
-  flex-shrink: 0;
-  width: 42px;
-  height: 42px;
-  background: transparent;
-  border: 1px solid var(--color-bordes-suave);
-  border-radius: var(--radio-borde);
-  color: var(--color-texto-secundario);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-  padding: 0;
+.btn-refresh {//BOTÓN PARA ACTUALIZAR EL CAPTCHA.
+  flex-shrink: 0;/*COMPORTAMIENTO DE ENCOGIMIENTO DEL ELEMENTO FLEXIBLE.*/
+  width: 42px;/*ANCHURA DEL BOTÓN.*/
+  height: 42px;/*ALTURA DEL BOTÓN.*/
+  background: transparent;/*COLOR DE FONDO DEL BOTÓN.*/
+  border: 1px solid var(--color-bordes-suave);/*GROSOR Y COLOR DEL BORDE.*/
+  border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BORDE.*/
+  color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/
+  cursor: pointer;/*ACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL BOTÓN.*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  justify-content: center;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS.*/
+  transition: all 0.2s ease;/*TRANSICIÓN SUAVE PARA TODOS LOS CAMBIOS DE ESTADO.*/
+  padding: 0;/*ESPACIO INTERNO (RELLENO) DEL BOTÓN.*/
 
-  &:hover {
-    background-color: var(--color-acento);
-    border-color: var(--color-acento);
-    color: #fff;
+  &:hover {//ESTILO DEL BOTÓN AL PASAR EL MOUSE.
+    background-color: var(--color-acento);/*COLOR DE FONDO DEL BOTÓN.*/
+    border-color: var(--color-acento);/*COLOR DEL BORDE DEL BOTÓN.*/
+    color: #fff;/*COLOR DE LETRA DEL BOTÓN.*/
   }
 }
 
 /* ---- Botón ingresar ---- */
-.btn-primary {
-  margin-top: 6px;
+.btn-primary {//BOTÓN PRINCIPAL DE INGRESAR.
+  margin-top: 6px;/*ESPACIO DEL MARGEN SUPERIOR.*/
 }
 
 /* ---- Mensajes de validación por campo ---- */
-.texto-campo-nulo {
-  margin-top: 5px;
-  font-size: 12px;
-  color: var(--color-error);
-  font-weight: 500;
+.texto-campo-nulo {//TEXTO DE VALIDACIÓN DE CAMPO OBLIGATORIO.
+  margin-top: 5px;/*ESPACIO DEL MARGEN SUPERIOR.*/
+  font-size: 12px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  color: var(--color-error);/*COLOR DE LETRA DEL TEXTO.*/
+  font-weight: 500;/*NEGRILLA DE LETRA DEL TEXTO.*/
 }
 
 /* ---- Alerta de acceso concedido ---- */
-.alerta-acceso-concedido {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background-color: rgba(34, 197, 94, 0.08);
-  border: 1px solid rgba(34, 197, 94, 0.35);
-  border-radius: var(--radio-borde);
-  color: #16a34a;
-  font-size: 13px;
-  font-weight: 500;
-  padding: 10px 14px;
-  margin-bottom: 12px;
+.alerta-acceso-concedido {//ALERTA DE ACCESO CONCEDIDO.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 8px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
+  background-color: rgba(34, 197, 94, 0.08);/*COLOR DE FONDO DE LA ALERTA.*/
+  border: 1px solid rgba(34, 197, 94, 0.35);/*GROSOR Y COLOR DEL BORDE.*/
+  border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BORDE.*/
+  color: #16a34a;/*COLOR DE LETRA DEL TEXTO.*/
+  font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 500;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  padding: 10px 14px;/*ESPACIO INTERNO (RELLENO) DE LA ALERTA.*/
+  margin-bottom: 12px;/*ESPACIO DEL MARGEN INFERIOR.*/
 
-  svg { flex-shrink: 0; }
+  svg { flex-shrink: 0;/*COMPORTAMIENTO DE ENCOGIMIENTO DEL ÍCONO.*/ }
 }
 
 /* ---- Enlace recuperación contraseña ---- */
-.alineacion-link {
-  text-align: right;
-  margin-bottom: 12px;
+.alineacion-link {//CONTENEDOR DEL ENLACE DE RECUPERACIÓN DE CONTRASEÑA.
+  text-align: right;/*ALINEACIÓN DEL TEXTO.*/
+  margin-bottom: 12px;/*ESPACIO DEL MARGEN INFERIOR.*/
 
-  a {
-    font-size: 12px;
-    color: var(--color-acento);
-    cursor: pointer;
-    text-decoration: none;
+  a {//ENLACE DE RECUPERACIÓN DE CONTRASEÑA.
+    font-size: 12px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+    color: var(--color-acento);/*COLOR DE LETRA DEL TEXTO.*/
+    cursor: pointer;/*ACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL ENLACE.*/
+    text-decoration: none;/*DECORACIÓN DE LA LETRA DEL TEXTO (TACHADO Y SUBRAYADO).*/
 
-    &:hover { text-decoration: underline; }
+    &:hover { text-decoration: underline;/*DECORACIÓN DE LA LETRA DEL TEXTO AL PASAR EL MOUSE.*/ }
   }
 }

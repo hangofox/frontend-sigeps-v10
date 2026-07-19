@@ -2,34 +2,34 @@
    VISTA DE AUDITORÍA DEL SISTEMA — SIGEPS V1.0
    ============================================ */
 
-.vista-form { display: flex; flex-direction: column; gap: 20px; }
+.vista-form { display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/ flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES.*/ gap: 20px; }/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/ //CONTENEDOR PRINCIPAL DE LA VISTA DE DETALLE.
 
-.vista-encabezado { display: flex; align-items: center; justify-content: space-between; padding-bottom: 4px; }
-.vista-id-badge { font-family: var(--fuente-titulos); font-size: 18px; font-weight: 700; color: var(--color-principal); }
+.vista-encabezado { display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/ align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/ justify-content: space-between;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS CON ESPACIO ENTRE ELLOS.*/ padding-bottom: 4px; }/*ESPACIO DEL MARGEN INFERIOR.*/ //ENCABEZADO CON EL IDENTIFICADOR DE LA AUDITORÍA.
+.vista-id-badge { font-family: var(--fuente-titulos);/*TIPO DE LETRA DEL TEXTO.*/ font-size: 18px;/*TAMAÑO DE LETRA DEL TEXTO.*/ font-weight: 700;/*NEGRILLA DE LETRA DEL TEXTO.*/ color: var(--color-principal); }/*COLOR DE LETRA DEL TEXTO.*/ //BADGE DEL IDENTIFICADOR DE LA AUDITORÍA.
 
-.vista-seccion { display: flex; flex-direction: column; gap: 12px; border: 1px solid var(--color-bordes-suave); border-radius: var(--radio-card); padding: 16px; }
-.seccion-titulo { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--color-texto-secundario); margin: 0 0 4px; }
+.vista-seccion { display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/ flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES.*/ gap: 12px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/ border: 1px solid var(--color-bordes-suave);/*GROSOR Y COLOR DEL BORDE.*/ border-radius: var(--radio-card);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BORDE.*/ padding: 16px; }/*ESPACIO INTERNO (RELLENO) DE LA SECCIÓN.*/ //CONTENEDOR DE UNA SECCIÓN DE DATOS DE LA AUDITORÍA.
+.seccion-titulo { font-size: 11px;/*TAMAÑO DE LETRA DEL TEXTO.*/ font-weight: 700;/*NEGRILLA DE LETRA DEL TEXTO.*/ text-transform: uppercase;/*TRANSFORMACIÓN DE MAYÚSCULAS DEL TEXTO.*/ letter-spacing: 0.8px;/*ESPACIO ENTRE LAS LETRAS DEL TEXTO.*/ color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/ margin: 0 0 4px; }/*ESPACIO DEL MARGEN DEL TÍTULO.*/ //TÍTULO DE LA SECCIÓN.
 
-.datos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
-  .dato-full { grid-column: 1 / -1; }
+.datos-grid { display: grid;/*CONVIERTE EL ELEMENTO EN CUADRÍCULA.*/ grid-template-columns: 1fr 1fr;/*DEFINICIÓN DE LAS COLUMNAS DE LA CUADRÍCULA.*/ gap: 14px;//CUADRÍCULA DE DATOS DE LA AUDITORÍA (2 COLUMNAS).
+  .dato-full { grid-column: 1 / -1; }/*HACE QUE EL DATO OCUPE TODAS LAS COLUMNAS DE LA CUADRÍCULA.*/ //VARIANTE DE DATO QUE OCUPA TODO EL ANCHO.
 }
-.dato-item { display: flex; flex-direction: column; gap: 4px; }
-.dato-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-texto-secundario); }
-.dato-valor { font-size: 14px; color: var(--color-texto-main); padding: 8px 12px; background-color: var(--color-fondo-pagina); border: 1px solid var(--color-bordes-suave); border-radius: var(--radio-borde); }
-.dato-mono { font-family: monospace; font-size: 13px; }
-.dato-destacado { color: var(--color-acento); font-weight: 600; }
-.dato-descripcion { white-space: pre-wrap; line-height: 1.5; }
+.dato-item { display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/ flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES.*/ gap: 4px; }/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/ //ITEM INDIVIDUAL DE DATO (ETIQUETA + VALOR).
+.dato-label { font-size: 11px;/*TAMAÑO DE LETRA DEL TEXTO.*/ font-weight: 600;/*NEGRILLA DE LETRA DEL TEXTO.*/ text-transform: uppercase;/*TRANSFORMACIÓN DE MAYÚSCULAS DEL TEXTO.*/ letter-spacing: 0.5px;/*ESPACIO ENTRE LAS LETRAS DEL TEXTO.*/ color: var(--color-texto-secundario); }/*COLOR DE LETRA DEL TEXTO.*/ //ETIQUETA DEL DATO.
+.dato-valor { font-size: 14px;/*TAMAÑO DE LETRA DEL TEXTO.*/ color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/ padding: 8px 12px;/*ESPACIO INTERNO (RELLENO) DEL VALOR.*/ background-color: var(--color-fondo-pagina);/*COLOR DE FONDO DEL VALOR.*/ border: 1px solid var(--color-bordes-suave);/*GROSOR Y COLOR DEL BORDE.*/ border-radius: var(--radio-borde); }/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BORDE.*/ //VALOR DEL DATO.
+.dato-mono { font-family: monospace;/*TIPO DE LETRA DEL TEXTO.*/ font-size: 13px; }/*TAMAÑO DE LETRA DEL TEXTO.*/ //VARIANTE DE VALOR CON FUENTE MONOESPACIADA (IP, IDENTIFICADORES).
+.dato-destacado { color: var(--color-acento);/*COLOR DE LETRA DEL TEXTO.*/ font-weight: 600; }/*NEGRILLA DE LETRA DEL TEXTO.*/ //VARIANTE DE VALOR DESTACADO.
+.dato-descripcion { white-space: pre-wrap;/*CONTROL DEL SALTO DE LÍNEA DEL TEXTO, RESPETANDO LOS SALTOS ORIGINALES.*/ line-height: 1.5; }/*ALTURA DE LÍNEA DEL TEXTO.*/ //VARIANTE DE VALOR PARA TEXTOS LARGOS (DESCRIPCIONES).
 
-.badge-accion { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; text-transform: uppercase; }
-.badge-guardar        { background-color: rgba(22, 163, 74, 0.12);  color: #15803d; }
-.badge-modificar      { background-color: rgba(234, 179, 8, 0.12);  color: #b45309; }
-.badge-eliminar-accion{ background-color: rgba(239, 68, 68, 0.12);  color: #b91c1c; }
-.badge-consultar      { background-color: rgba(14, 165, 233, 0.12); color: #0369a1; }
-.badge-login          { background-color: rgba(139, 92, 246, 0.12); color: #6d28d9; }
-.badge-logout         { background-color: rgba(107, 114, 128, 0.15);color: #374151; }
+.badge-accion { display: inline-flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE EN LÍNEA.*/ align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/ padding: 3px 10px;/*ESPACIO INTERNO (RELLENO) DEL BADGE.*/ border-radius: 4px;/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BORDE.*/ font-size: 11px;/*TAMAÑO DE LETRA DEL TEXTO.*/ font-weight: 700;/*NEGRILLA DE LETRA DEL TEXTO.*/ letter-spacing: 0.3px;/*ESPACIO ENTRE LAS LETRAS DEL TEXTO.*/ text-transform: uppercase; }/*TRANSFORMACIÓN DE MAYÚSCULAS DEL TEXTO.*/ //ESTILO BASE DEL BADGE DE TIPO DE ACCIÓN.
+.badge-guardar        { background-color: rgba(22, 163, 74, 0.12);  color: #15803d; }/*COLOR DE FONDO Y DE LETRA DEL BADGE.*/ //VARIANTE DE ACCIÓN GUARDAR DEL BADGE.
+.badge-modificar      { background-color: rgba(234, 179, 8, 0.12);  color: #b45309; }/*COLOR DE FONDO Y DE LETRA DEL BADGE.*/ //VARIANTE DE ACCIÓN MODIFICAR DEL BADGE.
+.badge-eliminar-accion{ background-color: rgba(239, 68, 68, 0.12);  color: #b91c1c; }/*COLOR DE FONDO Y DE LETRA DEL BADGE.*/ //VARIANTE DE ACCIÓN ELIMINAR DEL BADGE.
+.badge-consultar      { background-color: rgba(14, 165, 233, 0.12); color: #0369a1; }/*COLOR DE FONDO Y DE LETRA DEL BADGE.*/ //VARIANTE DE ACCIÓN CONSULTAR DEL BADGE.
+.badge-login          { background-color: rgba(139, 92, 246, 0.12); color: #6d28d9; }/*COLOR DE FONDO Y DE LETRA DEL BADGE.*/ //VARIANTE DE ACCIÓN INICIO DE SESIÓN DEL BADGE.
+.badge-logout         { background-color: rgba(107, 114, 128, 0.15);color: #374151; }/*COLOR DE FONDO Y DE LETRA DEL BADGE.*/ //VARIANTE DE ACCIÓN CIERRE DE SESIÓN DEL BADGE.
 
-.vista-acciones { display: flex; justify-content: flex-end; padding-top: 4px; }
+.vista-acciones { display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/ justify-content: flex-end;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS AL FINAL.*/ padding-top: 4px; }/*ESPACIO DEL MARGEN SUPERIOR.*/ //CONTENEDOR DEL BOTÓN DE ACCIÓN FINAL.
 
-.btn-sigeps { display: inline-flex; align-items: center; gap: 7px; padding: 9px 20px; border-radius: var(--radio-borde); font-family: var(--fuente-cuerpo); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; border: none;
-  &.btn-cerrar { background-color: var(--color-fondo-pagina); color: var(--color-texto-main); border: 1px solid var(--color-bordes); &:hover { border-color: var(--color-texto-secundario); } }
+.btn-sigeps { display: inline-flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE EN LÍNEA.*/ align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/ gap: 7px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/ padding: 9px 20px;/*ESPACIO INTERNO (RELLENO) DEL BOTÓN.*/ border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BORDE.*/ font-family: var(--fuente-cuerpo);/*TIPO DE LETRA DEL TEXTO.*/ font-size: 14px;/*TAMAÑO DE LETRA DEL TEXTO.*/ font-weight: 600;/*NEGRILLA DE LETRA DEL TEXTO.*/ cursor: pointer;/*ACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL BOTÓN.*/ transition: all 0.2s ease;/*TRANSICIÓN SUAVE PARA EL CAMBIO DE ESTADO.*/ border: none;//ESTILO BASE DE LOS BOTONES DEL SISTEMA.
+  &.btn-cerrar { background-color: var(--color-fondo-pagina);/*COLOR DE FONDO DEL BOTÓN.*/ color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/ border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE.*/ &:hover { border-color: var(--color-texto-secundario); } }/*COLOR DEL BORDE AL PASAR EL MOUSE.*/ //VARIANTE DEL BOTÓN CERRAR Y SU ESTADO HOVER.
 }

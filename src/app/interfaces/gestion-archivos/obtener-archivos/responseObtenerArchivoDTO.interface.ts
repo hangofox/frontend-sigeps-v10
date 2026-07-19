@@ -1,4 +1,4 @@
 export interface ResponseObtenerArchivoDTO {
-    rutaEstaticaArchivo: String;
+    rutaEstatica: String;
     mensaje: string;
 }

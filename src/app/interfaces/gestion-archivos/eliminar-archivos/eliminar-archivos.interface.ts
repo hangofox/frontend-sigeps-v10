@@ -1,3 +1,3 @@
 export interface EliminarArchivosI {
-    rutaArchivo: String;
+    filePath: String;
 }

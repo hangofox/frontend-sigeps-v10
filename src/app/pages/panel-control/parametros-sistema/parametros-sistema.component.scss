@@ -2,375 +2,375 @@
    PARÁMETROS DEL SISTEMA — SIGEPS V1.0
    ============================================ */
 
-.panel-seccion {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+.panel-seccion {//CONTENEDOR PRINCIPAL DE LA SECCIÓN.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES.*/
+  gap: 20px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
 }
 
 /* Encabezado */
-.panel-header {
-  display: flex;
-  align-items: center;
-  gap: 14px;
+.panel-header {//ENCABEZADO DEL PANEL.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 14px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
 }
-.panel-header-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
-  background-color: rgba(14, 165, 233, 0.1);
-  color: var(--color-acento);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+.panel-header-icon {//ÍCONO DEL ENCABEZADO DEL PANEL.
+  width: 44px;/*ANCHURA DEL ÍCONO.*/
+  height: 44px;/*ALTURA DEL ÍCONO.*/
+  border-radius: 10px;/*RADIO DE REDONDEO DE LAS ESQUINAS DEL ÍCONO.*/
+  background-color: rgba(14, 165, 233, 0.1);/*COLOR DE FONDO DEL ÍCONO.*/
+  color: var(--color-acento);/*COLOR DE LETRA DEL ÍCONO.*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  justify-content: center;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS.*/
+  flex-shrink: 0;/*IMPIDE QUE EL ÍCONO SE ENCOJA DENTRO DEL CONTENEDOR FLEXIBLE.*/
 }
-.panel-titulo {
-  font-family: var(--fuente-titulos);
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--color-principal);
-  margin: 0 0 4px;
+.panel-titulo {//TÍTULO DEL PANEL.
+  font-family: var(--fuente-titulos);/*TIPO DE LETRA DEL TÍTULO.*/
+  font-size: 18px;/*TAMAÑO DE LETRA DEL TÍTULO.*/
+  font-weight: 700;/*NEGRILLA DE LETRA DEL TÍTULO.*/
+  color: var(--color-principal);/*COLOR DE LETRA DEL TÍTULO.*/
+  margin: 0 0 4px;/*ESPACIO DE MARGEN SUPERIOR, DERECHO E INFERIOR DEL TÍTULO.*/
 }
-.panel-subtitulo {
-  font-size: 13px;
-  color: var(--color-texto-secundario);
-  margin: 0;
+.panel-subtitulo {//SUBTÍTULO DEL PANEL.
+  font-size: 13px;/*TAMAÑO DE LETRA DEL SUBTÍTULO.*/
+  color: var(--color-texto-secundario);/*COLOR DE LETRA DEL SUBTÍTULO.*/
+  margin: 0;/*ELIMINA EL MARGEN DEL SUBTÍTULO.*/
 }
 
 /* Indicador de carga */
-.cargando-datos {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 16px 20px;
-  background-color: var(--color-fondo);
-  border: 1px solid var(--color-bordes);
-  border-radius: var(--radio-card);
-  font-size: 14px;
-  color: var(--color-texto-secundario);
+.cargando-datos {//CONTENEDOR DEL INDICADOR DE CARGA.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 10px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
+  padding: 16px 20px;/*ESPACIO INTERNO (RELLENO) DEL CONTENEDOR.*/
+  background-color: var(--color-fondo);/*COLOR DE FONDO DEL CONTENEDOR.*/
+  border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE.*/
+  border-radius: var(--radio-card);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL CONTENEDOR.*/
+  font-size: 14px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/
 
-  .spin {
-    animation: girar 1s linear infinite;
+  .spin {//ÍCONO GIRATORIO DEL INDICADOR DE CARGA.
+    animation: girar 1s linear infinite;/*ANIMACIÓN APLICADA AL ÍCONO GIRATORIO.*/
   }
 }
-@keyframes girar {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+@keyframes girar {//DEFINICIÓN DE LOS FOTOGRAMAS CLAVE DE LA ANIMACIÓN DE GIRO.
+  from { /*FOTOGRAMA INICIAL DE LA ANIMACIÓN.*/ transform: rotate(0deg);/*ROTACIÓN INICIAL DEL ELEMENTO.*/ }
+  to   { /*FOTOGRAMA FINAL DE LA ANIMACIÓN.*/ transform: rotate(360deg);/*ROTACIÓN FINAL DEL ELEMENTO.*/ }
 }
 
 /* Alertas inline */
-.alerta-exito {
-  padding: 12px 16px;
-  border-radius: var(--radio-borde);
-  background-color: rgba(34, 197, 94, 0.08);
-  border: 1px solid rgba(34, 197, 94, 0.3);
-  color: #15803d;
-  font-size: 13px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.alerta-exito {//ALERTA DE MENSAJE DE ÉXITO.
+  padding: 12px 16px;/*ESPACIO INTERNO (RELLENO) DE LA ALERTA.*/
+  border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DE LA ALERTA.*/
+  background-color: rgba(34, 197, 94, 0.08);/*COLOR DE FONDO DE LA ALERTA DE ÉXITO.*/
+  border: 1px solid rgba(34, 197, 94, 0.3);/*GROSOR Y COLOR DEL BORDE DE LA ALERTA DE ÉXITO.*/
+  color: #15803d;/*COLOR DE LETRA DEL TEXTO DE LA ALERTA.*/
+  font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 8px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
 }
-.alerta-error {
-  padding: 12px 16px;
-  border-radius: var(--radio-borde);
-  background-color: rgba(239, 68, 68, 0.08);
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  color: var(--color-error);
-  font-size: 13px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.alerta-error {//ALERTA DE MENSAJE DE ERROR.
+  padding: 12px 16px;/*ESPACIO INTERNO (RELLENO) DE LA ALERTA.*/
+  border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DE LA ALERTA.*/
+  background-color: rgba(239, 68, 68, 0.08);/*COLOR DE FONDO DE LA ALERTA DE ERROR.*/
+  border: 1px solid rgba(239, 68, 68, 0.3);/*GROSOR Y COLOR DEL BORDE DE LA ALERTA DE ERROR.*/
+  color: var(--color-error);/*COLOR DE LETRA DEL TEXTO DE LA ALERTA.*/
+  font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 8px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
 }
 
 /* Tarjeta de formulario */
-.form-card {
-  background-color: var(--color-fondo);
-  border: 1px solid var(--color-bordes);
-  border-radius: var(--radio-card);
-  box-shadow: var(--sombra-card);
-  overflow: hidden;
+.form-card {//TARJETA CONTENEDORA DEL FORMULARIO.
+  background-color: var(--color-fondo);/*COLOR DE FONDO DE LA TARJETA.*/
+  border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DE LA TARJETA.*/
+  border-radius: var(--radio-card);/*RADIO DE REDONDEO DE LAS ESQUINAS DE LA TARJETA.*/
+  box-shadow: var(--sombra-card);/*SOMBRA DE LA TARJETA.*/
+  overflow: hidden;/*OCULTA EL CONTENIDO QUE SOBRESALGA DE LA TARJETA.*/
 }
-.form-card-header {
-  padding: 14px 20px;
-  border-bottom: 1px solid var(--color-bordes);
-  background-color: var(--color-fondo-pagina);
-  h3 {
-    font-family: var(--fuente-titulos);
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--color-texto-secundario);
-    margin: 0;
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
+.form-card-header {//ENCABEZADO DE LA TARJETA DEL FORMULARIO.
+  padding: 14px 20px;/*ESPACIO INTERNO (RELLENO) DEL ENCABEZADO.*/
+  border-bottom: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE INFERIOR.*/
+  background-color: var(--color-fondo-pagina);/*COLOR DE FONDO DEL ENCABEZADO.*/
+  h3 {//TÍTULO DENTRO DEL ENCABEZADO DE LA TARJETA.
+    font-family: var(--fuente-titulos);/*TIPO DE LETRA DEL TÍTULO.*/
+    font-size: 12px;/*TAMAÑO DE LETRA DEL TÍTULO.*/
+    font-weight: 700;/*NEGRILLA DE LETRA DEL TÍTULO.*/
+    color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TÍTULO.*/
+    margin: 0;/*ELIMINA EL MARGEN DEL TÍTULO.*/
+    text-transform: uppercase;/*TRANSFORMACIÓN DE MAYÚSCULAS/MINÚSCULAS DEL TEXTO.*/
+    letter-spacing: 0.6px;/*ESPACIO ENTRE LAS LETRAS DEL TEXTO.*/
   }
 }
-.form-card-body {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+.form-card-body {//CUERPO DE LA TARJETA DEL FORMULARIO.
+  padding: 20px;/*ESPACIO INTERNO (RELLENO) DEL CUERPO.*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES.*/
+  gap: 16px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
 }
 
 /* Grid de campos */
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px 24px;
+.form-grid {//CUADRÍCULA DE CAMPOS DEL FORMULARIO.
+  display: grid;/*CONVIERTE EL ELEMENTO EN CUADRÍCULA.*/
+  grid-template-columns: 1fr 1fr;/*DEFINICIÓN DE LAS COLUMNAS DE LA CUADRÍCULA.*/
+  gap: 14px 24px;/*ESPACIO ENTRE LOS ELEMENTOS DE LA CUADRÍCULA.*/
 
-  @media (max-width: 700px) {
-    grid-template-columns: 1fr;
+  @media (max-width: 700px) {//ESTILOS RESPONSIVOS PARA PANTALLAS PEQUEÑAS.
+    grid-template-columns: 1fr;/*DEFINICIÓN DE LAS COLUMNAS DE LA CUADRÍCULA EN PANTALLAS PEQUEÑAS.*/
   }
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+.form-group {//GRUPO DE CAMPO DEL FORMULARIO (ETIQUETA + CONTROL).
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES.*/
+  gap: 5px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
 
-  &.form-group-full {
-    grid-column: 1 / -1;
+  &.form-group-full {//VARIANTE DEL GRUPO DE CAMPO QUE OCUPA TODO EL ANCHO DE LA CUADRÍCULA.
+    grid-column: 1 / -1;/*HACE QUE EL ELEMENTO OCUPE TODAS LAS COLUMNAS DE LA CUADRÍCULA.*/
   }
 
-  label {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--color-texto-secundario);
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
+  label {//ETIQUETA DEL CAMPO DEL FORMULARIO.
+    font-size: 12px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+    font-weight: 600;/*NEGRILLA DE LETRA DEL TEXTO.*/
+    color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/
+    text-transform: uppercase;/*TRANSFORMACIÓN DE MAYÚSCULAS/MINÚSCULAS DEL TEXTO.*/
+    letter-spacing: 0.4px;/*ESPACIO ENTRE LAS LETRAS DEL TEXTO.*/
   }
 
   input[type="text"],
   input[type="number"],
   input[type="password"],
   select,
-  textarea {
-    padding: 9px 12px;
-    border: 1px solid var(--color-bordes);
-    border-radius: var(--radio-borde);
-    font-family: var(--fuente-cuerpo);
-    font-size: 14px;
-    color: var(--color-texto-main);
-    background-color: var(--color-fondo);
-    transition: border-color 0.2s ease;
-    width: 100%;
-    box-sizing: border-box;
+  textarea {//CAMPOS DE ENTRADA DE TEXTO, NÚMERO, CONTRASEÑA, SELECTOR Y ÁREA DE TEXTO DEL FORMULARIO.
+    padding: 9px 12px;/*ESPACIO INTERNO (RELLENO) DEL CAMPO.*/
+    border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DEL CAMPO.*/
+    border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL CAMPO.*/
+    font-family: var(--fuente-cuerpo);/*TIPO DE LETRA DEL TEXTO.*/
+    font-size: 14px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+    color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/
+    background-color: var(--color-fondo);/*COLOR DE FONDO DEL CAMPO.*/
+    transition: border-color 0.2s ease;/*TRANSICIÓN SUAVE PARA EL COLOR DEL BORDE.*/
+    width: 100%;/*ANCHURA DEL CAMPO.*/
+    box-sizing: border-box;/*INCLUYE EL BORDE Y EL RELLENO DENTRO DEL ANCHO TOTAL DEL CAMPO.*/
 
-    &:focus {
-      outline: none;
-      border-color: var(--color-acento);
-      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+    &:focus {//ESTILO DEL CAMPO CUANDO TIENE EL FOCO.
+      outline: none;/*ELIMINA EL CONTORNO POR DEFECTO DEL NAVEGADOR.*/
+      border-color: var(--color-acento);/*COLOR DEL BORDE AL ENFOCAR EL CAMPO.*/
+      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);/*SOMBRA DE ENFOQUE DEL CAMPO.*/
     }
   }
 
-  textarea {
-    resize: vertical;
-    min-height: 110px;
-    line-height: 1.5;
+  textarea {//ESTILO ESPECÍFICO PARA EL ÁREA DE TEXTO.
+    resize: vertical;/*PERMITE REDIMENSIONAR EL ÁREA DE TEXTO SOLO VERTICALMENTE.*/
+    min-height: 110px;/*ALTURA MÍNIMA DEL ÁREA DE TEXTO.*/
+    line-height: 1.5;/*ALTURA DE LÍNEA DEL TEXTO.*/
   }
 }
 
 /* Botones de acción */
-.form-acciones {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
+.form-acciones {//CONTENEDOR DE LOS BOTONES DE ACCIÓN DEL FORMULARIO.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  justify-content: flex-end;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS HACIA EL FINAL.*/
+  gap: 12px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
 }
 
-.btn-sigeps {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 22px;
-  border-radius: var(--radio-borde);
-  font-family: var(--fuente-cuerpo);
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  border: none;
+.btn-sigeps {//ESTILO BASE DE LOS BOTONES DEL SISTEMA.
+  display: inline-flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE EN LÍNEA.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 8px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
+  padding: 10px 22px;/*ESPACIO INTERNO (RELLENO) DEL BOTÓN.*/
+  border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BOTÓN.*/
+  font-family: var(--fuente-cuerpo);/*TIPO DE LETRA DEL TEXTO.*/
+  font-size: 14px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 600;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  cursor: pointer;/*ACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL BOTÓN.*/
+  transition: all 0.2s ease;/*TRANSICIÓN SUAVE PARA TODOS LOS CAMBIOS DE ESTADO.*/
+  border: none;/*ELIMINA EL BORDE DEL BOTÓN.*/
 
-  &.btn-primario {
-    background-color: var(--color-principal);
-    color: #fff;
-    &:hover:not(:disabled) { background-color: var(--color-acento); }
-    &:disabled { opacity: 0.5; cursor: not-allowed; }
+  &.btn-primario {//VARIANTE PRIMARIA DEL BOTÓN.
+    background-color: var(--color-principal);/*COLOR DE FONDO DEL BOTÓN PRIMARIO.*/
+    color: #fff;/*COLOR DE LETRA DEL TEXTO DEL BOTÓN.*/
+    &:hover:not(:disabled) { /*ESTILO DEL BOTÓN AL PASAR EL MOUSE, SI NO ESTÁ DESHABILITADO.*/ background-color: var(--color-acento); /*COLOR DE FONDO DEL BOTÓN AL PASAR EL MOUSE.*/ }
+    &:disabled { /*ESTILO DEL BOTÓN DESHABILITADO.*/ opacity: 0.5; /*OPACIDAD TOTAL DEL ELEMENTO (ELEMENTO VISIBLE), PUEDES AJUSTAR ESTE VALOR SEGÚN TUS PREFERENCIAS.*/ cursor: not-allowed; /*DESACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL BOTÓN A MODO NO INTERACTIVO.*/ }
   }
 }
 
 /* Editor WYSIWYG */
-.editor-tabs {
-  display: flex;
-  gap: 0;
-  border-bottom: 2px solid var(--color-bordes);
-  margin-bottom: 0;
+.editor-tabs {//CONTENEDOR DE LAS PESTAÑAS DEL EDITOR.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  gap: 0;/*ELIMINA EL ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
+  border-bottom: 2px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE INFERIOR.*/
+  margin-bottom: 0;/*ELIMINA EL MARGEN INFERIOR.*/
 }
-.editor-tab {
-  padding: 8px 18px;
-  font-size: 13px;
-  font-weight: 600;
-  font-family: var(--fuente-cuerpo);
-  background: none;
-  border: none;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -2px;
-  cursor: pointer;
-  color: var(--color-texto-secundario);
-  transition: all 0.15s ease;
+.editor-tab {//PESTAÑA INDIVIDUAL DEL EDITOR.
+  padding: 8px 18px;/*ESPACIO INTERNO (RELLENO) DE LA PESTAÑA.*/
+  font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 600;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  font-family: var(--fuente-cuerpo);/*TIPO DE LETRA DEL TEXTO.*/
+  background: none;/*ELIMINA EL FONDO DE LA PESTAÑA.*/
+  border: none;/*ELIMINA EL BORDE DE LA PESTAÑA.*/
+  border-bottom: 2px solid transparent;/*GROSOR Y COLOR DEL BORDE INFERIOR TRANSPARENTE.*/
+  margin-bottom: -2px;/*AJUSTA EL MARGEN INFERIOR PARA SOLAPAR EL BORDE.*/
+  cursor: pointer;/*ACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE LA PESTAÑA.*/
+  color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/
+  transition: all 0.15s ease;/*TRANSICIÓN SUAVE PARA TODOS LOS CAMBIOS DE ESTADO.*/
 
-  &.active {
-    color: var(--color-principal);
-    border-bottom-color: var(--color-principal);
+  &.active {//ESTILO DE LA PESTAÑA ACTIVA.
+    color: var(--color-principal);/*COLOR DE LETRA DEL TEXTO DE LA PESTAÑA ACTIVA.*/
+    border-bottom-color: var(--color-principal);/*COLOR DEL BORDE INFERIOR DE LA PESTAÑA ACTIVA.*/
   }
-  &:hover:not(.active) {
-    color: var(--color-acento);
+  &:hover:not(.active) {//ESTILO DE LA PESTAÑA AL PASAR EL MOUSE, SI NO ESTÁ ACTIVA.
+    color: var(--color-acento);/*COLOR DE LETRA DEL TEXTO AL PASAR EL MOUSE.*/
   }
 }
-.editor-bloque {
-  border: 1px solid var(--color-bordes);
-  border-radius: 0 var(--radio-borde) var(--radio-borde) var(--radio-borde);
-  overflow: hidden;
+.editor-bloque {//BLOQUE CONTENEDOR DEL EDITOR (BARRA DE HERRAMIENTAS + CONTENIDO).
+  border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DEL BLOQUE.*/
+  border-radius: 0 var(--radio-borde) var(--radio-borde) var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BLOQUE.*/
+  overflow: hidden;/*OCULTA EL CONTENIDO QUE SOBRESALGA DEL BLOQUE.*/
 }
-.editor-toolbar {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 2px;
-  padding: 6px 10px;
-  background-color: var(--color-fondo-pagina);
-  border-bottom: 1px solid var(--color-bordes);
+.editor-toolbar {//BARRA DE HERRAMIENTAS DEL EDITOR.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  flex-wrap: wrap;/*PERMITE QUE LOS ELEMENTOS FLEXIBLES PASEN A OTRA LÍNEA.*/
+  gap: 2px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
+  padding: 6px 10px;/*ESPACIO INTERNO (RELLENO) DE LA BARRA DE HERRAMIENTAS.*/
+  background-color: var(--color-fondo-pagina);/*COLOR DE FONDO DE LA BARRA DE HERRAMIENTAS.*/
+  border-bottom: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE INFERIOR.*/
 
-  .tb {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 28px;
-    height: 28px;
-    padding: 0 6px;
-    background: none;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    font-size: 13px;
-    font-family: var(--fuente-cuerpo);
-    color: var(--color-texto-main);
-    cursor: pointer;
-    transition: all 0.15s ease;
+  .tb {//BOTÓN INDIVIDUAL DE LA BARRA DE HERRAMIENTAS.
+    display: inline-flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE EN LÍNEA.*/
+    align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+    justify-content: center;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS.*/
+    min-width: 28px;/*ANCHURA MÍNIMA DEL BOTÓN.*/
+    height: 28px;/*ALTURA DEL BOTÓN.*/
+    padding: 0 6px;/*ESPACIO INTERNO (RELLENO) DEL BOTÓN.*/
+    background: none;/*ELIMINA EL FONDO DEL BOTÓN.*/
+    border: 1px solid transparent;/*GROSOR Y COLOR DEL BORDE TRANSPARENTE.*/
+    border-radius: 4px;/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BOTÓN.*/
+    font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+    font-family: var(--fuente-cuerpo);/*TIPO DE LETRA DEL TEXTO.*/
+    color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/
+    cursor: pointer;/*ACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL BOTÓN.*/
+    transition: all 0.15s ease;/*TRANSICIÓN SUAVE PARA TODOS LOS CAMBIOS DE ESTADO.*/
 
-    &:hover {
-      background-color: var(--color-fondo);
-      border-color: var(--color-bordes);
+    &:hover {//ESTILO DEL BOTÓN AL PASAR EL MOUSE.
+      background-color: var(--color-fondo);/*COLOR DE FONDO DEL BOTÓN AL PASAR EL MOUSE.*/
+      border-color: var(--color-bordes);/*COLOR DEL BORDE DEL BOTÓN AL PASAR EL MOUSE.*/
     }
   }
-  .tb-sep {
-    width: 1px;
-    height: 20px;
-    background-color: var(--color-bordes);
-    margin: 0 4px;
+  .tb-sep {//SEPARADOR VISUAL ENTRE GRUPOS DE BOTONES DE LA BARRA.
+    width: 1px;/*ANCHURA DEL SEPARADOR.*/
+    height: 20px;/*ALTURA DEL SEPARADOR.*/
+    background-color: var(--color-bordes);/*COLOR DE FONDO DEL SEPARADOR.*/
+    margin: 0 4px;/*ESPACIO DE MARGEN DERECHO E IZQUIERDO DEL SEPARADOR.*/
   }
-  .tb-select {
-    height: 28px;
-    padding: 0 6px;
-    font-size: 12px;
-    border: 1px solid var(--color-bordes);
-    border-radius: 4px;
-    background-color: var(--color-fondo);
-    color: var(--color-texto-main);
-    cursor: pointer;
-    width: auto;
+  .tb-select {//SELECTOR DESPLEGABLE DE LA BARRA DE HERRAMIENTAS.
+    height: 28px;/*ALTURA DEL SELECTOR.*/
+    padding: 0 6px;/*ESPACIO INTERNO (RELLENO) DEL SELECTOR.*/
+    font-size: 12px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+    border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DEL SELECTOR.*/
+    border-radius: 4px;/*RADIO DE REDONDEO DE LAS ESQUINAS DEL SELECTOR.*/
+    background-color: var(--color-fondo);/*COLOR DE FONDO DEL SELECTOR.*/
+    color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/
+    cursor: pointer;/*ACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL SELECTOR.*/
+    width: auto;/*ANCHURA AUTOMÁTICA DEL SELECTOR.*/
   }
-  .tb-color {
-    width: 28px;
-    height: 28px;
-    padding: 2px;
-    border: 1px solid var(--color-bordes);
-    border-radius: 4px;
-    background: none;
-    cursor: pointer;
+  .tb-color {//SELECTOR DE COLOR DE LA BARRA DE HERRAMIENTAS.
+    width: 28px;/*ANCHURA DEL SELECTOR DE COLOR.*/
+    height: 28px;/*ALTURA DEL SELECTOR DE COLOR.*/
+    padding: 2px;/*ESPACIO INTERNO (RELLENO) DEL SELECTOR DE COLOR.*/
+    border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DEL SELECTOR DE COLOR.*/
+    border-radius: 4px;/*RADIO DE REDONDEO DE LAS ESQUINAS DEL SELECTOR DE COLOR.*/
+    background: none;/*ELIMINA EL FONDO DEL SELECTOR DE COLOR.*/
+    cursor: pointer;/*ACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL SELECTOR DE COLOR.*/
   }
 }
-.editor-tab-codigo {
-  font-family: 'Courier New', monospace;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: -0.5px;
+.editor-tab-codigo {//ESTILO DE LA PESTAÑA DE CÓDIGO FUENTE DEL EDITOR.
+  font-family: 'Courier New', monospace;/*TIPO DE LETRA DEL TEXTO.*/
+  font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 700;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  letter-spacing: -0.5px;/*ESPACIO ENTRE LAS LETRAS DEL TEXTO.*/
 }
-.editor-contenido {
-  min-height: 160px;
-  max-height: 320px;
-  overflow-y: auto;
-  padding: 14px 16px;
-  font-family: var(--fuente-cuerpo);
-  font-size: 14px;
-  color: var(--color-texto-main);
-  background-color: var(--color-fondo);
-  outline: none;
-  line-height: 1.6;
+.editor-contenido {//ÁREA DE CONTENIDO EDITABLE DEL EDITOR.
+  min-height: 160px;/*ALTURA MÍNIMA DEL CONTENIDO.*/
+  max-height: 320px;/*ALTURA MÁXIMA DEL CONTENIDO.*/
+  overflow-y: auto;/*ACTIVA LA FUNCIÓN DEL SCROLL VERTICAL.*/
+  padding: 14px 16px;/*ESPACIO INTERNO (RELLENO) DEL CONTENIDO.*/
+  font-family: var(--fuente-cuerpo);/*TIPO DE LETRA DEL TEXTO.*/
+  font-size: 14px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/
+  background-color: var(--color-fondo);/*COLOR DE FONDO DEL CONTENIDO.*/
+  outline: none;/*ELIMINA EL CONTORNO POR DEFECTO DEL NAVEGADOR.*/
+  line-height: 1.6;/*ALTURA DE LÍNEA DEL TEXTO.*/
 
-  &:focus {
-    box-shadow: inset 0 0 0 2px rgba(14, 165, 233, 0.2);
+  &:focus {//ESTILO DEL CONTENIDO CUANDO TIENE EL FOCO.
+    box-shadow: inset 0 0 0 2px rgba(14, 165, 233, 0.2);/*SOMBRA INTERNA DE ENFOQUE DEL CONTENIDO.*/
   }
 }
-.editor-codigo-fuente {
-  display: block;
-  width: 100%;
-  min-height: 160px;
-  max-height: 320px;
-  padding: 14px 16px;
-  font-family: 'Courier New', 'Consolas', monospace;
-  font-size: 13px;
-  line-height: 1.7;
-  color: #1e40af;
-  background-color: #f8fafc;
-  border: none;
-  outline: none;
-  resize: vertical;
-  box-sizing: border-box;
-  overflow-y: auto;
-  tab-size: 2;
+.editor-codigo-fuente {//ÁREA DE TEXTO DEL CÓDIGO FUENTE DEL EDITOR.
+  display: block;/*TIPO DE VISUALIZACIÓN DEL ELEMENTO.*/
+  width: 100%;/*ANCHURA DEL ÁREA DE CÓDIGO.*/
+  min-height: 160px;/*ALTURA MÍNIMA DEL ÁREA DE CÓDIGO.*/
+  max-height: 320px;/*ALTURA MÁXIMA DEL ÁREA DE CÓDIGO.*/
+  padding: 14px 16px;/*ESPACIO INTERNO (RELLENO) DEL ÁREA DE CÓDIGO.*/
+  font-family: 'Courier New', 'Consolas', monospace;/*TIPO DE LETRA DEL TEXTO.*/
+  font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  line-height: 1.7;/*ALTURA DE LÍNEA DEL TEXTO.*/
+  color: #1e40af;/*COLOR DE LETRA DEL TEXTO.*/
+  background-color: #f8fafc;/*COLOR DE FONDO DEL ÁREA DE CÓDIGO.*/
+  border: none;/*ELIMINA EL BORDE DEL ÁREA DE CÓDIGO.*/
+  outline: none;/*ELIMINA EL CONTORNO POR DEFECTO DEL NAVEGADOR.*/
+  resize: vertical;/*PERMITE REDIMENSIONAR EL ÁREA DE CÓDIGO SOLO VERTICALMENTE.*/
+  box-sizing: border-box;/*INCLUYE EL BORDE Y EL RELLENO DENTRO DEL ANCHO TOTAL.*/
+  overflow-y: auto;/*ACTIVA LA FUNCIÓN DEL SCROLL VERTICAL.*/
+  tab-size: 2;/*ANCHURA DE LA TABULACIÓN DEL TEXTO.*/
 
-  &:focus {
-    box-shadow: inset 0 0 0 2px rgba(14, 165, 233, 0.2);
+  &:focus {//ESTILO DEL ÁREA DE CÓDIGO CUANDO TIENE EL FOCO.
+    box-shadow: inset 0 0 0 2px rgba(14, 165, 233, 0.2);/*SOMBRA INTERNA DE ENFOQUE DEL ÁREA DE CÓDIGO.*/
   }
 }
-.editor-preview {
-  min-height: 160px;
-  padding: 14px 16px;
-  border: 1px solid var(--color-bordes);
-  border-radius: 0 var(--radio-borde) var(--radio-borde) var(--radio-borde);
-  background-color: #fff;
-  font-family: var(--fuente-cuerpo);
-  font-size: 14px;
-  color: var(--color-texto-main);
-  line-height: 1.6;
+.editor-preview {//ÁREA DE VISTA PREVIA DEL CONTENIDO DEL EDITOR.
+  min-height: 160px;/*ALTURA MÍNIMA DE LA VISTA PREVIA.*/
+  padding: 14px 16px;/*ESPACIO INTERNO (RELLENO) DE LA VISTA PREVIA.*/
+  border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DE LA VISTA PREVIA.*/
+  border-radius: 0 var(--radio-borde) var(--radio-borde) var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DE LA VISTA PREVIA.*/
+  background-color: #fff;/*COLOR DE FONDO DE LA VISTA PREVIA.*/
+  font-family: var(--fuente-cuerpo);/*TIPO DE LETRA DEL TEXTO.*/
+  font-size: 14px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/
+  line-height: 1.6;/*ALTURA DE LÍNEA DEL TEXTO.*/
 }
 
 /* Toast de notificación */
-.toast-global {
-  position: fixed;
-  top: 24px;
-  right: 24px;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 20px;
-  border-radius: var(--radio-borde);
-  font-size: 14px;
-  font-weight: 500;
-  box-shadow: var(--sombra-modal);
-  animation: toast-entrada 0.25s ease;
+.toast-global {//NOTIFICACIÓN FLOTANTE GLOBAL.
+  position: fixed;/*TIPO DE POSICIONAMIENTO DEL ELEMENTO.*/
+  top: 24px;/*DISTANCIA DESDE EL BORDE SUPERIOR.*/
+  right: 24px;/*DISTANCIA DESDE EL BORDE DERECHO.*/
+  z-index: 9999;/*ORDEN DE APILAMIENTO (CAPA) DEL ELEMENTO.*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 10px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
+  padding: 14px 20px;/*ESPACIO INTERNO (RELLENO) DE LA NOTIFICACIÓN.*/
+  border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DE LA NOTIFICACIÓN.*/
+  font-size: 14px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 500;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  box-shadow: var(--sombra-modal);/*SOMBRA DE LA NOTIFICACIÓN.*/
+  animation: toast-entrada 0.25s ease;/*ANIMACIÓN APLICADA A LA NOTIFICACIÓN.*/
 }
-@keyframes toast-entrada {
-  from { opacity: 0; transform: translateY(-10px); }
-  to   { opacity: 1; transform: translateY(0); }
+@keyframes toast-entrada {//DEFINICIÓN DE LOS FOTOGRAMAS CLAVE DE LA ANIMACIÓN DE ENTRADA DE LA NOTIFICACIÓN.
+  from { /*FOTOGRAMA INICIAL DE LA ANIMACIÓN.*/ opacity: 0;/*OPACIDAD TOTAL DEL ELEMENTO (ELEMENTO VISIBLE), PUEDES AJUSTAR ESTE VALOR SEGÚN TUS PREFERENCIAS.*/ transform: translateY(-10px);/*DESPLAZAMIENTO VERTICAL INICIAL DEL ELEMENTO.*/ }
+  to   { /*FOTOGRAMA FINAL DE LA ANIMACIÓN.*/ opacity: 1;/*OPACIDAD TOTAL DEL ELEMENTO (ELEMENTO VISIBLE), PUEDES AJUSTAR ESTE VALOR SEGÚN TUS PREFERENCIAS.*/ transform: translateY(0);/*DESPLAZAMIENTO VERTICAL FINAL DEL ELEMENTO.*/ }
 }
-.toast-exito {
-  background-color: #fff;
-  border-left: 4px solid var(--color-exito);
-  color: #15803d;
+.toast-exito {//VARIANTE DE ÉXITO DE LA NOTIFICACIÓN.
+  background-color: #fff;/*COLOR DE FONDO DE LA NOTIFICACIÓN.*/
+  border-left: 4px solid var(--color-exito);/*GROSOR Y COLOR DEL BORDE IZQUIERDO.*/
+  color: #15803d;/*COLOR DE LETRA DEL TEXTO.*/
 }
-.toast-error {
-  background-color: #fff;
-  border-left: 4px solid var(--color-error);
-  color: #b91c1c;
+.toast-error {//VARIANTE DE ERROR DE LA NOTIFICACIÓN.
+  background-color: #fff;/*COLOR DE FONDO DE LA NOTIFICACIÓN.*/
+  border-left: 4px solid var(--color-error);/*GROSOR Y COLOR DEL BORDE IZQUIERDO.*/
+  color: #b91c1c;/*COLOR DE LETRA DEL TEXTO.*/
 }

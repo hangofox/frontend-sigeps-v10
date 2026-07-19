@@ -1,4 +1,4 @@
 export interface RenombrarArchivosI {
-    rutaArchivoActual: String;
-    nombreNuevoArchivo: String;
+    oldPath: String;
+    newPath: String;
 }

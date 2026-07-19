@@ -3,7 +3,9 @@
   <!-- ===== CABEZOTE SUPERIOR (full width) ===== -->
   <header class="top-header">
     <div class="header-brand">
-      <img src="assets/images/logo.PNG" alt="SIGEPS" class="header-logo" />
+      <div class="header-logo-wrapper">
+        <img src="assets/images/logo.PNG" alt="SIGEPS" class="header-logo" />
+      </div>
       <div class="header-brand-texto">
         <span class="header-titulo">SIGEPS V1.0</span>
         <span class="header-subtitulo">Sistema de Gestión de Vigilancia de Personal de Seguridad</span>
@@ -14,7 +16,10 @@
         <span class="user-label">Usuario conectado</span>
         <span class="user-nombre">{{ nombreUsuarioLogueado || nicknameUsuarioLogueado }}</span>
       </div>
-      <div class="avatar">{{ inicialUsuario }}</div>
+      <div class="avatar">
+        <img *ngIf="previewUrlFotoUsuarioLogueado" [src]="previewUrlFotoUsuarioLogueado" (error)="previewUrlFotoUsuarioLogueado = null" alt="Foto de usuario">
+        <span *ngIf="!previewUrlFotoUsuarioLogueado">{{ inicialUsuario }}</span>
+      </div>
     </div>
   </header>
 
@@ -56,7 +61,7 @@
         <!-- PANEL DE CONTROL                                        -->
         <!-- ====================================================== -->
         <app-creditos *ngIf="menuActivo === 'panel-control/creditos'"></app-creditos>
-        <app-mi-perfil *ngIf="menuActivo === 'panel-control/mi-perfil'"></app-mi-perfil>
+        <app-mi-perfil *ngIf="menuActivo === 'panel-control/mi-perfil'" (fotoUsuarioActualizada)="cargarFotoUsuarioLogueado()"></app-mi-perfil>
         <app-parametros-sistema *ngIf="menuActivo === 'panel-control/parametros-sistema'"></app-parametros-sistema>
         <app-listado-auditorias-sistema *ngIf="menuActivo === 'panel-control/auditorias-sistema/listado-auditorias-sistema'"></app-listado-auditorias-sistema>
         <app-listado-usuarios *ngIf="menuActivo === 'panel-control/usuarios/listado-usuarios'"></app-listado-usuarios>
@@ -145,7 +150,7 @@
           </div>
         </div>
 
-        <div class="tabla-card" *ngIf="menuActivo === 'inicio'">
+        <div class="tabla-card" *ngIf="menuActivo === 'inicio' && sioNoPrivilegioyRestriccionAccesoUsuarioCRUDVer === 'SI'">
           <div class="tabla-header">
             <h3>Últimos Movimientos de Personal</h3>
           </div>

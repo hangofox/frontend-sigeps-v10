@@ -1,495 +1,536 @@
 /* =========================================
    LAYOUT PRINCIPAL (columna: header arriba, cuerpo abajo)
    ========================================= */
-.inicio-layout {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  overflow: hidden;
-  background-color: var(--color-fondo-pagina);
+.inicio-layout {//CONTENEDOR PRINCIPAL DEL LAYOUT DE INICIO (ESTRUCTURA VERTICAL).
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES (COLUMNA).*/
+  height: 100vh;/*ALTURA DEL CONTENEDOR (TOTAL DE LA PANTALLA).*/
+  overflow: hidden;/*OCULTA EL CONTENIDO QUE SOBRESALGA DEL CONTENEDOR.*/
+  background-color: var(--color-fondo-pagina);/*COLOR DE FONDO DE LA PÁGINA.*/
 }
 
 /* =========================================
    CABEZOTE SUPERIOR (full-width)
    ========================================= */
-.top-header {
-  background-color: var(--color-fondo);
-  border-bottom: 1px solid var(--color-bordes-suave);
-  padding: 16px 32px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-shrink: 0;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+.top-header {//CABEZOTE SUPERIOR DE ANCHO COMPLETO.
+  background-color: var(--color-fondo);/*COLOR DE FONDO DEL CABEZOTE.*/
+  border-bottom: 1px solid var(--color-bordes-suave);/*GROSOR Y COLOR DEL BORDE INFERIOR DEL CABEZOTE.*/
+  padding: 16px 32px;/*ESPACIO INTERNO (RELLENO) DEL CABEZOTE.*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  justify-content: space-between;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS (EXTREMOS OPUESTOS).*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  flex-shrink: 0;/*EVITA QUE EL CABEZOTE SE ENCOJA.*/
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);/*SOMBRA DEL CABEZOTE.*/
 }
 
-.header-brand {
-  display: flex;
-  align-items: center;
-  gap: 14px;
+.header-brand {//CONTENEDOR DE LA MARCA (LOGO Y TÍTULO) DEL CABEZOTE.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 14px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
 }
 
-.header-logo {
-  height: 48px;
-  width: auto;
-  object-fit: contain;
+/* ---- Logo del cabezote con efecto destello (igual al del login) ---- */
+@keyframes destello {//DEFINICIÓN DE LOS FOTOGRAMAS CLAVE DE LA ANIMACIÓN DE DESTELLO DEL LOGO.
+  0%   { left: -80%;/*POSICIÓN INICIAL DEL DESTELLO.*/ opacity: 0;/*OPACIDAD INICIAL DEL DESTELLO.*/ }
+  10%  { opacity: 1;/*OPACIDAD DEL DESTELLO AL 10% DE LA ANIMACIÓN.*/ }
+  60%  { left: 130%;/*POSICIÓN DEL DESTELLO AL 60% DE LA ANIMACIÓN.*/ opacity: 1;/*OPACIDAD DEL DESTELLO AL 60% DE LA ANIMACIÓN.*/ }
+  61%  { opacity: 0;/*OPACIDAD DEL DESTELLO AL 61% DE LA ANIMACIÓN.*/ }
+  100% { left: 130%;/*POSICIÓN FINAL DEL DESTELLO.*/ opacity: 0;/*OPACIDAD FINAL DEL DESTELLO.*/ }
 }
 
-.header-brand-texto {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
+.header-logo-wrapper {//CONTENEDOR DEL LOGOTIPO DEL CABEZOTE CON EFECTO DE DESTELLO.
+  position: relative;/*TIPO DE POSICIONAMIENTO DEL ELEMENTO.*/
+  display: inline-block;/*TIPO DE VISUALIZACIÓN DEL ELEMENTO.*/
+  overflow: hidden;/*OCULTA EL CONTENIDO QUE SOBRESALGA DEL CONTENEDOR.*/
+
+  &::after {//PSEUDOELEMENTO QUE GENERA EL DESTELLO SOBRE EL LOGOTIPO.
+    content: '';/*CONTENIDO INSERTADO POR EL PSEUDOELEMENTO.*/
+    position: absolute;/*TIPO DE POSICIONAMIENTO DEL ELEMENTO.*/
+    top: -20%;/*DISTANCIA DESDE EL BORDE SUPERIOR.*/
+    left: -80%;/*DISTANCIA DESDE EL BORDE IZQUIERDO.*/
+    width: 50%;/*ANCHURA DEL DESTELLO.*/
+    height: 140%;/*ALTURA DEL DESTELLO.*/
+    background: linear-gradient(/*COLOR O DEGRADADO DE FONDO DEL DESTELLO.*/
+      105deg,
+      rgba(255, 255, 255, 0)    0%,
+      rgba(255, 255, 255, 0.55) 45%,
+      rgba(14, 165, 233, 0.25)  55%,
+      rgba(255, 255, 255, 0)    100%
+    );
+    transform: skewX(-15deg);/*INCLINACIÓN DEL DESTELLO.*/
+    animation: destello 3.5s ease-in-out infinite;/*ANIMACIÓN APLICADA AL DESTELLO.*/
+    pointer-events: none;/*HABILITA O DESHABILITA LA INTERACCIÓN DEL MOUSE CON EL DESTELLO.*/
+  }
 }
 
-.header-titulo {
-  font-family: var(--fuente-titulos);
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--color-principal);
-  letter-spacing: -0.3px;
-  line-height: 1;
+.header-logo {//LOGOTIPO DEL SISTEMA EN EL CABEZOTE.
+  display: block;/*TIPO DE VISUALIZACIÓN DEL ELEMENTO.*/
+  height: 48px;/*ALTURA DEL LOGOTIPO.*/
+  width: auto;/*ANCHURA AUTOMÁTICA DEL LOGOTIPO.*/
+  object-fit: contain;/*AJUSTE DEL CONTENIDO DENTRO DEL LOGOTIPO.*/
 }
 
-.header-subtitulo {
-  font-size: 11px;
-  color: var(--color-texto-secundario);
-  font-weight: 400;
+.header-brand-texto {//CONTENEDOR DEL TEXTO DE LA MARCA (TÍTULO Y SUBTÍTULO).
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES (COLUMNA).*/
+  gap: 2px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
+}
+
+.header-titulo {//TÍTULO PRINCIPAL DEL SISTEMA EN EL CABEZOTE.
+  font-family: var(--fuente-titulos);/*TIPO DE LETRA DEL TEXTO.*/
+  font-size: 20px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 700;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  color: var(--color-principal);/*COLOR DE LETRA DEL TEXTO.*/
+  letter-spacing: -0.3px;/*ESPACIO ENTRE LAS LETRAS DEL TEXTO.*/
+  line-height: 1;/*ALTURA DE LÍNEA DEL TEXTO.*/
+}
+
+.header-subtitulo {//SUBTÍTULO DEL SISTEMA EN EL CABEZOTE.
+  font-size: 11px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/
+  font-weight: 400;/*NEGRILLA DE LETRA DEL TEXTO.*/
 }
 
 /* Usuario conectado (derecha del cabezote) */
-.user-profile {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+.user-profile {//CONTENEDOR DEL USUARIO CONECTADO EN EL CABEZOTE.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 12px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
 }
 
-.user-info-texto {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 1px;
+.user-info-texto {//CONTENEDOR DEL TEXTO DE INFORMACIÓN DEL USUARIO.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES (COLUMNA).*/
+  align-items: flex-end;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS (AL FINAL).*/
+  gap: 1px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
 }
 
-.user-label {
-  font-size: 11px;
-  color: var(--color-texto-secundario);
-  font-weight: 400;
+.user-label {//ETIQUETA DESCRIPTIVA SOBRE EL NOMBRE DEL USUARIO.
+  font-size: 11px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/
+  font-weight: 400;/*NEGRILLA DE LETRA DEL TEXTO.*/
 }
 
-.user-nombre {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--color-texto-main);
+.user-nombre {//NOMBRE DEL USUARIO CONECTADO.
+  font-size: 14px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 600;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/
 }
 
-.avatar {
-  width: 38px;
-  height: 38px;
-  background-color: var(--color-principal);
-  color: #fff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 15px;
-  flex-shrink: 0;
+.avatar {//AVATAR CIRCULAR DEL USUARIO CONECTADO.
+  width: 38px;/*ANCHURA DEL AVATAR.*/
+  height: 38px;/*ALTURA DEL AVATAR.*/
+  background-color: var(--color-principal);/*COLOR DE FONDO DEL AVATAR.*/
+  color: #fff;/*COLOR DE LETRA DEL TEXTO.*/
+  border-radius: 50%;/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BORDE (CÍRCULO).*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  justify-content: center;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS.*/
+  font-weight: 700;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  font-size: 15px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  flex-shrink: 0;/*EVITA QUE EL AVATAR SE ENCOJA.*/
+  overflow: hidden;/*OCULTA EL CONTENIDO QUE SOBRESALGA DEL AVATAR (LA FOTO REAL).*/
+}
+.avatar img {//FOTO REAL DEL USUARIO CONECTADO DENTRO DEL AVATAR.
+  width: 100%;/*ANCHURA DE LA FOTO.*/
+  height: 100%;/*ALTURA DE LA FOTO.*/
+  object-fit: cover;/*AJUSTA LA FOTO PARA QUE CUBRA TODO EL AVATAR SIN DEFORMARSE.*/
 }
 
 /* =========================================
    CUERPO: SIDEBAR + CONTENIDO (fila)
    ========================================= */
-.body-area {
-  flex: 1;
-  display: flex;
-  overflow: hidden;
-  min-height: 0;
+.body-area {//CONTENEDOR DEL CUERPO (BARRA LATERAL + CONTENIDO).
+  flex: 1;/*COMPORTAMIENTO DE CRECIMIENTO DEL ELEMENTO FLEXIBLE.*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  overflow: hidden;/*OCULTA EL CONTENIDO QUE SOBRESALGA DEL CONTENEDOR.*/
+  min-height: 0;/*ALTURA MÍNIMA DEL CONTENEDOR.*/
 }
 
 /* =========================================
    CONTENIDO PRINCIPAL
    ========================================= */
-.main-wrapper {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  min-height: 0;
+.main-wrapper {//CONTENEDOR PRINCIPAL DEL CONTENIDO.
+  flex: 1;/*COMPORTAMIENTO DE CRECIMIENTO DEL ELEMENTO FLEXIBLE.*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES (COLUMNA).*/
+  overflow: hidden;/*OCULTA EL CONTENIDO QUE SOBRESALGA DEL CONTENEDOR.*/
+  min-height: 0;/*ALTURA MÍNIMA DEL CONTENEDOR.*/
 }
 
-.dashboard-area {
-  flex: 1;
-  overflow-y: auto;
-  padding: 28px 36px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  min-height: 0;
+.dashboard-area {//ÁREA DEL TABLERO DE INDICADORES Y TABLA.
+  flex: 1;/*COMPORTAMIENTO DE CRECIMIENTO DEL ELEMENTO FLEXIBLE.*/
+  overflow-y: auto;/*ACTIVA LA FUNCIÓN DEL SCROLL VERTICAL.*/
+  padding: 28px 36px;/*ESPACIO INTERNO (RELLENO) DEL CONTENEDOR.*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES (COLUMNA).*/
+  gap: 24px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
+  min-height: 0;/*ALTURA MÍNIMA DEL CONTENEDOR.*/
 }
 
 /* =========================================
    BIENVENIDA (estilo PortalSiadmec)
    ========================================= */
-.bienvenida-seccion {
-  background-color: var(--color-fondo);
-  border: 1px solid var(--color-bordes);
-  border-radius: var(--radio-card);
-  padding: 28px 32px;
-  box-shadow: var(--sombra-card);
-  flex-shrink: 0;
+.bienvenida-seccion {//TARJETA DE BIENVENIDA AL USUARIO.
+  background-color: var(--color-fondo);/*COLOR DE FONDO DE LA TARJETA.*/
+  border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DE LA TARJETA.*/
+  border-radius: var(--radio-card);/*RADIO DE REDONDEO DE LAS ESQUINAS DE LA TARJETA.*/
+  padding: 28px 32px;/*ESPACIO INTERNO (RELLENO) DE LA TARJETA.*/
+  box-shadow: var(--sombra-card);/*SOMBRA DE LA TARJETA.*/
+  flex-shrink: 0;/*EVITA QUE LA TARJETA SE ENCOJA.*/
 }
 
-.bienvenida-titulo {
-  font-family: var(--fuente-titulos);
-  font-size: 18px;
-  color: var(--color-principal);
-  margin: 0 0 8px;
+.bienvenida-titulo {//TÍTULO DE LA TARJETA DE BIENVENIDA.
+  font-family: var(--fuente-titulos);/*TIPO DE LETRA DEL TEXTO.*/
+  font-size: 18px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  color: var(--color-principal);/*COLOR DE LETRA DEL TEXTO.*/
+  margin: 0 0 8px;/*ESPACIO DEL MARGEN GENERAL DEL TÍTULO.*/
 
-  strong { font-weight: 700; }
+  strong { font-weight: 700;/*NEGRILLA DE LETRA DEL TEXTO.*/ }//TEXTO EN NEGRILLA DENTRO DEL TÍTULO DE BIENVENIDA.
 }
 
-.bienvenida-usuario {
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--color-acento);
-  margin: 0 0 12px;
+.bienvenida-usuario {//NOMBRE DEL USUARIO EN LA TARJETA DE BIENVENIDA.
+  font-size: 15px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 500;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  color: var(--color-acento);/*COLOR DE LETRA DEL TEXTO.*/
+  margin: 0 0 12px;/*ESPACIO DEL MARGEN GENERAL DEL TEXTO.*/
 }
 
-.bienvenida-descripcion {
-  font-size: 14px;
-  color: var(--color-texto-main);
-  line-height: 1.7;
-  margin: 0;
+.bienvenida-descripcion {//TEXTO DESCRIPTIVO DE LA TARJETA DE BIENVENIDA.
+  font-size: 14px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/
+  line-height: 1.7;/*ALTURA DE LÍNEA DEL TEXTO.*/
+  margin: 0;/*ESPACIO DEL MARGEN GENERAL DEL TEXTO.*/
 }
 
 /* =========================================
    TARJETAS INDICADORAS
    ========================================= */
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 18px;
-  flex-shrink: 0;
+.cards-grid {//CUADRÍCULA CONTENEDORA DE LAS TARJETAS INDICADORAS.
+  display: grid;/*CONVIERTE EL ELEMENTO EN CUADRÍCULA.*/
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));/*DEFINICIÓN DE LAS COLUMNAS DE LA CUADRÍCULA.*/
+  gap: 18px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
+  flex-shrink: 0;/*EVITA QUE LA CUADRÍCULA SE ENCOJA.*/
 }
 
-.indicador-card {
-  background-color: var(--color-fondo);
-  border-radius: var(--radio-card);
-  border: 1px solid var(--color-bordes);
-  box-shadow: var(--sombra-card);
-  padding: 20px 22px;
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
+.indicador-card {//TARJETA DE INDICADOR KPI.
+  background-color: var(--color-fondo);/*COLOR DE FONDO DE LA TARJETA.*/
+  border-radius: var(--radio-card);/*RADIO DE REDONDEO DE LAS ESQUINAS DE LA TARJETA.*/
+  border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DE LA TARJETA.*/
+  box-shadow: var(--sombra-card);/*SOMBRA DE LA TARJETA.*/
+  padding: 20px 22px;/*ESPACIO INTERNO (RELLENO) DE LA TARJETA.*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: flex-start;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS (AL INICIO).*/
+  gap: 14px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
 }
 
-.indicador-icono {
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+.indicador-icono {//ÍCONO DEL INDICADOR KPI.
+  width: 44px;/*ANCHURA DEL ÍCONO.*/
+  height: 44px;/*ALTURA DEL ÍCONO.*/
+  border-radius: 10px;/*RADIO DE REDONDEO DE LAS ESQUINAS DEL ÍCONO.*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  justify-content: center;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS.*/
+  flex-shrink: 0;/*EVITA QUE EL ÍCONO SE ENCOJA.*/
 
-  &.icono-azul     { background: rgba(14, 165, 233, 0.1); color: var(--color-acento); }
-  &.icono-verde    { background: rgba(34, 197, 94, 0.1);  color: #16a34a; }
-  &.icono-rojo     { background: rgba(239, 68, 68, 0.1);  color: var(--color-error); }
-  &.icono-amarillo { background: rgba(245, 158, 11, 0.1); color: #d97706; }
-  &.icono-gris     { background: rgba(148, 163, 184, 0.15); color: #64748b; }
+  &.icono-azul     { background: rgba(14, 165, 233, 0.1);/*COLOR DE FONDO DEL ÍCONO EN VARIANTE AZUL.*/ color: var(--color-acento);/*COLOR DE LETRA DEL ÍCONO.*/ }//VARIANTE DE COLOR AZUL DEL ÍCONO INDICADOR.
+  &.icono-verde    { background: rgba(34, 197, 94, 0.1);/*COLOR DE FONDO DEL ÍCONO EN VARIANTE VERDE.*/  color: #16a34a;/*COLOR DE LETRA DEL ÍCONO.*/ }//VARIANTE DE COLOR VERDE DEL ÍCONO INDICADOR.
+  &.icono-rojo     { background: rgba(239, 68, 68, 0.1);/*COLOR DE FONDO DEL ÍCONO EN VARIANTE ROJA.*/  color: var(--color-error);/*COLOR DE LETRA DEL ÍCONO.*/ }//VARIANTE DE COLOR ROJO DEL ÍCONO INDICADOR.
+  &.icono-amarillo { background: rgba(245, 158, 11, 0.1);/*COLOR DE FONDO DEL ÍCONO EN VARIANTE AMARILLA.*/ color: #d97706;/*COLOR DE LETRA DEL ÍCONO.*/ }//VARIANTE DE COLOR AMARILLO DEL ÍCONO INDICADOR.
+  &.icono-gris     { background: rgba(148, 163, 184, 0.15);/*COLOR DE FONDO DEL ÍCONO EN VARIANTE GRIS.*/ color: #64748b;/*COLOR DE LETRA DEL ÍCONO.*/ }//VARIANTE DE COLOR GRIS DEL ÍCONO INDICADOR.
 }
 
-.indicador-datos {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
+.indicador-datos {//CONTENEDOR DE DATOS DEL INDICADOR KPI.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES (COLUMNA).*/
+  gap: 3px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
 }
 
-.indicador-valor {
-  font-family: var(--fuente-titulos);
-  font-size: 26px;
-  font-weight: 700;
-  color: var(--color-principal);
-  line-height: 1;
+.indicador-valor {//VALOR NUMÉRICO DEL INDICADOR KPI.
+  font-family: var(--fuente-titulos);/*TIPO DE LETRA DEL TEXTO.*/
+  font-size: 26px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 700;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  color: var(--color-principal);/*COLOR DE LETRA DEL TEXTO.*/
+  line-height: 1;/*ALTURA DE LÍNEA DEL TEXTO.*/
 
-  &.rojo { color: var(--color-error); }
+  &.rojo { color: var(--color-error);/*COLOR DE LETRA DEL TEXTO EN VARIANTE ROJA.*/ }//VARIANTE DE COLOR ROJO DEL VALOR DEL INDICADOR.
 }
 
-.indicador-label {
-  font-size: 13px;
-  color: var(--color-texto-secundario);
-  font-weight: 500;
+.indicador-label {//ETIQUETA DEL INDICADOR KPI.
+  font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/
+  font-weight: 500;/*NEGRILLA DE LETRA DEL TEXTO.*/
 }
 
-.indicador-variacion {
-  font-size: 12px;
-  font-weight: 500;
+.indicador-variacion {//TEXTO DE VARIACIÓN DEL INDICADOR KPI.
+  font-size: 12px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 500;/*NEGRILLA DE LETRA DEL TEXTO.*/
 
-  &.positivo { color: #16a34a; }
-  &.negativo { color: var(--color-error); }
-  &.neutro   { color: var(--color-texto-secundario); }
+  &.positivo { color: #16a34a;/*COLOR DE LETRA DEL TEXTO EN VARIANTE POSITIVA.*/ }//VARIANTE POSITIVA DE LA VARIACIÓN DEL INDICADOR.
+  &.negativo { color: var(--color-error);/*COLOR DE LETRA DEL TEXTO EN VARIANTE NEGATIVA.*/ }//VARIANTE NEGATIVA DE LA VARIACIÓN DEL INDICADOR.
+  &.neutro   { color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO EN VARIANTE NEUTRA.*/ }//VARIANTE NEUTRA DE LA VARIACIÓN DEL INDICADOR.
 }
 
 /* =========================================
    TABLA DE MOVIMIENTOS
    ========================================= */
-.tabla-card {
-  background-color: var(--color-fondo);
-  border-radius: var(--radio-card);
-  border: 1px solid var(--color-bordes);
-  box-shadow: var(--sombra-card);
-  overflow: hidden;
-  flex-shrink: 0;
+.tabla-card {//TARJETA CONTENEDORA DE LA TABLA DE MOVIMIENTOS.
+  background-color: var(--color-fondo);/*COLOR DE FONDO DE LA TARJETA.*/
+  border-radius: var(--radio-card);/*RADIO DE REDONDEO DE LAS ESQUINAS DE LA TARJETA.*/
+  border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DE LA TARJETA.*/
+  box-shadow: var(--sombra-card);/*SOMBRA DE LA TARJETA.*/
+  overflow: hidden;/*OCULTA EL CONTENIDO QUE SOBRESALGA DE LA TARJETA.*/
+  flex-shrink: 0;/*EVITA QUE LA TARJETA SE ENCOJA.*/
 }
 
-.tabla-header {
-  padding: 18px 24px 14px;
-  border-bottom: 1px solid var(--color-bordes);
+.tabla-header {//ENCABEZADO DE LA TARJETA DE LA TABLA.
+  padding: 18px 24px 14px;/*ESPACIO INTERNO (RELLENO) DEL ENCABEZADO.*/
+  border-bottom: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE INFERIOR DEL ENCABEZADO.*/
 
-  h3 {
-    font-family: var(--fuente-titulos);
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--color-texto-main);
-    margin: 0;
+  h3 {//TÍTULO DENTRO DEL ENCABEZADO DE LA TABLA.
+    font-family: var(--fuente-titulos);/*TIPO DE LETRA DEL TEXTO.*/
+    font-size: 15px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+    font-weight: 600;/*NEGRILLA DE LETRA DEL TEXTO.*/
+    color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/
+    margin: 0;/*ESPACIO DEL MARGEN GENERAL DEL TÍTULO.*/
   }
 }
 
-.tabla-contenido {
-  overflow-x: auto;
+.tabla-contenido {//CONTENEDOR DEL CONTENIDO DE LA TABLA.
+  overflow-x: auto;/*ACTIVA LA FUNCIÓN DEL SCROLL HORIZONTAL.*/
 
-  table {
-    th { padding: 12px 20px; }
-    td { padding: 14px 20px; }
+  table {//ESTILOS DE LA TABLA HTML.
+    th { padding: 12px 20px;/*ESPACIO INTERNO (RELLENO) DE LA CELDA DE ENCABEZADO.*/ }//CELDA DE ENCABEZADO DE LA TABLA.
+    td { padding: 14px 20px;/*ESPACIO INTERNO (RELLENO) DE LA CELDA.*/ }//CELDA DE DATOS DE LA TABLA.
   }
 }
 
-.badge-actividad {
-  display: inline-flex;
-  align-items: center;
-  padding: 3px 9px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 600;
+.badge-actividad {//ETIQUETA VISUAL (BADGE) BASE DE ACTIVIDAD.
+  display: inline-flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE EN LÍNEA.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  padding: 3px 9px;/*ESPACIO INTERNO (RELLENO) DE LA ETIQUETA.*/
+  border-radius: 20px;/*RADIO DE REDONDEO DE LAS ESQUINAS DE LA ETIQUETA.*/
+  font-size: 11px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 600;/*NEGRILLA DE LETRA DEL TEXTO.*/
 }
-.badge-en-turno { background-color: rgba(14, 165, 233, 0.1); color: #0369a1; }
-.badge-en-descanso { background-color: rgba(148, 163, 184, 0.15); color: #475569; }
-.badge-sin-registros { background-color: rgba(148, 163, 184, 0.1); color: #94a3b8; }
-.badge-clickeable {
-  cursor: pointer;
-  transition: background-color 0.15s, box-shadow 0.15s;
-  &:hover { background-color: rgba(14, 165, 233, 0.2); box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.15); }
+.badge-en-turno { background-color: rgba(14, 165, 233, 0.1);/*COLOR DE FONDO DE LA ETIQUETA EN TURNO.*/ color: #0369a1;/*COLOR DE LETRA DE LA ETIQUETA EN TURNO.*/ }//ETIQUETA VISUAL (BADGE) DE ESTADO EN TURNO.
+.badge-en-descanso { background-color: rgba(148, 163, 184, 0.15);/*COLOR DE FONDO DE LA ETIQUETA EN DESCANSO.*/ color: #475569;/*COLOR DE LETRA DE LA ETIQUETA EN DESCANSO.*/ }//ETIQUETA VISUAL (BADGE) DE ESTADO EN DESCANSO.
+.badge-sin-registros { background-color: rgba(148, 163, 184, 0.1);/*COLOR DE FONDO DE LA ETIQUETA SIN REGISTROS.*/ color: #94a3b8;/*COLOR DE LETRA DE LA ETIQUETA SIN REGISTROS.*/ }//ETIQUETA VISUAL (BADGE) DE ESTADO SIN REGISTROS.
+.badge-clickeable {//ETIQUETA VISUAL (BADGE) INTERACTIVA (CLICKEABLE).
+  cursor: pointer;/*ACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE LA ETIQUETA.*/
+  transition: background-color 0.15s, box-shadow 0.15s;/*TRANSICIÓN SUAVE PARA EL FONDO Y LA SOMBRA.*/
+  &:hover { background-color: rgba(14, 165, 233, 0.2);/*COLOR DE FONDO AL PASAR EL MOUSE.*/ box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.15);/*SOMBRA AL PASAR EL MOUSE.*/ }//ESTILO AL PASAR EL MOUSE SOBRE LA ETIQUETA CLICKEABLE.
 }
 
-.tabla-vacia {
-  text-align: center;
-  color: var(--color-texto-secundario);
-  padding: 24px 20px;
+.tabla-vacia {//MENSAJE MOSTRADO CUANDO NO HAY REGISTROS EN LA TABLA.
+  text-align: center;/*ALINEACIÓN DEL TEXTO.*/
+  color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/
+  padding: 24px 20px;/*ESPACIO INTERNO (RELLENO) DEL MENSAJE.*/
 }
 
 /* =========================================
    PAGINACIÓN
    ========================================= */
-.paginacion {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px;
-  border-top: 1px solid var(--color-bordes);
-  flex-wrap: wrap;
-  gap: 10px;
+.paginacion {//CONTENEDOR DE PAGINACIÓN.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  justify-content: space-between;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS (EXTREMOS OPUESTOS).*/
+  padding: 12px 16px;/*ESPACIO INTERNO (RELLENO) DEL CONTENEDOR.*/
+  border-top: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE SUPERIOR.*/
+  flex-wrap: wrap;/*PERMITE QUE LOS ELEMENTOS FLEXIBLES PASEN A OTRA LÍNEA.*/
+  gap: 10px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
 }
-.paginacion-info {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 13px;
-  color: var(--color-texto-secundario);
+.paginacion-info {//INFORMACIÓN DE REGISTROS POR PÁGINA.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 10px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
+  font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/
 
-  select {
-    padding: 5px 8px;
-    border: 1px solid var(--color-bordes);
-    border-radius: var(--radio-borde);
-    font-size: 13px;
-    color: var(--color-texto-main);
-    background-color: var(--color-fondo);
+  select {//COMBO BOX DE REGISTROS POR PÁGINA.
+    padding: 5px 8px;/*ESPACIO INTERNO (RELLENO) DEL COMBO BOX.*/
+    border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DEL COMBO BOX.*/
+    border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL COMBO BOX.*/
+    font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+    color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/
+    background-color: var(--color-fondo);/*COLOR DE FONDO DEL COMBO BOX.*/
   }
 }
-.paginacion-controles {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.paginacion-controles {//CONTROLES DE NAVEGACIÓN DE PÁGINA.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 8px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
 }
-.paginacion-texto {
-  font-size: 13px;
-  color: var(--color-texto-main);
-  font-weight: 600;
-  min-width: 60px;
-  text-align: center;
+.paginacion-texto {//TEXTO INDICADOR DE LA PÁGINA ACTUAL.
+  font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/
+  font-weight: 600;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  min-width: 60px;/*ANCHURA MÍNIMA DEL TEXTO.*/
+  text-align: center;/*ALINEACIÓN DEL TEXTO.*/
 }
-.btn-pag {
-  width: 30px;
-  height: 30px;
-  border: 1px solid var(--color-bordes);
-  border-radius: var(--radio-borde);
-  background-color: var(--color-fondo);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-texto-main);
-  transition: all 0.2s;
+.btn-pag {//BOTÓN DE NAVEGACIÓN DE PÁGINA.
+  width: 30px;/*ANCHURA DEL BOTÓN.*/
+  height: 30px;/*ALTURA DEL BOTÓN.*/
+  border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DEL BOTÓN.*/
+  border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BOTÓN.*/
+  background-color: var(--color-fondo);/*COLOR DE FONDO DEL BOTÓN.*/
+  cursor: pointer;/*ACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL BOTÓN.*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  justify-content: center;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS.*/
+  color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/
+  transition: all 0.2s;/*TRANSICIÓN SUAVE PARA TODOS LOS CAMBIOS.*/
 
-  &:hover:not(:disabled) { border-color: var(--color-acento); color: var(--color-acento); }
-  &:disabled { opacity: 0.4; cursor: not-allowed; }
+  &:hover:not(:disabled) { border-color: var(--color-acento);/*COLOR DEL BORDE AL PASAR EL MOUSE.*/ color: var(--color-acento);/*COLOR DE LETRA AL PASAR EL MOUSE.*/ }//ESTILO DEL BOTÓN AL PASAR EL MOUSE (SI NO ESTÁ DESHABILITADO).
+  &:disabled { opacity: 0.4;/*OPACIDAD TOTAL DEL BOTÓN DESHABILITADO.*/ cursor: not-allowed;/*DESACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL BOTÓN A MODO NO INTERACTIVO.*/ }//ESTILO DEL BOTÓN DESHABILITADO.
 }
 
 /* =========================================
    MODAL DE UBICACIÓN DEL TURNO
    ========================================= */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(15, 23, 42, 0.6);
-  z-index: 1000;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 40px 16px;
-  overflow-y: auto;
-  backdrop-filter: blur(2px);
+.modal-overlay {//FONDO OSCURECIDO DEL MODAL DE UBICACIÓN DEL TURNO.
+  position: fixed;/*TIPO DE POSICIONAMIENTO DEL ELEMENTO.*/
+  inset: 0;/*DISTANCIA DESDE TODOS LOS BORDES (SUPERIOR, DERECHO, INFERIOR, IZQUIERDO).*/
+  background-color: rgba(15, 23, 42, 0.6);/*COLOR DE FONDO DEL OVERLAY.*/
+  z-index: 1000;/*ORDEN DE APILAMIENTO (CAPA) DEL ELEMENTO.*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: flex-start;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS (AL INICIO).*/
+  justify-content: center;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS.*/
+  padding: 40px 16px;/*ESPACIO INTERNO (RELLENO) DEL OVERLAY.*/
+  overflow-y: auto;/*ACTIVA LA FUNCIÓN DEL SCROLL VERTICAL.*/
+  backdrop-filter: blur(2px);/*DESENFOQUE DEL FONDO DETRÁS DEL OVERLAY.*/
 }
-.modal-caja {
-  background-color: var(--color-fondo);
-  border-radius: var(--radio-card);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
-  width: 100%;
-  max-width: 760px;
-  overflow: hidden;
-  animation: modalEntrar 0.2s ease;
+.modal-caja {//CAJA DEL MODAL DE UBICACIÓN DEL TURNO.
+  background-color: var(--color-fondo);/*COLOR DE FONDO DE LA CAJA DEL MODAL.*/
+  border-radius: var(--radio-card);/*RADIO DE REDONDEO DE LAS ESQUINAS DE LA CAJA.*/
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);/*SOMBRA DE LA CAJA DEL MODAL.*/
+  width: 100%;/*ANCHURA DE LA CAJA DEL MODAL.*/
+  max-width: 760px;/*ANCHURA MÁXIMA DE LA CAJA DEL MODAL.*/
+  overflow: hidden;/*OCULTA EL CONTENIDO QUE SOBRESALGA DE LA CAJA.*/
+  animation: modalEntrar 0.2s ease;/*ANIMACIÓN APLICADA A LA ENTRADA DEL MODAL.*/
 }
-@keyframes modalEntrar {
-  from { opacity: 0; transform: translateY(-12px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes modalEntrar {//DEFINICIÓN DE LOS FOTOGRAMAS CLAVE DE LA ANIMACIÓN DE ENTRADA DEL MODAL.
+  from { opacity: 0;/*OPACIDAD INICIAL DEL MODAL.*/ transform: translateY(-12px);/*DESPLAZAMIENTO INICIAL DEL MODAL.*/ }//ESTADO INICIAL DE LA ANIMACIÓN.
+  to { opacity: 1;/*OPACIDAD FINAL DEL MODAL.*/ transform: translateY(0);/*DESPLAZAMIENTO FINAL DEL MODAL.*/ }//ESTADO FINAL DE LA ANIMACIÓN.
 }
-.modal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 20px;
-  border-bottom: 1px solid var(--color-bordes);
-  background-color: var(--color-fondo-pagina);
+.modal-header {//ENCABEZADO DEL MODAL DE UBICACIÓN DEL TURNO.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  justify-content: space-between;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS (EXTREMOS OPUESTOS).*/
+  padding: 16px 20px;/*ESPACIO INTERNO (RELLENO) DEL ENCABEZADO.*/
+  border-bottom: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE INFERIOR DEL ENCABEZADO.*/
+  background-color: var(--color-fondo-pagina);/*COLOR DE FONDO DEL ENCABEZADO.*/
 
-  h3 {
-    font-family: var(--fuente-titulos);
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--color-texto-main);
-    margin: 0;
+  h3 {//TÍTULO DEL ENCABEZADO DEL MODAL.
+    font-family: var(--fuente-titulos);/*TIPO DE LETRA DEL TEXTO.*/
+    font-size: 14px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+    font-weight: 700;/*NEGRILLA DE LETRA DEL TEXTO.*/
+    color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/
+    margin: 0;/*ESPACIO DEL MARGEN GENERAL DEL TÍTULO.*/
   }
 }
-.modal-cerrar {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: var(--color-texto-secundario);
-  display: flex;
-  align-items: center;
-  padding: 4px;
-  border-radius: 6px;
-  transition: all 0.2s;
+.modal-cerrar {//BOTÓN PARA CERRAR EL MODAL.
+  background: transparent;/*COLOR DE FONDO DEL BOTÓN.*/
+  border: none;/*GROSOR DEL BORDE DEL BOTÓN.*/
+  cursor: pointer;/*ACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL BOTÓN.*/
+  color: var(--color-texto-secundario);/*COLOR DE LETRA DEL BOTÓN.*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  padding: 4px;/*ESPACIO INTERNO (RELLENO) DEL BOTÓN.*/
+  border-radius: 6px;/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BOTÓN.*/
+  transition: all 0.2s;/*TRANSICIÓN SUAVE PARA TODOS LOS CAMBIOS.*/
 
-  &:hover { background-color: rgba(239, 68, 68, 0.1); color: var(--color-error); }
+  &:hover { background-color: rgba(239, 68, 68, 0.1);/*COLOR DE FONDO AL PASAR EL MOUSE.*/ color: var(--color-error);/*COLOR DE LETRA AL PASAR EL MOUSE.*/ }//ESTILO DEL BOTÓN CERRAR AL PASAR EL MOUSE.
 }
-.modal-cuerpo {
-  padding: 20px;
-  max-height: 75vh;
-  overflow-y: auto;
+.modal-cuerpo {//CUERPO DEL MODAL DE UBICACIÓN DEL TURNO.
+  padding: 20px;/*ESPACIO INTERNO (RELLENO) DEL CUERPO.*/
+  max-height: 75vh;/*ALTURA MÁXIMA DEL CUERPO.*/
+  overflow-y: auto;/*ACTIVA LA FUNCIÓN DEL SCROLL VERTICAL.*/
 }
 
-.ubicacion-turno-cadena {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin-bottom: 16px;
+.ubicacion-turno-cadena {//CONTENEDOR DE LA CADENA DE UBICACIÓN DEL TURNO.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES (COLUMNA).*/
+  gap: 4px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
+  margin-bottom: 16px;/*ESPACIO DEL MARGEN INFERIOR DEL CONTENEDOR.*/
 }
-.ubicacion-turno-nivel {
-  border: 1px solid var(--color-bordes);
-  border-radius: var(--radio-borde);
-  padding: 12px 16px;
-  background-color: var(--color-fondo-pagina);
+.ubicacion-turno-nivel {//NIVEL INDIVIDUAL DE LA CADENA DE UBICACIÓN DEL TURNO.
+  border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DEL NIVEL.*/
+  border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL NIVEL.*/
+  padding: 12px 16px;/*ESPACIO INTERNO (RELLENO) DEL NIVEL.*/
+  background-color: var(--color-fondo-pagina);/*COLOR DE FONDO DEL NIVEL.*/
 
-  &.ubicacion-turno-nivel-final { border-color: var(--color-acento); background-color: rgba(14, 165, 233, 0.05); }
+  &.ubicacion-turno-nivel-final { border-color: var(--color-acento);/*COLOR DEL BORDE DEL NIVEL FINAL.*/ background-color: rgba(14, 165, 233, 0.05);/*COLOR DE FONDO DEL NIVEL FINAL.*/ }//VARIANTE DEL ÚLTIMO NIVEL DE LA CADENA DE UBICACIÓN.
 }
-.ubicacion-turno-etiqueta { font-size: 11px; font-weight: 700; color: var(--color-texto-secundario); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-.ubicacion-turno-nombre { font-size: 15px; font-weight: 700; color: var(--color-texto-main); }
-.ubicacion-turno-detalle { font-size: 12px; color: var(--color-texto-secundario); margin-top: 2px; }
-.ubicacion-turno-flecha { text-align: center; color: var(--color-texto-secundario); font-size: 16px; }
+.ubicacion-turno-etiqueta { font-size: 11px;/*TAMAÑO DE LETRA DEL TEXTO.*/ font-weight: 700;/*NEGRILLA DE LETRA DEL TEXTO.*/ color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/ text-transform: uppercase;/*TRANSFORMACIÓN DE MAYÚSCULAS/MINÚSCULAS DEL TEXTO.*/ letter-spacing: 0.5px;/*ESPACIO ENTRE LAS LETRAS DEL TEXTO.*/ margin-bottom: 4px;/*ESPACIO DEL MARGEN INFERIOR DEL TEXTO.*/ }//ETIQUETA DEL NIVEL DE LA CADENA DE UBICACIÓN.
+.ubicacion-turno-nombre { font-size: 15px;/*TAMAÑO DE LETRA DEL TEXTO.*/ font-weight: 700;/*NEGRILLA DE LETRA DEL TEXTO.*/ color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/ }//NOMBRE DEL NIVEL DE LA CADENA DE UBICACIÓN.
+.ubicacion-turno-detalle { font-size: 12px;/*TAMAÑO DE LETRA DEL TEXTO.*/ color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/ margin-top: 2px;/*ESPACIO DEL MARGEN SUPERIOR DEL TEXTO.*/ }//DETALLE DEL NIVEL DE LA CADENA DE UBICACIÓN.
+.ubicacion-turno-flecha { text-align: center;/*ALINEACIÓN DEL TEXTO.*/ color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/ font-size: 16px;/*TAMAÑO DE LETRA DEL TEXTO.*/ }//FLECHA SEPARADORA ENTRE NIVELES DE LA CADENA DE UBICACIÓN.
 
-.ubicacion-turno-periodo {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  border: 1px solid var(--color-bordes);
-  border-radius: var(--radio-borde);
-  overflow: hidden;
-  background-color: var(--color-bordes);
-  margin-bottom: 16px;
+.ubicacion-turno-periodo {//CUADRÍCULA DEL PERÍODO DE LA UBICACIÓN DEL TURNO.
+  display: grid;/*CONVIERTE EL ELEMENTO EN CUADRÍCULA.*/
+  grid-template-columns: 1fr 1fr;/*DEFINICIÓN DE LAS COLUMNAS DE LA CUADRÍCULA.*/
+  gap: 1px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
+  border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DE LA CUADRÍCULA.*/
+  border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DE LA CUADRÍCULA.*/
+  overflow: hidden;/*OCULTA EL CONTENIDO QUE SOBRESALGA DE LA CUADRÍCULA.*/
+  background-color: var(--color-bordes);/*COLOR DE FONDO DE LA CUADRÍCULA (LÍNEAS DIVISORIAS).*/
+  margin-bottom: 16px;/*ESPACIO DEL MARGEN INFERIOR DE LA CUADRÍCULA.*/
 
-  @media (max-width: 580px) { grid-template-columns: 1fr; }
+  @media (max-width: 580px) { grid-template-columns: 1fr;/*DEFINICIÓN DE LAS COLUMNAS DE LA CUADRÍCULA EN PANTALLAS PEQUEÑAS.*/ }//ESTILOS RESPONSIVOS PARA PANTALLAS PEQUEÑAS (MÓVILES).
 
-  .dato-grupo {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    padding: 11px 14px;
-    background-color: var(--color-fondo);
+  .dato-grupo {//GRUPO DE DATOS DEL PERÍODO DE LA UBICACIÓN.
+    display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+    flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES (COLUMNA).*/
+    gap: 3px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
+    padding: 11px 14px;/*ESPACIO INTERNO (RELLENO) DEL GRUPO DE DATOS.*/
+    background-color: var(--color-fondo);/*COLOR DE FONDO DEL GRUPO DE DATOS.*/
   }
-  .dato-label {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--color-texto-secundario);
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
+  .dato-label {//ETIQUETA DEL DATO DEL PERÍODO.
+    font-size: 11px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+    font-weight: 600;/*NEGRILLA DE LETRA DEL TEXTO.*/
+    color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/
+    text-transform: uppercase;/*TRANSFORMACIÓN DE MAYÚSCULAS/MINÚSCULAS DEL TEXTO.*/
+    letter-spacing: 0.4px;/*ESPACIO ENTRE LAS LETRAS DEL TEXTO.*/
   }
-  .dato-valor {
-    font-size: 14px;
-    color: var(--color-texto-main);
+  .dato-valor {//VALOR DEL DATO DEL PERÍODO.
+    font-size: 14px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+    color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/
   }
 }
 
-.vista-acciones { display: flex; justify-content: flex-end; margin-top: 4px; }
+.vista-acciones { display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/ justify-content: flex-end;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS (AL FINAL).*/ margin-top: 4px;/*ESPACIO DEL MARGEN SUPERIOR DEL CONTENEDOR.*/ }//CONTENEDOR DE ACCIONES DE LA VISTA.
 
-.btn-sigeps {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 9px 18px;
-  border-radius: var(--radio-borde);
-  font-family: var(--fuente-cuerpo);
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  border: none;
+.btn-sigeps {//ESTILO BASE DE LOS BOTONES DEL SISTEMA.
+  display: inline-flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE EN LÍNEA.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 7px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
+  padding: 9px 18px;/*ESPACIO INTERNO (RELLENO) DEL BOTÓN.*/
+  border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BOTÓN.*/
+  font-family: var(--fuente-cuerpo);/*TIPO DE LETRA DEL TEXTO.*/
+  font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 600;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  cursor: pointer;/*ACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL BOTÓN.*/
+  transition: all 0.2s;/*TRANSICIÓN SUAVE PARA TODOS LOS CAMBIOS.*/
+  border: none;/*GROSOR DEL BORDE DEL BOTÓN.*/
 
-  &.btn-secundario {
-    background: transparent;
-    color: var(--color-texto-main);
-    border: 1px solid var(--color-bordes);
-    &:hover { border-color: var(--color-acento); color: var(--color-acento); }
+  &.btn-secundario {//VARIANTE SECUNDARIA DEL BOTÓN.
+    background: transparent;/*COLOR DE FONDO DEL BOTÓN.*/
+    color: var(--color-texto-main);/*COLOR DE LETRA DEL BOTÓN.*/
+    border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DEL BOTÓN.*/
+    &:hover { border-color: var(--color-acento);/*COLOR DEL BORDE AL PASAR EL MOUSE.*/ color: var(--color-acento);/*COLOR DE LETRA AL PASAR EL MOUSE.*/ }//ESTILO DEL BOTÓN SECUNDARIO AL PASAR EL MOUSE.
   }
 }
 
 /* =========================================
    PIE DE PÁGINA
    ========================================= */
-.inicio-footer {
-  background-color: var(--color-fondo);
-  border-top: 1px solid var(--color-bordes);
-  color: var(--color-texto-secundario);
-  font-size: 12px;
-  padding: 12px 36px;
-  text-align: center;
-  flex-shrink: 0;
+.inicio-footer {//PIE DE PÁGINA DE LA PANTALLA DE INICIO.
+  background-color: var(--color-fondo);/*COLOR DE FONDO DEL PIE DE PÁGINA.*/
+  border-top: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE SUPERIOR DEL PIE DE PÁGINA.*/
+  color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/
+  font-size: 12px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  padding: 12px 36px;/*ESPACIO INTERNO (RELLENO) DEL PIE DE PÁGINA.*/
+  text-align: center;/*ALINEACIÓN DEL TEXTO.*/
+  flex-shrink: 0;/*EVITA QUE EL PIE DE PÁGINA SE ENCOJA.*/
 }

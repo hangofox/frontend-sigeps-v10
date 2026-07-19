@@ -1,56 +1,56 @@
 /* =========================================
    HOST — el elemento custom actúa como sidebar
    ========================================= */
-:host {
-  display: flex;
-  flex-direction: column;
-  width: 240px;
-  flex-shrink: 0;
-  background-color: var(--color-fondo);
-  border-right: 1px solid var(--color-bordes-suave);
-  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.04);
+:host {//ELEMENTO HOST QUE ACTÚA COMO BARRA LATERAL (SIDEBAR).
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES.*/
+  width: 240px;/*ANCHURA DE LA BARRA LATERAL.*/
+  flex-shrink: 0;/*IMPIDE QUE LA BARRA LATERAL SE ENCOJA DENTRO DEL CONTENEDOR FLEXIBLE.*/
+  background-color: var(--color-fondo);/*COLOR DE FONDO DE LA BARRA LATERAL.*/
+  border-right: 1px solid var(--color-bordes-suave);/*GROSOR Y COLOR DEL BORDE DERECHO.*/
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.04);/*SOMBRA DE LA BARRA LATERAL.*/
 }
 
 /* =========================================
    NAV PRINCIPAL
    ========================================= */
-.sidebar-nav {
-  flex: 1;
-  overflow-y: auto;
-  padding: 16px 0;
+.sidebar-nav {//CONTENEDOR DE LA NAVEGACIÓN PRINCIPAL DEL MENÚ.
+  flex: 1;/*COMPORTAMIENTO DE CRECIMIENTO DEL ELEMENTO FLEXIBLE.*/
+  overflow-y: auto;/*ACTIVA LA FUNCIÓN DEL SCROLL VERTICAL.*/
+  padding: 16px 0;/*ESPACIO INTERNO (RELLENO) SUPERIOR E INFERIOR DE LA NAVEGACIÓN.*/
 
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  ul {//LISTA DE ELEMENTOS DEL MENÚ.
+    list-style: none;/*ELIMINA LOS MARCADORES DE LA LISTA.*/
+    padding: 0;/*ELIMINA EL ESPACIO INTERNO (RELLENO) DE LA LISTA.*/
+    margin: 0;/*ELIMINA EL MARGEN DE LA LISTA.*/
   }
 
-  li a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 20px;
-    color: var(--color-texto-main);
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    border-left: 3px solid transparent;
-    transition: all 0.2s ease;
-    text-decoration: none;
+  li a {//ENLACE DE CADA ELEMENTO DEL MENÚ.
+    display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+    align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+    gap: 10px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
+    padding: 12px 20px;/*ESPACIO INTERNO (RELLENO) DEL ENLACE.*/
+    color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/
+    font-size: 14px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+    font-weight: 500;/*NEGRILLA DE LETRA DEL TEXTO.*/
+    cursor: pointer;/*ACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL ENLACE.*/
+    border-left: 3px solid transparent;/*GROSOR Y COLOR DEL BORDE IZQUIERDO TRANSPARENTE.*/
+    transition: all 0.2s ease;/*TRANSICIÓN SUAVE PARA TODOS LOS CAMBIOS DE ESTADO.*/
+    text-decoration: none;/*DECORACIÓN DE LA LETRA DEL TEXTO (TACHADO Y SUBRAYADO).*/
 
-    svg {
-      flex-shrink: 0;
-      opacity: 0.55;
-      transition: opacity 0.2s ease;
+    svg {//ÍCONO DEL ENLACE DEL MENÚ.
+      flex-shrink: 0;/*IMPIDE QUE EL ÍCONO SE ENCOJA DENTRO DEL CONTENEDOR FLEXIBLE.*/
+      opacity: 0.55;/*OPACIDAD TOTAL DEL ELEMENTO (ELEMENTO VISIBLE), PUEDES AJUSTAR ESTE VALOR SEGÚN TUS PREFERENCIAS.*/
+      transition: opacity 0.2s ease;/*TRANSICIÓN SUAVE PARA LA OPACIDAD.*/
     }
 
     &:hover,
-    &.active {
-      background-color: rgba(14, 165, 233, 0.06);
-      color: var(--color-acento);
-      border-left-color: var(--color-acento);
+    &.active {//ESTILO DEL ENLACE AL PASAR EL MOUSE O CUANDO ESTÁ ACTIVO.
+      background-color: rgba(14, 165, 233, 0.06);/*COLOR DE FONDO DEL ENLACE.*/
+      color: var(--color-acento);/*COLOR DE LETRA DEL TEXTO.*/
+      border-left-color: var(--color-acento);/*COLOR DEL BORDE IZQUIERDO.*/
 
-      svg { opacity: 1; }
+      svg { /*ÍCONO DEL ENLACE ACTIVO O CON EL MOUSE ENCIMA.*/ opacity: 1;/*OPACIDAD TOTAL DEL ELEMENTO (ELEMENTO VISIBLE), PUEDES AJUSTAR ESTE VALOR SEGÚN TUS PREFERENCIAS.*/ }
     }
   }
 }
@@ -58,46 +58,46 @@
 /* =========================================
    SUBMENÚS DESPLEGABLES
    ========================================= */
-.submenu-padre > a {
-  justify-content: space-between;
+.submenu-padre > a {//ENLACE PADRE DE UN SUBMENÚ DESPLEGABLE.
+  justify-content: space-between;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS CON ESPACIO ENTRE ELLOS.*/
 }
 
-.chevron {
-  margin-left: auto;
-  flex-shrink: 0;
-  opacity: 0.5;
-  transition: transform 0.25s ease;
+.chevron {//ÍCONO DE FLECHA DEL SUBMENÚ.
+  margin-left: auto;/*EMPUJA EL ÍCONO AL EXTREMO DERECHO DEL ENLACE.*/
+  flex-shrink: 0;/*IMPIDE QUE EL ÍCONO SE ENCOJA DENTRO DEL CONTENEDOR FLEXIBLE.*/
+  opacity: 0.5;/*OPACIDAD TOTAL DEL ELEMENTO (ELEMENTO VISIBLE), PUEDES AJUSTAR ESTE VALOR SEGÚN TUS PREFERENCIAS.*/
+  transition: transform 0.25s ease;/*TRANSICIÓN SUAVE PARA LA ROTACIÓN.*/
 }
-.chevron-abierto {
-  transform: rotate(180deg);
+.chevron-abierto {//ESTADO ABIERTO DEL ÍCONO DE FLECHA DEL SUBMENÚ.
+  transform: rotate(180deg);/*ROTACIÓN DEL ÍCONO CUANDO EL SUBMENÚ ESTÁ ABIERTO.*/
 }
 
-.submenu {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
-  background-color: rgba(14, 165, 233, 0.03);
+.submenu {//LISTA DESPLEGABLE DEL SUBMENÚ.
+  list-style: none;/*ELIMINA LOS MARCADORES DE LA LISTA.*/
+  padding: 0;/*ELIMINA EL ESPACIO INTERNO (RELLENO) DE LA LISTA.*/
+  margin: 0;/*ELIMINA EL MARGEN DE LA LISTA.*/
+  max-height: 0;/*ALTURA MÁXIMA DEL SUBMENÚ CERRADO.*/
+  overflow: hidden;/*OCULTA EL CONTENIDO QUE SOBRESALGA DEL SUBMENÚ.*/
+  transition: max-height 0.3s ease;/*TRANSICIÓN SUAVE PARA LA ALTURA MÁXIMA.*/
+  background-color: rgba(14, 165, 233, 0.03);/*COLOR DE FONDO DEL SUBMENÚ.*/
 
-  &.submenu-abierto {
-    max-height: 400px;
+  &.submenu-abierto {//ESTADO ABIERTO DEL SUBMENÚ.
+    max-height: 400px;/*ALTURA MÁXIMA DEL SUBMENÚ ABIERTO.*/
   }
 
-  li a {
-    padding: 9px 20px 9px 44px;
-    font-size: 13px;
-    font-weight: 400;
-    border-left: 3px solid transparent;
+  li a {//ENLACE DE CADA ELEMENTO DEL SUBMENÚ.
+    padding: 9px 20px 9px 44px;/*ESPACIO INTERNO (RELLENO) DEL ENLACE DEL SUBMENÚ.*/
+    font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+    font-weight: 400;/*NEGRILLA DE LETRA DEL TEXTO.*/
+    border-left: 3px solid transparent;/*GROSOR Y COLOR DEL BORDE IZQUIERDO TRANSPARENTE.*/
 
     &:hover,
-    &.active {
-      background-color: rgba(14, 165, 233, 0.08);
-      color: var(--color-acento);
-      border-left-color: var(--color-acento);
+    &.active {//ESTILO DEL ENLACE DEL SUBMENÚ AL PASAR EL MOUSE O CUANDO ESTÁ ACTIVO.
+      background-color: rgba(14, 165, 233, 0.08);/*COLOR DE FONDO DEL ENLACE.*/
+      color: var(--color-acento);/*COLOR DE LETRA DEL TEXTO.*/
+      border-left-color: var(--color-acento);/*COLOR DEL BORDE IZQUIERDO.*/
 
-      svg { opacity: 1; }
+      svg { /*ÍCONO DEL ENLACE DEL SUBMENÚ ACTIVO O CON EL MOUSE ENCIMA.*/ opacity: 1;/*OPACIDAD TOTAL DEL ELEMENTO (ELEMENTO VISIBLE), PUEDES AJUSTAR ESTE VALOR SEGÚN TUS PREFERENCIAS.*/ }
     }
   }
 }
@@ -105,29 +105,29 @@
 /* =========================================
    PIE DEL SIDEBAR — BOTÓN CERRAR SESIÓN
    ========================================= */
-.sidebar-footer {
-  padding: 16px 20px;
-  border-top: 1px solid var(--color-bordes);
+.sidebar-footer {//PIE DE LA BARRA LATERAL.
+  padding: 16px 20px;/*ESPACIO INTERNO (RELLENO) DEL PIE.*/
+  border-top: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE SUPERIOR.*/
 }
 
-.btn-salir {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  background: transparent;
-  border: 1px solid var(--color-bordes-suave);
-  border-radius: var(--radio-borde);
-  color: var(--color-texto-secundario);
-  font-size: 13px;
-  font-family: var(--fuente-cuerpo);
-  font-weight: 500;
-  padding: 9px 14px;
-  cursor: pointer;
-  transition: all 0.2s ease;
+.btn-salir {//BOTÓN PARA CERRAR SESIÓN.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 8px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
+  width: 100%;/*ANCHURA DEL BOTÓN.*/
+  background: transparent;/*ELIMINA EL FONDO DEL BOTÓN.*/
+  border: 1px solid var(--color-bordes-suave);/*GROSOR Y COLOR DEL BORDE DEL BOTÓN.*/
+  border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BOTÓN.*/
+  color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/
+  font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-family: var(--fuente-cuerpo);/*TIPO DE LETRA DEL TEXTO.*/
+  font-weight: 500;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  padding: 9px 14px;/*ESPACIO INTERNO (RELLENO) DEL BOTÓN.*/
+  cursor: pointer;/*ACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL BOTÓN.*/
+  transition: all 0.2s ease;/*TRANSICIÓN SUAVE PARA TODOS LOS CAMBIOS DE ESTADO.*/
 
-  &:hover {
-    border-color: var(--color-error);
-    color: var(--color-error);
+  &:hover {//ESTILO DEL BOTÓN AL PASAR EL MOUSE.
+    border-color: var(--color-error);/*COLOR DEL BORDE AL PASAR EL MOUSE.*/
+    color: var(--color-error);/*COLOR DE LETRA DEL TEXTO AL PASAR EL MOUSE.*/
   }
 }

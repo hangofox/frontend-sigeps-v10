@@ -1,3 +1,3 @@
 export interface EliminarCarpetasI {
-    rutaCarpeta: String;
+    folderPath: String;
 }

@@ -2,70 +2,70 @@
    REPORTES — SIGEPS V1.0
    ============================================ */
 
-.panel-seccion { display: flex; flex-direction: column; gap: 16px; }
+.panel-seccion {/*CONTENEDOR PRINCIPAL DE LA SECCIÓN.*/ display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/ flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES.*/ gap: 16px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/ }
 
-.panel-header { display: flex; align-items: center; gap: 12px; }
-.panel-header-icon { width: 40px; height: 40px; border-radius: var(--radio-borde); background-color: rgba(14, 165, 233, 0.1); color: var(--color-acento); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.panel-titulo { font-family: var(--fuente-titulos); font-size: 17px; font-weight: 700; color: var(--color-texto-main); margin: 0 0 2px; }
-.panel-subtitulo { font-size: 13px; color: var(--color-texto-secundario); margin: 0; }
+.panel-header {/*ENCABEZADO DEL PANEL.*/ display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/ align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/ gap: 12px;/*ESPACIO ENTRE LOS ELEMENTOS DEL ENCABEZADO.*/ }
+.panel-header-icon {/*ÍCONO DEL ENCABEZADO DEL PANEL.*/ width: 40px;/*ANCHURA DEL ÍCONO.*/ height: 40px;/*ALTURA DEL ÍCONO.*/ border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL ÍCONO.*/ background-color: rgba(14, 165, 233, 0.1);/*COLOR DE FONDO DEL ÍCONO.*/ color: var(--color-acento);/*COLOR DE LETRA (ÍCONO) DEL ENCABEZADO.*/ display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/ align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/ justify-content: center;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS.*/ flex-shrink: 0;/*IMPIDE QUE EL ÍCONO SE ENCOJA.*/ }
+.panel-titulo {/*TÍTULO DEL PANEL.*/ font-family: var(--fuente-titulos);/*TIPO DE LETRA DEL TÍTULO.*/ font-size: 17px;/*TAMAÑO DE LETRA DEL TÍTULO.*/ font-weight: 700;/*NEGRILLA DE LETRA DEL TÍTULO.*/ color: var(--color-texto-main);/*COLOR DE LETRA DEL TÍTULO.*/ margin: 0 0 2px;/*ESPACIO DEL MARGEN SUPERIOR, DERECHO E INFERIOR DEL TÍTULO.*/ }
+.panel-subtitulo {/*SUBTÍTULO DEL PANEL.*/ font-size: 13px;/*TAMAÑO DE LETRA DEL SUBTÍTULO.*/ color: var(--color-texto-secundario);/*COLOR DE LETRA DEL SUBTÍTULO.*/ margin: 0;/*ELIMINA EL MARGEN DEL SUBTÍTULO.*/ }
 
-.form-seccion { background-color: var(--color-fondo); border-radius: var(--radio-card); border: 1px solid var(--color-bordes); box-shadow: var(--sombra-card); padding: 16px; }
-.form-grid { display: grid; grid-template-columns: 1fr 1fr auto; gap: 14px; align-items: end;
-  @media (max-width: 720px) { grid-template-columns: 1fr; }
+.form-seccion {/*TARJETA CONTENEDORA DEL FORMULARIO DE CONSULTA.*/ background-color: var(--color-fondo);/*COLOR DE FONDO DE LA TARJETA.*/ border-radius: var(--radio-card);/*RADIO DE REDONDEO DE LAS ESQUINAS DE LA TARJETA.*/ border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DE LA TARJETA.*/ box-shadow: var(--sombra-card);/*SOMBRA DE LA TARJETA.*/ padding: 16px;/*ESPACIO INTERNO (RELLENO) DE LA TARJETA.*/ }
+.form-grid {/*CUADRÍCULA DE CAMPOS DEL FORMULARIO.*/ display: grid;/*CONVIERTE EL ELEMENTO EN CUADRÍCULA.*/ grid-template-columns: 1fr 1fr auto;/*DEFINICIÓN DE LAS COLUMNAS DE LA CUADRÍCULA.*/ gap: 14px;/*ESPACIO ENTRE LOS CAMPOS DE LA CUADRÍCULA.*/ align-items: end;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS AL FINAL.*/
+  @media (max-width: 720px) {/*ESTILOS RESPONSIVOS PARA PANTALLAS PEQUEÑAS.*/ grid-template-columns: 1fr;/*UNA SOLA COLUMNA EN PANTALLAS PEQUEÑAS.*/ }
 }
-.form-group { display: flex; flex-direction: column; gap: 5px;
-  &.form-group-boton { justify-content: flex-end; }
-  label { font-size: 11px; font-weight: 600; color: var(--color-texto-secundario); text-transform: uppercase; letter-spacing: 0.4px; }
-  .req { color: var(--color-error); }
-  input[type="text"], select { padding: 9px 12px; border: 1px solid var(--color-bordes); border-radius: var(--radio-borde); font-family: var(--fuente-cuerpo); font-size: 13px; color: var(--color-texto-main); background-color: var(--color-fondo); width: 100%; box-sizing: border-box; transition: border-color 0.2s;
-    &:focus { outline: none; border-color: var(--color-acento); box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1); }
+.form-group {/*GRUPO DE CAMPO DEL FORMULARIO.*/ display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/ flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES.*/ gap: 5px;/*ESPACIO ENTRE LA ETIQUETA Y EL CAMPO.*/
+  &.form-group-boton {/*VARIANTE DE GRUPO PARA EL BOTÓN DEL FORMULARIO.*/ justify-content: flex-end;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS AL FINAL.*/ }
+  label {/*ETIQUETA DEL CAMPO DEL FORMULARIO.*/ font-size: 11px;/*TAMAÑO DE LETRA DE LA ETIQUETA.*/ font-weight: 600;/*NEGRILLA DE LETRA DE LA ETIQUETA.*/ color: var(--color-texto-secundario);/*COLOR DE LETRA DE LA ETIQUETA.*/ text-transform: uppercase;/*TRANSFORMACIÓN DE MAYÚSCULAS DEL TEXTO.*/ letter-spacing: 0.4px;/*ESPACIO ENTRE LAS LETRAS DEL TEXTO.*/ }
+  .req {/*ASTERISCO DE CAMPO REQUERIDO.*/ color: var(--color-error);/*COLOR DE LETRA DEL ASTERISCO REQUERIDO.*/ }
+  input[type="text"], select {/*CAMPO DE TEXTO Y COMBO BOX DEL FORMULARIO.*/ padding: 9px 12px;/*ESPACIO INTERNO (RELLENO) DEL CAMPO.*/ border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DEL CAMPO.*/ border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL CAMPO.*/ font-family: var(--fuente-cuerpo);/*TIPO DE LETRA DEL TEXTO.*/ font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/ color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/ background-color: var(--color-fondo);/*COLOR DE FONDO DEL CAMPO.*/ width: 100%;/*ANCHURA DEL CAMPO.*/ box-sizing: border-box;/*INCLUYE BORDE Y RELLENO DENTRO DEL ANCHO TOTAL DEL CAMPO.*/ transition: border-color 0.2s;/*TRANSICIÓN SUAVE PARA EL COLOR DEL BORDE.*/
+    &:focus {/*ESTILO DEL CAMPO AL ENFOCAR.*/ outline: none;/*ELIMINA EL CONTORNO PREDETERMINADO DEL NAVEGADOR.*/ border-color: var(--color-acento);/*COLOR DEL BORDE AL ENFOCAR.*/ box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);/*SOMBRA DE ENFOQUE DEL CAMPO.*/ }
   }
 }
 
-.btn-sigeps { display: inline-flex; align-items: center; gap: 7px; padding: 9px 16px; border-radius: var(--radio-borde); font-family: var(--fuente-cuerpo); font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; border: none; white-space: nowrap;
-  &.btn-buscar { background-color: var(--color-principal); color: #fff; &:hover:not(:disabled) { background-color: var(--color-acento); } &:disabled { opacity: 0.6; cursor: not-allowed; } }
-  &.btn-primario { background-color: #059669; color: #fff; &:hover { background-color: #047857; } }
+.btn-sigeps {/*ESTILO BASE DE LOS BOTONES DEL SISTEMA.*/ display: inline-flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE EN LÍNEA.*/ align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/ gap: 7px;/*ESPACIO ENTRE EL ÍCONO Y EL TEXTO DEL BOTÓN.*/ padding: 9px 16px;/*ESPACIO INTERNO (RELLENO) DEL BOTÓN.*/ border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BOTÓN.*/ font-family: var(--fuente-cuerpo);/*TIPO DE LETRA DEL TEXTO DEL BOTÓN.*/ font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO DEL BOTÓN.*/ font-weight: 600;/*NEGRILLA DE LETRA DEL TEXTO DEL BOTÓN.*/ cursor: pointer;/*ACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL BOTÓN.*/ transition: all 0.2s ease;/*TRANSICIÓN SUAVE PARA TODOS LOS CAMBIOS DE ESTADO DEL BOTÓN.*/ border: none;/*ELIMINA EL BORDE DEL BOTÓN.*/ white-space: nowrap;/*CONTROL DEL SALTO DE LÍNEA DEL TEXTO DEL BOTÓN.*/
+  &.btn-buscar {/*VARIANTE DE BOTÓN BUSCAR.*/ background-color: var(--color-principal);/*COLOR DE FONDO DEL BOTÓN BUSCAR.*/ color: #fff;/*COLOR DE LETRA DEL BOTÓN BUSCAR.*/ &:hover:not(:disabled) {/*ESTILO AL PASAR EL MOUSE SOBRE EL BOTÓN BUSCAR HABILITADO.*/ background-color: var(--color-acento);/*COLOR DE FONDO AL PASAR EL MOUSE.*/ } &:disabled {/*ESTILO DEL BOTÓN BUSCAR DESHABILITADO.*/ opacity: 0.6;/*OPACIDAD DEL BOTÓN DESHABILITADO.*/ cursor: not-allowed;/*DESACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL BOTÓN A MODO NO INTERACTIVO.*/ } }
+  &.btn-primario {/*VARIANTE DE BOTÓN PRIMARIO (EXPORTAR).*/ background-color: #059669;/*COLOR DE FONDO DEL BOTÓN PRIMARIO.*/ color: #fff;/*COLOR DE LETRA DEL BOTÓN PRIMARIO.*/ &:hover {/*ESTILO AL PASAR EL MOUSE SOBRE EL BOTÓN PRIMARIO.*/ background-color: #047857;/*COLOR DE FONDO AL PASAR EL MOUSE.*/ } }
 }
 
-.resultado-consulta { display: flex; flex-direction: column; gap: 16px; }
+.resultado-consulta {/*CONTENEDOR DEL RESULTADO DE LA CONSULTA.*/ display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/ flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES.*/ gap: 16px;/*ESPACIO ENTRE LOS ELEMENTOS DEL RESULTADO.*/ }
 
-.ficha-empleado { display: flex; align-items: center; gap: 14px; background-color: var(--color-fondo); border-radius: var(--radio-card); border: 1px solid var(--color-bordes); box-shadow: var(--sombra-card); padding: 16px; }
-.ficha-avatar { width: 48px; height: 48px; border-radius: 50%; background-color: var(--color-principal); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; flex-shrink: 0; }
-.ficha-datos { flex: 1;
-  h3 { font-family: var(--fuente-titulos); font-size: 15px; font-weight: 700; color: var(--color-texto-main); margin: 0 0 3px; }
-  p { font-size: 13px; color: var(--color-texto-secundario); margin: 0 0 6px; }
+.ficha-empleado {/*TARJETA DE FICHA DEL EMPLEADO CONSULTADO.*/ display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/ align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/ gap: 14px;/*ESPACIO ENTRE LOS ELEMENTOS DE LA FICHA.*/ background-color: var(--color-fondo);/*COLOR DE FONDO DE LA FICHA.*/ border-radius: var(--radio-card);/*RADIO DE REDONDEO DE LAS ESQUINAS DE LA FICHA.*/ border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DE LA FICHA.*/ box-shadow: var(--sombra-card);/*SOMBRA DE LA FICHA.*/ padding: 16px;/*ESPACIO INTERNO (RELLENO) DE LA FICHA.*/ }
+.ficha-avatar {/*AVATAR DE LA FICHA DEL EMPLEADO.*/ width: 48px;/*ANCHURA DEL AVATAR.*/ height: 48px;/*ALTURA DEL AVATAR.*/ border-radius: 50%;/*RADIO DE REDONDEO CIRCULAR DEL AVATAR.*/ background-color: var(--color-principal);/*COLOR DE FONDO DEL AVATAR.*/ color: #fff;/*COLOR DE LETRA (INICIALES) DEL AVATAR.*/ display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/ align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/ justify-content: center;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS.*/ font-size: 18px;/*TAMAÑO DE LETRA DEL AVATAR.*/ font-weight: 700;/*NEGRILLA DE LETRA DEL AVATAR.*/ flex-shrink: 0;/*IMPIDE QUE EL AVATAR SE ENCOJA.*/ }
+.ficha-datos {/*CONTENEDOR DE DATOS DE LA FICHA.*/ flex: 1;/*COMPORTAMIENTO DE CRECIMIENTO DEL CONTENEDOR DE DATOS.*/
+  h3 {/*NOMBRE DEL EMPLEADO EN LA FICHA.*/ font-family: var(--fuente-titulos);/*TIPO DE LETRA DEL NOMBRE.*/ font-size: 15px;/*TAMAÑO DE LETRA DEL NOMBRE.*/ font-weight: 700;/*NEGRILLA DE LETRA DEL NOMBRE.*/ color: var(--color-texto-main);/*COLOR DE LETRA DEL NOMBRE.*/ margin: 0 0 3px;/*ESPACIO DEL MARGEN SUPERIOR, DERECHO E INFERIOR DEL NOMBRE.*/ }
+  p {/*DATO SECUNDARIO DE LA FICHA.*/ font-size: 13px;/*TAMAÑO DE LETRA DEL DATO.*/ color: var(--color-texto-secundario);/*COLOR DE LETRA DEL DATO.*/ margin: 0 0 6px;/*ESPACIO DEL MARGEN SUPERIOR, DERECHO E INFERIOR DEL DATO.*/ }
 }
-.ficha-accion { flex-shrink: 0; }
+.ficha-accion {/*CONTENEDOR DE LA ACCIÓN DE LA FICHA.*/ flex-shrink: 0;/*IMPIDE QUE LA ACCIÓN SE ENCOJA.*/ }
 
-.badge-estado { display: inline-flex; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
-.badge-activo { background-color: rgba(22, 163, 74, 0.1); color: #15803d; }
-.badge-inactivo { background-color: rgba(239, 68, 68, 0.1); color: #b91c1c; }
-.badge-movimiento { display: inline-flex; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; background-color: rgba(14, 165, 233, 0.1); color: var(--color-acento); }
+.badge-estado {/*ETIQUETA VISUAL (BADGE) DE ESTADO.*/ display: inline-flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE EN LÍNEA.*/ padding: 3px 10px;/*ESPACIO INTERNO (RELLENO) DEL BADGE.*/ border-radius: 20px;/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BADGE.*/ font-size: 11px;/*TAMAÑO DE LETRA DEL BADGE.*/ font-weight: 600;/*NEGRILLA DE LETRA DEL BADGE.*/ }
+.badge-activo {/*BADGE DE ESTADO ACTIVO.*/ background-color: rgba(22, 163, 74, 0.1);/*COLOR DE FONDO DEL BADGE ACTIVO.*/ color: #15803d;/*COLOR DE LETRA DEL BADGE ACTIVO.*/ }
+.badge-inactivo {/*BADGE DE ESTADO INACTIVO.*/ background-color: rgba(239, 68, 68, 0.1);/*COLOR DE FONDO DEL BADGE INACTIVO.*/ color: #b91c1c;/*COLOR DE LETRA DEL BADGE INACTIVO.*/ }
+.badge-movimiento {/*BADGE DEL TIPO DE MOVIMIENTO.*/ display: inline-flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE EN LÍNEA.*/ padding: 3px 10px;/*ESPACIO INTERNO (RELLENO) DEL BADGE.*/ border-radius: 20px;/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BADGE.*/ font-size: 11px;/*TAMAÑO DE LETRA DEL BADGE.*/ font-weight: 700;/*NEGRILLA DE LETRA DEL BADGE.*/ background-color: rgba(14, 165, 233, 0.1);/*COLOR DE FONDO DEL BADGE DE MOVIMIENTO.*/ color: var(--color-acento);/*COLOR DE LETRA DEL BADGE DE MOVIMIENTO.*/ }
 
-.tabla-card { background-color: var(--color-fondo); border-radius: var(--radio-card); border: 1px solid var(--color-bordes); box-shadow: var(--sombra-card); overflow: hidden; }
-.tabla-header { padding: 12px 16px; border-bottom: 1px solid var(--color-bordes); background-color: var(--color-fondo-pagina);
-  h4 { font-family: var(--fuente-titulos); font-size: 13px; font-weight: 700; color: var(--color-texto-main); margin: 0; }
+.tabla-card {/*TARJETA CONTENEDORA DE LA TABLA.*/ background-color: var(--color-fondo);/*COLOR DE FONDO DE LA TARJETA.*/ border-radius: var(--radio-card);/*RADIO DE REDONDEO DE LAS ESQUINAS DE LA TARJETA.*/ border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DE LA TARJETA.*/ box-shadow: var(--sombra-card);/*SOMBRA DE LA TARJETA.*/ overflow: hidden;/*OCULTA EL CONTENIDO QUE SOBRESALE DE LA TARJETA.*/ }
+.tabla-header {/*ENCABEZADO DE LA TARJETA DE LA TABLA.*/ padding: 12px 16px;/*ESPACIO INTERNO (RELLENO) DEL ENCABEZADO.*/ border-bottom: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE INFERIOR DEL ENCABEZADO.*/ background-color: var(--color-fondo-pagina);/*COLOR DE FONDO DEL ENCABEZADO.*/
+  h4 {/*TÍTULO DEL ENCABEZADO DE LA TABLA.*/ font-family: var(--fuente-titulos);/*TIPO DE LETRA DEL TÍTULO.*/ font-size: 13px;/*TAMAÑO DE LETRA DEL TÍTULO.*/ font-weight: 700;/*NEGRILLA DE LETRA DEL TÍTULO.*/ color: var(--color-texto-main);/*COLOR DE LETRA DEL TÍTULO.*/ margin: 0;/*ELIMINA EL MARGEN DEL TÍTULO.*/ }
 }
-.tabla-contenido { overflow-x: auto;
-  table { width: 100%; border-collapse: collapse;
-    th { background-color: var(--color-fondo-pagina); padding: 9px 14px; text-align: left; font-size: 11px; font-weight: 700; color: var(--color-texto-secundario); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--color-bordes); white-space: nowrap; }
-    td { padding: 10px 14px; font-size: 13px; color: var(--color-texto-main); border-bottom: 1px solid var(--color-bordes-suave); }
-    tr:last-child td { border-bottom: none; }
-    tr:hover td { background-color: rgba(14, 165, 233, 0.03); }
+.tabla-contenido {/*CONTENEDOR CON SCROLL DEL CONTENIDO DE LA TABLA.*/ overflow-x: auto;/*ACTIVA LA FUNCIÓN DEL SCROLL HORIZONTAL.*/
+  table {/*TABLA DE RESULTADOS.*/ width: 100%;/*ANCHURA DE LA TABLA.*/ border-collapse: collapse;/*UNE LOS BORDES DE LAS CELDAS DE LA TABLA.*/
+    th {/*ENCABEZADO DE COLUMNA DE LA TABLA.*/ background-color: var(--color-fondo-pagina);/*COLOR DE FONDO DEL ENCABEZADO DE COLUMNA.*/ padding: 9px 14px;/*ESPACIO INTERNO (RELLENO) DEL ENCABEZADO DE COLUMNA.*/ text-align: left;/*ALINEACIÓN DEL TEXTO DEL ENCABEZADO.*/ font-size: 11px;/*TAMAÑO DE LETRA DEL ENCABEZADO.*/ font-weight: 700;/*NEGRILLA DE LETRA DEL ENCABEZADO.*/ color: var(--color-texto-secundario);/*COLOR DE LETRA DEL ENCABEZADO.*/ text-transform: uppercase;/*TRANSFORMACIÓN DE MAYÚSCULAS DEL TEXTO.*/ letter-spacing: 0.5px;/*ESPACIO ENTRE LAS LETRAS DEL TEXTO.*/ border-bottom: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE INFERIOR DEL ENCABEZADO.*/ white-space: nowrap;/*CONTROL DEL SALTO DE LÍNEA DEL TEXTO DEL ENCABEZADO.*/ }
+    td {/*CELDA DE DATOS DE LA TABLA.*/ padding: 10px 14px;/*ESPACIO INTERNO (RELLENO) DE LA CELDA.*/ font-size: 13px;/*TAMAÑO DE LETRA DE LA CELDA.*/ color: var(--color-texto-main);/*COLOR DE LETRA DE LA CELDA.*/ border-bottom: 1px solid var(--color-bordes-suave);/*GROSOR Y COLOR DEL BORDE INFERIOR DE LA CELDA.*/ }
+    tr:last-child td {/*ÚLTIMA FILA DE LA TABLA.*/ border-bottom: none;/*ELIMINA EL BORDE INFERIOR DE LA ÚLTIMA FILA.*/ }
+    tr:hover td {/*FILA DE LA TABLA AL PASAR EL MOUSE.*/ background-color: rgba(14, 165, 233, 0.03);/*COLOR DE FONDO DE LA FILA AL PASAR EL MOUSE.*/ }
   }
 }
-.tabla-vacia { text-align: center; padding: 22px !important; color: var(--color-texto-secundario) !important; font-size: 13px !important; white-space: normal !important; }
+.tabla-vacia {/*MENSAJE MOSTRADO CUANDO NO HAY REGISTROS.*/ text-align: center;/*ALINEACIÓN DEL TEXTO DEL MENSAJE.*/ padding: 22px !important;/*ESPACIO INTERNO (RELLENO) DEL MENSAJE, FORZADO.*/ color: var(--color-texto-secundario) !important;/*COLOR DE LETRA DEL MENSAJE, FORZADO.*/ font-size: 13px !important;/*TAMAÑO DE LETRA DEL MENSAJE, FORZADO.*/ white-space: normal !important;/*PERMITE EL SALTO DE LÍNEA NORMAL DEL TEXTO, FORZADO.*/ }
 
-.toast-global {
-  position: fixed; top: 24px; right: 24px; z-index: 9999; min-width: 300px; max-width: 440px;
-  padding: 14px 18px; border-radius: var(--radio-borde); font-size: 13px; font-weight: 500;
-  display: flex; align-items: center; gap: 10px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18); line-height: 1.4;
-  animation: toastEntrar 0.25s ease;
-  span { flex: 1; }
+.toast-global {//NOTIFICACIÓN FLOTANTE GLOBAL.
+  position: fixed;/*TIPO DE POSICIONAMIENTO DEL TOAST.*/ top: 24px;/*DISTANCIA DESDE EL BORDE SUPERIOR.*/ right: 24px;/*DISTANCIA DESDE EL BORDE DERECHO.*/ z-index: 9999;/*ORDEN DE APILAMIENTO (CAPA) DEL TOAST.*/ min-width: 300px;/*ANCHURA MÍNIMA DEL TOAST.*/ max-width: 440px;/*ANCHURA MÁXIMA DEL TOAST.*/
+  padding: 14px 18px;/*ESPACIO INTERNO (RELLENO) DEL TOAST.*/ border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL TOAST.*/ font-size: 13px;/*TAMAÑO DE LETRA DEL TOAST.*/ font-weight: 500;/*NEGRILLA DE LETRA DEL TOAST.*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/ align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/ gap: 10px;/*ESPACIO ENTRE EL ÍCONO Y EL TEXTO DEL TOAST.*/ box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);/*SOMBRA DEL TOAST.*/ line-height: 1.4;/*ALTURA DE LÍNEA DEL TEXTO DEL TOAST.*/
+  animation: toastEntrar 0.25s ease;/*ANIMACIÓN APLICADA A LA ENTRADA DEL TOAST.*/
+  span {/*TEXTO DEL MENSAJE DEL TOAST.*/ flex: 1;/*COMPORTAMIENTO DE CRECIMIENTO DEL TEXTO DEL TOAST.*/ }
 }
-.toast-exito { background-color: #f0fdf4; border: 1px solid rgba(34, 197, 94, 0.4); border-left: 4px solid #22c55e; color: #15803d; }
-.toast-error { background-color: #fef2f2; border: 1px solid rgba(239, 68, 68, 0.4); border-left: 4px solid #ef4444; color: #b91c1c; }
-@keyframes toastEntrar {
-  from { opacity: 0; transform: translateY(-8px); }
-  to   { opacity: 1; transform: translateY(0); }
+.toast-exito {/*VARIANTE DE ÉXITO DEL TOAST.*/ background-color: #f0fdf4;/*COLOR DE FONDO DEL TOAST DE ÉXITO.*/ border: 1px solid rgba(34, 197, 94, 0.4);/*GROSOR Y COLOR DEL BORDE DEL TOAST DE ÉXITO.*/ border-left: 4px solid #22c55e;/*GROSOR Y COLOR DEL BORDE IZQUIERDO DEL TOAST DE ÉXITO.*/ color: #15803d;/*COLOR DE LETRA DEL TOAST DE ÉXITO.*/ }
+.toast-error {/*VARIANTE DE ERROR DEL TOAST.*/ background-color: #fef2f2;/*COLOR DE FONDO DEL TOAST DE ERROR.*/ border: 1px solid rgba(239, 68, 68, 0.4);/*GROSOR Y COLOR DEL BORDE DEL TOAST DE ERROR.*/ border-left: 4px solid #ef4444;/*GROSOR Y COLOR DEL BORDE IZQUIERDO DEL TOAST DE ERROR.*/ color: #b91c1c;/*COLOR DE LETRA DEL TOAST DE ERROR.*/ }
+@keyframes toastEntrar {//DEFINICIÓN DE LOS FOTOGRAMAS CLAVE DE LA ANIMACIÓN DE ENTRADA DEL TOAST.
+  from {/*ESTADO INICIAL DE LA ANIMACIÓN DEL TOAST.*/ opacity: 0;/*OPACIDAD INICIAL DEL TOAST.*/ transform: translateY(-8px);/*DESPLAZAMIENTO INICIAL DEL TOAST.*/ }
+  to   {/*ESTADO FINAL DE LA ANIMACIÓN DEL TOAST.*/ opacity: 1;/*OPACIDAD FINAL DEL TOAST.*/ transform: translateY(0);/*DESPLAZAMIENTO FINAL DEL TOAST.*/ }
 }

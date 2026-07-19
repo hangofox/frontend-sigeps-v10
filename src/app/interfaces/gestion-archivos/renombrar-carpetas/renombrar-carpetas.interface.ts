@@ -1,4 +1,4 @@
 export interface RenombrarCarpetasI {
-    rutaCarpetaActual: String;
-    nombreNuevoCarpeta: String;
+    oldPath: String;
+    newPath: String;
 }

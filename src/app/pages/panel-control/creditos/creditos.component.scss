@@ -2,197 +2,197 @@
    CRÉDITOS — SIGEPS V1.0
    ============================================ */
 
-.panel-seccion {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+.panel-seccion {//CONTENEDOR PRINCIPAL DE LA SECCIÓN.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES (EN COLUMNA).*/
+  gap: 24px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
 }
 
 /* Encabezado */
-.panel-header {
-  display: flex;
-  align-items: center;
-  gap: 14px;
+.panel-header {//ENCABEZADO DEL PANEL.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 14px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
 }
 
-.panel-header-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
-  background-color: rgba(14, 165, 233, 0.1);
-  color: var(--color-acento);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+.panel-header-icon {//ÍCONO DEL ENCABEZADO DEL PANEL.
+  width: 44px;/*ANCHURA DEL ÍCONO.*/
+  height: 44px;/*ALTURA DEL ÍCONO.*/
+  border-radius: 10px;/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BORDE.*/
+  background-color: rgba(14, 165, 233, 0.1);/*COLOR DE FONDO DEL ÍCONO.*/
+  color: var(--color-acento);/*COLOR DEL ÍCONO.*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  justify-content: center;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS.*/
+  flex-shrink: 0;/*EVITA QUE EL ÍCONO SE ENCOJA DENTRO DEL CONTENEDOR FLEXIBLE.*/
 }
 
-.panel-titulo {
-  font-family: var(--fuente-titulos);
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--color-principal);
-  margin: 0 0 4px;
+.panel-titulo {//TÍTULO DEL PANEL.
+  font-family: var(--fuente-titulos);/*TIPO DE LETRA DEL TEXTO.*/
+  font-size: 18px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 700;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  color: var(--color-principal);/*COLOR DE LETRA DEL TEXTO.*/
+  margin: 0 0 4px;/*ESPACIO DE MARGEN SUPERIOR, DERECHO E INFERIOR DEL TÍTULO.*/
 }
 
-.panel-subtitulo {
-  font-size: 13px;
-  color: var(--color-texto-secundario);
-  margin: 0;
+.panel-subtitulo {//SUBTÍTULO DEL PANEL.
+  font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/
+  margin: 0;/*ELIMINA EL MARGEN DEL SUBTÍTULO.*/
 }
 
 /* Tarjeta de información */
-.info-card {
-  background-color: var(--color-fondo);
-  border: 1px solid var(--color-bordes);
-  border-radius: var(--radio-card);
-  box-shadow: var(--sombra-card);
-  overflow: hidden;
+.info-card {//TARJETA DE INFORMACIÓN DE LA APLICACIÓN.
+  background-color: var(--color-fondo);/*COLOR DE FONDO DE LA TARJETA.*/
+  border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE.*/
+  border-radius: var(--radio-card);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BORDE.*/
+  box-shadow: var(--sombra-card);/*SOMBRA DE LA TARJETA.*/
+  overflow: hidden;/*OCULTA EL CONTENIDO QUE SOBRESALGA DE LA TARJETA.*/
 }
 
-.info-card-header {
-  padding: 20px 24px 16px;
-  border-bottom: 1px solid var(--color-bordes);
-  display: flex;
-  align-items: center;
-  gap: 14px;
+.info-card-header {//ENCABEZADO DE LA TARJETA DE INFORMACIÓN.
+  padding: 20px 24px 16px;/*ESPACIO INTERNO (RELLENO) DEL ENCABEZADO.*/
+  border-bottom: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE INFERIOR.*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 14px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
 
-  h3 {
-    font-family: var(--fuente-titulos);
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--color-texto-main);
-    margin: 0;
+  h3 {//TÍTULO DEL ENCABEZADO DE LA TARJETA.
+    font-family: var(--fuente-titulos);/*TIPO DE LETRA DEL TEXTO.*/
+    font-size: 15px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+    font-weight: 600;/*NEGRILLA DE LETRA DEL TEXTO.*/
+    color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/
+    margin: 0;/*ELIMINA EL MARGEN DEL TÍTULO.*/
   }
 }
 
-.info-badge {
-  display: inline-block;
-  padding: 4px 10px;
-  background-color: var(--color-principal);
-  color: #fff;
-  border-radius: 6px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  flex-shrink: 0;
+.info-badge {//ETIQUETA VISUAL (BADGE) DE VERSIÓN DE LA APLICACIÓN.
+  display: inline-block;/*TIPO DE VISUALIZACIÓN DEL ELEMENTO.*/
+  padding: 4px 10px;/*ESPACIO INTERNO (RELLENO) DEL BADGE.*/
+  background-color: var(--color-principal);/*COLOR DE FONDO DEL BADGE.*/
+  color: #fff;/*COLOR DE LETRA DEL TEXTO.*/
+  border-radius: 6px;/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BORDE.*/
+  font-size: 11px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 700;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  letter-spacing: 0.5px;/*ESPACIO ENTRE LAS LETRAS DEL TEXTO.*/
+  flex-shrink: 0;/*EVITA QUE EL BADGE SE ENCOJA DENTRO DEL CONTENEDOR FLEXIBLE.*/
 }
 
-.info-card-body {
-  padding: 20px 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+.info-card-body {//CUERPO DE LA TARJETA DE INFORMACIÓN.
+  padding: 20px 24px;/*ESPACIO INTERNO (RELLENO) DEL CUERPO.*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES (EN COLUMNA).*/
+  gap: 12px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
 }
 
-.info-fila {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  padding: 6px 0;
-  border-bottom: 1px solid var(--color-bordes-suave);
+.info-fila {//FILA DE INFORMACIÓN (ETIQUETA Y VALOR).
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: baseline;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 10px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
+  padding: 6px 0;/*ESPACIO INTERNO (RELLENO) DE LA FILA.*/
+  border-bottom: 1px solid var(--color-bordes-suave);/*GROSOR Y COLOR DEL BORDE INFERIOR.*/
 
-  &:last-child { border-bottom: none; }
+  &:last-child {/*ELIMINA EL BORDE INFERIOR DE LA ÚLTIMA FILA.*/ border-bottom: none;/*GROSOR DEL BORDE INFERIOR.*/ }
 }
 
-.info-label {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--color-texto-secundario);
-  min-width: 200px;
-  flex-shrink: 0;
+.info-label {//ETIQUETA DE LA FILA DE INFORMACIÓN.
+  font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 600;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/
+  min-width: 200px;/*ANCHURA MÍNIMA DE LA ETIQUETA.*/
+  flex-shrink: 0;/*EVITA QUE LA ETIQUETA SE ENCOJA DENTRO DEL CONTENEDOR FLEXIBLE.*/
 }
 
-.info-valor {
-  font-size: 14px;
-  color: var(--color-texto-main);
+.info-valor {//VALOR DE LA FILA DE INFORMACIÓN.
+  font-size: 14px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/
 }
 
 /* Tabla del equipo */
-.tabla-card {
-  background-color: var(--color-fondo);
-  border-radius: var(--radio-card);
-  border: 1px solid var(--color-bordes);
-  box-shadow: var(--sombra-card);
-  overflow: hidden;
+.tabla-card {//TARJETA CONTENEDORA DE LA TABLA.
+  background-color: var(--color-fondo);/*COLOR DE FONDO DE LA TARJETA.*/
+  border-radius: var(--radio-card);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BORDE.*/
+  border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE.*/
+  box-shadow: var(--sombra-card);/*SOMBRA DE LA TARJETA.*/
+  overflow: hidden;/*OCULTA EL CONTENIDO QUE SOBRESALGA DE LA TARJETA.*/
 }
 
-.tabla-header {
-  padding: 16px 24px;
-  border-bottom: 1px solid var(--color-bordes);
+.tabla-header {//ENCABEZADO DE LA TARJETA DE LA TABLA.
+  padding: 16px 24px;/*ESPACIO INTERNO (RELLENO) DEL ENCABEZADO.*/
+  border-bottom: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE INFERIOR.*/
 
-  h3 {
-    font-family: var(--fuente-titulos);
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--color-texto-main);
-    margin: 0;
+  h3 {//TÍTULO DEL ENCABEZADO DE LA TABLA.
+    font-family: var(--fuente-titulos);/*TIPO DE LETRA DEL TEXTO.*/
+    font-size: 14px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+    font-weight: 600;/*NEGRILLA DE LETRA DEL TEXTO.*/
+    color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/
+    margin: 0;/*ELIMINA EL MARGEN DEL TÍTULO.*/
   }
 }
 
-.tabla-contenido {
-  overflow-x: auto;
+.tabla-contenido {//CONTENEDOR DEL CONTENIDO DE LA TABLA.
+  overflow-x: auto;/*ACTIVA LA FUNCIÓN DEL SCROLL HORIZONTAL.*/
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
+  table {//TABLA DE DATOS.
+    width: 100%;/*ANCHURA DE LA TABLA.*/
+    border-collapse: collapse;/*UNE LOS BORDES DE LAS CELDAS DE LA TABLA.*/
 
-    th {
-      background-color: var(--color-fondo-pagina);
-      padding: 11px 20px;
-      text-align: left;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--color-texto-secundario);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      border-bottom: 1px solid var(--color-bordes);
+    th {//ENCABEZADO DE COLUMNA DE LA TABLA.
+      background-color: var(--color-fondo-pagina);/*COLOR DE FONDO DEL ENCABEZADO.*/
+      padding: 11px 20px;/*ESPACIO INTERNO (RELLENO) DEL ENCABEZADO.*/
+      text-align: left;/*ALINEACIÓN DEL TEXTO.*/
+      font-size: 12px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+      font-weight: 700;/*NEGRILLA DE LETRA DEL TEXTO.*/
+      color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/
+      text-transform: uppercase;/*TRANSFORMACIÓN DE MAYÚSCULAS/MINÚSCULAS DEL TEXTO.*/
+      letter-spacing: 0.5px;/*ESPACIO ENTRE LAS LETRAS DEL TEXTO.*/
+      border-bottom: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE INFERIOR.*/
     }
 
-    td {
-      padding: 13px 20px;
-      font-size: 14px;
-      color: var(--color-texto-main);
-      border-bottom: 1px solid var(--color-bordes-suave);
+    td {//CELDA DE DATOS DE LA TABLA.
+      padding: 13px 20px;/*ESPACIO INTERNO (RELLENO) DE LA CELDA.*/
+      font-size: 14px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+      color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/
+      border-bottom: 1px solid var(--color-bordes-suave);/*GROSOR Y COLOR DEL BORDE INFERIOR.*/
     }
 
-    tr:last-child td { border-bottom: none; }
-    tr:hover td { background-color: rgba(14, 165, 233, 0.03); }
+    tr:last-child td {/*ELIMINA EL BORDE INFERIOR DE LA ÚLTIMA FILA.*/ border-bottom: none;/*GROSOR DEL BORDE INFERIOR.*/ }
+    tr:hover td {/*ESTILO DE LA FILA AL PASAR EL MOUSE.*/ background-color: rgba(14, 165, 233, 0.03);/*COLOR DE FONDO DE LA CELDA AL PASAR EL MOUSE.*/ }
   }
 }
 
-.miembro-nombre {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.miembro-nombre {//CONTENEDOR DEL NOMBRE DEL MIEMBRO DEL EQUIPO.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 10px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
 }
 
-.avatar-mini {
-  width: 28px;
-  height: 28px;
-  background-color: var(--color-principal);
-  color: #fff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  font-weight: 700;
-  flex-shrink: 0;
+.avatar-mini {//AVATAR MINIATURA DEL MIEMBRO DEL EQUIPO.
+  width: 28px;/*ANCHURA DEL AVATAR.*/
+  height: 28px;/*ALTURA DEL AVATAR.*/
+  background-color: var(--color-principal);/*COLOR DE FONDO DEL AVATAR.*/
+  color: #fff;/*COLOR DE LETRA DEL TEXTO.*/
+  border-radius: 50%;/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BORDE (CIRCULAR).*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  justify-content: center;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS.*/
+  font-size: 11px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 700;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  flex-shrink: 0;/*EVITA QUE EL AVATAR SE ENCOJA DENTRO DEL CONTENEDOR FLEXIBLE.*/
 }
 
 /* Nota legal */
-.nota-legal {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  padding: 14px 18px;
-  background-color: rgba(14, 165, 233, 0.05);
-  border: 1px solid rgba(14, 165, 233, 0.2);
-  border-radius: var(--radio-borde);
-  font-size: 13px;
-  color: var(--color-texto-secundario);
-  line-height: 1.5;
+.nota-legal {//NOTA LEGAL DE PIE DE PÁGINA.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: flex-start;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 8px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
+  padding: 14px 18px;/*ESPACIO INTERNO (RELLENO) DE LA NOTA.*/
+  background-color: rgba(14, 165, 233, 0.05);/*COLOR DE FONDO DE LA NOTA.*/
+  border: 1px solid rgba(14, 165, 233, 0.2);/*GROSOR Y COLOR DEL BORDE.*/
+  border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BORDE.*/
+  font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/
+  line-height: 1.5;/*ALTURA DE LÍNEA DEL TEXTO.*/
 
-  svg { flex-shrink: 0; margin-top: 1px; color: var(--color-acento); }
+  svg {/*ÍCONO DE LA NOTA LEGAL.*/ flex-shrink: 0;/*EVITA QUE EL ÍCONO SE ENCOJA DENTRO DEL CONTENEDOR FLEXIBLE.*/ margin-top: 1px;/*ESPACIO DEL MARGEN SUPERIOR DEL ÍCONO.*/ color: var(--color-acento);/*COLOR DEL ÍCONO.*/ }
 }

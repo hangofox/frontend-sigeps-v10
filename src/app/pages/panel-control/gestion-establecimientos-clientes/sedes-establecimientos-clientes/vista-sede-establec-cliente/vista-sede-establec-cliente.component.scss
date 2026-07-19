@@ -2,28 +2,28 @@
    VISTA DE SEDE DE ESTABLECIMIENTO CLIENTE — SIGEPS V1.0
    ============================================ */
 
-.vista-detalle { display: flex; flex-direction: column; gap: 18px; }
+.vista-detalle { display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/ flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES.*/ gap: 18px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/ }//CONTENEDOR PRINCIPAL DE LA VISTA DE DETALLE.
 
-.vista-cabecera { display: flex; align-items: center; gap: 14px; padding: 14px; background-color: var(--color-fondo-pagina); border-radius: var(--radio-borde); border: 1px solid var(--color-bordes); }
-.vista-icono { width: 50px; height: 50px; border-radius: 12px; background-color: rgba(16, 185, 129, 0.1); color: #059669; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.vista-cabecera-info { flex: 1; }
-.vista-nombre { font-family: var(--fuente-titulos); font-size: 15px; font-weight: 700; color: var(--color-texto-main); margin: 0 0 3px; }
-.vista-descripcion { font-size: 13px; color: var(--color-texto-secundario); margin: 0 0 7px; }
+.vista-cabecera { display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/ align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/ gap: 14px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/ padding: 14px;/*ESPACIO INTERNO (RELLENO) DE LA CABECERA.*/ background-color: var(--color-fondo-pagina);/*COLOR DE FONDO DE LA CABECERA.*/ border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BORDE.*/ border: 1px solid var(--color-bordes); }/*GROSOR Y COLOR DEL BORDE.*/ //CABECERA CON ÍCONO Y NOMBRE DE LA SEDE.
+.vista-icono { width: 50px;/*ANCHURA DEL ÍCONO.*/ height: 50px;/*ALTURA DEL ÍCONO.*/ border-radius: 12px;/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BORDE.*/ background-color: rgba(16, 185, 129, 0.1);/*COLOR DE FONDO DEL ÍCONO.*/ color: #059669;/*COLOR DEL ÍCONO.*/ display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/ align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/ justify-content: center;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS.*/ flex-shrink: 0; }/*EVITA QUE EL ÍCONO SE ENCOJA DENTRO DEL CONTENEDOR FLEXIBLE.*/ //CÍRCULO DEL ÍCONO DE LA CABECERA.
+.vista-cabecera-info { flex: 1; }/*COMPORTAMIENTO DE CRECIMIENTO DEL ELEMENTO FLEXIBLE.*/ //CONTENEDOR DEL NOMBRE Y DESCRIPCIÓN DE LA SEDE.
+.vista-nombre { font-family: var(--fuente-titulos);/*TIPO DE LETRA DEL TEXTO.*/ font-size: 15px;/*TAMAÑO DE LETRA DEL TEXTO.*/ font-weight: 700;/*NEGRILLA DE LETRA DEL TEXTO.*/ color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/ margin: 0 0 3px; }/*ESPACIO DEL MARGEN DEL NOMBRE.*/ //NOMBRE DE LA SEDE.
+.vista-descripcion { font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/ color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/ margin: 0 0 7px; }/*ESPACIO DEL MARGEN DE LA DESCRIPCIÓN.*/ //DESCRIPCIÓN DE LA SEDE.
 
-.badge-estado { display: inline-flex; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
-.badge-activo { background-color: rgba(22, 163, 74, 0.1); color: #15803d; }
-.badge-inactivo { background-color: rgba(239, 68, 68, 0.1); color: #b91c1c; }
+.badge-estado { display: inline-flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE EN LÍNEA.*/ padding: 3px 10px;/*ESPACIO INTERNO (RELLENO) DEL BADGE.*/ border-radius: 20px;/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BORDE.*/ font-size: 11px;/*TAMAÑO DE LETRA DEL TEXTO.*/ font-weight: 600; }/*NEGRILLA DE LETRA DEL TEXTO.*/ //ESTILO BASE DEL BADGE DE ESTADO.
+.badge-activo { background-color: rgba(22, 163, 74, 0.1);/*COLOR DE FONDO DEL BADGE.*/ color: #15803d; }/*COLOR DE LETRA DEL BADGE.*/ //VARIANTE DE ESTADO ACTIVO DEL BADGE.
+.badge-inactivo { background-color: rgba(239, 68, 68, 0.1);/*COLOR DE FONDO DEL BADGE.*/ color: #b91c1c; }/*COLOR DE LETRA DEL BADGE.*/ //VARIANTE DE ESTADO INACTIVO DEL BADGE.
 
-.datos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; border: 1px solid var(--color-bordes); border-radius: var(--radio-borde); overflow: hidden; background-color: var(--color-bordes);
-  @media (max-width: 480px) { grid-template-columns: 1fr; }
+.datos-grid { display: grid;/*CONVIERTE EL ELEMENTO EN CUADRÍCULA.*/ grid-template-columns: 1fr 1fr;/*DEFINICIÓN DE LAS COLUMNAS DE LA CUADRÍCULA.*/ gap: 1px;/*ESPACIO ENTRE LOS ELEMENTOS DE LA CUADRÍCULA.*/ border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE.*/ border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BORDE.*/ overflow: hidden;/*OCULTA EL CONTENIDO QUE SE DESBORDE DE LA CUADRÍCULA.*/ background-color: var(--color-bordes);//CUADRÍCULA DE DATOS DE LA SEDE (2 COLUMNAS).
+  @media (max-width: 480px) { grid-template-columns: 1fr; }/*DEFINICIÓN DE LAS COLUMNAS DE LA CUADRÍCULA EN PANTALLAS PEQUEÑAS.*/ //ESTILOS RESPONSIVOS PARA PANTALLAS PEQUEÑAS (MÓVILES).
 }
-.dato-grupo { display: flex; flex-direction: column; gap: 3px; padding: 10px 13px; background-color: var(--color-fondo);
-  &.dato-grupo-full { grid-column: 1 / -1; }
+.dato-grupo { display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/ flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES.*/ gap: 3px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/ padding: 10px 13px;/*ESPACIO INTERNO (RELLENO) DEL GRUPO DE DATO.*/ background-color: var(--color-fondo);//CELDA INDIVIDUAL DE LA CUADRÍCULA DE DATOS.
+  &.dato-grupo-full { grid-column: 1 / -1; }/*HACE QUE LA CELDA OCUPE TODAS LAS COLUMNAS DE LA CUADRÍCULA.*/ //VARIANTE DE CELDA QUE OCUPA TODO EL ANCHO.
 }
-.dato-label { font-size: 11px; font-weight: 600; color: var(--color-texto-secundario); text-transform: uppercase; letter-spacing: 0.4px; }
-.dato-valor { font-size: 13px; color: var(--color-texto-main); }
+.dato-label { font-size: 11px;/*TAMAÑO DE LETRA DEL TEXTO.*/ font-weight: 600;/*NEGRILLA DE LETRA DEL TEXTO.*/ color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/ text-transform: uppercase;/*TRANSFORMACIÓN DE MAYÚSCULAS DEL TEXTO.*/ letter-spacing: 0.4px; }/*ESPACIO ENTRE LAS LETRAS DEL TEXTO.*/ //ETIQUETA DEL DATO.
+.dato-valor { font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/ color: var(--color-texto-main); }/*COLOR DE LETRA DEL TEXTO.*/ //VALOR DEL DATO.
 
-.vista-acciones { display: flex; justify-content: flex-end; }
-.btn-sigeps { display: inline-flex; align-items: center; padding: 8px 16px; border-radius: var(--radio-borde); font-family: var(--fuente-cuerpo); font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; border: none;
-  &.btn-secundario { background: transparent; color: var(--color-texto-main); border: 1px solid var(--color-bordes); &:hover { border-color: var(--color-acento); color: var(--color-acento); } }
+.vista-acciones { display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/ justify-content: flex-end; }/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS AL FINAL.*/ //CONTENEDOR DE LOS BOTONES DE ACCIÓN.
+.btn-sigeps { display: inline-flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE EN LÍNEA.*/ align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/ padding: 8px 16px;/*ESPACIO INTERNO (RELLENO) DEL BOTÓN.*/ border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BORDE.*/ font-family: var(--fuente-cuerpo);/*TIPO DE LETRA DEL TEXTO.*/ font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/ font-weight: 600;/*NEGRILLA DE LETRA DEL TEXTO.*/ cursor: pointer;/*ACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL BOTÓN.*/ transition: all 0.2s;/*TRANSICIÓN SUAVE PARA EL CAMBIO DE ESTADO.*/ border: none;//ESTILO BASE DE LOS BOTONES DEL SISTEMA.
+  &.btn-secundario { background: transparent;/*COLOR DE FONDO DEL BOTÓN.*/ color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/ border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE.*/ &:hover { border-color: var(--color-acento);/*COLOR DEL BORDE AL PASAR EL MOUSE.*/ color: var(--color-acento); } }/*COLOR DE LETRA AL PASAR EL MOUSE.*/ //VARIANTE SECUNDARIA DEL BOTÓN Y SU ESTADO HOVER.
 }

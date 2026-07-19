@@ -8,6 +8,9 @@ import { HistorialMovimientosEmpleadosI } from '../../interfaces/gestion-persona
 import { EmpleadosService } from '../../services/gestion-personal/empleados/empleados.service';
 import { PuestosSedesEstablecimientosClientesService } from '../../services/panel-control/gestion-establecimientos-clientes/sedes-establecimientos-clientes/puestos-sedes-establec-cliente/puestosSedesEstablecimientosClientes.service';
 import { AlertasSeguridadService } from '../../services/reportes-seguridad/alertas-seguridad.service';
+import { UsuariosService } from '../../services/panel-control/usuarios/usuarios.service';
+import { ParametrosSistemaService } from '../../services/panel-control/parametros-sistema/parametros-sistema.service';
+import { GestionArchivosService } from '../../services/gestion-archivos/gestion-archivos.service';
 
 //SELECTOR, HTML, ESTILOS QUE INTEGRAN AL COMPONENTE:
 @Component({
@@ -22,6 +25,9 @@ export class InicioComponent implements OnInit {
   nombreUsuarioLogueado: string = '';
   anioActual: number = new Date().getFullYear();
   menuActivo: string = 'inicio';
+
+  //VISTA PREVIA DE LA FOTO DEL USUARIO LOGUEADO PARA EL AVATAR DEL CABEZOTE (VER cargarFotoUsuarioLogueado):
+  previewUrlFotoUsuarioLogueado: string | null = null;
 
   //CONTADORES DE PERSONAL Y DE PUESTOS DE TRABAJO POR ESTADO (ACTIVO/INACTIVO), TRAÍDOS DEL BACKEND:
   totalEmpleadosActivos: number = 0;
@@ -39,6 +45,9 @@ export class InicioComponent implements OnInit {
   paginaActualMovimientos: number = 0;
   tandaNumeroRegistrosporPaginaMovimientos: number = 5;
 
+  //PRIVILEGIOS Y RESTRICCIONES:
+  sioNoPrivilegioyRestriccionAccesoUsuarioCRUDVer: string = 'NO';
+
   //MODAL DE UBICACIÓN DEL TURNO ACTUAL (ESTABLECIMIENTO → SEDE → PUESTO) AL CLICKEAR "EN TURNO"
   //(MISMO MODAL QUE EN listado-empleados.component.ts):
   modalUbicacionTurnoVisible: boolean = false;
@@ -55,7 +64,10 @@ export class InicioComponent implements OnInit {
     private historialMovimientosEmpleadosService: HistorialMovimientosEmpleadosService,
     private empleadosService: EmpleadosService,
     private puestosSedesEstablecimientosClientesService: PuestosSedesEstablecimientosClientesService,
-    private alertasSeguridadService: AlertasSeguridadService
+    private alertasSeguridadService: AlertasSeguridadService,
+    private usuariosService: UsuariosService,
+    private parametrosSistemaService: ParametrosSistemaService,
+    private gestionArchivosService: GestionArchivosService
   ) {}
 
   //MÉTODO PRINCIPAL DEL COMPONENTE DONDE INVOCA A TODOS LOS MÉTODOS:
@@ -75,12 +87,20 @@ export class InicioComponent implements OnInit {
     this.cargarUltimosMovimientosPersonal();
     this.cargarContadoresPersonalYPuestos();
     this.cargarTotalAlertasSeguridad();
+    this.cargarFotoUsuarioLogueado();
 
     //CARGA UNA ÚNICA VEZ POR SESIÓN LOS PRIVILEGIOS Y RESTRICCIONES DE ACCESO DEL USUARIO LOGUEADO, PARA QUE EL
     //MENÚ LATERAL Y LOS BOTONES DE CADA CRUD PUEDAN CONSULTARLOS DE FORMA SÍNCRONA (VER SessionService):
     this.sessionService.cargarPrivilegios().subscribe({
+      next: () => this.actualizarPrivilegiosyRestriccionesCRUD(),
       error: (err) => console.error('ERROR AL CARGAR LOS PRIVILEGIOS Y RESTRICCIONES DEL USUARIO: ', err)
     });
+  }
+
+  //CONSULTA LOS PRIVILEGIOS Y RESTRICCIONES DE ACCESO REALES DEL USUARIO LOGUEADO Y ACTUALIZA LA BANDERA
+  //QUE MUESTRA U OCULTA EL ÁREA DEL LISTADO DE ÚLTIMOS MOVIMIENTOS DE PERSONAL DE ESTE DASHBOARD:
+  private actualizarPrivilegiosyRestriccionesCRUD(): void {
+    this.sioNoPrivilegioyRestriccionAccesoUsuarioCRUDVer = this.sessionService.tieneAcceso('ULTIMOS MOVIMIENTOS DE PERSONAL') ? 'SI' : 'NO';
   }
 
   //CONSULTA AL SERVICIO COMPARTIDO EL TOTAL DE ALERTAS DE SEGURIDAD (VER AlertasSeguridadService, EL MISMO
@@ -96,6 +116,47 @@ export class InicioComponent implements OnInit {
           resultado.alertaUbicacionInactivaConTurno.length;
       },
       error: (err) => console.error('ERROR AL CALCULAR LAS ALERTAS DE SEGURIDAD: ', err)
+    });
+  }
+
+  //CONSULTA LOS DATOS DEL USUARIO LOGUEADO PARA OBTENER EL NOMBRE DEL ARCHIVO DE SU FOTO Y RESOLVER LA VISTA
+  //PREVIA QUE SE MUESTRA EN EL AVATAR DEL CABEZOTE (SI NO TIENE FOTO, SE MANTIENE EL CÍRCULO CON LA INICIAL):
+  cargarFotoUsuarioLogueado(): void {
+    const passwordUsuarioLogueadoEncriptado = localStorage.getItem('passwordUsuarioLogueadoEncriptado');
+    if (!this.nicknameUsuarioLogueado || !passwordUsuarioLogueadoEncriptado) return;
+
+    this.usuariosService.getUserbyNicknameAndPassword(this.nicknameUsuarioLogueado, passwordUsuarioLogueadoEncriptado).subscribe({
+      next: (respuesta) => {
+        const nombreArchivoFoto = respuesta.usuarioDTO?.nombreArchivoFotoExtensionoFormatoUsuario;
+        if (!nombreArchivoFoto) {
+          //SIN FOTO ASOCIADA (O RECIÉN ELIMINADA): SE LIMPIA LA VISTA PREVIA PARA QUE EL AVATAR VUELVA A MOSTRAR LA INICIAL:
+          if (this.previewUrlFotoUsuarioLogueado) URL.revokeObjectURL(this.previewUrlFotoUsuarioLogueado);
+          this.previewUrlFotoUsuarioLogueado = null;
+          return;
+        }
+
+        this.parametrosSistemaService.getSystemParameterbyId(1).subscribe({
+          next: (respuestaParametros) => {
+            const parametrosSistema = respuestaParametros.parametrosSistemaDTO;
+            const rutaCompleta = String(parametrosSistema.rutaDestinoCarpetaPrincipalServidorAplicaciones)
+              + String(parametrosSistema.rutaDestinoArchivosUsuarios) + String(nombreArchivoFoto);
+            this.gestionArchivosService.getFile(rutaCompleta).subscribe({
+              next: (respuestaArchivo) => {
+                this.gestionArchivosService.getFileBytes(respuestaArchivo.rutaEstatica).subscribe({
+                  next: (blob) => {
+                    if (this.previewUrlFotoUsuarioLogueado) URL.revokeObjectURL(this.previewUrlFotoUsuarioLogueado);
+                    this.previewUrlFotoUsuarioLogueado = URL.createObjectURL(blob);
+                  },
+                  error: () => { this.previewUrlFotoUsuarioLogueado = null; }
+                });
+              },
+              error: () => { this.previewUrlFotoUsuarioLogueado = null; }
+            });
+          },
+          error: (err) => console.error('ERROR AL OBTENER LOS PARÁMETROS DEL SISTEMA PARA LA FOTO DEL CABEZOTE: ', err)
+        });
+      },
+      error: (err) => console.error('ERROR AL CARGAR LOS DATOS DEL USUARIO LOGUEADO PARA EL CABEZOTE: ', err)
     });
   }
 

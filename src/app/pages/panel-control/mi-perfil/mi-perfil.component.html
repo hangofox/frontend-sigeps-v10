@@ -199,18 +199,21 @@
       <div class="form-card-body">
         <input type="hidden" formControlName="ctextNombreArchivoFotoExtensionoFormatoUsuario">
         <div class="foto-upload-area">
-          <!-- AVATAR SIMULADO -->
+          <!-- AVATAR: FOTO REAL SI YA HAY UNA ALMACENADA, ÍCONO GENÉRICO EN CASO CONTRARIO -->
           <div class="avatar-grande">
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <img *ngIf="previewUrlFotoUsuario" [src]="previewUrlFotoUsuario" (error)="previewUrlFotoUsuario = null" alt="Foto de perfil">
+            <svg *ngIf="!previewUrlFotoUsuario" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           </div>
           <div class="foto-upload-controles">
-            <label class="btn-archivo">
+            <label class="btn-archivo" *ngIf="!previewUrlFotoUsuario && !isSelectedFileUserPhoto">
               <input type="file" accept="image/*" (change)="onSelectFileUserPhoto($event)" style="display:none">
               <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
               Seleccionar Archivo
             </label>
             <button type="button" class="btn-quitar" *ngIf="isSelectedFileUserPhoto" (click)="onRemoveFileUserPhoto()">Quitar</button>
-            <span class="foto-nombre" *ngIf="nombreArchivoFotoExtensionoFormatoUsuario">{{ nombreArchivoFotoExtensionoFormatoUsuario }}</span>
+            <button type="button" class="btn-quitar" *ngIf="!isSelectedFileUserPhoto && previewUrlFotoUsuario" (click)="confirmarEliminarFotoUsuario()">Quitar Foto</button>
+            <span class="foto-nombre" *ngIf="selectedFileUserPhoto">{{ selectedFileUserPhoto.name }}</span>
+            <span class="foto-nombre" *ngIf="!selectedFileUserPhoto && nombreArchivoFotoExtensionoFormatoUsuario">{{ nombreArchivoFotoExtensionoFormatoUsuario }}</span>
           </div>
         </div>
       </div>
@@ -225,6 +228,27 @@
     </div>
 
   </form>
+</div>
+
+<!-- DIÁLOGO DE CONFIRMACIÓN DE ELIMINACIÓN DE LA FOTO — SI / NO -->
+<div class="confirmacion-overlay" *ngIf="banderaConfirmacionEliminacionFoto">
+  <div class="confirmacion-caja">
+    <div class="confirmacion-icono">
+      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    </div>
+    <h4 class="confirmacion-titulo">Confirmación de eliminación</h4>
+    <p class="confirmacion-mensaje">¿Está seguro de que desea eliminar su foto de perfil? Esta acción no se puede deshacer.</p>
+    <div class="confirmacion-botones">
+      <button type="button" class="btn-confirmacion btn-si" (click)="siEliminarFotoUsuario()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Sí, eliminar
+      </button>
+      <button type="button" class="btn-confirmacion btn-no" (click)="noEliminarFotoUsuario()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        No, cancelar
+      </button>
+    </div>
+  </div>
 </div>
 
 <!-- TOAST DE NOTIFICACIÓN -->

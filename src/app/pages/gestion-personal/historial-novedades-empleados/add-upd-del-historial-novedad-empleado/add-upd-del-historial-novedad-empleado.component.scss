@@ -2,234 +2,234 @@
    AGREGAR / MODIFICAR / ELIMINAR NOVEDAD — SIGEPS V1.0
    ============================================ */
 
-.crud-form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+.crud-form {//FORMULARIO DE AGREGAR/MODIFICAR/ELIMINAR NOVEDAD.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES.*/
+  gap: 16px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
 }
 
-.alerta-eliminar {
-  padding: 14px 16px;
-  border-radius: var(--radio-borde);
-  background-color: rgba(239, 68, 68, 0.06);
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  color: #b91c1c;
-  font-size: 14px;
-  font-weight: 500;
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  line-height: 1.5;
+.alerta-eliminar {//ALERTA DE CONFIRMACIÓN PARA ELIMINAR EL REGISTRO.
+  padding: 14px 16px;/*ESPACIO INTERNO (RELLENO) DE LA ALERTA.*/
+  border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DE LA ALERTA.*/
+  background-color: rgba(239, 68, 68, 0.06);/*COLOR DE FONDO DE LA ALERTA.*/
+  border: 1px solid rgba(239, 68, 68, 0.3);/*GROSOR Y COLOR DEL BORDE DE LA ALERTA.*/
+  color: #b91c1c;/*COLOR DE LETRA DEL TEXTO DE LA ALERTA.*/
+  font-size: 14px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 500;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: flex-start;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS HACIA EL INICIO.*/
+  gap: 10px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
+  line-height: 1.5;/*ALTURA DE LÍNEA DEL TEXTO.*/
 
-  svg { flex-shrink: 0; margin-top: 1px; }
-  p { margin: 4px 0 0; font-size: 13px; font-weight: 400; }
+  svg { /*ÍCONO DE ADVERTENCIA DE LA ALERTA.*/ flex-shrink: 0;/*IMPIDE QUE EL ÍCONO SE ENCOJA DENTRO DEL CONTENEDOR FLEXIBLE.*/ margin-top: 1px;/*ESPACIO DE MARGEN SUPERIOR DEL ÍCONO.*/ }
+  p { /*TEXTO DESCRIPTIVO DE LA ALERTA.*/ margin: 4px 0 0;/*ESPACIO DE MARGEN SUPERIOR DEL TEXTO.*/ font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/ font-weight: 400;/*NEGRILLA DE LETRA DEL TEXTO.*/ }
 }
 
-.form-seccion {
-  border: 1px solid var(--color-bordes);
-  border-radius: var(--radio-borde);
-  overflow: hidden;
+.form-seccion {//SECCIÓN CONTENEDORA DE CAMPOS DEL FORMULARIO.
+  border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DE LA SECCIÓN.*/
+  border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DE LA SECCIÓN.*/
+  overflow: hidden;/*OCULTA EL CONTENIDO QUE SOBRESALGA DE LA SECCIÓN.*/
 }
-.seccion-titulo {
-  padding: 10px 16px;
-  background-color: var(--color-fondo-pagina);
-  border-bottom: 1px solid var(--color-bordes);
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--color-texto-secundario);
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
-  margin: 0;
+.seccion-titulo {//TÍTULO DE LA SECCIÓN DEL FORMULARIO.
+  padding: 10px 16px;/*ESPACIO INTERNO (RELLENO) DEL TÍTULO.*/
+  background-color: var(--color-fondo-pagina);/*COLOR DE FONDO DEL TÍTULO.*/
+  border-bottom: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE INFERIOR.*/
+  font-size: 11px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 700;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/
+  text-transform: uppercase;/*TRANSFORMACIÓN DE MAYÚSCULAS/MINÚSCULAS DEL TEXTO.*/
+  letter-spacing: 0.6px;/*ESPACIO ENTRE LAS LETRAS DEL TEXTO.*/
+  margin: 0;/*ELIMINA EL MARGEN DEL TÍTULO.*/
 }
-.form-grid {
-  padding: 14px 16px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px 20px;
+.form-grid {//CUADRÍCULA DE CAMPOS DEL FORMULARIO.
+  padding: 14px 16px;/*ESPACIO INTERNO (RELLENO) DE LA CUADRÍCULA.*/
+  display: grid;/*CONVIERTE EL ELEMENTO EN CUADRÍCULA.*/
+  grid-template-columns: 1fr 1fr;/*DEFINICIÓN DE LAS COLUMNAS DE LA CUADRÍCULA.*/
+  gap: 12px 20px;/*ESPACIO ENTRE LOS ELEMENTOS DE LA CUADRÍCULA.*/
 
-  @media (max-width: 580px) { grid-template-columns: 1fr; }
+  @media (max-width: 580px) { /*ESTILOS RESPONSIVOS PARA PANTALLAS PEQUEÑAS.*/ grid-template-columns: 1fr;/*DEFINICIÓN DE LAS COLUMNAS DE LA CUADRÍCULA EN PANTALLAS PEQUEÑAS.*/ }
 }
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+.form-group {//GRUPO DE CAMPO DEL FORMULARIO (ETIQUETA + CONTROL).
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES.*/
+  gap: 5px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
 
-  &.form-group-full { grid-column: 1 / -1; }
+  &.form-group-full { /*VARIANTE DEL GRUPO DE CAMPO QUE OCUPA TODO EL ANCHO DE LA CUADRÍCULA.*/ grid-column: 1 / -1;/*HACE QUE EL ELEMENTO OCUPE TODAS LAS COLUMNAS DE LA CUADRÍCULA.*/ }
 
-  label {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--color-texto-secundario);
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
+  label {//ETIQUETA DEL CAMPO DEL FORMULARIO.
+    font-size: 11px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+    font-weight: 600;/*NEGRILLA DE LETRA DEL TEXTO.*/
+    color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/
+    text-transform: uppercase;/*TRANSFORMACIÓN DE MAYÚSCULAS/MINÚSCULAS DEL TEXTO.*/
+    letter-spacing: 0.4px;/*ESPACIO ENTRE LAS LETRAS DEL TEXTO.*/
   }
 
-  .req { color: var(--color-error); }
+  .req { /*MARCADOR DE CAMPO OBLIGATORIO.*/ color: var(--color-error);/*COLOR DE LETRA DEL MARCADOR.*/ }
 
   input[type="text"],
   input[type="date"],
   select,
-  textarea {
-    padding: 8px 11px;
-    border: 1px solid var(--color-bordes);
-    border-radius: var(--radio-borde);
-    font-family: var(--fuente-cuerpo);
-    font-size: 13px;
-    color: var(--color-texto-main);
-    background-color: var(--color-fondo);
-    width: 100%;
-    box-sizing: border-box;
-    transition: border-color 0.2s;
+  textarea {//CAMPOS DE ENTRADA DE TEXTO, FECHA, SELECTOR Y ÁREA DE TEXTO DEL FORMULARIO.
+    padding: 8px 11px;/*ESPACIO INTERNO (RELLENO) DEL CAMPO.*/
+    border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DEL CAMPO.*/
+    border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL CAMPO.*/
+    font-family: var(--fuente-cuerpo);/*TIPO DE LETRA DEL TEXTO.*/
+    font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+    color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/
+    background-color: var(--color-fondo);/*COLOR DE FONDO DEL CAMPO.*/
+    width: 100%;/*ANCHURA DEL CAMPO.*/
+    box-sizing: border-box;/*INCLUYE EL BORDE Y EL RELLENO DENTRO DEL ANCHO TOTAL DEL CAMPO.*/
+    transition: border-color 0.2s;/*TRANSICIÓN SUAVE PARA EL COLOR DEL BORDE.*/
 
-    &:focus {
-      outline: none;
-      border-color: var(--color-acento);
-      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+    &:focus {//ESTILO DEL CAMPO CUANDO TIENE EL FOCO.
+      outline: none;/*ELIMINA EL CONTORNO POR DEFECTO DEL NAVEGADOR.*/
+      border-color: var(--color-acento);/*COLOR DEL BORDE AL ENFOCAR EL CAMPO.*/
+      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);/*SOMBRA DE ENFOQUE DEL CAMPO.*/
     }
-    &:disabled { background-color: var(--color-fondo-pagina); color: var(--color-texto-secundario); cursor: not-allowed; }
+    &:disabled { /*ESTILO DEL CAMPO DESHABILITADO.*/ background-color: var(--color-fondo-pagina);/*COLOR DE FONDO DEL CAMPO DESHABILITADO.*/ color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO DESHABILITADO.*/ cursor: not-allowed;/*DESACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL CAMPO A MODO NO INTERACTIVO.*/ }
   }
 
-  textarea { resize: vertical; min-height: 80px; }
+  textarea { /*ESTILO ESPECÍFICO PARA EL ÁREA DE TEXTO.*/ resize: vertical;/*PERMITE REDIMENSIONAR EL ÁREA DE TEXTO SOLO VERTICALMENTE.*/ min-height: 80px;/*ALTURA MÍNIMA DEL ÁREA DE TEXTO.*/ }
 
-  input[type="datetime-local"] {
-    padding: 8px 11px;
-    border: 1px solid var(--color-bordes);
-    border-radius: var(--radio-borde);
-    font-family: var(--fuente-cuerpo);
-    font-size: 13px;
-    color: var(--color-texto-main);
-    background-color: var(--color-fondo);
-    width: 100%;
-    box-sizing: border-box;
-    transition: border-color 0.2s;
-    &:focus { outline: none; border-color: var(--color-acento); box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1); }
-    &:disabled { background-color: var(--color-fondo-pagina); color: var(--color-texto-secundario); cursor: not-allowed; }
+  input[type="datetime-local"] {//CAMPO DE ENTRADA DE FECHA Y HORA DEL FORMULARIO.
+    padding: 8px 11px;/*ESPACIO INTERNO (RELLENO) DEL CAMPO.*/
+    border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DEL CAMPO.*/
+    border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL CAMPO.*/
+    font-family: var(--fuente-cuerpo);/*TIPO DE LETRA DEL TEXTO.*/
+    font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+    color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/
+    background-color: var(--color-fondo);/*COLOR DE FONDO DEL CAMPO.*/
+    width: 100%;/*ANCHURA DEL CAMPO.*/
+    box-sizing: border-box;/*INCLUYE EL BORDE Y EL RELLENO DENTRO DEL ANCHO TOTAL DEL CAMPO.*/
+    transition: border-color 0.2s;/*TRANSICIÓN SUAVE PARA EL COLOR DEL BORDE.*/
+    &:focus { /*ESTILO DEL CAMPO CUANDO TIENE EL FOCO.*/ outline: none;/*ELIMINA EL CONTORNO POR DEFECTO DEL NAVEGADOR.*/ border-color: var(--color-acento);/*COLOR DEL BORDE AL ENFOCAR EL CAMPO.*/ box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);/*SOMBRA DE ENFOQUE DEL CAMPO.*/ }
+    &:disabled { /*ESTILO DEL CAMPO DESHABILITADO.*/ background-color: var(--color-fondo-pagina);/*COLOR DE FONDO DEL CAMPO DESHABILITADO.*/ color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO DESHABILITADO.*/ cursor: not-allowed;/*DESACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL CAMPO A MODO NO INTERACTIVO.*/ }
   }
 }
 
-.campo-busqueda {
-  display: flex;
-  gap: 8px;
-  align-items: center;
+.campo-busqueda {//CONTENEDOR DEL CAMPO DE BÚSQUEDA DE DOCUMENTO.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  gap: 8px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
 }
 
-.btn-buscar-doc {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  border-radius: var(--radio-borde);
-  font-family: var(--fuente-cuerpo);
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  border: 1px solid var(--color-bordes);
-  background-color: var(--color-fondo-pagina);
-  color: var(--color-texto-main);
-  white-space: nowrap;
-  transition: all 0.2s;
-  &:hover { border-color: var(--color-acento); color: var(--color-acento); }
+.btn-buscar-doc {//BOTÓN DE BÚSQUEDA DE DOCUMENTO.
+  display: inline-flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE EN LÍNEA.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 6px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
+  padding: 8px 14px;/*ESPACIO INTERNO (RELLENO) DEL BOTÓN.*/
+  border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BOTÓN.*/
+  font-family: var(--fuente-cuerpo);/*TIPO DE LETRA DEL TEXTO.*/
+  font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 600;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  cursor: pointer;/*ACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL BOTÓN.*/
+  border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DEL BOTÓN.*/
+  background-color: var(--color-fondo-pagina);/*COLOR DE FONDO DEL BOTÓN.*/
+  color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/
+  white-space: nowrap;/*CONTROL DEL SALTO DE LÍNEA DEL TEXTO.*/
+  transition: all 0.2s;/*TRANSICIÓN SUAVE PARA TODOS LOS CAMBIOS DE ESTADO.*/
+  &:hover { /*ESTILO DEL BOTÓN AL PASAR EL MOUSE.*/ border-color: var(--color-acento);/*COLOR DEL BORDE AL PASAR EL MOUSE.*/ color: var(--color-acento);/*COLOR DE LETRA DEL TEXTO AL PASAR EL MOUSE.*/ }
 }
 
-.campo-mensaje-busqueda {
-  font-size: 12px;
-  color: var(--color-error);
-  margin-top: 2px;
+.campo-mensaje-busqueda {//MENSAJE DE RESULTADO DE LA BÚSQUEDA DE DOCUMENTO.
+  font-size: 12px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  color: var(--color-error);/*COLOR DE LETRA DEL TEXTO.*/
+  margin-top: 2px;/*ESPACIO DE MARGEN SUPERIOR DEL MENSAJE.*/
 }
 
-.form-acciones {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  padding-top: 4px;
+.form-acciones {//CONTENEDOR DE LOS BOTONES DE ACCIÓN DEL FORMULARIO.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  justify-content: flex-end;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS HACIA EL FINAL.*/
+  gap: 10px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
+  padding-top: 4px;/*ESPACIO INTERNO (RELLENO) SUPERIOR DEL CONTENEDOR.*/
 }
-.btn-sigeps {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 9px 18px;
-  border-radius: var(--radio-borde);
-  font-family: var(--fuente-cuerpo);
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  border: none;
+.btn-sigeps {//ESTILO BASE DE LOS BOTONES DEL SISTEMA.
+  display: inline-flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE EN LÍNEA.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 7px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
+  padding: 9px 18px;/*ESPACIO INTERNO (RELLENO) DEL BOTÓN.*/
+  border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BOTÓN.*/
+  font-family: var(--fuente-cuerpo);/*TIPO DE LETRA DEL TEXTO.*/
+  font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 600;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  cursor: pointer;/*ACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL BOTÓN.*/
+  transition: all 0.2s;/*TRANSICIÓN SUAVE PARA TODOS LOS CAMBIOS DE ESTADO.*/
+  border: none;/*ELIMINA EL BORDE DEL BOTÓN.*/
 
-  &.btn-primario { background-color: var(--color-principal); color: #fff; &:hover { background-color: var(--color-acento); } }
-  &.btn-secundario { background: transparent; color: var(--color-texto-main); border: 1px solid var(--color-bordes); &:hover { border-color: var(--color-acento); color: var(--color-acento); } }
-  &.btn-peligro { background-color: var(--color-error); color: #fff; &:hover { background-color: #b91c1c; } }
+  &.btn-primario { /*VARIANTE PRIMARIA DEL BOTÓN.*/ background-color: var(--color-principal);/*COLOR DE FONDO DEL BOTÓN PRIMARIO.*/ color: #fff;/*COLOR DE LETRA DEL TEXTO DEL BOTÓN.*/ &:hover { /*ESTILO DEL BOTÓN AL PASAR EL MOUSE.*/ background-color: var(--color-acento); /*COLOR DE FONDO DEL BOTÓN AL PASAR EL MOUSE.*/ } }
+  &.btn-secundario { /*VARIANTE SECUNDARIA DEL BOTÓN.*/ background: transparent;/*ELIMINA EL FONDO DEL BOTÓN.*/ color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO DEL BOTÓN.*/ border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DEL BOTÓN.*/ &:hover { /*ESTILO DEL BOTÓN AL PASAR EL MOUSE.*/ border-color: var(--color-acento); /*COLOR DEL BORDE AL PASAR EL MOUSE.*/ color: var(--color-acento); /*COLOR DE LETRA DEL TEXTO AL PASAR EL MOUSE.*/ } }
+  &.btn-peligro { /*VARIANTE DE PELIGRO (ELIMINAR) DEL BOTÓN.*/ background-color: var(--color-error);/*COLOR DE FONDO DEL BOTÓN DE PELIGRO.*/ color: #fff;/*COLOR DE LETRA DEL TEXTO DEL BOTÓN.*/ &:hover { /*ESTILO DEL BOTÓN AL PASAR EL MOUSE.*/ background-color: #b91c1c; /*COLOR DE FONDO DEL BOTÓN AL PASAR EL MOUSE.*/ } }
 
-  &:disabled { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+  &:disabled { /*ESTILO DEL BOTÓN DESHABILITADO.*/ opacity: 0.5;/*OPACIDAD TOTAL DEL ELEMENTO (ELEMENTO VISIBLE), PUEDES AJUSTAR ESTE VALOR SEGÚN TUS PREFERENCIAS.*/ cursor: not-allowed;/*DESACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL BOTÓN A MODO NO INTERACTIVO.*/ pointer-events: none;/*HABILITA O DESHABILITA LA INTERACCIÓN DEL MOUSE CON EL BOTÓN.*/ }
 }
 
-.confirmacion-overlay {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(15, 23, 42, 0.55);
-  z-index: 10000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-  backdrop-filter: blur(2px);
+.confirmacion-overlay {//FONDO OSCURECIDO DEL MODAL DE CONFIRMACIÓN.
+  position: fixed;/*TIPO DE POSICIONAMIENTO DEL ELEMENTO.*/
+  inset: 0;/*EXTIENDE EL ELEMENTO A LOS CUATRO BORDES DEL CONTENEDOR.*/
+  background-color: rgba(15, 23, 42, 0.55);/*COLOR DE FONDO OSCURECIDO DEL OVERLAY.*/
+  z-index: 10000;/*ORDEN DE APILAMIENTO (CAPA) DEL ELEMENTO.*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  justify-content: center;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS.*/
+  padding: 16px;/*ESPACIO INTERNO (RELLENO) DEL OVERLAY.*/
+  backdrop-filter: blur(2px);/*DESENFOQUE DEL FONDO DETRÁS DEL OVERLAY.*/
 }
-.confirmacion-caja {
-  background-color: var(--color-fondo);
-  border-radius: var(--radio-card);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
-  padding: 32px 28px;
-  max-width: 380px;
-  width: 100%;
-  text-align: center;
-  animation: modalEntrar 0.18s ease;
+.confirmacion-caja {//CAJA DEL MODAL DE CONFIRMACIÓN.
+  background-color: var(--color-fondo);/*COLOR DE FONDO DE LA CAJA.*/
+  border-radius: var(--radio-card);/*RADIO DE REDONDEO DE LAS ESQUINAS DE LA CAJA.*/
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);/*SOMBRA DE LA CAJA.*/
+  padding: 32px 28px;/*ESPACIO INTERNO (RELLENO) DE LA CAJA.*/
+  max-width: 380px;/*ANCHURA MÁXIMA DE LA CAJA.*/
+  width: 100%;/*ANCHURA DE LA CAJA.*/
+  text-align: center;/*ALINEACIÓN DEL TEXTO.*/
+  animation: modalEntrar 0.18s ease;/*ANIMACIÓN APLICADA A LA CAJA DEL MODAL.*/
 }
-@keyframes modalEntrar {
-  from { opacity: 0; transform: scale(0.95); }
-  to   { opacity: 1; transform: scale(1); }
+@keyframes modalEntrar {//DEFINICIÓN DE LOS FOTOGRAMAS CLAVE DE LA ANIMACIÓN DE ENTRADA DEL MODAL.
+  from { /*FOTOGRAMA INICIAL DE LA ANIMACIÓN.*/ opacity: 0;/*OPACIDAD TOTAL DEL ELEMENTO (ELEMENTO VISIBLE), PUEDES AJUSTAR ESTE VALOR SEGÚN TUS PREFERENCIAS.*/ transform: scale(0.95);/*ESCALA INICIAL DEL ELEMENTO.*/ }
+  to   { /*FOTOGRAMA FINAL DE LA ANIMACIÓN.*/ opacity: 1;/*OPACIDAD TOTAL DEL ELEMENTO (ELEMENTO VISIBLE), PUEDES AJUSTAR ESTE VALOR SEGÚN TUS PREFERENCIAS.*/ transform: scale(1);/*ESCALA FINAL DEL ELEMENTO.*/ }
 }
-.confirmacion-icono {
-  color: var(--color-error);
-  margin-bottom: 14px;
-  display: flex;
-  justify-content: center;
+.confirmacion-icono {//ÍCONO DEL MODAL DE CONFIRMACIÓN.
+  color: var(--color-error);/*COLOR DE LETRA DEL ÍCONO.*/
+  margin-bottom: 14px;/*ESPACIO DE MARGEN INFERIOR DEL ÍCONO.*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  justify-content: center;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS.*/
 }
-.confirmacion-titulo {
-  font-family: var(--fuente-titulos);
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--color-texto-main);
-  margin-bottom: 10px;
+.confirmacion-titulo {//TÍTULO DEL MODAL DE CONFIRMACIÓN.
+  font-family: var(--fuente-titulos);/*TIPO DE LETRA DEL TÍTULO.*/
+  font-size: 17px;/*TAMAÑO DE LETRA DEL TÍTULO.*/
+  font-weight: 700;/*NEGRILLA DE LETRA DEL TÍTULO.*/
+  color: var(--color-texto-main);/*COLOR DE LETRA DEL TÍTULO.*/
+  margin-bottom: 10px;/*ESPACIO DE MARGEN INFERIOR DEL TÍTULO.*/
 }
-.confirmacion-mensaje {
-  font-size: 13px;
-  color: var(--color-texto-secundario);
-  line-height: 1.6;
-  margin-bottom: 24px;
+.confirmacion-mensaje {//MENSAJE DEL MODAL DE CONFIRMACIÓN.
+  font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/
+  line-height: 1.6;/*ALTURA DE LÍNEA DEL TEXTO.*/
+  margin-bottom: 24px;/*ESPACIO DE MARGEN INFERIOR DEL MENSAJE.*/
 }
-.confirmacion-botones {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
+.confirmacion-botones {//CONTENEDOR DE LOS BOTONES DEL MODAL DE CONFIRMACIÓN.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  gap: 10px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
+  justify-content: center;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS.*/
 }
-.btn-confirmacion {
-  padding: 9px 22px;
-  border-radius: var(--radio-borde);
-  font-family: var(--fuente-cuerpo);
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  border: none;
+.btn-confirmacion {//ESTILO BASE DE LOS BOTONES DEL MODAL DE CONFIRMACIÓN.
+  padding: 9px 22px;/*ESPACIO INTERNO (RELLENO) DEL BOTÓN.*/
+  border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BOTÓN.*/
+  font-family: var(--fuente-cuerpo);/*TIPO DE LETRA DEL TEXTO.*/
+  font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 600;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  cursor: pointer;/*ACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL BOTÓN.*/
+  transition: all 0.2s;/*TRANSICIÓN SUAVE PARA TODOS LOS CAMBIOS DE ESTADO.*/
+  border: none;/*ELIMINA EL BORDE DEL BOTÓN.*/
 }
-.btn-confirmacion.btn-no {
-  background: transparent;
-  border: 1px solid var(--color-bordes);
-  color: var(--color-texto-main);
-  &:hover { border-color: var(--color-acento); color: var(--color-acento); }
+.btn-confirmacion.btn-no {//VARIANTE "NO" DEL BOTÓN DE CONFIRMACIÓN.
+  background: transparent;/*ELIMINA EL FONDO DEL BOTÓN.*/
+  border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DEL BOTÓN.*/
+  color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO DEL BOTÓN.*/
+  &:hover { /*ESTILO DEL BOTÓN AL PASAR EL MOUSE.*/ border-color: var(--color-acento);/*COLOR DEL BORDE AL PASAR EL MOUSE.*/ color: var(--color-acento);/*COLOR DE LETRA DEL TEXTO AL PASAR EL MOUSE.*/ }
 }
-.btn-confirmacion.btn-si {
-  background-color: var(--color-error);
-  color: #fff;
-  &:hover { background-color: #b91c1c; }
+.btn-confirmacion.btn-si {//VARIANTE "SÍ" DEL BOTÓN DE CONFIRMACIÓN.
+  background-color: var(--color-error);/*COLOR DE FONDO DEL BOTÓN.*/
+  color: #fff;/*COLOR DE LETRA DEL TEXTO DEL BOTÓN.*/
+  &:hover { /*ESTILO DEL BOTÓN AL PASAR EL MOUSE.*/ background-color: #b91c1c; /*COLOR DE FONDO DEL BOTÓN AL PASAR EL MOUSE.*/ }
 }

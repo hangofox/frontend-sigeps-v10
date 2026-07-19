@@ -2,240 +2,240 @@
    LIQUIDACIONES DE PERSONAL — SIGEPS V1.0
    ============================================ */
 
-.panel-seccion {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+.panel-seccion {//CONTENEDOR PRINCIPAL DE LA SECCIÓN.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES.*/
+  gap: 20px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
 }
 
-.panel-header {
-  display: flex;
-  align-items: center;
-  gap: 14px;
+.panel-header {//ENCABEZADO DEL PANEL.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 14px;/*ESPACIO ENTRE LOS ELEMENTOS DEL ENCABEZADO.*/
 }
-.panel-header-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
-  background-color: rgba(14, 165, 233, 0.1);
-  color: var(--color-acento);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+.panel-header-icon {//ÍCONO DEL ENCABEZADO DEL PANEL.
+  width: 44px;/*ANCHURA DEL ÍCONO.*/
+  height: 44px;/*ALTURA DEL ÍCONO.*/
+  border-radius: 10px;/*RADIO DE REDONDEO DE LAS ESQUINAS DEL ÍCONO.*/
+  background-color: rgba(14, 165, 233, 0.1);/*COLOR DE FONDO DEL ÍCONO.*/
+  color: var(--color-acento);/*COLOR DE LETRA (ÍCONO) DEL ENCABEZADO.*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  justify-content: center;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS.*/
+  flex-shrink: 0;/*IMPIDE QUE EL ÍCONO SE ENCOJA.*/
 }
-.panel-titulo {
-  font-family: var(--fuente-titulos);
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--color-principal);
-  margin: 0 0 4px;
+.panel-titulo {//TÍTULO DEL PANEL.
+  font-family: var(--fuente-titulos);/*TIPO DE LETRA DEL TÍTULO.*/
+  font-size: 18px;/*TAMAÑO DE LETRA DEL TÍTULO.*/
+  font-weight: 700;/*NEGRILLA DE LETRA DEL TÍTULO.*/
+  color: var(--color-principal);/*COLOR DE LETRA DEL TÍTULO.*/
+  margin: 0 0 4px;/*ESPACIO DEL MARGEN SUPERIOR, DERECHO E INFERIOR DEL TÍTULO.*/
 }
-.panel-subtitulo {
-  font-size: 13px;
-  color: var(--color-texto-secundario);
-  margin: 0;
+.panel-subtitulo {//SUBTÍTULO DEL PANEL.
+  font-size: 13px;/*TAMAÑO DE LETRA DEL SUBTÍTULO.*/
+  color: var(--color-texto-secundario);/*COLOR DE LETRA DEL SUBTÍTULO.*/
+  margin: 0;/*ELIMINA EL MARGEN DEL SUBTÍTULO.*/
 }
 
-.semaforo {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
+.semaforo {//CONTENEDOR DEL SEMÁFORO DE TOTALES.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  gap: 12px;/*ESPACIO ENTRE LOS ITEMS DEL SEMÁFORO.*/
+  flex-wrap: wrap;/*PERMITE QUE LOS ITEMS PASEN A OTRA LÍNEA.*/
 }
-.semaforo-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 14px 24px;
-  border-radius: var(--radio-card);
-  border: 1px solid var(--color-bordes);
-  background-color: var(--color-fondo);
-  box-shadow: var(--sombra-card);
-  min-width: 120px;
+.semaforo-item {//ITEM INDIVIDUAL DEL SEMÁFORO.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  padding: 14px 24px;/*ESPACIO INTERNO (RELLENO) DEL ITEM DEL SEMÁFORO.*/
+  border-radius: var(--radio-card);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL ITEM.*/
+  border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DEL ITEM.*/
+  background-color: var(--color-fondo);/*COLOR DE FONDO DEL ITEM.*/
+  box-shadow: var(--sombra-card);/*SOMBRA DEL ITEM DEL SEMÁFORO.*/
+  min-width: 120px;/*ANCHURA MÍNIMA DEL ITEM.*/
 }
-.semaforo-numero {
-  font-family: var(--fuente-titulos);
-  font-size: 20px;
-  font-weight: 700;
+.semaforo-numero {//NÚMERO DEL SEMÁFORO.
+  font-family: var(--fuente-titulos);/*TIPO DE LETRA DEL NÚMERO.*/
+  font-size: 20px;/*TAMAÑO DE LETRA DEL NÚMERO.*/
+  font-weight: 700;/*NEGRILLA DE LETRA DEL NÚMERO.*/
 }
-.semaforo-etiqueta {
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--color-texto-secundario);
+.semaforo-etiqueta {//ETIQUETA DEL SEMÁFORO.
+  font-size: 11px;/*TAMAÑO DE LETRA DE LA ETIQUETA.*/
+  font-weight: 600;/*NEGRILLA DE LETRA DE LA ETIQUETA.*/
+  text-transform: uppercase;/*TRANSFORMACIÓN DE MAYÚSCULAS DEL TEXTO.*/
+  letter-spacing: 0.5px;/*ESPACIO ENTRE LAS LETRAS DEL TEXTO.*/
+  color: var(--color-texto-secundario);/*COLOR DE LETRA DE LA ETIQUETA.*/
 }
-.semaforo-total .semaforo-numero { color: var(--color-principal); }
-.semaforo-activos .semaforo-numero { color: #16a34a; }
-.semaforo-inactivos .semaforo-numero { color: var(--color-acento); }
+.semaforo-total .semaforo-numero {/*NÚMERO DEL SEMÁFORO DE TOTALES.*/ color: var(--color-principal);/*COLOR DE LETRA DEL NÚMERO DE TOTALES.*/ }
+.semaforo-activos .semaforo-numero {/*NÚMERO DEL SEMÁFORO DE ACTIVOS.*/ color: #16a34a;/*COLOR DE LETRA DEL NÚMERO DE ACTIVOS (VERDE).*/ }
+.semaforo-inactivos .semaforo-numero {/*NÚMERO DEL SEMÁFORO DE INACTIVOS.*/ color: var(--color-acento);/*COLOR DE LETRA DEL NÚMERO DE INACTIVOS.*/ }
 
-.barra-acciones {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
+.barra-acciones {//BARRA DE ACCIONES.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 12px;/*ESPACIO ENTRE LOS ELEMENTOS DE LA BARRA.*/
+  flex-wrap: wrap;/*PERMITE QUE LOS ELEMENTOS FLEXIBLES PASEN A OTRA LÍNEA.*/
 }
-.barra-filtros {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex: 1;
-  flex-wrap: wrap;
+.barra-filtros {//BARRA DE FILTROS DE BÚSQUEDA.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 10px;/*ESPACIO ENTRE LOS ELEMENTOS DE LOS FILTROS.*/
+  flex: 1;/*COMPORTAMIENTO DE CRECIMIENTO DE LA BARRA DE FILTROS.*/
+  flex-wrap: wrap;/*PERMITE QUE LOS ELEMENTOS FLEXIBLES PASEN A OTRA LÍNEA.*/
 
   input[type="text"],
-  select {
-    padding: 9px 12px;
-    border: 1px solid var(--color-bordes);
-    border-radius: var(--radio-borde);
-    font-family: var(--fuente-cuerpo);
-    font-size: 14px;
-    color: var(--color-texto-main);
-    background-color: var(--color-fondo);
-    transition: border-color 0.2s;
-    box-sizing: border-box;
+  select {//CAMPO DE TEXTO Y COMBO BOX DE LOS FILTROS.
+    padding: 9px 12px;/*ESPACIO INTERNO (RELLENO) DEL CAMPO.*/
+    border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DEL CAMPO.*/
+    border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL CAMPO.*/
+    font-family: var(--fuente-cuerpo);/*TIPO DE LETRA DEL TEXTO.*/
+    font-size: 14px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+    color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/
+    background-color: var(--color-fondo);/*COLOR DE FONDO DEL CAMPO.*/
+    transition: border-color 0.2s;/*TRANSICIÓN SUAVE PARA EL COLOR DEL BORDE.*/
+    box-sizing: border-box;/*INCLUYE BORDE Y RELLENO DENTRO DEL ANCHO TOTAL DEL CAMPO.*/
 
-    &:focus {
-      outline: none;
-      border-color: var(--color-acento);
-      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+    &:focus {//ESTILO DEL CAMPO AL ENFOCAR.
+      outline: none;/*ELIMINA EL CONTORNO PREDETERMINADO DEL NAVEGADOR.*/
+      border-color: var(--color-acento);/*COLOR DEL BORDE AL ENFOCAR.*/
+      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);/*SOMBRA DE ENFOQUE DEL CAMPO.*/
     }
   }
 
-  input[type="text"] { flex: 1; min-width: 200px; }
-  select { min-width: 180px; }
+  input[type="text"] {/*CAMPO DE TEXTO DE BÚSQUEDA.*/ flex: 1;/*COMPORTAMIENTO DE CRECIMIENTO DEL CAMPO DE TEXTO.*/ min-width: 200px;/*ANCHURA MÍNIMA DEL CAMPO DE TEXTO.*/ }
+  select {/*COMBO BOX DE LOS FILTROS.*/ min-width: 180px;/*ANCHURA MÍNIMA DEL COMBO BOX.*/ }
 }
 
-.btn-sigeps {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 9px 16px;
-  border-radius: var(--radio-borde);
-  font-family: var(--fuente-cuerpo);
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  border: none;
-  white-space: nowrap;
+.btn-sigeps {//ESTILO BASE DE LOS BOTONES DEL SISTEMA.
+  display: inline-flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE EN LÍNEA.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 7px;/*ESPACIO ENTRE EL ÍCONO Y EL TEXTO DEL BOTÓN.*/
+  padding: 9px 16px;/*ESPACIO INTERNO (RELLENO) DEL BOTÓN.*/
+  border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BOTÓN.*/
+  font-family: var(--fuente-cuerpo);/*TIPO DE LETRA DEL TEXTO DEL BOTÓN.*/
+  font-size: 14px;/*TAMAÑO DE LETRA DEL TEXTO DEL BOTÓN.*/
+  font-weight: 600;/*NEGRILLA DE LETRA DEL TEXTO DEL BOTÓN.*/
+  cursor: pointer;/*ACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL BOTÓN.*/
+  transition: all 0.2s ease;/*TRANSICIÓN SUAVE PARA TODOS LOS CAMBIOS DE ESTADO DEL BOTÓN.*/
+  border: none;/*ELIMINA EL BORDE DEL BOTÓN.*/
+  white-space: nowrap;/*CONTROL DEL SALTO DE LÍNEA DEL TEXTO DEL BOTÓN.*/
 
-  &.btn-buscar {
-    background-color: var(--color-fondo-pagina);
-    color: var(--color-texto-main);
-    border: 1px solid var(--color-bordes);
-    &:hover { border-color: var(--color-acento); color: var(--color-acento); }
+  &.btn-buscar {//VARIANTE DE BOTÓN BUSCAR.
+    background-color: var(--color-fondo-pagina);/*COLOR DE FONDO DEL BOTÓN BUSCAR.*/
+    color: var(--color-texto-main);/*COLOR DE LETRA DEL BOTÓN BUSCAR.*/
+    border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DEL BOTÓN BUSCAR.*/
+    &:hover {/*ESTILO AL PASAR EL MOUSE SOBRE EL BOTÓN BUSCAR.*/ border-color: var(--color-acento);/*COLOR DEL BORDE AL PASAR EL MOUSE.*/ color: var(--color-acento);/*COLOR DE LETRA AL PASAR EL MOUSE.*/ }
   }
 }
 
-.tabla-card {
-  background-color: var(--color-fondo);
-  border-radius: var(--radio-card);
-  border: 1px solid var(--color-bordes);
-  box-shadow: var(--sombra-card);
-  overflow: hidden;
+.tabla-card {//TARJETA CONTENEDORA DE LA TABLA.
+  background-color: var(--color-fondo);/*COLOR DE FONDO DE LA TARJETA.*/
+  border-radius: var(--radio-card);/*RADIO DE REDONDEO DE LAS ESQUINAS DE LA TARJETA.*/
+  border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DE LA TARJETA.*/
+  box-shadow: var(--sombra-card);/*SOMBRA DE LA TARJETA.*/
+  overflow: hidden;/*OCULTA EL CONTENIDO QUE SOBRESALE DE LA TARJETA.*/
 }
-.tabla-contenido {
-  overflow-x: auto;
+.tabla-contenido {//CONTENEDOR CON SCROLL DEL CONTENIDO DE LA TABLA.
+  overflow-x: auto;/*ACTIVA LA FUNCIÓN DEL SCROLL HORIZONTAL.*/
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
+  table {//TABLA DE LIQUIDACIONES.
+    width: 100%;/*ANCHURA DE LA TABLA.*/
+    border-collapse: collapse;/*UNE LOS BORDES DE LAS CELDAS DE LA TABLA.*/
 
-    th {
-      background-color: var(--color-fondo-pagina);
-      padding: 10px 16px;
-      text-align: left;
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--color-texto-secundario);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      border-bottom: 1px solid var(--color-bordes);
-      white-space: nowrap;
+    th {//ENCABEZADO DE COLUMNA DE LA TABLA.
+      background-color: var(--color-fondo-pagina);/*COLOR DE FONDO DEL ENCABEZADO DE COLUMNA.*/
+      padding: 10px 16px;/*ESPACIO INTERNO (RELLENO) DEL ENCABEZADO DE COLUMNA.*/
+      text-align: left;/*ALINEACIÓN DEL TEXTO DEL ENCABEZADO.*/
+      font-size: 11px;/*TAMAÑO DE LETRA DEL ENCABEZADO.*/
+      font-weight: 700;/*NEGRILLA DE LETRA DEL ENCABEZADO.*/
+      color: var(--color-texto-secundario);/*COLOR DE LETRA DEL ENCABEZADO.*/
+      text-transform: uppercase;/*TRANSFORMACIÓN DE MAYÚSCULAS DEL TEXTO.*/
+      letter-spacing: 0.5px;/*ESPACIO ENTRE LAS LETRAS DEL TEXTO.*/
+      border-bottom: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE INFERIOR DEL ENCABEZADO.*/
+      white-space: nowrap;/*CONTROL DEL SALTO DE LÍNEA DEL TEXTO DEL ENCABEZADO.*/
     }
 
-    td {
-      padding: 11px 16px;
-      font-size: 13px;
-      color: var(--color-texto-main);
-      border-bottom: 1px solid var(--color-bordes-suave);
-      white-space: nowrap;
+    td {//CELDA DE DATOS DE LA TABLA.
+      padding: 11px 16px;/*ESPACIO INTERNO (RELLENO) DE LA CELDA.*/
+      font-size: 13px;/*TAMAÑO DE LETRA DE LA CELDA.*/
+      color: var(--color-texto-main);/*COLOR DE LETRA DE LA CELDA.*/
+      border-bottom: 1px solid var(--color-bordes-suave);/*GROSOR Y COLOR DEL BORDE INFERIOR DE LA CELDA.*/
+      white-space: nowrap;/*CONTROL DEL SALTO DE LÍNEA DEL TEXTO DE LA CELDA.*/
     }
 
-    tr:last-child td { border-bottom: none; }
-    tr:hover td { background-color: rgba(14, 165, 233, 0.03); }
+    tr:last-child td {/*ÚLTIMA FILA DE LA TABLA.*/ border-bottom: none;/*ELIMINA EL BORDE INFERIOR DE LA ÚLTIMA FILA.*/ }
+    tr:hover td {/*FILA DE LA TABLA AL PASAR EL MOUSE.*/ background-color: rgba(14, 165, 233, 0.03);/*COLOR DE FONDO DE LA FILA AL PASAR EL MOUSE.*/ }
   }
 }
 
-.tabla-vacia {
-  text-align: center;
-  padding: 32px !important;
-  color: var(--color-texto-secundario) !important;
-  font-size: 14px !important;
-  white-space: normal !important;
+.tabla-vacia {//MENSAJE MOSTRADO CUANDO NO HAY REGISTROS.
+  text-align: center;/*ALINEACIÓN DEL TEXTO DEL MENSAJE.*/
+  padding: 32px !important;/*ESPACIO INTERNO (RELLENO) DEL MENSAJE, FORZADO.*/
+  color: var(--color-texto-secundario) !important;/*COLOR DE LETRA DEL MENSAJE, FORZADO.*/
+  font-size: 14px !important;/*TAMAÑO DE LETRA DEL MENSAJE, FORZADO.*/
+  white-space: normal !important;/*PERMITE EL SALTO DE LÍNEA NORMAL DEL TEXTO, FORZADO.*/
 }
 
-.badge-estado {
-  display: inline-flex;
-  align-items: center;
-  padding: 3px 9px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 600;
+.badge-estado {//ETIQUETA VISUAL (BADGE) DE ESTADO.
+  display: inline-flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE EN LÍNEA.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  padding: 3px 9px;/*ESPACIO INTERNO (RELLENO) DEL BADGE.*/
+  border-radius: 20px;/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BADGE.*/
+  font-size: 11px;/*TAMAÑO DE LETRA DEL BADGE.*/
+  font-weight: 600;/*NEGRILLA DE LETRA DEL BADGE.*/
 }
-.badge-activo { background-color: rgba(22, 163, 74, 0.1); color: #15803d; }
-.badge-pendiente { background-color: rgba(234, 179, 8, 0.1); color: #92400e; }
+.badge-activo {/*BADGE DE ESTADO ACTIVO (LIQUIDADO).*/ background-color: rgba(22, 163, 74, 0.1);/*COLOR DE FONDO DEL BADGE ACTIVO.*/ color: #15803d;/*COLOR DE LETRA DEL BADGE ACTIVO.*/ }
+.badge-pendiente {/*BADGE DE ESTADO PENDIENTE.*/ background-color: rgba(234, 179, 8, 0.1);/*COLOR DE FONDO DEL BADGE PENDIENTE.*/ color: #92400e;/*COLOR DE LETRA DEL BADGE PENDIENTE.*/ }
 
-.paginacion {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px;
-  border-top: 1px solid var(--color-bordes);
-  flex-wrap: wrap;
-  gap: 10px;
+.paginacion {//CONTENEDOR DE PAGINACIÓN.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  justify-content: space-between;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS CON ESPACIO ENTRE ELLOS.*/
+  padding: 12px 16px;/*ESPACIO INTERNO (RELLENO) DE LA PAGINACIÓN.*/
+  border-top: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE SUPERIOR DE LA PAGINACIÓN.*/
+  flex-wrap: wrap;/*PERMITE QUE LOS ELEMENTOS FLEXIBLES PASEN A OTRA LÍNEA.*/
+  gap: 10px;/*ESPACIO ENTRE LOS ELEMENTOS DE LA PAGINACIÓN.*/
 }
-.paginacion-info {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 13px;
-  color: var(--color-texto-secundario);
+.paginacion-info {//INFORMACIÓN DE REGISTROS POR PÁGINA.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 10px;/*ESPACIO ENTRE LOS ELEMENTOS DE LA INFORMACIÓN.*/
+  font-size: 13px;/*TAMAÑO DE LETRA DE LA INFORMACIÓN.*/
+  color: var(--color-texto-secundario);/*COLOR DE LETRA DE LA INFORMACIÓN.*/
 
-  select {
-    padding: 5px 8px;
-    border: 1px solid var(--color-bordes);
-    border-radius: var(--radio-borde);
-    font-size: 13px;
-    color: var(--color-texto-main);
-    background-color: var(--color-fondo);
+  select {//COMBO BOX DE REGISTROS POR PÁGINA.
+    padding: 5px 8px;/*ESPACIO INTERNO (RELLENO) DEL COMBO BOX.*/
+    border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DEL COMBO BOX.*/
+    border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL COMBO BOX.*/
+    font-size: 13px;/*TAMAÑO DE LETRA DEL COMBO BOX.*/
+    color: var(--color-texto-main);/*COLOR DE LETRA DEL COMBO BOX.*/
+    background-color: var(--color-fondo);/*COLOR DE FONDO DEL COMBO BOX.*/
   }
 }
-.paginacion-controles {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.paginacion-controles {//CONTROLES DE NAVEGACIÓN DE PÁGINA.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 8px;/*ESPACIO ENTRE LOS CONTROLES DE NAVEGACIÓN.*/
 }
-.paginacion-texto {
-  font-size: 13px;
-  color: var(--color-texto-main);
-  font-weight: 600;
-  min-width: 60px;
-  text-align: center;
+.paginacion-texto {//TEXTO INDICADOR DE LA PÁGINA ACTUAL.
+  font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/
+  font-weight: 600;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  min-width: 60px;/*ANCHURA MÍNIMA DEL TEXTO.*/
+  text-align: center;/*ALINEACIÓN DEL TEXTO.*/
 }
-.btn-pag {
-  width: 30px;
-  height: 30px;
-  border: 1px solid var(--color-bordes);
-  border-radius: var(--radio-borde);
-  background-color: var(--color-fondo);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-texto-main);
-  transition: all 0.2s;
+.btn-pag {//BOTÓN DE PÁGINA.
+  width: 30px;/*ANCHURA DEL BOTÓN DE PÁGINA.*/
+  height: 30px;/*ALTURA DEL BOTÓN DE PÁGINA.*/
+  border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DEL BOTÓN DE PÁGINA.*/
+  border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BOTÓN.*/
+  background-color: var(--color-fondo);/*COLOR DE FONDO DEL BOTÓN DE PÁGINA.*/
+  cursor: pointer;/*ACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL BOTÓN.*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  justify-content: center;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS.*/
+  color: var(--color-texto-main);/*COLOR DE LETRA DEL BOTÓN DE PÁGINA.*/
+  transition: all 0.2s;/*TRANSICIÓN SUAVE PARA LOS CAMBIOS DE ESTADO DEL BOTÓN.*/
 
-  &:hover:not(:disabled) { border-color: var(--color-acento); color: var(--color-acento); }
-  &:disabled { opacity: 0.4; cursor: not-allowed; }
+  &:hover:not(:disabled) {/*ESTILO AL PASAR EL MOUSE SOBRE EL BOTÓN HABILITADO.*/ border-color: var(--color-acento);/*COLOR DEL BORDE AL PASAR EL MOUSE.*/ color: var(--color-acento);/*COLOR DE LETRA AL PASAR EL MOUSE.*/ }
+  &:disabled {/*ESTILO DEL BOTÓN DE PÁGINA DESHABILITADO.*/ opacity: 0.4;/*OPACIDAD DEL BOTÓN DESHABILITADO.*/ cursor: not-allowed;/*DESACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL BOTÓN A MODO NO INTERACTIVO.*/ }
 }

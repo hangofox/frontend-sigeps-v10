@@ -1,4 +1,4 @@
 export interface MoverArchivosI {
-    rutaArchivoActual: String;
-    rutaArchivoDestino: String;
+    sourcePath: String;
+    destinationPath: String;
 }

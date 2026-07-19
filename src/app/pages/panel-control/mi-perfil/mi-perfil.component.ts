@@ -1,12 +1,15 @@
 //IMPORTACIÓN DE LIBRERÍAS ANGULAR:
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 //IMPORTACIÓN DE INTERFACES:
 import { UsuariosI } from '../../../interfaces/panel-control/usuarios/usuarios.interface';
+import { ParametrosSistemaI } from '../../../interfaces/panel-control/parametros-sistema/parametros-sistema.interface';
 
 //IMPORTACIÓN DE SERVICIOS:
 import { UsuariosService } from '../../../services/panel-control/usuarios/usuarios.service';
+import { ParametrosSistemaService } from '../../../services/panel-control/parametros-sistema/parametros-sistema.service';
+import { GestionArchivosService } from '../../../services/gestion-archivos/gestion-archivos.service';
 
 //SELECTOR, HTML, ESTILOS QUE INTEGRAN AL COMPONENTE:
 @Component({
@@ -15,6 +18,10 @@ import { UsuariosService } from '../../../services/panel-control/usuarios/usuari
   styleUrls: ['./mi-perfil.component.scss']
 })
 export class MiPerfilComponent implements OnInit {
+
+  //OUTPUT: AVISA AL COMPONENTE PADRE (InicioComponent) CUANDO LA FOTO DEL USUARIO LOGUEADO CAMBIA (SUBIDA O
+  //ELIMINADA), PARA QUE EL AVATAR DEL CABEZOTE SE ACTUALICE SIN NECESIDAD DE RECARGAR LA PÁGINA:
+  @Output() fotoUsuarioActualizada = new EventEmitter<void>();
 
   //DECLARACIÓN DE VARIABLES GLOBALES:
   isLoggedIn: boolean = false;
@@ -34,6 +41,12 @@ export class MiPerfilComponent implements OnInit {
   isSelectedFileUserPhoto: boolean = false;
   cargandoDatos: boolean = false;
 
+  //VISTA PREVIA DE LA FOTO YA ALMACENADA EN EL SERVIDOR DE ARCHIVOS (VER resolverPreviewFotoUsuario):
+  previewUrlFotoUsuario: string | null = null;
+
+  //BANDERA DEL DIÁLOGO DE CONFIRMACIÓN SI/NO PARA ELIMINAR LA FOTO YA ALMACENADA:
+  banderaConfirmacionEliminacionFoto: boolean = false;
+
   //USUARIO CARGADO DESDE EL BACKEND — USADO PARA REPOBLAR EL FORMULARIO Y MANTENER CAMPOS NO EDITABLES:
   private usuario!: UsuariosI;
 
@@ -41,7 +54,9 @@ export class MiPerfilComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private changeDetectorRef: ChangeDetectorRef,
-    private usuariosService: UsuariosService
+    private usuariosService: UsuariosService,
+    private parametrosSistemaService: ParametrosSistemaService,
+    private gestionArchivosService: GestionArchivosService
   ) {}
 
   //MÉTODO PRINCIPAL DEL COMPONENTE:
@@ -146,8 +161,40 @@ export class MiPerfilComponent implements OnInit {
     });
     if (u.nombreArchivoFotoExtensionoFormatoUsuario) {
       this.nombreArchivoFotoExtensionoFormatoUsuario = String(u.nombreArchivoFotoExtensionoFormatoUsuario);
+      this.resolverPreviewFotoUsuario(this.nombreArchivoFotoExtensionoFormatoUsuario);
     }
     this.changeDetectorRef.detectChanges();
+  }
+
+  //RESUELVE LA URL PÚBLICA DE LA FOTO YA ALMACENADA EN EL SERVIDOR DE ARCHIVOS PARA MOSTRARLA COMO VISTA PREVIA:
+  resolverPreviewFotoUsuario(nombreArchivo: string): void {
+    this.parametrosSistemaService.getSystemParameterbyId(1).subscribe({
+      next: (respuestaParametros) => {
+        const parametrosSistema = respuestaParametros.parametrosSistemaDTO;
+        //NOTA: NO SE CODIFICA AQUÍ EL NOMBRE DEL ARCHIVO — GestionArchivosService.getFile() YA ENVÍA LA RUTA COMPLETA
+        //A TRAVÉS DE HttpParams, QUE LA CODIFICA AUTOMÁTICAMENTE (CODIFICARLA AQUÍ TAMBIÉN LA DEJARÍA CODIFICADA DOS VECES):
+        const rutaCompleta = String(parametrosSistema.rutaDestinoCarpetaPrincipalServidorAplicaciones)
+          + String(parametrosSistema.rutaDestinoArchivosUsuarios) + nombreArchivo;
+        this.gestionArchivosService.getFile(rutaCompleta).subscribe({
+          next: (respuestaArchivo) => {
+            //SE DESCARGAN LOS BYTES DEL ARCHIVO AUTENTICADO (VER NOTA EN GestionArchivosService.getFileBytes) Y SE
+            //ARMA UNA URL LOCAL DE OBJETO PARA USARLA COMO <img [src]>:
+            this.gestionArchivosService.getFileBytes(respuestaArchivo.rutaEstatica).subscribe({
+              next: (blob) => {
+                if (this.previewUrlFotoUsuario) URL.revokeObjectURL(this.previewUrlFotoUsuario);
+                this.previewUrlFotoUsuario = URL.createObjectURL(blob);
+              },
+              error: () => { this.previewUrlFotoUsuario = null; }
+            });
+          },
+          error: () => { this.previewUrlFotoUsuario = null; }
+        });
+      },
+      error: (err) => {
+        console.error('ERROR AL OBTENER LOS PARÁMETROS DEL SISTEMA PARA LA VISTA PREVIA DE LA FOTO: ', err);
+        this.previewUrlFotoUsuario = null;
+      }
+    });
   }
 
   //NORMALIZA UNA FECHA DEL BACKEND AL FORMATO YYYY-MM-DDTHH:mm:
@@ -157,21 +204,85 @@ export class MiPerfilComponent implements OnInit {
     return s.length > 16 ? s.slice(0, 16) : s;
   }
 
-  //MÉTODO PARA MANEJAR LA SELECCIÓN DEL ARCHIVO DE FOTO:
+  //MÉTODO PARA MANEJAR LA SELECCIÓN DEL ARCHIVO DE FOTO — VALIDA PESO MÁXIMO (2 MB) Y EXTENSIÓN SOPORTADA ANTES DE ACEPTARLO:
   onSelectFileUserPhoto(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      this.selectedFileUserPhoto = file;
-      this.isSelectedFileUserPhoto = true;
-      this.nombreArchivoFotoExtensionoFormatoUsuario = file.name;
+    const file: File = event.target.files[0];
+    if (!file) return;
+    const extension = (file.name.split('.').pop() || '').toString();
+    const extensionesPermitidas = ['jpg', 'JPG', 'jpeg', 'JPEG', 'bmp', 'BMP', 'png', 'PNG', 'gif', 'GIF'];
+    const tamanoMaximoBytes = 2000000; //2.0 MB.
+    if (file.size > tamanoMaximoBytes) {
+      this.mostrarToast('error', 'El archivo excede el tamaño máximo permitido de 2.0 MB.');
+      event.target.value = '';
+      return;
     }
+    if (!extensionesPermitidas.includes(extension)) {
+      this.mostrarToast('error', 'El archivo debe tener una extensión válida (jpg, jpeg, bmp, png o gif).');
+      event.target.value = '';
+      return;
+    }
+    this.selectedFileUserPhoto = file;
+    this.isSelectedFileUserPhoto = true;
   }
 
-  //MÉTODO PARA MANEJAR LA DESELECCIÓN DEL ARCHIVO:
+  //MÉTODO PARA CANCELAR LA SELECCIÓN PENDIENTE DE UN ARCHIVO NUEVO (NO BORRA LA FOTO YA ALMACENADA):
   onRemoveFileUserPhoto(): void {
     this.selectedFileUserPhoto = null;
     this.isSelectedFileUserPhoto = false;
-    this.nombreArchivoFotoExtensionoFormatoUsuario = null;
+  }
+
+  //MÉTODO QUE ABRE EL DIÁLOGO DE CONFIRMACIÓN SI/NO ANTES DE ELIMINAR LA FOTO YA ALMACENADA:
+  confirmarEliminarFotoUsuario(): void {
+    if (!this.nombreArchivoFotoExtensionoFormatoUsuario) return;
+    this.banderaConfirmacionEliminacionFoto = true;
+  }
+
+  //MÉTODO DE LA ALERTA DE CONFIRMACIÓN NO — CANCELA LA ELIMINACIÓN DE LA FOTO:
+  noEliminarFotoUsuario(): void {
+    this.banderaConfirmacionEliminacionFoto = false;
+  }
+
+  //MÉTODO DE LA ALERTA DE CONFIRMACIÓN SI — ELIMINA DEFINITIVAMENTE LA FOTO YA ALMACENADA: BORRA EL ARCHIVO FÍSICO DEL SERVIDOR DE ARCHIVOS Y LIMPIA EL CAMPO EN BASE DE DATOS:
+  siEliminarFotoUsuario(): void {
+    this.banderaConfirmacionEliminacionFoto = false;
+    if (!this.nombreArchivoFotoExtensionoFormatoUsuario) return;
+    const nombreArchivoAEliminar = this.nombreArchivoFotoExtensionoFormatoUsuario;
+
+    this.parametrosSistemaService.getSystemParameterbyId(1).subscribe({
+      next: (respuestaParametros) => {
+        const parametrosSistema = respuestaParametros.parametrosSistemaDTO;
+        const ruta = String(parametrosSistema.rutaDestinoCarpetaPrincipalServidorAplicaciones)
+          + String(parametrosSistema.rutaDestinoArchivosUsuarios) + nombreArchivoAEliminar;
+
+        this.gestionArchivosService.deleteFile({ filePath: ruta }).subscribe({
+          next: () => {
+            //LIMPIA EL CAMPO DE LA FOTO EN EL REGISTRO DEL USUARIO:
+            const usuarioSinFoto: UsuariosI = { ...this.usuario, nombreArchivoFotoExtensionoFormatoUsuario: '' };
+            this.usuariosService.updateUser(usuarioSinFoto).subscribe({
+              next: () => {
+                this.nombreArchivoFotoExtensionoFormatoUsuario = null;
+                this.previewUrlFotoUsuario = null;
+                this.mostrarToast('exito', 'Foto de perfil eliminada correctamente.');
+                this.cargarDatosUsuario();
+                this.fotoUsuarioActualizada.emit();
+              },
+              error: (err) => {
+                console.error('ERROR AL LIMPIAR EL CAMPO DE LA FOTO DEL USUARIO: ', err);
+                this.mostrarToast('error', 'Se eliminó el archivo, pero no se pudo actualizar el registro del usuario.');
+              }
+            });
+          },
+          error: (err) => {
+            console.error('ERROR AL ELIMINAR LA FOTO DE PERFIL: ', err);
+            this.mostrarToast('error', 'No se pudo eliminar la foto de perfil.');
+          }
+        });
+      },
+      error: (err) => {
+        console.error('ERROR AL OBTENER LOS PARÁMETROS DEL SISTEMA PARA ELIMINAR LA FOTO: ', err);
+        this.mostrarToast('error', 'No se pudo obtener la configuración de archivos del sistema.');
+      }
+    });
   }
 
   //ENCRIPTA LA CONTRASEÑA CON BTOA x10 (IGUAL AL FLUJO DE LOGIN):
@@ -181,6 +292,15 @@ export class MiPerfilComponent implements OnInit {
       passwordEncriptado = btoa(passwordEncriptado);
     }
     return passwordEncriptado;
+  }
+
+  //ENCRIPTA EL NÚMERO DE DOCUMENTO DE IDENTIFICACIÓN CON BTOA x2 PARA CONFORMAR EL NOMBRE DEL ARCHIVO DE LA FOTO:
+  obtenerNumeroDocumentoIdentificacionUsuarioEncriptado(numeroDocumentoIdentificacion: any): string {
+    let numeroDocumentoIdentificacionEncriptado = numeroDocumentoIdentificacion;
+    for (let i = 0; i < 2; i++) {
+      numeroDocumentoIdentificacionEncriptado = btoa(numeroDocumentoIdentificacionEncriptado);
+    }
+    return numeroDocumentoIdentificacionEncriptado;
   }
 
   //MUESTRA EL TOAST DE NOTIFICACIÓN:
@@ -223,6 +343,34 @@ export class MiPerfilComponent implements OnInit {
       return;
     }
 
+    //SI SE SELECCIONÓ UNA FOTO NUEVA, PRIMERO SE CONSULTAN LOS PARÁMETROS DEL SISTEMA PARA CONFORMAR EL NOMBRE
+    //DEL ARCHIVO (NÚMERO DE DOCUMENTO ENCRIPTADO + EXTENSIÓN) ANTES DE CONTINUAR CON EL GUARDADO DEL PERFIL:
+    if (this.selectedFileUserPhoto) {
+      this.parametrosSistemaService.getSystemParameterbyId(1).subscribe({
+        next: (respuestaParametros) => {
+          const parametrosSistema = respuestaParametros.parametrosSistemaDTO;
+          const extension = (this.selectedFileUserPhoto!.name.split('.').pop() || '').toString();
+          const nuevoNombreArchivo = this.obtenerNumeroDocumentoIdentificacionUsuarioEncriptado(fv.ctextNumeroDocumentoIdentificacionUsuario) + '.' + extension;
+          this.continuarGuardadoPerfil(fv, quiereCambiarPassword, nuevaPassword1, nuevoNombreArchivo, parametrosSistema);
+        },
+        error: (err) => {
+          console.error('ERROR AL OBTENER LOS PARÁMETROS DEL SISTEMA: ', err);
+          this.mostrarToast('error', 'No se pudo obtener la configuración de archivos del sistema.');
+        }
+      });
+    } else {
+      this.continuarGuardadoPerfil(fv, quiereCambiarPassword, nuevaPassword1, null, null);
+    }
+  }
+
+  //CONTINÚA EL GUARDADO DEL PERFIL YA CON EL NOMBRE DE ARCHIVO DE LA FOTO (SI APLICA) RESUELTO:
+  private continuarGuardadoPerfil(
+    fv: any,
+    quiereCambiarPassword: boolean,
+    nuevaPassword1: string,
+    nuevoNombreArchivo: string | null,
+    parametrosSistema: ParametrosSistemaI | null
+  ): void {
     //CONSTRUYE EL OBJETO UsuariosI CON LOS VALORES DEL FORMULARIO:
     const usuarioActualizado: UsuariosI = {
       idUsuario: Number(fv.ctextIdUsuario),
@@ -237,9 +385,9 @@ export class MiPerfilComponent implements OnInit {
       nombresUsuario: fv.ctextNombresUsuario,
       primerApellidoUsuario: fv.ctextPrimerApellidoUsuario,
       segundoApellidoUsuario: fv.ctextSegundoApellidoUsuario || '',
-      nombreArchivoFotoExtensionoFormatoUsuario: this.nombreArchivoFotoExtensionoFormatoUsuario
-        ? this.nombreArchivoFotoExtensionoFormatoUsuario
-        : fv.ctextNombreArchivoFotoExtensionoFormatoUsuario || '',
+      nombreArchivoFotoExtensionoFormatoUsuario: nuevoNombreArchivo
+        || this.nombreArchivoFotoExtensionoFormatoUsuario
+        || fv.ctextNombreArchivoFotoExtensionoFormatoUsuario || '',
       fechaHMSNacimientoUsuario: fv.ctextFechaHMSNacimientoUsuario || '',
       sexoUsuario: fv.ctextSexoUsuario || '',
       direccionUsuario: fv.ctextDireccionUsuario,
@@ -268,7 +416,7 @@ export class MiPerfilComponent implements OnInit {
       this.usuariosService.updatePassword(Number(fv.ctextIdUsuario), passwordEncriptado)
         .subscribe({
           next: () => {
-            this.guardarPerfilUsuario(usuarioActualizado, true, passwordEncriptado);
+            this.guardarPerfilUsuario(usuarioActualizado, true, passwordEncriptado, nuevoNombreArchivo, parametrosSistema);
           },
           error: (err) => {
             console.error('ERROR AL ACTUALIZAR CONTRASEÑA: ', err);
@@ -277,12 +425,18 @@ export class MiPerfilComponent implements OnInit {
         });
     } else {
       //SOLO ACTUALIZA EL PERFIL SIN CAMBIO DE CONTRASEÑA:
-      this.guardarPerfilUsuario(usuarioActualizado, false, null);
+      this.guardarPerfilUsuario(usuarioActualizado, false, null, nuevoNombreArchivo, parametrosSistema);
     }
   }
 
-  //LLAMA AL SERVICIO DE ACTUALIZACIÓN DEL PERFIL Y ACTUALIZA EL LOCALSTORAGE:
-  private guardarPerfilUsuario(usuario: UsuariosI, passwordCambiado: boolean, nuevoPasswordEncriptado: string | null): void {
+  //LLAMA AL SERVICIO DE ACTUALIZACIÓN DEL PERFIL, ACTUALIZA EL LOCALSTORAGE Y, SI HAY UNA FOTO NUEVA SELECCIONADA, LA SUBE:
+  private guardarPerfilUsuario(
+    usuario: UsuariosI,
+    passwordCambiado: boolean,
+    nuevoPasswordEncriptado: string | null,
+    nuevoNombreArchivo: string | null,
+    parametrosSistema: ParametrosSistemaI | null
+  ): void {
     this.usuariosService.updateUser(usuario).subscribe({
       next: (respuesta) => {
         localStorage.setItem('nicknameUsuarioLogueado', String(usuario.nicknameUsuario));
@@ -292,8 +446,31 @@ export class MiPerfilComponent implements OnInit {
         }
         this.nicknameUsuarioLogueado = String(usuario.nicknameUsuario);
         this.mostrarToast('exito', respuesta.mensaje || 'Perfil actualizado con éxito.');
-        //RECARGA LOS DATOS ACTUALIZADOS DESDE EL BACKEND:
-        this.cargarDatosUsuario();
+
+        //SI HABÍA UNA FOTO NUEVA SELECCIONADA, SE SUBE AL SERVIDOR DE ARCHIVOS DE FORMA INDEPENDIENTE (NO BLOQUEA EL GUARDADO DEL PERFIL).
+        //LA RECARGA DE DATOS SE HACE DESPUÉS DE QUE LA SUBIDA TERMINE (Y NO EN PARALELO), PARA EVITAR QUE LA VISTA
+        //PREVIA INTENTE RESOLVER UN ARCHIVO QUE TODAVÍA NO TERMINA DE ESCRIBIRSE EN EL SERVIDOR DE ARCHIVOS:
+        if (nuevoNombreArchivo && parametrosSistema && this.selectedFileUserPhoto) {
+          const rutaDestino = String(parametrosSistema.rutaDestinoCarpetaPrincipalServidorAplicaciones)
+            + String(parametrosSistema.rutaDestinoArchivosUsuarios) + nuevoNombreArchivo;
+          this.gestionArchivosService.uploadFile(this.selectedFileUserPhoto, rutaDestino).subscribe({
+            next: () => {
+              this.mostrarToast('exito', 'Foto de perfil actualizada correctamente.');
+              this.selectedFileUserPhoto = null;
+              this.isSelectedFileUserPhoto = false;
+              this.cargarDatosUsuario();
+              this.fotoUsuarioActualizada.emit();
+            },
+            error: (err) => {
+              console.error('ERROR AL SUBIR LA FOTO DE PERFIL: ', err);
+              this.mostrarToast('error', 'El perfil se guardó, pero no se pudo subir la foto.');
+              this.cargarDatosUsuario();
+            }
+          });
+        } else {
+          //RECARGA LOS DATOS ACTUALIZADOS DESDE EL BACKEND:
+          this.cargarDatosUsuario();
+        }
       },
       error: (err) => {
         console.error('ERROR AL MODIFICAR PERFIL: ', err);

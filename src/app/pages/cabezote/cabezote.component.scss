@@ -1,82 +1,82 @@
-.cabezote-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: var(--color-fondo);
-  border-bottom: 1px solid var(--color-bordes-suave);
-  padding: 0 40px;
-  height: 64px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-  position: sticky;
-  top: 0;
-  z-index: 100;
+.cabezote-container {//CONTENEDOR PRINCIPAL DEL CABEZOTE.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  justify-content: space-between;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS (EXTREMOS OPUESTOS).*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  background-color: var(--color-fondo);/*COLOR DE FONDO DEL CABEZOTE.*/
+  border-bottom: 1px solid var(--color-bordes-suave);/*GROSOR Y COLOR DEL BORDE INFERIOR DEL CABEZOTE.*/
+  padding: 0 40px;/*ESPACIO INTERNO (RELLENO) DEL CABEZOTE.*/
+  height: 64px;/*ALTURA DEL CABEZOTE.*/
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);/*SOMBRA DEL CABEZOTE.*/
+  position: sticky;/*TIPO DE POSICIONAMIENTO DEL ELEMENTO.*/
+  top: 0;/*DISTANCIA DESDE EL BORDE SUPERIOR.*/
+  z-index: 100;/*ORDEN DE APILAMIENTO (CAPA) DEL ELEMENTO.*/
 }
 
-.cabezote-logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.cabezote-logo {//CONTENEDOR DEL LOGOTIPO DEL CABEZOTE.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 10px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
 
-  .logo-svg {
-    width: 36px;
-    height: 36px;
+  .logo-svg {//ÍCONO SVG DEL LOGOTIPO.
+    width: 36px;/*ANCHURA DEL ÍCONO.*/
+    height: 36px;/*ALTURA DEL ÍCONO.*/
   }
 
-  .cabezote-nombre {
-    font-family: var(--fuente-titulos);
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--color-principal);
-    letter-spacing: -0.3px;
+  .cabezote-nombre {//NOMBRE DEL SISTEMA EN EL CABEZOTE.
+    font-family: var(--fuente-titulos);/*TIPO DE LETRA DEL TEXTO.*/
+    font-size: 20px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+    font-weight: 700;/*NEGRILLA DE LETRA DEL TEXTO.*/
+    color: var(--color-principal);/*COLOR DE LETRA DEL TEXTO.*/
+    letter-spacing: -0.3px;/*ESPACIO ENTRE LAS LETRAS DEL TEXTO.*/
   }
 }
 
-.cabezote-acciones {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+.cabezote-acciones {//CONTENEDOR DE LAS ACCIONES DEL CABEZOTE.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 16px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
 }
 
-.cabezote-usuario {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--color-texto-main);
+.cabezote-usuario {//CONTENEDOR DEL USUARIO CONECTADO EN EL CABEZOTE.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 10px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
+  font-size: 14px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 500;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/
 }
 
-.avatar {
-  width: 34px;
-  height: 34px;
-  background-color: var(--color-principal);
-  color: var(--color-fondo);
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 700;
-  font-size: 14px;
-  flex-shrink: 0;
+.avatar {//AVATAR CIRCULAR DEL USUARIO CONECTADO.
+  width: 34px;/*ANCHURA DEL AVATAR.*/
+  height: 34px;/*ALTURA DEL AVATAR.*/
+  background-color: var(--color-principal);/*COLOR DE FONDO DEL AVATAR.*/
+  color: var(--color-fondo);/*COLOR DE LETRA DEL AVATAR.*/
+  border-radius: 50%;/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BORDE (CÍRCULO).*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  justify-content: center;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  font-weight: 700;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  font-size: 14px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  flex-shrink: 0;/*EVITA QUE EL AVATAR SE ENCOJA.*/
 }
 
-.btn-cerrar-sesion {
-  background: transparent;
-  border: 1px solid var(--color-bordes-suave);
-  color: var(--color-texto-secundario);
-  padding: 7px 14px;
-  border-radius: var(--radio-borde);
-  cursor: pointer;
-  font-size: 13px;
-  font-family: var(--fuente-cuerpo);
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.2s ease;
+.btn-cerrar-sesion {//BOTÓN PARA CERRAR SESIÓN.
+  background: transparent;/*COLOR DE FONDO DEL BOTÓN.*/
+  border: 1px solid var(--color-bordes-suave);/*GROSOR Y COLOR DEL BORDE DEL BOTÓN.*/
+  color: var(--color-texto-secundario);/*COLOR DE LETRA DEL BOTÓN.*/
+  padding: 7px 14px;/*ESPACIO INTERNO (RELLENO) DEL BOTÓN.*/
+  border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BOTÓN.*/
+  cursor: pointer;/*ACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL BOTÓN.*/
+  font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-family: var(--fuente-cuerpo);/*TIPO DE LETRA DEL TEXTO.*/
+  font-weight: 500;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 6px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
+  transition: all 0.2s ease;/*TRANSICIÓN SUAVE PARA TODOS LOS CAMBIOS.*/
 
-  &:hover {
-    border-color: var(--color-error);
-    color: var(--color-error);
+  &:hover {//ESTILO DEL BOTÓN CERRAR SESIÓN AL PASAR EL MOUSE.
+    border-color: var(--color-error);/*COLOR DEL BORDE AL PASAR EL MOUSE.*/
+    color: var(--color-error);/*COLOR DE LETRA AL PASAR EL MOUSE.*/
   }
 }

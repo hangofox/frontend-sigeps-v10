@@ -22,8 +22,11 @@
   </div>
 
   <!-- NOTA INFORMATIVA -->
-  <div class="nota-info">
+  <div class="nota-info" *ngIf="!esSuperAdministrador">
     Marque los privilegios que desea habilitar para el usuario. Los privilegios desmarcados se eliminarán (si ya existían) al guardar.
+  </div>
+  <div class="nota-info" *ngIf="esSuperAdministrador">
+    Este es el Super Administrador del sistema: sus privilegios y restricciones no se pueden modificar ni eliminar, para garantizar siempre el acceso al sistema.
   </div>
 
   <!-- TABLA DE FUNCIONALIDADES Y ROLES -->
@@ -76,7 +79,7 @@
   <!-- BOTONES DE ACCIÓN -->
   <div class="form-acciones">
     <button type="button" class="btn-sigeps btn-secundario" [disabled]="guardandoDatos" (click)="closeModal()">Cancelar</button>
-    <button type="button" class="btn-sigeps btn-primario" [disabled]="guardandoDatos || !privilegiosyRestriccForm.valid || privilegiosyRestriccForm.pristine" (click)="accionGuardarPrivilegios()">
+    <button type="button" class="btn-sigeps btn-primario" [disabled]="guardandoDatos || !privilegiosyRestriccForm.valid || privilegiosyRestriccForm.pristine || esSuperAdministrador" (click)="accionGuardarPrivilegios()">
       <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
       {{ guardandoDatos ? 'Guardando...' : 'Guardar Privilegios y Restricciones' }}
     </button>

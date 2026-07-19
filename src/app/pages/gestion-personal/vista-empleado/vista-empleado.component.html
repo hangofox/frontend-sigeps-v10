@@ -4,11 +4,12 @@
   <!-- CABECERA -->
   <div class="perfil-cabecera">
     <div class="avatar-grande">
-      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <img *ngIf="previewUrlFotoEmpleado" [src]="previewUrlFotoEmpleado" (error)="previewUrlFotoEmpleado = null" alt="Foto de empleado">
+      <svg *ngIf="!previewUrlFotoEmpleado" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
     </div>
     <div class="perfil-info">
       <h2 class="perfil-nombre">{{ empleado.nombresEmpleado }} {{ empleado.primerApellidoEmpleado }} {{ empleado.segundoApellidoEmpleado }}</h2>
-      <p class="perfil-tipo">{{ empleado.cargoEmpleado }}</p>
+      <p class="perfil-tipo">{{ empleado.tipoEmpleadoDTO?.nombreTipoEmpleado }}</p>
       <span class="badge-estado" [ngClass]="empleado.estadoEmpleado === 'ACTIVO' ? 'badge-activo' : 'badge-inactivo'">
         {{ empleado.estadoEmpleado }}
       </span>
@@ -17,30 +18,87 @@
 
   <!-- DATOS -->
   <div class="datos-grid">
+
     <div class="dato-grupo">
-      <span class="dato-label">N.° de Contrato</span>
-      <span class="dato-valor">{{ empleado.numeroContratoEmpleado }}</span>
+      <span class="dato-label">Tipo de Documento</span>
+      <span class="dato-valor">{{ empleado.tipoDocumentoIdentificacionDTO?.nombreTipoDocumentoIdentificacion }}</span>
     </div>
+
     <div class="dato-grupo">
-      <span class="dato-label">Documento</span>
+      <span class="dato-label">Número de Documento</span>
       <span class="dato-valor">{{ empleado.numeroDocumentoIdentificacionEmpleado }}</span>
     </div>
+
     <div class="dato-grupo">
-      <span class="dato-label">Cargo</span>
-      <span class="dato-valor">{{ empleado.cargoEmpleado }}</span>
+      <span class="dato-label">Tipo de Empleado</span>
+      <span class="dato-valor">{{ empleado.tipoEmpleadoDTO?.nombreTipoEmpleado }}</span>
     </div>
+
     <div class="dato-grupo">
-      <span class="dato-label">Sede Asignada</span>
-      <span class="dato-valor">{{ empleado.sedeAsignadaEmpleado }}</span>
+      <span class="dato-label">Tipo Empleado Planta</span>
+      <span class="dato-valor">{{ empleado.tipoEmpleadoPlantaDTO?.nombreTipoEmpleadoPlanta }}</span>
     </div>
+
     <div class="dato-grupo">
-      <span class="dato-label">Turno Asignado</span>
-      <span class="dato-valor">{{ empleado.turnoAsignadoEmpleado || 'No asignado' }}</span>
+      <span class="dato-label">Clasificación</span>
+      <span class="dato-valor">{{ empleado.clasificacionEmpleadoPlantaDTO?.nombreClasificacionEmpleadoPlanta }}</span>
     </div>
+
+    <div class="dato-grupo">
+      <span class="dato-label">Subclasificación</span>
+      <span class="dato-valor">{{ empleado.subclasificacionEmpleadoPlantaDTO?.nombreSubclasificacionEmpleadoPlanta }}</span>
+    </div>
+
+    <div class="dato-grupo">
+      <span class="dato-label">Dirección</span>
+      <span class="dato-valor">{{ empleado.direccionEmpleado || 'No registrada' }}</span>
+    </div>
+
+    <div class="dato-grupo">
+      <span class="dato-label">Teléfono</span>
+      <span class="dato-valor">{{ empleado.telefonoEmpleado || 'No registrado' }}</span>
+    </div>
+
     <div class="dato-grupo">
       <span class="dato-label">Celular</span>
       <span class="dato-valor">{{ empleado.movilEmpleado }}</span>
     </div>
+
+    <div class="dato-grupo">
+      <span class="dato-label">Correo Personal</span>
+      <span class="dato-valor">{{ empleado.correoElectronicoPersonalEmpleado || 'No registrado' }}</span>
+    </div>
+
+    <div class="dato-grupo">
+      <span class="dato-label">Correo Institucional</span>
+      <span class="dato-valor">{{ empleado.correoElectronicoInstitucionalEmpleado || 'No registrado' }}</span>
+    </div>
+
+    <div class="dato-grupo">
+      <span class="dato-label">País de Origen</span>
+      <span class="dato-valor">{{ empleado.paisOrigenEmpleado || 'No registrado' }}</span>
+    </div>
+
+    <div class="dato-grupo">
+      <span class="dato-label">Dpto. / Estado de Origen</span>
+      <span class="dato-valor">{{ empleado.departamentooEstadoOrigenEmpleado || 'No registrado' }}</span>
+    </div>
+
+    <div class="dato-grupo">
+      <span class="dato-label">Ciudad de Origen</span>
+      <span class="dato-valor">{{ empleado.ciudadOrigenEmpleado || 'No registrada' }}</span>
+    </div>
+
+    <div class="dato-grupo">
+      <span class="dato-label">Fecha de Ingreso</span>
+      <span class="dato-valor">{{ empleado.fechaHMSIngresoEmpleado }}</span>
+    </div>
+
+    <div class="dato-grupo">
+      <span class="dato-label">Fecha de Modificación</span>
+      <span class="dato-valor">{{ empleado.fechaHMSModificacionEmpleado || 'Sin modificaciones' }}</span>
+    </div>
+
   </div>
 
   <!-- ACCIÓN CERRAR -->

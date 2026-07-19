@@ -119,6 +119,18 @@ export class PrivilegiosyRestriccionesUsuariosComponent implements OnInit {
     });
     controls[this.CONTROL_SELECCIONAR_TODOS] = [this.roles.length > 0 && this.roles.every(rol => idsRolesExistentes.has(rol.idRol))];
     this.privilegiosyRestriccForm = this.formBuilder.group(controls);
+
+    //EL USUARIO SUPER ADMINISTRADOR DEL SISTEMA (idUsuario === 1) NUNCA DEBE QUEDAR SIN ACCESO: SE DESHABILITA
+    //TODO EL FORMULARIO (NINGÚN CHECKBOX DE PRIVILEGIO SE PUEDE MARCAR NI DESMARCAR PARA ESTE USUARIO):
+    if (this.esSuperAdministrador) {
+      this.privilegiosyRestriccForm.disable();
+    }
+  }
+
+  //INDICA SI EL USUARIO AL QUE SE LE ESTÁN ASIGNANDO PRIVILEGIOS Y RESTRICCIONES ES EL SUPER ADMINISTRADOR DEL
+  //SISTEMA (idUsuario === 1), PARA GARANTIZAR QUE SIEMPRE CONSERVE EL ACCESO COMPLETO AL SISTEMA:
+  get esSuperAdministrador(): boolean {
+    return this.usuarioData?.idUsuario === 1;
   }
 
   //MARCA O DESMARCA TODOS LOS CHECKBOX DE ROLES AL CAMBIAR EL CHECKBOX MAESTRO:
@@ -161,7 +173,7 @@ export class PrivilegiosyRestriccionesUsuariosComponent implements OnInit {
   //ACCIÓN GUARDAR: CALCULA QUÉ ROLES SE DEBEN CREAR (RECIÉN MARCADOS) Y CUÁLES SE DEBEN ELIMINAR (RECIÉN
   //DESMARCADOS Y QUE YA EXISTÍAN), Y APLICA LOS CAMBIOS DE FORMA MASIVA EN EL BACKEND:
   accionGuardarPrivilegios(): void {
-    if (!this.usuarioData?.idUsuario || this.guardandoDatos) return;
+    if (!this.usuarioData?.idUsuario || this.guardandoDatos || this.esSuperAdministrador) return;
     const idUsuario = this.usuarioData.idUsuario;
 
     const idsRolesChequeados = this.obtenerIdsRolesChequeados();

@@ -2,107 +2,107 @@
    VISTA DE TURNO — SIGEPS V1.0
    ============================================ */
 
-.vista-detalle {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+.vista-detalle {//CONTENEDOR PRINCIPAL DE LA VISTA DE DETALLE.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES.*/
+  gap: 20px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
 }
 
-.perfil-cabecera {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  padding: 18px;
-  background-color: var(--color-fondo-pagina);
-  border-radius: var(--radio-borde);
-  border: 1px solid var(--color-bordes);
+.perfil-cabecera {//CABECERA CON LA INFORMACIÓN DEL PERFIL DEL TURNO.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 18px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
+  padding: 18px;/*ESPACIO INTERNO (RELLENO) DE LA CABECERA.*/
+  background-color: var(--color-fondo-pagina);/*COLOR DE FONDO DE LA CABECERA.*/
+  border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DE LA CABECERA.*/
+  border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DE LA CABECERA.*/
 }
-.avatar-grande {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background-color: var(--color-principal);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  flex-shrink: 0;
+.avatar-grande {//AVATAR CIRCULAR GRANDE DEL TURNO.
+  width: 80px;/*ANCHURA DEL AVATAR.*/
+  height: 80px;/*ALTURA DEL AVATAR.*/
+  border-radius: 50%;/*RADIO DE REDONDEO DE LAS ESQUINAS DEL AVATAR (FORMA CIRCULAR).*/
+  background-color: var(--color-principal);/*COLOR DE FONDO DEL AVATAR.*/
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  justify-content: center;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS.*/
+  color: #fff;/*COLOR DE LETRA DEL AVATAR.*/
+  flex-shrink: 0;/*IMPIDE QUE EL AVATAR SE ENCOJA DENTRO DEL CONTENEDOR FLEXIBLE.*/
 }
-.perfil-info { flex: 1; }
-.perfil-nombre {
-  font-family: var(--fuente-titulos);
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--color-texto-main);
-  margin: 0 0 4px;
+.perfil-info { /*CONTENEDOR DE LA INFORMACIÓN TEXTUAL DEL PERFIL.*/ flex: 1;/*COMPORTAMIENTO DE CRECIMIENTO DEL ELEMENTO FLEXIBLE.*/ }
+.perfil-nombre {//NOMBRE DEL TURNO/EMPLEADO EN EL PERFIL.
+  font-family: var(--fuente-titulos);/*TIPO DE LETRA DEL TEXTO.*/
+  font-size: 17px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 700;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/
+  margin: 0 0 4px;/*ESPACIO DE MARGEN SUPERIOR, DERECHO E INFERIOR DEL NOMBRE.*/
 }
-.perfil-tipo {
-  font-size: 13px;
-  color: var(--color-texto-secundario);
-  margin: 0 0 8px;
-}
-
-.badge-estado {
-  display: inline-flex;
-  padding: 3px 10px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 600;
-}
-.badge-activo { background-color: rgba(22, 163, 74, 0.1); color: #15803d; }
-.badge-inactivo { background-color: rgba(239, 68, 68, 0.1); color: #b91c1c; }
-
-.datos-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  border: 1px solid var(--color-bordes);
-  border-radius: var(--radio-borde);
-  overflow: hidden;
-  background-color: var(--color-bordes);
-
-  @media (max-width: 580px) { grid-template-columns: 1fr; }
-}
-.dato-grupo {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  padding: 11px 14px;
-  background-color: var(--color-fondo);
-
-  &.dato-grupo-full { grid-column: 1 / -1; }
-}
-.dato-label {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--color-texto-secundario);
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
-}
-.dato-valor {
-  font-size: 14px;
-  color: var(--color-texto-main);
+.perfil-tipo {//TIPO/DESCRIPCIÓN DEL TURNO EN EL PERFIL.
+  font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/
+  margin: 0 0 8px;/*ESPACIO DE MARGEN SUPERIOR, DERECHO E INFERIOR DEL TEXTO.*/
 }
 
-.vista-acciones { display: flex; justify-content: flex-end; }
+.badge-estado {//ETIQUETA VISUAL (BADGE) DE ESTADO.
+  display: inline-flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE EN LÍNEA.*/
+  padding: 3px 10px;/*ESPACIO INTERNO (RELLENO) DEL BADGE.*/
+  border-radius: 20px;/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BADGE.*/
+  font-size: 11px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 600;/*NEGRILLA DE LETRA DEL TEXTO.*/
+}
+.badge-activo { /*VARIANTE DE ESTADO ACTIVO DEL BADGE.*/ background-color: rgba(22, 163, 74, 0.1);/*COLOR DE FONDO DEL BADGE ACTIVO.*/ color: #15803d;/*COLOR DE LETRA DEL TEXTO DEL BADGE ACTIVO.*/ }
+.badge-inactivo { /*VARIANTE DE ESTADO INACTIVO DEL BADGE.*/ background-color: rgba(239, 68, 68, 0.1);/*COLOR DE FONDO DEL BADGE INACTIVO.*/ color: #b91c1c;/*COLOR DE LETRA DEL TEXTO DEL BADGE INACTIVO.*/ }
 
-.btn-sigeps {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 9px 18px;
-  border-radius: var(--radio-borde);
-  font-family: var(--fuente-cuerpo);
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  border: none;
+.datos-grid {//CUADRÍCULA DE DATOS DEL TURNO.
+  display: grid;/*CONVIERTE EL ELEMENTO EN CUADRÍCULA.*/
+  grid-template-columns: 1fr 1fr;/*DEFINICIÓN DE LAS COLUMNAS DE LA CUADRÍCULA.*/
+  gap: 1px;/*ESPACIO ENTRE LOS ELEMENTOS DE LA CUADRÍCULA.*/
+  border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DE LA CUADRÍCULA.*/
+  border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DE LA CUADRÍCULA.*/
+  overflow: hidden;/*OCULTA EL CONTENIDO QUE SOBRESALGA DE LA CUADRÍCULA.*/
+  background-color: var(--color-bordes);/*COLOR DE FONDO DE LA CUADRÍCULA (LÍNEAS DIVISORIAS).*/
 
-  &.btn-secundario {
-    background: transparent;
-    color: var(--color-texto-main);
-    border: 1px solid var(--color-bordes);
-    &:hover { border-color: var(--color-acento); color: var(--color-acento); }
+  @media (max-width: 580px) { /*ESTILOS RESPONSIVOS PARA PANTALLAS PEQUEÑAS.*/ grid-template-columns: 1fr;/*DEFINICIÓN DE LAS COLUMNAS DE LA CUADRÍCULA EN PANTALLAS PEQUEÑAS.*/ }
+}
+.dato-grupo {//GRUPO INDIVIDUAL DE DATO (ETIQUETA + VALOR) DE LA CUADRÍCULA.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES.*/
+  gap: 3px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
+  padding: 11px 14px;/*ESPACIO INTERNO (RELLENO) DEL GRUPO DE DATO.*/
+  background-color: var(--color-fondo);/*COLOR DE FONDO DEL GRUPO DE DATO.*/
+
+  &.dato-grupo-full { /*VARIANTE DEL GRUPO DE DATO QUE OCUPA TODO EL ANCHO DE LA CUADRÍCULA.*/ grid-column: 1 / -1;/*HACE QUE EL ELEMENTO OCUPE TODAS LAS COLUMNAS DE LA CUADRÍCULA.*/ }
+}
+.dato-label {//ETIQUETA DEL DATO EN LA CUADRÍCULA.
+  font-size: 11px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 600;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/
+  text-transform: uppercase;/*TRANSFORMACIÓN DE MAYÚSCULAS/MINÚSCULAS DEL TEXTO.*/
+  letter-spacing: 0.4px;/*ESPACIO ENTRE LAS LETRAS DEL TEXTO.*/
+}
+.dato-valor {//VALOR DEL DATO EN LA CUADRÍCULA.
+  font-size: 14px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/
+}
+
+.vista-acciones { /*CONTENEDOR DE LOS BOTONES DE ACCIÓN DE LA VISTA.*/ display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/ justify-content: flex-end;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS HACIA EL FINAL.*/ }
+
+.btn-sigeps {//ESTILO BASE DE LOS BOTONES DEL SISTEMA.
+  display: inline-flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE EN LÍNEA.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  gap: 7px;/*ESPACIO ENTRE LOS ELEMENTOS DEL CONTENEDOR.*/
+  padding: 9px 18px;/*ESPACIO INTERNO (RELLENO) DEL BOTÓN.*/
+  border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL BOTÓN.*/
+  font-family: var(--fuente-cuerpo);/*TIPO DE LETRA DEL TEXTO.*/
+  font-size: 13px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 600;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  cursor: pointer;/*ACTIVACIÓN DE CURSOR AL SOBREPONER EL MOUSE SOBRE EL BOTÓN.*/
+  transition: all 0.2s;/*TRANSICIÓN SUAVE PARA TODOS LOS CAMBIOS DE ESTADO.*/
+  border: none;/*ELIMINA EL BORDE DEL BOTÓN.*/
+
+  &.btn-secundario {//VARIANTE SECUNDARIA DEL BOTÓN.
+    background: transparent;/*ELIMINA EL FONDO DEL BOTÓN.*/
+    color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO DEL BOTÓN.*/
+    border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DEL BOTÓN.*/
+    &:hover { /*ESTILO DEL BOTÓN AL PASAR EL MOUSE.*/ border-color: var(--color-acento);/*COLOR DEL BORDE AL PASAR EL MOUSE.*/ color: var(--color-acento);/*COLOR DE LETRA DEL TEXTO AL PASAR EL MOUSE.*/ }
   }
 }

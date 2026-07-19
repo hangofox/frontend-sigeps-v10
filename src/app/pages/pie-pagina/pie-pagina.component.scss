@@ -1,12 +1,12 @@
-.pie-pagina-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--color-fondo);
-  border-top: 1px solid var(--color-bordes);
-  color: var(--color-texto-secundario);
-  font-size: 12px;
-  padding: 14px 40px;
-  width: 100%;
-  box-sizing: border-box;
+.pie-pagina-container {//CONTENEDOR PRINCIPAL DEL PIE DE PÁGINA.
+  display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+  justify-content: center;/*ALINEACIÓN HORIZONTAL DE LOS ELEMENTOS.*/
+  align-items: center;/*ALINEACIÓN VERTICAL DE LOS ELEMENTOS.*/
+  background-color: var(--color-fondo);/*COLOR DE FONDO DEL PIE DE PÁGINA.*/
+  border-top: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE SUPERIOR.*/
+  color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO.*/
+  font-size: 12px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  padding: 14px 40px;/*ESPACIO INTERNO (RELLENO) DEL PIE DE PÁGINA.*/
+  width: 100%;/*ANCHURA DEL PIE DE PÁGINA.*/
+  box-sizing: border-box;/*INCLUYE EL BORDE Y EL RELLENO DENTRO DE LA ANCHURA TOTAL DEL ELEMENTO.*/
 }

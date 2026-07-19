@@ -7,6 +7,8 @@ import { UsuariosI } from '../../../../interfaces/panel-control/usuarios/usuario
 
 //IMPORTACIÓN DE SERVICIOS:
 import { UsuariosService } from '../../../../services/panel-control/usuarios/usuarios.service';
+import { ParametrosSistemaService } from '../../../../services/panel-control/parametros-sistema/parametros-sistema.service';
+import { GestionArchivosService } from '../../../../services/gestion-archivos/gestion-archivos.service';
 
 //SELECTOR, HTML, ESTILOS QUE INTEGRAN AL COMPONENTE:
 @Component({
@@ -27,15 +29,15 @@ export class VistaUsuarioComponent implements OnInit, OnChanges {
   usuarios!: UsuariosI;
   valorCeldaFotoUsuario: string = 'celda-fondo-imagen-usuario';
   rutaEstaticaArchivoFotoObtenida: string | null = null;
-  tamanoArchivoFotoAltura: string = '150px';
-  tamanoArchivoFotoAnchura: string = '150px';
   mensajeError: string = '';
   private componenteInicializado: boolean = false;
 
   //CONSTRUCTOR DEL COMPONENTE:
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
-    private usuariosService: UsuariosService
+    private usuariosService: UsuariosService,
+    private parametrosSistemaService: ParametrosSistemaService,
+    private gestionArchivosService: GestionArchivosService
   ) {}
 
   //MÉTODO PRINCIPAL DEL COMPONENTE:
@@ -60,6 +62,10 @@ export class VistaUsuarioComponent implements OnInit, OnChanges {
       .subscribe({
         next: (respuesta) => {
           this.usuarios = respuesta.usuarioDTO;
+          this.rutaEstaticaArchivoFotoObtenida = null;
+          if (this.usuarios.nombreArchivoFotoExtensionoFormatoUsuario) {
+            this.resolverFotoUsuario(String(this.usuarios.nombreArchivoFotoExtensionoFormatoUsuario));
+          }
           this.changeDetectorRef.detectChanges();
         },
         error: (err) => {
@@ -67,6 +73,39 @@ export class VistaUsuarioComponent implements OnInit, OnChanges {
           this.mensajeError = 'Error al cargar los datos del usuario.';
         }
       });
+  }
+
+  //RESUELVE LA URL PÚBLICA DE LA FOTO YA ALMACENADA EN EL SERVIDOR DE ARCHIVOS PARA MOSTRARLA (SI NO HAY FOTO,
+  //rutaEstaticaArchivoFotoObtenida QUEDA EN null Y LA PLANTILLA MUESTRA EL ÍCONO GENÉRICO EN SU LUGAR):
+  private resolverFotoUsuario(nombreArchivo: string): void {
+    this.parametrosSistemaService.getSystemParameterbyId(1).subscribe({
+      next: (respuestaParametros) => {
+        const parametrosSistema = respuestaParametros.parametrosSistemaDTO;
+        //NOTA: NO SE CODIFICA AQUÍ EL NOMBRE DEL ARCHIVO — GestionArchivosService.getFile() YA ENVÍA LA RUTA COMPLETA
+        //A TRAVÉS DE HttpParams, QUE LA CODIFICA AUTOMÁTICAMENTE (CODIFICARLA AQUÍ TAMBIÉN LA DEJARÍA CODIFICADA DOS VECES):
+        const rutaCompleta = String(parametrosSistema.rutaDestinoCarpetaPrincipalServidorAplicaciones)
+          + String(parametrosSistema.rutaDestinoArchivosUsuarios) + nombreArchivo;
+        this.gestionArchivosService.getFile(rutaCompleta).subscribe({
+          next: (respuestaArchivo) => {
+            //SE DESCARGAN LOS BYTES DEL ARCHIVO AUTENTICADO (VER NOTA EN GestionArchivosService.getFileBytes) Y SE
+            //ARMA UNA URL LOCAL DE OBJETO PARA USARLA COMO <img [src]>:
+            this.gestionArchivosService.getFileBytes(respuestaArchivo.rutaEstatica).subscribe({
+              next: (blob) => {
+                if (this.rutaEstaticaArchivoFotoObtenida) URL.revokeObjectURL(this.rutaEstaticaArchivoFotoObtenida);
+                this.rutaEstaticaArchivoFotoObtenida = URL.createObjectURL(blob);
+                this.changeDetectorRef.detectChanges();
+              },
+              error: () => { this.rutaEstaticaArchivoFotoObtenida = null; }
+            });
+          },
+          error: () => { this.rutaEstaticaArchivoFotoObtenida = null; }
+        });
+      },
+      error: (err) => {
+        console.error('ERROR AL OBTENER LOS PARÁMETROS DEL SISTEMA PARA LA FOTO DEL USUARIO: ', err);
+        this.rutaEstaticaArchivoFotoObtenida = null;
+      }
+    });
   }
 
   //MÉTODO PARA CERRAR EL MODAL:
