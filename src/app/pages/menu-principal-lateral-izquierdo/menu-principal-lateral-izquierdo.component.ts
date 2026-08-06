@@ -11,10 +11,10 @@ import { SessionService } from '../../services/session/session.service';
 export class MenuPrincipalLateralIzquierdoComponent implements OnInit, OnChanges {
 
   //ENTRADA: SECCIÓN ACTIVA RECIBIDA DEL COMPONENTE PADRE:
-  @Input() menuActivo: string = 'inicio';
+  @Input() menuPrincipalActivo: string = 'inicio';
 
   //SALIDA: EMITE LA NUEVA SECCIÓN CUANDO EL USUARIO HACE CLIC:
-  @Output() menuActivoChange = new EventEmitter<string>();
+  @Output() menuPrincipalActivoChange = new EventEmitter<string>();
 
   //SALIDA: EMITE CUANDO EL USUARIO HACE CLIC EN "CERRAR SESIÓN":
   @Output() onCerrarSesion = new EventEmitter<void>();
@@ -29,13 +29,13 @@ export class MenuPrincipalLateralIzquierdoComponent implements OnInit, OnChanges
 
   //MÉTODO PRINCIPAL DEL COMPONENTE:
   ngOnInit(): void {
-    this.sincronizarExpanded(this.menuActivo);
+    this.sincronizarExpanded(this.menuPrincipalActivo);
   }
 
-  //DETECTA CAMBIOS EN EL INPUT menuActivo PARA EXPANDIR EL SUBMENÚ CORRECTO:
+  //DETECTA CAMBIOS EN EL INPUT menuPrincipalActivo PARA EXPANDIR EL SUBMENÚ CORRECTO:
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['menuActivo']) {
-      this.sincronizarExpanded(changes['menuActivo'].currentValue);
+    if (changes['menuPrincipalActivo']) {
+      this.sincronizarExpanded(changes['menuPrincipalActivo'].currentValue);
     }
   }
 
@@ -48,7 +48,7 @@ export class MenuPrincipalLateralIzquierdoComponent implements OnInit, OnChanges
 
   //EMITE LA NUEVA SECCIÓN SELECCIONADA AL COMPONENTE PADRE:
   seleccionar(seccion: string): void {
-    this.menuActivoChange.emit(seccion);
+    this.menuPrincipalActivoChange.emit(seccion);
   }
 
   //EMITE EL EVENTO DE CERRAR SESIÓN AL COMPONENTE PADRE:

@@ -51,6 +51,29 @@ export class PrivilegiosyRestriccionesUsuariosComponent implements OnInit {
   //NOMBRE FIJO DEL CONTROL MAESTRO DE "SELECCIONAR TODOS":
   private readonly CONTROL_SELECCIONAR_TODOS = 'checkboxSeleccionarTodasFuncionalidadesyRoles';
 
+  //MAPA DE nombreFuncionalidad → URL DE LA SECCIÓN (menuActivo) QUE ESA FUNCIONALIDAD ACTIVA EN InicioComponent —
+  //DEBE MANTENERSE SINCRONIZADO CON LAS RUTAS DECLARADAS EN menu-principal-lateral-izquierdo.component.html.
+  //SE USA PARA GUARDAR urlAccesoUsuario AL CREAR UN NUEVO PRIVILEGIO Y RESTRICCIÓN DE ACCESO DE USUARIO:
+  private readonly URLS_FUNCIONALIDADES: { [nombreFuncionalidad: string]: string } = {
+    'INICIO': '/inicio',
+    'LISTADO DE EMPLEADOS': '/gestion-personal/listado-empleados',
+    'LISTADO DE PROGRAMACIONES DE TURNOS DE EMPLEADOS': '/gestion-personal/programaciones-turnos-empleados/listado-prog-turnos-empleados',
+    'LISTADO DE HISTORIAL DE MOVIMIENTOS DE EMPLEADOS': '/gestion-personal/historial-movimientos-empleados/listado-historial-movimientos-empleados',
+    'LISTADO DE HISTORIAL DE NOVEDADES DE EMPLEADOS': '/gestion-personal/historial-novedades-empleados/listado-historial-novedades-empleados',
+    'LISTADO DE LIQUIDACIONES DE EMPLEADOS': '/gestion-personal/liquidaciones-empleados/listado-liquidaciones-empleados',
+    'GRAFICAS DE ESTADISTICA': '/reportes-estadisticas/reportes',
+    'REPORTES': '/reportes-estadisticas/graficas-estadisticas',
+    'REPORTES DE SEGURIDAD': '/seguridad',
+    'LISTADO DE ESTABLECIMIENTOS DE CLIENTES': '/panel-control/gestion-establecimientos-clientes/listado-establecimientos-clientes',
+    'LISTADO DE TURNOS': '/panel-control/turnos/listado-turnos',
+    'LISTADO DE TARIFAS DE EMPLEADOS': '/panel-control/tarifas-empleados/listado-tarifas-empleados',
+    'CREDITOS': '/panel-control/creditos',
+    'MI PERFIL': '/panel-control/mi-perfil',
+    'PARAMETROS DEL SISTEMA': '/panel-control/parametros-sistema',
+    'LISTADO DE AUDITORIAS DEL SISTEMA': '/panel-control/auditorias-sistema/listado-auditorias-sistema',
+    'LISTADO DE USUARIOS': '/panel-control/usuarios/listado-usuarios'
+  };
+
   //CONSTRUCTOR DEL COMPONENTE:
   constructor(
     private formBuilder: FormBuilder,
@@ -147,6 +170,13 @@ export class PrivilegiosyRestriccionesUsuariosComponent implements OnInit {
     this.privilegiosyRestriccForm.get(this.CONTROL_SELECCIONAR_TODOS)?.setValue(todosMarcados, { emitEvent: false });
   }
 
+  //DEVUELVE LA URL DE LA SECCIÓN CORRESPONDIENTE A UNA FUNCIONALIDAD, SEGÚN EL MAPA URLS_FUNCIONALIDADES
+  //(CADENA VACÍA SI LA FUNCIONALIDAD NO TIENE UNA SECCIÓN PROPIA EN EL MENÚ, POR EJEMPLO LOS SUBMENÚS PADRE):
+  private obtenerUrlFuncionalidad(nombreFuncionalidad: String | undefined): string {
+    if (!nombreFuncionalidad) return '';
+    return this.URLS_FUNCIONALIDADES[nombreFuncionalidad.toString()] || '';
+  }
+
   //DEVUELVE EL CONJUNTO DE IDS DE ROL ACTUALMENTE MARCADOS EN EL FORMULARIO:
   private obtenerIdsRolesChequeados(): Set<number | undefined> {
     const fv = this.privilegiosyRestriccForm.getRawValue();
@@ -223,7 +253,7 @@ export class PrivilegiosyRestriccionesUsuariosComponent implements OnInit {
         usuarioDTO: this.usuarioData!,
         funcionalidadDTO: rol.funcionalidadDTO,
         rolDTO: rol,
-        urlAccesoUsuario: '',
+        urlAccesoUsuario: this.obtenerUrlFuncionalidad(rol.funcionalidadDTO?.nombreFuncionalidad),
         sioNoPrivilegyRestriccAccesoUsuario: 'SI',
         fechaHMSIngresoPrivilegyRestriccAccesoUsuario: fechaHMSActual
       }));

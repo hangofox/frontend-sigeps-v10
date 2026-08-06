@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { ResponseSubclasificacionEmpleadoPlantaDTO } from '../../../../interfaces/gestion-personal/clasificaciones-empleados-planta/subclasificaciones-empleados-planta/responseSubclasificacionEmpleadoPlantaDTO.interface';
-import { SubclasificacionEmpleadoPlantaI, SubclasificacionEmpleadoPlantaMsj } from '../../../../interfaces/gestion-personal/clasificaciones-empleados-planta/subclasificaciones-empleados-planta/subclasificaciones-empleados-planta.interface';
+import { ResponseSubclasificacionEmpleadoPlantaDTO } from '../../../interfaces/clasificaciones-empleados-planta/subclasificaciones-empleados-planta/responseSubclasificacionEmpleadoPlantaDTO.interface';
+import { SubclasificacionEmpleadoPlantaI, SubclasificacionEmpleadoPlantaMsj } from '../../../interfaces/clasificaciones-empleados-planta/subclasificaciones-empleados-planta/subclasificaciones-empleados-planta.interface';
 
 @Injectable({
   providedIn: 'root'

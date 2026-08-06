@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { ResponseTipoEmpleadoDTO } from '../../../interfaces/gestion-personal/tipos-empleados/responseTipoEmpleadoDTO.interface';
-import { TipoEmpleadoI, TipoEmpleadoMsj } from '../../../interfaces/gestion-personal/tipos-empleados/tipos-empleados.interface';
+import { ResponseTipoEmpleadoDTO } from '../../interfaces/tipos-empleados/responseTipoEmpleadoDTO.interface';
+import { TipoEmpleadoI, TipoEmpleadoMsj } from '../../interfaces/tipos-empleados/tipos-empleados.interface';
 
 @Injectable({
   providedIn: 'root'

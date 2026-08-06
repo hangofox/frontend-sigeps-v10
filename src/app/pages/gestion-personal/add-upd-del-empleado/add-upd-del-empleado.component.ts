@@ -6,19 +6,19 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { EmpleadosI } from '../../../interfaces/gestion-personal/empleados/empleados.interface';
 import { ResponseEmpleadoDTO } from '../../../interfaces/gestion-personal/empleados/responseEmpleadoDTO.interface';
 import { TiposDocumentosIdentificacionI } from '../../../interfaces/tipos-documentos-identificacion/tipos-documentos-identificacion.interface';
-import { TipoEmpleadoI } from '../../../interfaces/gestion-personal/tipos-empleados/tipos-empleados.interface';
-import { TipoEmpleadoPlantaI } from '../../../interfaces/gestion-personal/tipos-empleados-planta/tipos-empleados-planta.interface';
-import { ClasificacionEmpleadoPlantaI } from '../../../interfaces/gestion-personal/clasificaciones-empleados-planta/clasificaciones-empleados-planta.interface';
-import { SubclasificacionEmpleadoPlantaI } from '../../../interfaces/gestion-personal/clasificaciones-empleados-planta/subclasificaciones-empleados-planta/subclasificaciones-empleados-planta.interface';
+import { TipoEmpleadoI } from '../../../interfaces/tipos-empleados/tipos-empleados.interface';
+import { TipoEmpleadoPlantaI } from '../../../interfaces/tipos-empleados-planta/tipos-empleados-planta.interface';
+import { ClasificacionEmpleadoPlantaI } from '../../../interfaces/clasificaciones-empleados-planta/clasificaciones-empleados-planta.interface';
+import { SubclasificacionEmpleadoPlantaI } from '../../../interfaces/clasificaciones-empleados-planta/subclasificaciones-empleados-planta/subclasificaciones-empleados-planta.interface';
 import { ParametrosSistemaI } from '../../../interfaces/panel-control/parametros-sistema/parametros-sistema.interface';
 
 //IMPORTACIÓN DE SERVICIOS:
 import { EmpleadosService } from '../../../services/gestion-personal/empleados/empleados.service';
 import { TiposDocumentosIdentificacionService } from '../../../services/tipos-documentos-identificacion/tipos-documentos-identificacion.service';
-import { TiposEmpleadosService } from '../../../services/gestion-personal/tipos-empleados/tiposEmpleados.service';
-import { TiposEmpleadosPlantaService } from '../../../services/gestion-personal/tipos-empleados-planta/tiposEmpleadosPlanta.service';
-import { ClasificacionesEmpleadosPlantaService } from '../../../services/gestion-personal/clasificaciones-empleados-planta/clasificacionesEmpleadosPlanta.service';
-import { SubclasificacionesEmpleadosPlantaService } from '../../../services/gestion-personal/clasificaciones-empleados-planta/subclasificaciones-empleados-planta/subclasificacionesEmpleadosPlanta.service';
+import { TiposEmpleadosService } from '../../../services/tipos-empleados/tiposEmpleados.service';
+import { TiposEmpleadosPlantaService } from '../../../services/tipos-empleados-planta/tiposEmpleadosPlanta.service';
+import { ClasificacionesEmpleadosPlantaService } from '../../../services/clasificaciones-empleados-planta/clasificacionesEmpleadosPlanta.service';
+import { SubclasificacionesEmpleadosPlantaService } from '../../../services/clasificaciones-empleados-planta/subclasificaciones-empleados-planta/subclasificacionesEmpleadosPlanta.service';
 import { AuditoriasSistemaService } from '../../../services/panel-control/auditorias-sistema/auditorias-sistema.service';
 import { ParametrosSistemaService } from '../../../services/panel-control/parametros-sistema/parametros-sistema.service';
 import { GestionArchivosService } from '../../../services/gestion-archivos/gestion-archivos.service';

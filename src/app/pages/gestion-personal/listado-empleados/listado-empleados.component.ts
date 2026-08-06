@@ -4,18 +4,18 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 //IMPORTACIÓN DE INTERFACES:
 import { EmpleadosI } from '../../../interfaces/gestion-personal/empleados/empleados.interface';
-import { TipoEmpleadoI } from '../../../interfaces/gestion-personal/tipos-empleados/tipos-empleados.interface';
-import { TipoEmpleadoPlantaI } from '../../../interfaces/gestion-personal/tipos-empleados-planta/tipos-empleados-planta.interface';
-import { ClasificacionEmpleadoPlantaI } from '../../../interfaces/gestion-personal/clasificaciones-empleados-planta/clasificaciones-empleados-planta.interface';
-import { SubclasificacionEmpleadoPlantaI } from '../../../interfaces/gestion-personal/clasificaciones-empleados-planta/subclasificaciones-empleados-planta/subclasificaciones-empleados-planta.interface';
+import { TipoEmpleadoI } from '../../../interfaces/tipos-empleados/tipos-empleados.interface';
+import { TipoEmpleadoPlantaI } from '../../../interfaces/tipos-empleados-planta/tipos-empleados-planta.interface';
+import { ClasificacionEmpleadoPlantaI } from '../../../interfaces/clasificaciones-empleados-planta/clasificaciones-empleados-planta.interface';
+import { SubclasificacionEmpleadoPlantaI } from '../../../interfaces/clasificaciones-empleados-planta/subclasificaciones-empleados-planta/subclasificaciones-empleados-planta.interface';
 import { HistorialMovimientosEmpleadosI } from '../../../interfaces/gestion-personal/historial-movimientos-empleados/historialMovimientosEmpleados.interface';
 
 //IMPORTACIÓN DE SERVICIOS:
 import { EmpleadosService } from '../../../services/gestion-personal/empleados/empleados.service';
-import { TiposEmpleadosService } from '../../../services/gestion-personal/tipos-empleados/tiposEmpleados.service';
-import { TiposEmpleadosPlantaService } from '../../../services/gestion-personal/tipos-empleados-planta/tiposEmpleadosPlanta.service';
-import { ClasificacionesEmpleadosPlantaService } from '../../../services/gestion-personal/clasificaciones-empleados-planta/clasificacionesEmpleadosPlanta.service';
-import { SubclasificacionesEmpleadosPlantaService } from '../../../services/gestion-personal/clasificaciones-empleados-planta/subclasificaciones-empleados-planta/subclasificacionesEmpleadosPlanta.service';
+import { TiposEmpleadosService } from '../../../services/tipos-empleados/tiposEmpleados.service';
+import { TiposEmpleadosPlantaService } from '../../../services/tipos-empleados-planta/tiposEmpleadosPlanta.service';
+import { ClasificacionesEmpleadosPlantaService } from '../../../services/clasificaciones-empleados-planta/clasificacionesEmpleadosPlanta.service';
+import { SubclasificacionesEmpleadosPlantaService } from '../../../services/clasificaciones-empleados-planta/subclasificaciones-empleados-planta/subclasificacionesEmpleadosPlanta.service';
 import { HistorialMovimientosEmpleadosService } from '../../../services/gestion-personal/historial-movimientos-empleados/historialMovimientosEmpleados.service';
 import { SessionService } from '../../../services/session/session.service';
 

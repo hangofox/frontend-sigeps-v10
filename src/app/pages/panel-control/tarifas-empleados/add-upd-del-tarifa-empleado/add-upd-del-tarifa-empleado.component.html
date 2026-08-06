@@ -1,0 +1,140 @@
+<!-- COMPONENTE: FORMULARIO CRUD DE TARIFA DE EMPLEADO — SIGEPS V1.0 -->
+<div class="crud-form" *ngIf="tarifaEmpleadoForm" [formGroup]="tarifaEmpleadoForm">
+
+  <!-- ALERTA DE ELIMINACIÓN -->
+  <div class="alerta-eliminar" *ngIf="banderaCrudEliminar">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    <div>
+      <strong>¿Está seguro de eliminar esta tarifa de empleado?</strong>
+      <p>Esta acción no se puede deshacer. La tarifa será eliminada permanentemente del sistema.</p>
+    </div>
+  </div>
+
+  <input type="hidden" formControlName="ctextIdTarifaEmpleado">
+
+  <!-- SECCIÓN: INFORMACIÓN DE LA TARIFA -->
+  <div class="form-seccion">
+    <p class="seccion-titulo">Información de la Tarifa</p>
+    <div class="form-grid">
+
+      <div class="form-group">
+        <label>Tipo de Empleado <span class="req">*</span></label>
+        <select formControlName="cboxIdTipoEmpleado" (change)="cambiarTipoEmpleado()" [attr.disabled]="banderaCrudEliminar ? '' : null">
+          <option value="">-- Seleccione --</option>
+          <option *ngFor="let tipo of tiposEmpleados" [value]="tipo.idTipoEmpleado">
+            {{ tipo.nombreTipoEmpleado }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Tipo de Empleado Planta <span class="req">*</span></label>
+        <select formControlName="cboxIdTipoEmpleadoPlanta" (change)="cambiarTipoEmpleadoPlanta()" [attr.disabled]="banderaCrudEliminar ? '' : null">
+          <option value="">-- Seleccione --</option>
+          <option *ngFor="let tipo of tiposEmpleadosPlanta" [value]="tipo.idTipoEmpleadoPlanta">
+            {{ tipo.nombreTipoEmpleadoPlanta }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Clasificación <span class="req">*</span></label>
+        <select formControlName="cboxIdClasificacionEmpleadoPlanta" (change)="cambiarClasificacion()" [attr.disabled]="banderaCrudEliminar ? '' : null">
+          <option value="">-- Seleccione --</option>
+          <option *ngFor="let clasificacion of clasificacionesEmpleadosPlanta" [value]="clasificacion.idClasificacionEmpleadoPlanta">
+            {{ clasificacion.nombreClasificacionEmpleadoPlanta }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Subclasificación <span class="req">*</span></label>
+        <select formControlName="cboxIdSubclasificacionEmpleadoPlanta" [attr.disabled]="banderaCrudEliminar ? '' : null">
+          <option value="">-- Seleccione --</option>
+          <option *ngFor="let subclasificacion of subclasificacionesEmpleadosPlanta" [value]="subclasificacion.idSubclasificacionEmpleadoPlanta">
+            {{ subclasificacion.nombreSubclasificacionEmpleadoPlanta }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Tipo de Tarifa <span class="req">*</span></label>
+        <select formControlName="cboxTipoTarifaEmpleadoSeleccionado" [attr.disabled]="banderaCrudEliminar ? '' : null">
+          <option value="">-- Seleccione --</option>
+          <option *ngFor="let tipo of tiposTarifasEmpleados" [value]="tipo.idTipoTarifaEmpleado">
+            {{ tipo.nombreTipoTarifaEmpleado }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Año <span class="req">*</span></label>
+        <input type="number" formControlName="ctextAnioTarifaEmpleado" placeholder="Ej: 2026"
+          [attr.disabled]="banderaCrudEliminar ? '' : null">
+      </div>
+
+      <div class="form-group">
+        <label>Valor Hora <span class="req">*</span></label>
+        <input type="number" step="0.01" formControlName="ctextValorHoraTarifaEmpleado" placeholder="Ej: 5500.00"
+          [attr.disabled]="banderaCrudEliminar ? '' : null">
+      </div>
+
+      <div class="form-group">
+        <label>Estado <span class="req">*</span></label>
+        <select formControlName="cboxEstadoTarifaEmpleado" [attr.disabled]="banderaCrudEliminar ? '' : null">
+          <option value="ACTIVO">ACTIVO</option>
+          <option value="INACTIVO">INACTIVO</option>
+        </select>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECCIÓN: FECHAS -->
+  <div class="form-seccion" *ngIf="banderaCrudModificar || banderaCrudEliminar">
+    <p class="seccion-titulo">Fechas</p>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Fecha de Ingreso</label>
+        <input type="datetime-local" formControlName="ctextFechaHMSIngresoTarifaEmpleado">
+      </div>
+      <div class="form-group" *ngIf="banderaCrudModificar">
+        <label>Fecha de Modificación</label>
+        <input type="datetime-local" formControlName="ctextFechaHMSModificacionTarifaEmpleado">
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTONES DE ACCIÓN -->
+  <div class="form-acciones">
+    <button type="button" class="btn-sigeps btn-secundario" (click)="closeModal()">Cancelar</button>
+    <button type="button" class="btn-sigeps btn-primario"
+      *ngIf="banderaCrudGuardar || banderaCrudModificar"
+      [disabled]="!tarifaEmpleadoForm.valid"
+      (click)="accionesGuardarModificarEliminarRegistro(tarifaEmpleadoForm.value)">
+      <span *ngIf="banderaCrudGuardar">Guardar Tarifa</span>
+      <span *ngIf="banderaCrudModificar">Modificar Tarifa</span>
+    </button>
+    <button type="button" class="btn-sigeps btn-peligro"
+      *ngIf="banderaCrudEliminar"
+      (click)="accionesGuardarModificarEliminarRegistro(tarifaEmpleadoForm.value)">
+      Eliminar Tarifa
+    </button>
+  </div>
+
+</div>
+
+<!-- DIÁLOGO DE CONFIRMACIÓN DE ELIMINACIÓN -->
+<div class="confirmacion-overlay" *ngIf="banderaConfirmacionEliminacion">
+  <div class="confirmacion-caja">
+    <div class="confirmacion-icono">
+      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    </div>
+    <h4 class="confirmacion-titulo">Confirmar Eliminación</h4>
+    <p class="confirmacion-mensaje">¿Está seguro de que desea eliminar esta tarifa de empleado? Esta acción no se puede deshacer.</p>
+    <div class="confirmacion-botones">
+      <button class="btn-confirmacion btn-no" (click)="noConfirmacionEliminacionRegistro()">No, Cancelar</button>
+      <button class="btn-confirmacion btn-si" (click)="siConfirmacionEliminacionRegistro()">Sí, Eliminar</button>
+    </div>
+  </div>
+</div>

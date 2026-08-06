@@ -1,0 +1,67 @@
+<!-- COMPONENTE: VISTA DE TARIFA DE EMPLEADO — SIGEPS V1.0 -->
+<div class="vista-detalle" *ngIf="tarifaEmpleado">
+
+  <!-- CABECERA -->
+  <div class="vista-cabecera">
+    <div class="vista-icono">
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+    </div>
+    <div class="vista-cabecera-info">
+      <h3 class="vista-nombre">{{ tarifaEmpleado.tipoEmpleadoDTO.nombreTipoEmpleado }}</h3>
+      <p class="vista-descripcion">{{ tarifaEmpleado.tipoTarifaEmpleadoDTO.nombreTipoTarifaEmpleado }}</p>
+      <span class="badge-estado" [ngClass]="tarifaEmpleado.estadoTarifaEmpleado === 'ACTIVO' ? 'badge-activo' : 'badge-inactivo'">
+        {{ tarifaEmpleado.estadoTarifaEmpleado }}
+      </span>
+    </div>
+  </div>
+
+  <!-- DATOS DE LA TARIFA -->
+  <div class="datos-grid">
+    <div class="dato-grupo">
+      <span class="dato-label">Tipo de Empleado</span>
+      <span class="dato-valor">{{ tarifaEmpleado.tipoEmpleadoDTO.nombreTipoEmpleado }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">Tipo de Empleado Planta</span>
+      <span class="dato-valor">{{ tarifaEmpleado.tipoEmpleadoPlantaDTO.nombreTipoEmpleadoPlanta }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">Clasificación</span>
+      <span class="dato-valor">{{ tarifaEmpleado.clasificacionEmpleadoPlantaDTO.nombreClasificacionEmpleadoPlanta }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">Subclasificación</span>
+      <span class="dato-valor">{{ tarifaEmpleado.subclasificacionEmpleadoPlantaDTO.nombreSubclasificacionEmpleadoPlanta }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">Tipo de Tarifa</span>
+      <span class="dato-valor">{{ tarifaEmpleado.tipoTarifaEmpleadoDTO.nombreTipoTarifaEmpleado }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">Año</span>
+      <span class="dato-valor">{{ tarifaEmpleado.anioTarifaEmpleado }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">Valor Hora</span>
+      <span class="dato-valor">$ {{ tarifaEmpleado.valorHoraTarifaEmpleado | number:'1.2-2' }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">Fecha de Ingreso</span>
+      <span class="dato-valor">{{ tarifaEmpleado.fechaHMSIngresoTarifaEmpleado }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">Fecha de Modificación</span>
+      <span class="dato-valor">{{ tarifaEmpleado.fechaHMSModificacionTarifaEmpleado || 'Sin modificaciones' }}</span>
+    </div>
+    <div class="dato-grupo">
+      <span class="dato-label">Estado</span>
+      <span class="dato-valor">{{ tarifaEmpleado.estadoTarifaEmpleado }}</span>
+    </div>
+  </div>
+
+  <!-- ACCIÓN CERRAR -->
+  <div class="vista-acciones">
+    <button type="button" class="btn-sigeps btn-secundario" (click)="closeModal()">Cerrar</button>
+  </div>
+
+</div>

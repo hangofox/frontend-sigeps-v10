@@ -50,7 +50,7 @@ import { VistaAuditoriaSistemaComponent } from './pages/panel-control/auditorias
 import { ListadoEmpleadosComponent } from './pages/gestion-personal/listado-empleados/listado-empleados.component';
 import { AddUpdDelEmpleadoComponent } from './pages/gestion-personal/add-upd-del-empleado/add-upd-del-empleado.component';
 import { VistaEmpleadoComponent } from './pages/gestion-personal/vista-empleado/vista-empleado.component';
-import { LiquidacionEmpleadosComponent } from './pages/gestion-personal/liquidacion-empleados/liquidacion-empleados.component';
+import { LiquidacionEmpleadosComponent } from './pages/gestion-personal/liquidaciones-empleados/liquidacion-empleados.component';
 import { ListadoHistorialMovimientosEmpleadosComponent } from './pages/gestion-personal/historial-movimientos-empleados/listado-historial-movimientos-empleados/listado-historial-movimientos-empleados.component';
 import { AddUpdDelHistorialMovimientoEmpleadoComponent } from './pages/gestion-personal/historial-movimientos-empleados/add-upd-del-historial-movimiento-empleado/add-upd-del-historial-movimiento-empleado.component';
 import { VistaHistorialMovimientoEmpleadoComponent } from './pages/gestion-personal/historial-movimientos-empleados/vista-historial-movimiento-empleado/vista-historial-movimiento-empleado.component';
@@ -68,6 +68,9 @@ import { GraficasEstadisticasComponent } from './pages/reportes-estadisticas/gra
 
 //COMPONENTE DE REPORTES DE SEGURIDAD:
 import { ReportesSeguridadComponent } from './pages/reportes-seguridad/reportes-seguridad.component';
+import { ListadoTarifasEmpleadosComponent } from './pages/panel-control/tarifas-empleados/listado-tarifas-empleados/listado-tarifas-empleados.component';
+import { AddUpdDelTarifaEmpleadoComponent } from './pages/panel-control/tarifas-empleados/add-upd-del-tarifa-empleado/add-upd-del-tarifa-empleado.component';
+import { VistaTarifaEmpleadoComponent } from './pages/panel-control/tarifas-empleados/vista-tarifa-empleado/vista-tarifa-empleado.component';
 
 @NgModule({
   declarations: [
@@ -125,7 +128,10 @@ import { ReportesSeguridadComponent } from './pages/reportes-seguridad/reportes-
     ReportesComponent,
     GraficasEstadisticasComponent,
     //REPORTES DE SEGURIDAD:
-    ReportesSeguridadComponent
+    ReportesSeguridadComponent,
+    ListadoTarifasEmpleadosComponent,
+    AddUpdDelTarifaEmpleadoComponent,
+    VistaTarifaEmpleadoComponent
   ],
   imports: [
     BrowserModule,

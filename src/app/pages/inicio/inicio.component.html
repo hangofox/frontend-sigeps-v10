@@ -28,8 +28,8 @@
 
     <!-- SIDEBAR -->
     <app-menu-principal-lateral-izquierdo
-      [menuActivo]="menuActivo"
-      (menuActivoChange)="setMenuActivo($event)"
+      [menuPrincipalActivo]="menuPrincipalActivo"
+      (menuPrincipalActivoChange)="setMenuActivo($event)"
       (onCerrarSesion)="cerrarSesion()">
     </app-menu-principal-lateral-izquierdo>
 
@@ -40,39 +40,40 @@
         <!-- ====================================================== -->
         <!-- GESTIÓN DE PERSONAL                                     -->
         <!-- ====================================================== -->
-        <app-listado-empleados *ngIf="menuActivo === 'gestion-personal/listado-empleados'"></app-listado-empleados>
-        <app-listado-prog-turnos-empleados *ngIf="menuActivo === 'gestion-personal/programaciones-turnos-empleados/listado-prog-turnos-empleados'"></app-listado-prog-turnos-empleados>
-        <app-listado-historial-movimientos-empleados *ngIf="menuActivo === 'gestion-personal/historial-movimientos-empleados/listado-historial-movimientos-empleados'"></app-listado-historial-movimientos-empleados>
-        <app-listado-historial-novedades-empleados *ngIf="menuActivo === 'gestion-personal/historial-novedades-empleados/listado-historial-novedades-empleados'"></app-listado-historial-novedades-empleados>
-        <app-liquidacion-empleados *ngIf="menuActivo === 'gestion-personal/liquidacion-empleados/listado-liquidaciones-empleados'"></app-liquidacion-empleados>
+        <app-listado-empleados *ngIf="menuPrincipalActivo === 'gestion-personal/listado-empleados'"></app-listado-empleados>
+        <app-listado-prog-turnos-empleados *ngIf="menuPrincipalActivo === 'gestion-personal/programaciones-turnos-empleados/listado-prog-turnos-empleados'"></app-listado-prog-turnos-empleados>
+        <app-listado-historial-movimientos-empleados *ngIf="menuPrincipalActivo === 'gestion-personal/historial-movimientos-empleados/listado-historial-movimientos-empleados'"></app-listado-historial-movimientos-empleados>
+        <app-listado-historial-novedades-empleados *ngIf="menuPrincipalActivo === 'gestion-personal/historial-novedades-empleados/listado-historial-novedades-empleados'"></app-listado-historial-novedades-empleados>
+        <app-liquidacion-empleados *ngIf="menuPrincipalActivo === 'gestion-personal/liquidaciones-empleados/listado-liquidaciones-empleados'"></app-liquidacion-empleados>
 
         <!-- ====================================================== -->
         <!-- REPORTES Y ESTADÍSTICAS                                 -->
         <!-- ====================================================== -->
-        <app-reportes *ngIf="menuActivo === 'reportes-estadisticas/reportes'"></app-reportes>
-        <app-graficas-estadisticas *ngIf="menuActivo === 'reportes-estadisticas/graficas-estadisticas'"></app-graficas-estadisticas>
+        <app-reportes *ngIf="menuPrincipalActivo === 'reportes-estadisticas/reportes'"></app-reportes>
+        <app-graficas-estadisticas *ngIf="menuPrincipalActivo === 'reportes-estadisticas/graficas-estadisticas'"></app-graficas-estadisticas>
 
         <!-- ====================================================== -->
         <!-- REPORTES DE SEGURIDAD                                   -->
         <!-- ====================================================== -->
-        <app-reportes-seguridad *ngIf="menuActivo === 'seguridad'"></app-reportes-seguridad>
+        <app-reportes-seguridad *ngIf="menuPrincipalActivo === 'seguridad'"></app-reportes-seguridad>
 
         <!-- ====================================================== -->
         <!-- PANEL DE CONTROL                                        -->
         <!-- ====================================================== -->
-        <app-creditos *ngIf="menuActivo === 'panel-control/creditos'"></app-creditos>
-        <app-mi-perfil *ngIf="menuActivo === 'panel-control/mi-perfil'" (fotoUsuarioActualizada)="cargarFotoUsuarioLogueado()"></app-mi-perfil>
-        <app-parametros-sistema *ngIf="menuActivo === 'panel-control/parametros-sistema'"></app-parametros-sistema>
-        <app-listado-auditorias-sistema *ngIf="menuActivo === 'panel-control/auditorias-sistema/listado-auditorias-sistema'"></app-listado-auditorias-sistema>
-        <app-listado-usuarios *ngIf="menuActivo === 'panel-control/usuarios/listado-usuarios'"></app-listado-usuarios>
-        <app-listado-establecimientos-clientes *ngIf="menuActivo === 'panel-control/gestion-establecimientos-clientes/listado-establecimientos-clientes'"></app-listado-establecimientos-clientes>
-        <app-listado-turnos *ngIf="menuActivo === 'panel-control/turnos/listado-turnos'"></app-listado-turnos>
+        <app-creditos *ngIf="menuPrincipalActivo === 'panel-control/creditos'"></app-creditos>
+        <app-mi-perfil *ngIf="menuPrincipalActivo === 'panel-control/mi-perfil'" (fotoUsuarioActualizada)="cargarFotoUsuarioLogueado()"></app-mi-perfil>
+        <app-parametros-sistema *ngIf="menuPrincipalActivo === 'panel-control/parametros-sistema'"></app-parametros-sistema>
+        <app-listado-auditorias-sistema *ngIf="menuPrincipalActivo === 'panel-control/auditorias-sistema/listado-auditorias-sistema'"></app-listado-auditorias-sistema>
+        <app-listado-usuarios *ngIf="menuPrincipalActivo === 'panel-control/usuarios/listado-usuarios'"></app-listado-usuarios>
+        <app-listado-establecimientos-clientes *ngIf="menuPrincipalActivo === 'panel-control/gestion-establecimientos-clientes/listado-establecimientos-clientes'"></app-listado-establecimientos-clientes>
+        <app-listado-turnos *ngIf="menuPrincipalActivo === 'panel-control/turnos/listado-turnos'"></app-listado-turnos>
+        <app-listado-tarifas-empleados *ngIf="menuPrincipalActivo === 'panel-control/tarifas-empleados/listado-tarifas-empleados'"></app-listado-tarifas-empleados>
 
         <!-- ====================================================== -->
         <!-- DASHBOARD PRINCIPAL (sólo en Inicio)                   -->
         <!-- ====================================================== -->
 
-        <div class="bienvenida-seccion" *ngIf="menuActivo === 'inicio'">
+        <div class="bienvenida-seccion" *ngIf="menuPrincipalActivo === 'inicio'">
           <p class="bienvenida-titulo"><strong>Bienvenido.</strong></p>
           <p class="bienvenida-usuario">Señor(a), {{ nicknameUsuarioLogueado || nombreUsuarioLogueado }}</p>
           <p class="bienvenida-descripcion">
@@ -82,7 +83,7 @@
           </p>
         </div>
 
-        <div class="cards-grid" *ngIf="menuActivo === 'inicio'">
+        <div class="cards-grid" *ngIf="menuPrincipalActivo === 'inicio'">
           <div class="indicador-card">
             <div class="indicador-icono icono-azul">
               <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
@@ -150,7 +151,7 @@
           </div>
         </div>
 
-        <div class="tabla-card" *ngIf="menuActivo === 'inicio' && sioNoPrivilegioyRestriccionAccesoUsuarioCRUDVer === 'SI'">
+        <div class="tabla-card" *ngIf="menuPrincipalActivo === 'inicio' && sioNoPrivilegioyRestriccionAccesoUsuarioCRUDVer === 'SI'">
           <div class="tabla-header">
             <h3>Últimos Movimientos de Personal</h3>
           </div>

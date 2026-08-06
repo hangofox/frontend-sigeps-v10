@@ -24,7 +24,7 @@ export class InicioComponent implements OnInit {
   nicknameUsuarioLogueado: string = '';
   nombreUsuarioLogueado: string = '';
   anioActual: number = new Date().getFullYear();
-  menuActivo: string = 'inicio';
+  menuPrincipalActivo: string = 'inicio';
 
   //VISTA PREVIA DE LA FOTO DEL USUARIO LOGUEADO PARA EL AVATAR DEL CABEZOTE (VER cargarFotoUsuarioLogueado):
   previewUrlFotoUsuarioLogueado: string | null = null;
@@ -80,7 +80,7 @@ export class InicioComponent implements OnInit {
     if (path && path !== '/inicio') {
       const seccion = path.replace(/^\//, '');
       if (seccion) {
-        this.menuActivo = seccion;
+        this.menuPrincipalActivo = seccion;
       }
     }
 
@@ -255,7 +255,7 @@ export class InicioComponent implements OnInit {
 
   // Cambia la sección activa y refleja el cambio en la URL sin navegar.
   setMenuActivo(seccion: string): void {
-    this.menuActivo = seccion;
+    this.menuPrincipalActivo = seccion;
     const url = seccion === 'inicio' ? '/inicio' : `/${seccion}`;
     this.location.replaceState(url);
   }

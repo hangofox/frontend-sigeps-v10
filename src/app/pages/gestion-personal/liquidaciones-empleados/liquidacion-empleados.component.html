@@ -31,12 +31,19 @@
   <!-- BARRA DE BÚSQUEDA -->
   <div class="barra-acciones">
     <div class="barra-filtros">
-      <select formControlName="cboxTipoLiquidacionSeleccionado" (change)="accionListar()">
-        <option *ngFor="let tipo of tiposLiquidacion" [value]="tipo.nombre">{{ tipo.nombre }}</option>
+      <select formControlName="cboxTipoTarifaEmpleadoSeleccionado" (change)="buscar()">
+        <option value="">TODOS LOS TIPOS DE LIQUIDACIÓN</option>
+        <option *ngFor="let tipo of tiposTarifasEmpleados" [value]="tipo.idTipoTarifaEmpleado">
+          {{ tipo.nombreTipoTarifaEmpleado }}
+        </option>
+      </select>
+      <select formControlName="cboxAnioTarifaEmpleadoSeleccionado" (change)="buscar()">
+        <option value="">TODOS LOS AÑOS</option>
+        <option *ngFor="let anio of aniosTarifasEmpleados" [value]="anio">{{ anio }}</option>
       </select>
       <input type="text" formControlName="ctextPalabraClave"
-        placeholder="Buscar por nombre o documento..." (keyup.enter)="accionListar()">
-      <button type="button" class="btn-sigeps btn-buscar" (click)="accionListar()">
+        placeholder="Buscar por nombre o documento..." (keyup.enter)="buscar()">
+      <button type="button" class="btn-sigeps btn-buscar" (click)="buscar()">
         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         Buscar
       </button>
@@ -53,7 +60,9 @@
             <th>Empleado</th>
             <th>Documento</th>
             <th>Tipo de Liquidación</th>
-            <th>Fecha</th>
+            <th>Año</th>
+            <th>Horas Trabajadas</th>
+            <th>Valor Hora</th>
             <th>Valor Bruto</th>
             <th>Descuentos</th>
             <th>Valor Neto</th>
@@ -61,24 +70,26 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let liq of liquidaciones; let i = index">
+          <tr *ngFor="let liqEmpl of liquidaciones; let i = index">
             <td>{{ i + 1 + (paginaActual * tandaNumeroRegistrosporPagina) }}</td>
-            <td>{{ liq.nombreEmpleado }}</td>
-            <td>{{ liq.documentoEmpleado }}</td>
-            <td>{{ liq.tipoLiquidacion }}</td>
-            <td>{{ liq.fechaLiquidacion }}</td>
-            <td>{{ formatearMoneda(liq.valorBruto) }}</td>
-            <td>{{ formatearMoneda(liq.valorDescuentos) }}</td>
-            <td><strong>{{ formatearMoneda(liq.valorNeto) }}</strong></td>
+            <td>{{ liqEmpl.empleado.nombresEmpleado }} {{ liqEmpl.empleado.primerApellidoEmpleado }} {{ liqEmpl.empleado.segundoApellidoEmpleado }}</td>
+            <td>{{ liqEmpl.empleado.numeroDocumentoIdentificacionEmpleado }}</td>
+            <td>{{ liqEmpl.tarifa.tipoTarifaEmpleadoDTO.nombreTipoTarifaEmpleado }}</td>
+            <td>{{ liqEmpl.tarifa.anioTarifaEmpleado }}</td>
+            <td>{{ liqEmpl.horasTrabajadas | number:'1.2-2' }}</td>
+            <td>{{ formatearMoneda(liqEmpl.tarifa.valorHoraTarifaEmpleado) }}</td>
+            <td>{{ formatearMoneda(liqEmpl.valorBruto) }}</td>
+            <td>{{ formatearMoneda(calcularValorDescuentos(liqEmpl)) }}</td>
+            <td><strong>{{ formatearMoneda(calcularValorNeto(liqEmpl)) }}</strong></td>
             <td>
               <span class="badge-estado"
-                [ngClass]="liq.estadoLiquidacion === 'PROCESADA' ? 'badge-activo' : 'badge-pendiente'">
-                {{ liq.estadoLiquidacion }}
+                [ngClass]="liqEmpl.tarifa.estadoTarifaEmpleado === 'ACTIVO' ? 'badge-activo' : 'badge-pendiente'">
+                {{ liqEmpl.tarifa.estadoTarifaEmpleado }}
               </span>
             </td>
           </tr>
           <tr *ngIf="liquidaciones.length === 0">
-            <td colspan="9" class="tabla-vacia">No se encontraron registros de liquidaciones.</td>
+            <td colspan="11" class="tabla-vacia">No se encontraron registros de liquidaciones.</td>
           </tr>
         </tbody>
       </table>
