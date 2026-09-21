@@ -131,3 +131,27 @@
     color: var(--color-error);/*COLOR DE LETRA DEL TEXTO AL PASAR EL MOUSE.*/
   }
 }
+
+/* =========================================
+   RESPONSIVE — MÓVIL Y TABLET (≤880px)
+   El sidebar deja de ser un elemento fijo en el flujo (240px dentro del flex .body-area) y pasa a
+   ser un panel deslizante ("drawer") superpuesto, oculto por defecto y mostrado con la clase
+   .sidebar-abierto que controla InicioComponent (ver inicio.component.html/.ts).
+   ========================================= */
+@media (max-width: 880px) {
+  :host {//ELEMENTO HOST, CONVERTIDO EN PANEL DESLIZANTE ("DRAWER") SUPERPUESTO EN MÓVIL.
+    position: fixed;/*SUPERPONE EL SIDEBAR SOBRE EL CONTENIDO EN VEZ DE OCUPAR ESPACIO EN EL FLEX.*/
+    top: 0;/*DISTANCIA DESDE EL BORDE SUPERIOR.*/
+    left: 0;/*DISTANCIA DESDE EL BORDE IZQUIERDO.*/
+    bottom: 0;/*DISTANCIA DESDE EL BORDE INFERIOR.*/
+    width: 260px;/*ANCHURA DEL PANEL DESLIZANTE EN MÓVIL.*/
+    z-index: 1000;/*ORDEN DE APILAMIENTO, ENCIMA DEL OVERLAY OSCURECIDO.*/
+    transform: translateX(-100%);/*OCULTA EL SIDEBAR FUERA DE LA PANTALLA POR DEFECTO.*/
+    transition: transform 0.25s ease;/*TRANSICIÓN SUAVE AL ABRIR/CERRAR EL PANEL.*/
+    box-shadow: 4px 0 16px rgba(0, 0, 0, 0.2);/*SOMBRA DEL PANEL DESLIZANTE ABIERTO.*/
+  }
+
+  :host(.sidebar-abierto) {//ESTADO ABIERTO DEL PANEL DESLIZANTE, CONTROLADO DESDE InicioComponent.
+    transform: translateX(0);/*MUESTRA EL SIDEBAR AL RECIBIR LA CLASE sidebar-abierto DESDE InicioComponent.*/
+  }
+}

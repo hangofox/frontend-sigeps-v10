@@ -56,6 +56,10 @@ export class InicioComponent implements OnInit {
   puestoEnTurno: any = null;
   programacionEnTurno: any = null;
 
+  //ESTADO DEL SIDEBAR EN PANTALLAS MÓVILES (SE ABRE/CIERRA COMO UN PANEL DESLIZANTE, VER
+  //menu-principal-lateral-izquierdo.component.scss PARA EL BREAKPOINT):
+  sidebarMobileAbierto: boolean = false;
+
   //CONSTRUCTOR DEL COMPONENTE:
   constructor(
     private router: Router,
@@ -258,6 +262,15 @@ export class InicioComponent implements OnInit {
     this.menuPrincipalActivo = seccion;
     const url = seccion === 'inicio' ? '/inicio' : `/${seccion}`;
     this.location.replaceState(url);
+    this.sidebarMobileAbierto = false;
+  }
+
+  toggleSidebarMobile(): void {
+    this.sidebarMobileAbierto = !this.sidebarMobileAbierto;
+  }
+
+  cerrarSidebarMobile(): void {
+    this.sidebarMobileAbierto = false;
   }
 
   navegarA(ruta: string, funcionalidad: string, rol: string): void {

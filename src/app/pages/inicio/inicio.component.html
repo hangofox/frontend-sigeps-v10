@@ -2,6 +2,9 @@
 
   <!-- ===== CABEZOTE SUPERIOR (full width) ===== -->
   <header class="top-header">
+    <button type="button" class="btn-hamburguesa" aria-label="Abrir menú" (click)="toggleSidebarMobile()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
     <div class="header-brand">
       <div class="header-logo-wrapper">
         <img src="assets/images/logo.PNG" alt="SIGEPS" class="header-logo" />
@@ -26,8 +29,12 @@
   <!-- ===== CUERPO: SIDEBAR + CONTENIDO ===== -->
   <div class="body-area">
 
+    <!-- FONDO OSCURECIDO DETRÁS DEL SIDEBAR EN MÓVIL (SE CIERRA AL TOCAR FUERA) -->
+    <div class="overlay-sidebar-mobile" *ngIf="sidebarMobileAbierto" (click)="cerrarSidebarMobile()"></div>
+
     <!-- SIDEBAR -->
     <app-menu-principal-lateral-izquierdo
+      [class.sidebar-abierto]="sidebarMobileAbierto"
       [menuPrincipalActivo]="menuPrincipalActivo"
       (menuPrincipalActivoChange)="setMenuActivo($event)"
       (onCerrarSesion)="cerrarSesion()">

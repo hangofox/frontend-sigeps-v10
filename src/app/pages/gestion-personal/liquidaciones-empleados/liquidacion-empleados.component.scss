@@ -83,7 +83,8 @@
   flex-wrap: wrap;/*PERMITE QUE LOS ELEMENTOS FLEXIBLES PASEN A OTRA LÍNEA.*/
 
   input[type="text"],
-  select {//CAMPO DE TEXTO Y COMBO BOX DE LOS FILTROS.
+  input[type="datetime-local"],
+  select {//CAMPO DE TEXTO, FECHA/HORA Y COMBO BOX DE LOS FILTROS.
     padding: 9px 12px;/*ESPACIO INTERNO (RELLENO) DEL CAMPO.*/
     border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DEL CAMPO.*/
     border-radius: var(--radio-borde);/*RADIO DE REDONDEO DE LAS ESQUINAS DEL CAMPO.*/
@@ -103,6 +104,17 @@
 
   input[type="text"] {/*CAMPO DE TEXTO DE BÚSQUEDA.*/ flex: 1;/*COMPORTAMIENTO DE CRECIMIENTO DEL CAMPO DE TEXTO.*/ min-width: 200px;/*ANCHURA MÍNIMA DEL CAMPO DE TEXTO.*/ }
   select {/*COMBO BOX DE LOS FILTROS.*/ min-width: 180px;/*ANCHURA MÍNIMA DEL COMBO BOX.*/ }
+
+  .label-filtro-fecha {//ETIQUETA + CAMPO DE FECHA/HORA DE LOS FILTROS "DESDE" Y "HASTA".
+    display: flex;/*CONVIERTE EL ELEMENTO EN FLEXIBLE.*/
+    flex-direction: column;/*DIRECCIÓN DE LOS ELEMENTOS FLEXIBLES.*/
+    gap: 4px;/*ESPACIO ENTRE LA ETIQUETA Y EL CAMPO.*/
+    font-size: 11px;/*TAMAÑO DE LETRA DE LA ETIQUETA.*/
+    font-weight: 600;/*NEGRILLA DE LETRA DE LA ETIQUETA.*/
+    text-transform: uppercase;/*TRANSFORMACIÓN DE MAYÚSCULAS DEL TEXTO DE LA ETIQUETA.*/
+    letter-spacing: 0.5px;/*ESPACIO ENTRE LAS LETRAS DE LA ETIQUETA.*/
+    color: var(--color-texto-secundario);/*COLOR DE LETRA DE LA ETIQUETA.*/
+  }
 }
 
 .btn-sigeps {//ESTILO BASE DE LOS BOTONES DEL SISTEMA.

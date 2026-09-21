@@ -1,0 +1,17 @@
+
+<!-- PASOS PARA DESPLEGAR FRONTEND EN PRODUCCION -->
+
+<!-- 1. Empaquetar el proyecto angular con el comando: -->
+ng build --configuration=production
+
+<!-- 2. Copiar las carpetar META-INF Y WEB-INF dentro de la carpeta \dist\sigepsv10\browser -->
+xcopy ".\deploy\WEB-INF" ".\dist\sigepsv10\browser\WEB-INF" /E /I /H /Y
+xcopy ".\deploy\META-INF" ".\dist\sigepsv10\browser\META-INF" /E /I /H /Y
+
+<!-- 3. Crear archivo WAR con el siguiente comando: -->
+cd dist\sigepsv10\browser
+jar -cvf sigepsv10.war *
+
+<!-- 4. Desplegar el war en Tomcat 10: -->
+<!-- Copiar sigepsv10.war a $CATALINA_HOME/webapps/ (o la ruta de despliegue configurada en Hostinger) -->
+<!-- Tomcat lo despliega automáticamente si autoDeploy esta activo en server.xml; si no, reiniciar el servicio de Tomcat -->

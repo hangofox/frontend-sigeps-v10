@@ -28,6 +28,30 @@
     </div>
   </div>
 
+  <!-- DESGLOSE DE LOS TOTALES DEL SEMÁFORO POR AÑO, SOBRE EL MISMO LISTADO YA FILTRADO -->
+  <div class="tabla-card" *ngIf="subtotalesPorAnio.length > 0">
+    <div class="tabla-contenido">
+      <table>
+        <thead>
+          <tr>
+            <th>Año</th>
+            <th>Registros</th>
+            <th>Valor Bruto</th>
+            <th>Valor Neto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let subtotal of subtotalesPorAnio">
+            <td>{{ subtotal.anio }}</td>
+            <td>{{ subtotal.totalRegistros }}</td>
+            <td>{{ formatearMoneda(subtotal.totalValorBruto) }}</td>
+            <td>{{ formatearMoneda(subtotal.totalValorNeto) }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
   <!-- BARRA DE BÚSQUEDA -->
   <div class="barra-acciones">
     <div class="barra-filtros">
@@ -41,6 +65,14 @@
         <option value="">TODOS LOS AÑOS</option>
         <option *ngFor="let anio of aniosTarifasEmpleados" [value]="anio">{{ anio }}</option>
       </select>
+      <label class="label-filtro-fecha">
+        Desde
+        <input type="datetime-local" step="1" formControlName="ctextFechaHMSInicio" (change)="buscar()">
+      </label>
+      <label class="label-filtro-fecha">
+        Hasta
+        <input type="datetime-local" step="1" formControlName="ctextFechaHMSFin" (change)="buscar()">
+      </label>
       <input type="text" formControlName="ctextPalabraClave"
         placeholder="Buscar por nombre o documento..." (keyup.enter)="buscar()">
       <button type="button" class="btn-sigeps btn-buscar" (click)="buscar()">
