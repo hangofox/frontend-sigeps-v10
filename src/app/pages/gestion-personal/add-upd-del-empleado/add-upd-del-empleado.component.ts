@@ -237,9 +237,12 @@ export class AddUpdDelEmpleadoComponent implements OnInit, OnChanges {
       //IDENTIFICACIÓN:
       cboxIdTipoDocumentoIdentificacion: new FormControl('', Validators.required),
       ctextNumeroDocumentoIdentificacionEmpleado: new FormControl('', Validators.required),
+      ctextLugarExpedicionDocumentoIdentificacionEmpleado: new FormControl('', Validators.required),
       ctextNombresEmpleado: new FormControl('', Validators.required),
       ctextPrimerApellidoEmpleado: new FormControl('', Validators.required),
       ctextSegundoApellidoEmpleado: new FormControl(''),
+      ctextFechaHMSNacimientoEmpleado: new FormControl('', Validators.required),
+      cboxSexoEmpleadoSeleccionado: new FormControl('', Validators.required),
       //CLASIFICACIÓN:
       cboxIdTipoEmpleado: new FormControl('', Validators.required),
       cboxIdTipoEmpleadoPlanta: new FormControl('', Validators.required),
@@ -317,9 +320,12 @@ export class AddUpdDelEmpleadoComponent implements OnInit, OnChanges {
       ctextIdEmpleado: e.idEmpleado || '',
       cboxIdTipoDocumentoIdentificacion: e.tipoDocumentoIdentificacionDTO?.idTipoDocumentoIdentificacion || '',
       ctextNumeroDocumentoIdentificacionEmpleado: e.numeroDocumentoIdentificacionEmpleado || '',
+      ctextLugarExpedicionDocumentoIdentificacionEmpleado: e.lugarExpedicionDocumentoIdentificacionEmpleado || '',
       ctextNombresEmpleado: e.nombresEmpleado || '',
       ctextPrimerApellidoEmpleado: e.primerApellidoEmpleado || '',
       ctextSegundoApellidoEmpleado: e.segundoApellidoEmpleado || '',
+      ctextFechaHMSNacimientoEmpleado: this.formatearFechaParaInput(e.fechaHMSNacimientoEmpleado),
+      cboxSexoEmpleadoSeleccionado: e.sexoEmpleado || '',
       cboxIdTipoEmpleado: e.tipoEmpleadoDTO?.idTipoEmpleado || '',
       cboxIdTipoEmpleadoPlanta: e.tipoEmpleadoPlantaDTO?.idTipoEmpleadoPlanta || '',
       cboxIdClasificacionEmpleadoPlanta: e.clasificacionEmpleadoPlantaDTO?.idClasificacionEmpleadoPlanta || '',
@@ -635,9 +641,12 @@ export class AddUpdDelEmpleadoComponent implements OnInit, OnChanges {
         nombreTipoDocumentoIdentificacion: ''
       },
       numeroDocumentoIdentificacionEmpleado: fv.ctextNumeroDocumentoIdentificacionEmpleado,
+      lugarExpedicionDocumentoIdentificacionEmpleado: fv.ctextLugarExpedicionDocumentoIdentificacionEmpleado,
       nombresEmpleado: fv.ctextNombresEmpleado,
       primerApellidoEmpleado: fv.ctextPrimerApellidoEmpleado,
       segundoApellidoEmpleado: fv.ctextSegundoApellidoEmpleado || '',
+      fechaHMSNacimientoEmpleado: fv.ctextFechaHMSNacimientoEmpleado,
+      sexoEmpleado: fv.cboxSexoEmpleadoSeleccionado,
       tipoEmpleadoDTO: {
         idTipoEmpleado: Number(fv.cboxIdTipoEmpleado),
         nombreTipoEmpleado: ''

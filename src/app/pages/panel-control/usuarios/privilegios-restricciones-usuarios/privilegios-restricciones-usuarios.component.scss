@@ -189,3 +189,29 @@
   &.btn-secundario {/*BOTÓN SECUNDARIO.*/ background: transparent;/*COLOR DE FONDO DEL BOTÓN SECUNDARIO.*/ color: var(--color-texto-main);/*COLOR DE LETRA DEL BOTÓN SECUNDARIO.*/ border: 1px solid var(--color-bordes);/*GROSOR Y COLOR DEL BORDE DEL BOTÓN SECUNDARIO.*/ &:hover {/*BOTÓN SECUNDARIO AL PASAR EL MOUSE.*/ border-color: var(--color-acento);/*COLOR DEL BORDE DEL BOTÓN SECUNDARIO AL PASAR EL MOUSE.*/ color: var(--color-acento);/*COLOR DE LETRA DEL BOTÓN SECUNDARIO AL PASAR EL MOUSE.*/ } }
   &:disabled {/*BOTÓN DESHABILITADO.*/ opacity: 0.5;/*OPACIDAD DEL BOTÓN DESHABILITADO.*/ cursor: not-allowed;/*DESACTIVACIÓN DE CURSOR SOBRE EL BOTÓN DESHABILITADO.*/ pointer-events: none;/*DESHABILITA LA INTERACCIÓN DEL MOUSE CON EL BOTÓN.*/ }
 }
+
+/* =========================================
+   RESPONSIVE — MÓVIL Y TABLET (≤880px)
+   Las 200px fijas de .col-funcionalidad forzaban el desborde horizontal de la fila en pantallas
+   angostas, empujando el checkbox fuera del área visible y, al variar la altura de cada fila según
+   cuánto texto envolviera, el checkbox (centrado con align-items:center) quedaba descuadrado
+   verticalmente respecto al texto. En móvil las columnas pasan a ser flexibles (minmax(0, ...)) para
+   que quepan sin desbordar, y la fila se alinea al inicio en vez de al centro.
+   ========================================= */
+@media (max-width: 880px) {
+  .privilegio-fila {//FILA DE LA TABLA DE PRIVILEGIOS, CON COLUMNAS FLEXIBLES Y ALINEADAS AL INICIO EN MÓVIL.
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr) 38px;/*COLUMNAS FLEXIBLES QUE SE ADAPTAN AL ANCHO DISPONIBLE, EVITANDO EL DESBORDE HORIZONTAL EN MÓVIL.*/
+    align-items: flex-start;/*ALINEA CADA COLUMNA AL INICIO DE LA FILA PARA QUE EL CHECKBOX QUEDE A LA ALTURA DEL TEXTO, EN VEZ DE CENTRADO EN FILAS DE ALTURA VARIABLE POR EL TEXTO ENVUELTO.*/
+  }
+
+  .col-funcionalidad,
+  .col-rol {//COLUMNAS DE TEXTO, CON ESPACIO REDUCIDO Y PALABRAS LARGAS QUE SE PARTEN EN VEZ DE DESBORDAR.
+    padding: 8px 10px;/*ESPACIO INTERNO (RELLENO) REDUCIDO EN MÓVIL.*/
+    font-size: 12px;/*TAMAÑO DE LETRA REDUCIDO EN MÓVIL.*/
+    overflow-wrap: break-word;/*PERMITE QUE PALABRAS LARGAS SE PARTAN EN VARIAS LÍNEAS EN VEZ DE FORZAR EL DESBORDE DE LA COLUMNA.*/
+  }
+
+  .col-check {//COLUMNA DEL CHECKBOX, CON ESPACIO REDUCIDO Y ALINEADA A LA ALTURA DE LA PRIMERA LÍNEA DEL TEXTO.
+    padding: 9px 8px;/*ESPACIO INTERNO (RELLENO) REDUCIDO, MANTENIENDO EL RELLENO SUPERIOR PARA ALINEAR CON LA PRIMERA LÍNEA DE TEXTO.*/
+  }
+}

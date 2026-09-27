@@ -7,10 +7,13 @@ import { SubclasificacionEmpleadoPlantaI } from '../../clasificaciones-empleados
 export interface EmpleadosI {
     idEmpleado?: number;
     numeroDocumentoIdentificacionEmpleado: String;
+    lugarExpedicionDocumentoIdentificacionEmpleado: String;
     nombresEmpleado: String;
     primerApellidoEmpleado: String;
     segundoApellidoEmpleado: String;
     nombreArchivoFotoExtensionOFormatoEmpleado: String;
+    fechaHMSNacimientoEmpleado: String;
+    sexoEmpleado: String;
     direccionEmpleado: String;
     telefonoEmpleado: String;
     movilEmpleado: String;

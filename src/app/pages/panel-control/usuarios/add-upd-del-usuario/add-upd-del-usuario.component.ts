@@ -443,25 +443,28 @@ export class AddUpdDelUsuarioComponent implements OnInit, OnChanges {
         next: (respuesta) => {
           this.changeDetectorRef.detectChanges();
           if (respuesta.empleadoDTO) {
-            const e = respuesta.empleadoDTO;
+            const empleado = respuesta.empleadoDTO;
             this.usuariosForm.patchValue({
-              ctextNombresUsuario: e.nombresEmpleado || '',
-              ctextPrimerApellidoUsuario: e.primerApellidoEmpleado || '',
-              ctextSegundoApellidoUsuario: e.segundoApellidoEmpleado || '',
-              ctextNumeroDocumentoIdentificacionUsuario: e.numeroDocumentoIdentificacionEmpleado || '',
-              ctextDireccionUsuario: e.direccionEmpleado || '',
-              ctextTelefonoUsuario: e.telefonoEmpleado || '',
-              ctextMovilUsuario: e.movilEmpleado || '',
-              ctextCorreoElectronicoPersonalUsuario: e.correoElectronicoPersonalEmpleado || '',
-              ctextCorreoElectronicoInstitucionalUsuario: e.correoElectronicoInstitucionalEmpleado || '',
-              ctextNombrePaisMundoOrigenUsuario: e.paisOrigenEmpleado || '',
-              ctextNombreDepartamentooEstadoMundoOrigenUsuario: e.departamentooEstadoOrigenEmpleado || '',
-              dlistNombreCiudadMundoOrigenUsuario: e.ciudadOrigenEmpleado || '',
-              cboxNombreTipoDocumentoIdentificacionSeleccionado: e.tipoDocumentoIdentificacionDTO?.idTipoDocumentoIdentificacion || ''
+              ctextNombresUsuario: empleado.nombresEmpleado || '',
+              ctextPrimerApellidoUsuario: empleado.primerApellidoEmpleado || '',
+              ctextSegundoApellidoUsuario: empleado.segundoApellidoEmpleado || '',
+              ctextNumeroDocumentoIdentificacionUsuario: empleado.numeroDocumentoIdentificacionEmpleado || '',
+              ctextLugarExpedicionDocumentoIdentificacionUsuario: empleado.lugarExpedicionDocumentoIdentificacionEmpleado || '',
+              ctextFechaHMSNacimientoUsuario: this.formatearFechaParaInput(empleado.fechaHMSNacimientoEmpleado),
+              cboxSexoUsuarioSeleccionado: empleado.sexoEmpleado || '',
+              ctextDireccionUsuario: empleado.direccionEmpleado || '',
+              ctextTelefonoUsuario: empleado.telefonoEmpleado || '',
+              ctextMovilUsuario: empleado.movilEmpleado || '',
+              ctextCorreoElectronicoPersonalUsuario: empleado.correoElectronicoPersonalEmpleado || '',
+              ctextCorreoElectronicoInstitucionalUsuario: empleado.correoElectronicoInstitucionalEmpleado || '',
+              ctextNombrePaisMundoOrigenUsuario: empleado.paisOrigenEmpleado || '',
+              ctextNombreDepartamentooEstadoMundoOrigenUsuario: empleado.departamentooEstadoOrigenEmpleado || '',
+              dlistNombreCiudadMundoOrigenUsuario: empleado.ciudadOrigenEmpleado || '',
+              cboxNombreTipoDocumentoIdentificacionSeleccionado: empleado.tipoDocumentoIdentificacionDTO?.idTipoDocumentoIdentificacion || ''
             });
-            if (e.paisOrigenEmpleado && e.departamentooEstadoOrigenEmpleado) {
+            if (empleado.paisOrigenEmpleado && empleado.departamentooEstadoOrigenEmpleado) {
               this.cargarCboxNombresCiudadesMundoporNombrePaisMundoyNombreDepartamnentooEstadoMundo(
-                String(e.paisOrigenEmpleado), String(e.departamentooEstadoOrigenEmpleado)
+                String(empleado.paisOrigenEmpleado), String(empleado.departamentooEstadoOrigenEmpleado)
               );
             }
             this.mensajeExito = 'Datos del empleado cargados correctamente.';
