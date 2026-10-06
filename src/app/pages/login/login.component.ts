@@ -1,5 +1,5 @@
 //IMPORTACIÓN DE LIBRERÍAS ANGULAR:
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -16,9 +16,11 @@ import { UsuariosService } from '../../services/panel-control/usuarios/usuarios.
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   //DECLARACIÓN DE VARIABLES GLOBALES:
+  fechaHoraActual: Date = new Date();//Fecha y hora actual mostrada encima del logo (zona horaria América/Bogotá).
+  private intervaloRelojFechaHora?: ReturnType<typeof setInterval>;
   ctextNicknameUsuarioDigitado: string = "";//Propiedad para almacenar el nickname del usuario digitado.
   ctextPasswordUsuarioDigitado: string = "";//Propiedad para almacenar el password del usuario digitado.
   ctextCodigoCaptchaGenerado: string = "";//Propiedad para almacenar el código captcha generado.
@@ -49,6 +51,17 @@ export class LoginComponent implements OnInit {
     //SI EL USUARIO YA TIENE SESIÓN ACTIVA, SE REDIRIGE A LA PÁGINA DE INICIO:
     if (localStorage.getItem('isLoggedIn') === 'true') {
       this.router.navigate(['/inicio']);
+    }
+
+    //ACTUALIZA LA FECHA Y HORA MOSTRADA ENCIMA DEL LOGO CADA MINUTO:
+    this.intervaloRelojFechaHora = setInterval(() => {
+      this.fechaHoraActual = new Date();
+    }, 60000);
+  }
+
+  ngOnDestroy(): void {
+    if (this.intervaloRelojFechaHora) {
+      clearInterval(this.intervaloRelojFechaHora);
     }
   }
 

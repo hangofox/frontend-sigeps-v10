@@ -1,5 +1,5 @@
 //IMPORTACIÓN DE LIBRERÍAS ANGULAR:
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { SessionService } from '../../services/session/session.service';
@@ -18,13 +18,17 @@ import { GestionArchivosService } from '../../services/gestion-archivos/gestion-
   templateUrl: './inicio.component.html',
   styleUrls: ['./inicio.component.scss']
 })
-export class InicioComponent implements OnInit {
+export class InicioComponent implements OnInit, OnDestroy {
 
   //DECLARACIÓN DE VARIABLES GLOBALES:
   nicknameUsuarioLogueado: string = '';
   nombreUsuarioLogueado: string = '';
   anioActual: number = new Date().getFullYear();
   menuPrincipalActivo: string = 'inicio';
+
+  //FECHA Y HORA ACTUAL MOSTRADA ENCIMA DEL LOGO DEL CABEZOTE (ZONA HORARIA AMÉRICA/BOGOTÁ):
+  fechaHoraActual: Date = new Date();
+  private intervaloRelojFechaHora?: ReturnType<typeof setInterval>;
 
   //VISTA PREVIA DE LA FOTO DEL USUARIO LOGUEADO PARA EL AVATAR DEL CABEZOTE (VER cargarFotoUsuarioLogueado):
   previewUrlFotoUsuarioLogueado: string | null = null;
@@ -93,12 +97,23 @@ export class InicioComponent implements OnInit {
     this.cargarTotalAlertasSeguridad();
     this.cargarFotoUsuarioLogueado();
 
+    //ACTUALIZA LA FECHA Y HORA MOSTRADA ENCIMA DEL LOGO CADA MINUTO:
+    this.intervaloRelojFechaHora = setInterval(() => {
+      this.fechaHoraActual = new Date();
+    }, 60000);
+
     //CARGA UNA ÚNICA VEZ POR SESIÓN LOS PRIVILEGIOS Y RESTRICCIONES DE ACCESO DEL USUARIO LOGUEADO, PARA QUE EL
     //MENÚ LATERAL Y LOS BOTONES DE CADA CRUD PUEDAN CONSULTARLOS DE FORMA SÍNCRONA (VER SessionService):
     this.sessionService.cargarPrivilegios().subscribe({
       next: () => this.actualizarPrivilegiosyRestriccionesCRUD(),
       error: (err) => console.error('ERROR AL CARGAR LOS PRIVILEGIOS Y RESTRICCIONES DEL USUARIO: ', err)
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.intervaloRelojFechaHora) {
+      clearInterval(this.intervaloRelojFechaHora);
+    }
   }
 
   //CONSULTA LOS PRIVILEGIOS Y RESTRICCIONES DE ACCESO REALES DEL USUARIO LOGUEADO Y ACTUALIZA LA BANDERA

@@ -14,6 +14,14 @@
   margin-bottom: 32px;/*ESPACIO DEL MARGEN INFERIOR.*/
 }
 
+.login-fecha-hora {//FECHA Y HORA ACTUAL MOSTRADA ENCIMA DEL LOGO (MISMO COLOR QUE EL SUBTÍTULO DEL SISTEMA).
+  margin: 0 0 10px;/*ESPACIO DEL MARGEN GENERAL.*/
+  font-size: 12px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 500;/*NEGRILLA DE LETRA DEL TEXTO.*/
+  color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO (IGUAL AL SUBTÍTULO DEL SISTEMA).*/
+  text-transform: capitalize;/*CAPITALIZA EL NOMBRE DEL DÍA Y DEL MES.*/
+}
+
 /* ---- Logo con efecto destello ---- */
 @keyframes destello {//DEFINICIÓN DE LOS FOTOGRAMAS CLAVE DE LA ANIMACIÓN DE DESTELLO DEL LOGO.
   0%   { left: -80%;/*POSICIÓN INICIAL DEL DESTELLO.*/ opacity: 0;/*OPACIDAD INICIAL DEL DESTELLO.*/ }
