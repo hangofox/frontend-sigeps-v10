@@ -58,8 +58,8 @@
           <tbody>
             <tr *ngFor="let puesto of alertaPuestosSinCobertura">
               <td>{{ puesto.nombrePuestoSedeEstablecimientoCliente }}</td>
-              <td>{{ puesto.sedeEstablecimientoClienteDTO?.nombreSedeEstablecimientoCliente }}</td>
-              <td>{{ puesto.sedeEstablecimientoClienteDTO?.establecimientoClienteDTO?.nombreRazonSocialEstablecimientoCliente }}</td>
+              <td>{{ puesto.sedeEstablecimientoClienteDTO.nombreSedeEstablecimientoCliente }}</td>
+              <td>{{ puesto.sedeEstablecimientoClienteDTO.establecimientoClienteDTO.nombreRazonSocialEstablecimientoCliente }}</td>
             </tr>
             <tr *ngIf="alertaPuestosSinCobertura.length === 0">
               <td colspan="3" class="tabla-vacia">No hay puestos activos sin cobertura en este momento.</td>
@@ -82,9 +82,9 @@
           </thead>
           <tbody>
             <tr *ngFor="let movimiento of alertaTurnosVencidosSinSalida">
-              <td>{{ movimiento.empleadoDTO?.nombresEmpleado }} {{ movimiento.empleadoDTO?.primerApellidoEmpleado }}</td>
-              <td>{{ movimiento.programacionTurnoEmpleadoDTO?.puestoSedeEstablecimientoClienteDTO?.nombrePuestoSedeEstablecimientoCliente }}</td>
-              <td>{{ movimiento.programacionTurnoEmpleadoDTO?.fechaHMSFinalizacionProgramacionTurnoEmpleado }}</td>
+              <td>{{ movimiento.empleadoDTO.nombresEmpleado }} {{ movimiento.empleadoDTO.primerApellidoEmpleado }}</td>
+              <td>{{ movimiento.programacionTurnoEmpleadoDTO.puestoSedeEstablecimientoClienteDTO.nombrePuestoSedeEstablecimientoCliente }}</td>
+              <td>{{ movimiento.programacionTurnoEmpleadoDTO.fechaHMSFinalizacionProgramacionTurnoEmpleado }}</td>
             </tr>
             <tr *ngIf="alertaTurnosVencidosSinSalida.length === 0">
               <td colspan="3" class="tabla-vacia">No hay turnos vencidos sin marcar salida.</td>
@@ -107,8 +107,8 @@
           </thead>
           <tbody>
             <tr *ngFor="let programacion of alertaInasistencias">
-              <td>{{ programacion.empleadoDTO?.nombresEmpleado }} {{ programacion.empleadoDTO?.primerApellidoEmpleado }}</td>
-              <td>{{ programacion.puestoSedeEstablecimientoClienteDTO?.nombrePuestoSedeEstablecimientoCliente }}</td>
+              <td>{{ programacion.empleadoDTO.nombresEmpleado }} {{ programacion.empleadoDTO.primerApellidoEmpleado }}</td>
+              <td>{{ programacion.puestoSedeEstablecimientoClienteDTO.nombrePuestoSedeEstablecimientoCliente }}</td>
               <td>{{ programacion.fechaHMSIniciacionProgramacionTurnoEmpleado }}</td>
             </tr>
             <tr *ngIf="alertaInasistencias.length === 0">
@@ -132,8 +132,8 @@
           </thead>
           <tbody>
             <tr *ngFor="let programacion of alertaPersonalInactivoConTurno">
-              <td>{{ programacion.empleadoDTO?.nombresEmpleado }} {{ programacion.empleadoDTO?.primerApellidoEmpleado }}</td>
-              <td>{{ programacion.puestoSedeEstablecimientoClienteDTO?.nombrePuestoSedeEstablecimientoCliente }}</td>
+              <td>{{ programacion.empleadoDTO.nombresEmpleado }} {{ programacion.empleadoDTO.primerApellidoEmpleado }}</td>
+              <td>{{ programacion.puestoSedeEstablecimientoClienteDTO.nombrePuestoSedeEstablecimientoCliente }}</td>
               <td>{{ programacion.fechaHMSIniciacionProgramacionTurnoEmpleado }} — {{ programacion.fechaHMSFinalizacionProgramacionTurnoEmpleado }}</td>
             </tr>
             <tr *ngIf="alertaPersonalInactivoConTurno.length === 0">
@@ -157,10 +157,10 @@
           </thead>
           <tbody>
             <tr *ngFor="let programacion of alertaUbicacionInactivaConTurno">
-              <td>{{ programacion.empleadoDTO?.nombresEmpleado }} {{ programacion.empleadoDTO?.primerApellidoEmpleado }}</td>
-              <td>{{ programacion.puestoSedeEstablecimientoClienteDTO?.nombrePuestoSedeEstablecimientoCliente }}</td>
-              <td>{{ programacion.puestoSedeEstablecimientoClienteDTO?.sedeEstablecimientoClienteDTO?.nombreSedeEstablecimientoCliente }}</td>
-              <td>{{ programacion.puestoSedeEstablecimientoClienteDTO?.sedeEstablecimientoClienteDTO?.establecimientoClienteDTO?.nombreRazonSocialEstablecimientoCliente }}</td>
+              <td>{{ programacion.empleadoDTO.nombresEmpleado }} {{ programacion.empleadoDTO.primerApellidoEmpleado }}</td>
+              <td>{{ programacion.puestoSedeEstablecimientoClienteDTO.nombrePuestoSedeEstablecimientoCliente }}</td>
+              <td>{{ programacion.puestoSedeEstablecimientoClienteDTO.sedeEstablecimientoClienteDTO.nombreSedeEstablecimientoCliente }}</td>
+              <td>{{ programacion.puestoSedeEstablecimientoClienteDTO.sedeEstablecimientoClienteDTO.establecimientoClienteDTO.nombreRazonSocialEstablecimientoCliente }}</td>
             </tr>
             <tr *ngIf="alertaUbicacionInactivaConTurno.length === 0">
               <td colspan="4" class="tabla-vacia">No hay ubicaciones inactivas con turnos vigentes.</td>

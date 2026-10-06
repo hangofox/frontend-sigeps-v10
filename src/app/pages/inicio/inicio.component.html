@@ -11,7 +11,7 @@
       </div>
       <div class="header-brand-texto">
         <span class="header-titulo">SIGEPS V1.0</span>
-        <span class="header-subtitulo">Sistema de Gestión de Vigilancia de Personal de Seguridad</span>
+        <span class="header-subtitulo">Sistema Integrado de Gestión de Personal de Seguridad</span>
       </div>
     </div>
     <div class="user-profile">
@@ -84,7 +84,7 @@
           <p class="bienvenida-titulo"><strong>Bienvenido.</strong></p>
           <p class="bienvenida-usuario">Señor(a), {{ nicknameUsuarioLogueado || nombreUsuarioLogueado }}</p>
           <p class="bienvenida-descripcion">
-            Este es el Sistema de Gestión de Vigilancia de Personal de Seguridad — SIGEPS V1.0.
+            Este es el Sistema Integrado de Gestión de Personal de Seguridad — SIGEPS V1.0.
             Desde aquí podrá administrar el personal, asignar turnos, generar reportes
             y controlar el acceso al sistema. Cada acción realizada será administrada por el Sistema.
           </p>
@@ -174,11 +174,11 @@
               </thead>
               <tbody>
                 <tr *ngFor="let movimiento of ultimosMovimientosPersonal">
-                  <td>{{ movimiento.empleadoDTO?.numeroDocumentoIdentificacionEmpleado }}</td>
-                  <td>{{ movimiento.empleadoDTO?.nombresEmpleado }} {{ movimiento.empleadoDTO?.primerApellidoEmpleado }} {{ movimiento.empleadoDTO?.segundoApellidoEmpleado }}</td>
+                  <td>{{ movimiento.empleadoDTO.numeroDocumentoIdentificacionEmpleado }}</td>
+                  <td>{{ movimiento.empleadoDTO.nombresEmpleado }} {{ movimiento.empleadoDTO.primerApellidoEmpleado }} {{ movimiento.empleadoDTO.segundoApellidoEmpleado }}</td>
                   <td>
-                    <ng-container *ngIf="movimiento.programacionTurnoEmpleadoDTO?.puestoSedeEstablecimientoClienteDTO as puesto; else sinUbicacion">
-                      {{ puesto.sedeEstablecimientoClienteDTO?.nombreSedeEstablecimientoCliente }} – {{ puesto.nombrePuestoSedeEstablecimientoCliente }}
+                    <ng-container *ngIf="movimiento.programacionTurnoEmpleadoDTO.puestoSedeEstablecimientoClienteDTO as puesto; else sinUbicacion">
+                      {{ puesto.sedeEstablecimientoClienteDTO.nombreSedeEstablecimientoCliente }} – {{ puesto.nombrePuestoSedeEstablecimientoCliente }}
                     </ng-container>
                     <ng-template #sinUbicacion>Sin asignación</ng-template>
                   </td>
@@ -224,7 +224,7 @@
       </main>
 
       <footer class="inicio-footer">
-        Todos los derechos reservados Bogotá, Colombia © {{ anioActual }} SIGEPS V1.0 – Sistema de Gestión de Vigilancia de Personal de Seguridad.
+        Todos los derechos reservados Bogotá, Colombia © {{ anioActual }} SIGEPS V1.0 – Sistema Integrado de Gestión de Personal de Seguridad.
       </footer>
     </div>
 

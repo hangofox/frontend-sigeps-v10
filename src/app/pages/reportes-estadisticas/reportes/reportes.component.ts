@@ -267,7 +267,7 @@ export class ReportesComponent implements OnInit {
 
     const contenido: any[] = [
       { text: 'HOJA DE VIDA DEL EMPLEADO', style: 'tituloPrincipal' },
-      { text: 'SIGEPS — Sistema de Gestión de Vigilancia de Personal de Seguridad', style: 'subtitulo' },
+      { text: 'SIGEPS — Sistema Integrado de Gestión de Personal de Seguridad', style: 'subtitulo' },
       { text: ' ', margin: [0, 6] },
 
       //FOTO DEL EMPLEADO (SI TIENE UNA CARGADA) — SE INSERTA COMO IMAGEN BASE64, YA QUE pdfMake NO ACEPTA blob: NI URLs REMOTAS:
