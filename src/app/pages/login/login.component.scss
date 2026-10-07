@@ -19,7 +19,10 @@
   font-size: 12px;/*TAMAÑO DE LETRA DEL TEXTO.*/
   font-weight: 500;/*NEGRILLA DE LETRA DEL TEXTO.*/
   color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO (IGUAL AL SUBTÍTULO DEL SISTEMA).*/
-  text-transform: capitalize;/*CAPITALIZA EL NOMBRE DEL DÍA Y DEL MES.*/
+
+  &::first-letter {//CAPITALIZA SÓLO LA PRIMERA LETRA DEL TEXTO (NO CADA PALABRA, PARA NO PONER "De" EN MAYÚSCULA).
+    text-transform: uppercase;/*MAYÚSCULA SÓLO EN LA PRIMERA LETRA.*/
+  }
 }
 
 /* ---- Logo con efecto destello ---- */

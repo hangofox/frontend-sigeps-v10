@@ -34,8 +34,11 @@
   font-size: 11px;/*TAMAÑO DE LETRA DEL TEXTO.*/
   font-weight: 500;/*NEGRILLA DE LETRA DEL TEXTO.*/
   color: var(--color-texto-secundario);/*COLOR DE LETRA DEL TEXTO (IGUAL AL SUBTÍTULO DEL SISTEMA).*/
-  text-transform: capitalize;/*CAPITALIZA EL NOMBRE DEL DÍA Y DEL MES.*/
   white-space: nowrap;/*EVITA QUE LA FECHA Y HORA SE PARTA EN VARIAS LÍNEAS.*/
+
+  &::first-letter {//CAPITALIZA SÓLO LA PRIMERA LETRA DEL TEXTO (NO CADA PALABRA, PARA NO PONER "De" EN MAYÚSCULA).
+    text-transform: uppercase;/*MAYÚSCULA SÓLO EN LA PRIMERA LETRA.*/
+  }
 }
 
 .header-brand {//CONTENEDOR DE LA MARCA (LOGO Y TÍTULO) DEL CABEZOTE.
