@@ -159,6 +159,13 @@
   color: var(--color-texto-main);/*COLOR DE LETRA DEL TEXTO.*/
 }
 
+.user-tipo-usuario {//TIPO DE USUARIO CONECTADO, DEBAJO DEL NOMBRE.
+  font-size: 11px;/*TAMAÑO DE LETRA DEL TEXTO.*/
+  font-weight: 400;/*SIN NEGRILLA DE LETRA DEL TEXTO.*/
+  color: var(--color-principal);/*COLOR DE LETRA DEL TEXTO (IGUAL AL TÍTULO DEL SISTEMA).*/
+  letter-spacing: 0.2px;/*ESPACIO ENTRE LAS LETRAS DEL TEXTO.*/
+}
+
 .avatar {//AVATAR CIRCULAR DEL USUARIO CONECTADO.
   width: 38px;/*ANCHURA DEL AVATAR.*/
   height: 38px;/*ALTURA DEL AVATAR.*/

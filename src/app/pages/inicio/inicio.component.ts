@@ -11,6 +11,11 @@ import { AlertasSeguridadService } from '../../services/reportes-seguridad/alert
 import { UsuariosService } from '../../services/panel-control/usuarios/usuarios.service';
 import { ParametrosSistemaService } from '../../services/panel-control/parametros-sistema/parametros-sistema.service';
 import { GestionArchivosService } from '../../services/gestion-archivos/gestion-archivos.service';
+import { TarifasEmpleadosService } from '../../services/panel-control/tarifas-empleados/tarifas-empleados.service';
+import { ProgramacionesTurnosEmpleadosService } from '../../services/gestion-personal/programaciones-turnos-empleados/programacionesTurnosEmpleados.service';
+import { EmpleadosI } from '../../interfaces/gestion-personal/empleados/empleados.interface';
+import { forkJoin } from 'rxjs';
+import { determinarVentanaDiurnaDesdeCatalogo, clasificarHorasTrabajadasPorEmpleado } from '../../services/gestion-personal/liquidaciones-empleados/liquidacion-empleado-calculo.util';
 
 //SELECTOR, HTML, ESTILOS QUE INTEGRAN AL COMPONENTE:
 @Component({
@@ -23,6 +28,15 @@ export class InicioComponent implements OnInit, OnDestroy {
   //DECLARACIÓN DE VARIABLES GLOBALES:
   nicknameUsuarioLogueado: string = '';
   nombreUsuarioLogueado: string = '';
+  tipoUsuarioLogueado: string = '';
+
+  //LIQUIDACIÓN DEL AÑO EN CURSO DEL USUARIO CONECTADO (SÓLO SE MUESTRA SI EL USUARIO ESTÁ REGISTRADO COMO EMPLEADO
+  //Y REGISTRA HORAS LABORADAS EN EL SISTEMA — VER cargarLiquidacionUsuarioConectado):
+  mostrarLiquidacionUsuarioConectado: boolean = false;
+  totalHorasLaboradasUsuarioConectado: number = 0;
+  totalValorBrutoUsuarioConectado: number = 0;
+  totalValorNetoUsuarioConectado: number = 0;
+  private readonly porcentajeDescuentoLiquidacion = 0.08;
   anioActual: number = new Date().getFullYear();
   menuPrincipalActivo: string = 'inicio';
 
@@ -75,7 +89,9 @@ export class InicioComponent implements OnInit, OnDestroy {
     private alertasSeguridadService: AlertasSeguridadService,
     private usuariosService: UsuariosService,
     private parametrosSistemaService: ParametrosSistemaService,
-    private gestionArchivosService: GestionArchivosService
+    private gestionArchivosService: GestionArchivosService,
+    private tarifasEmpleadosService: TarifasEmpleadosService,
+    private programacionesTurnosEmpleadosService: ProgramacionesTurnosEmpleadosService
   ) {}
 
   //MÉTODO PRINCIPAL DEL COMPONENTE DONDE INVOCA A TODOS LOS MÉTODOS:
@@ -96,6 +112,7 @@ export class InicioComponent implements OnInit, OnDestroy {
     this.cargarContadoresPersonalYPuestos();
     this.cargarTotalAlertasSeguridad();
     this.cargarFotoUsuarioLogueado();
+    this.cargarTipoUsuarioLogueado();
 
     //ACTUALIZA LA FECHA Y HORA MOSTRADA ENCIMA DEL LOGO CADA MINUTO:
     this.intervaloRelojFechaHora = setInterval(() => {
@@ -136,6 +153,96 @@ export class InicioComponent implements OnInit, OnDestroy {
       },
       error: (err) => console.error('ERROR AL CALCULAR LAS ALERTAS DE SEGURIDAD: ', err)
     });
+  }
+
+  //CONSULTA EL USUARIO LOGUEADO POR ID (IGUAL QUE vista-usuario.component.ts) PARA OBTENER EL NOMBRE DE SU TIPO DE
+  //USUARIO: EL ENDPOINT DE LOGIN (nicknameYPassword) NO TRAE tipoUsuarioDTO, POR ESO SE CONSULTA POR ID:
+  private cargarTipoUsuarioLogueado(): void {
+    const idUsuario = this.sessionService.getIdUsuario();
+    if (!idUsuario) return;
+
+    this.usuariosService.getUserbyId(idUsuario).subscribe({
+      next: (respuesta) => {
+        this.tipoUsuarioLogueado = String(respuesta.usuarioDTO?.tipoUsuarioDTO?.nombreTipoUsuario ?? '');
+
+        //SI EL USUARIO CONECTADO TAMBIÉN ESTÁ REGISTRADO COMO EMPLEADO (MISMO NÚMERO DE DOCUMENTO, IGUAL QUE
+        //CUANDO SE CREA UN USUARIO A PARTIR DE UN EMPLEADO EN add-upd-del-usuario.component.ts), SE CALCULA SU
+        //LIQUIDACIÓN DEL AÑO EN CURSO PARA EL DASHBOARD:
+        const numeroDocumentoIdentificacionUsuario = String(respuesta.usuarioDTO?.numeroDocumentoIdentificacionUsuario ?? '').trim();
+        console.log('DEBUG LIQUIDACIÓN — numeroDocumentoIdentificacionUsuario: ', numeroDocumentoIdentificacionUsuario);
+        if (numeroDocumentoIdentificacionUsuario) {
+          this.cargarLiquidacionUsuarioConectado(numeroDocumentoIdentificacionUsuario);
+        }
+      },
+      error: (err) => console.error('ERROR AL CONSULTAR EL TIPO DE USUARIO DEL USUARIO CONECTADO: ', err)
+    });
+  }
+
+  //BUSCA UN EMPLEADO CON EL MISMO NÚMERO DE DOCUMENTO DEL USUARIO CONECTADO. SI NO EXISTE (EL USUARIO NO ES UN
+  //EMPLEADO), SIMPLEMENTE NO SE MUESTRA EL BLOQUE DE LIQUIDACIÓN DEL DASHBOARD:
+  private cargarLiquidacionUsuarioConectado(numeroDocumentoIdentificacionUsuario: string): void {
+    this.empleadosService.getEmployeebyNumeroDocumentoIdentificacion(numeroDocumentoIdentificacionUsuario).subscribe({
+      next: (respuesta) => {
+        console.log('DEBUG LIQUIDACIÓN — respuesta empleado por documento: ', respuesta);
+        if (respuesta.empleadoDTO) {
+          this.calcularLiquidacionAnioActualEmpleadoConectado(respuesta.empleadoDTO);
+        }
+      },
+      error: (err) => console.log('DEBUG LIQUIDACIÓN — NO SE ENCONTRÓ EMPLEADO CON ESE DOCUMENTO (o error de backend): ', err)
+    });
+  }
+
+  //CALCULA, CON LA MISMA LÓGICA EXACTA QUE USA EL LISTADO COMPLETO DE LIQUIDACIONES (VER
+  //liquidacion-empleado-calculo.util.ts), EL TOTAL DE HORAS LABORADAS Y EL VALOR BRUTO/NETO DEL AÑO EN CURSO
+  //PARA EL EMPLEADO LIGADO AL USUARIO CONECTADO. SÓLO SE MUESTRA EL BLOQUE SI REGISTRA HORAS LABORADAS (> 0):
+  private calcularLiquidacionAnioActualEmpleadoConectado(empleado: EmpleadosI): void {
+    forkJoin({
+      tarifas: this.tarifasEmpleadosService.findAllEmployeeRates(
+        undefined, undefined,
+        empleado.tipoEmpleadoDTO?.idTipoEmpleado,
+        empleado.tipoEmpleadoPlantaDTO?.idTipoEmpleadoPlanta,
+        empleado.clasificacionEmpleadoPlantaDTO?.idClasificacionEmpleadoPlanta,
+        empleado.subclasificacionEmpleadoPlantaDTO?.idSubclasificacionEmpleadoPlanta,
+        undefined, this.anioActual
+      ),
+      programaciones: this.programacionesTurnosEmpleadosService.findAllEmployeeShiftSchedules(),
+      historial: this.historialMovimientosEmpleadosService.findAllEmployeeMovementHistories()
+    }).subscribe({
+      next: ({ tarifas, programaciones, historial }) => {
+        console.log('DEBUG LIQUIDACIÓN — empleado: ', empleado);
+        console.log('DEBUG LIQUIDACIÓN — tarifas encontradas para su perfil/año: ', tarifas);
+        console.log('DEBUG LIQUIDACIÓN — total programaciones (todas): ', programaciones.length, ' total historial (todo): ', historial.length);
+        if (tarifas.length === 0) return; //SIN TARIFAS REGISTRADAS PARA SU PERFIL EN EL AÑO EN CURSO.
+
+        const ventanaDiurna = determinarVentanaDiurnaDesdeCatalogo(programaciones);
+        const horasClasificadas = clasificarHorasTrabajadasPorEmpleado(Number(empleado.idEmpleado), this.anioActual, ventanaDiurna, programaciones, historial);
+        console.log('DEBUG LIQUIDACIÓN — horasClasificadas: ', Object.fromEntries(horasClasificadas));
+
+        let horasTrabajadas = 0;
+        let valorBruto = 0;
+        for (const tarifa of tarifas) {
+          const nombreTipoTarifaEmpleado = String(tarifa.tipoTarifaEmpleadoDTO?.nombreTipoTarifaEmpleado || '').toUpperCase();
+          const horas = horasClasificadas.get(nombreTipoTarifaEmpleado) || 0;
+          if (horas <= 0) continue;
+          horasTrabajadas += horas;
+          valorBruto += horas * Number(tarifa.valorHoraTarifaEmpleado || 0);
+        }
+        console.log('DEBUG LIQUIDACIÓN — horasTrabajadas: ', horasTrabajadas, ' valorBruto: ', valorBruto);
+
+        if (horasTrabajadas <= 0) return; //NO REGISTRA HORAS LABORADAS EN EL SISTEMA EN EL AÑO EN CURSO.
+
+        this.totalHorasLaboradasUsuarioConectado = horasTrabajadas;
+        this.totalValorBrutoUsuarioConectado = valorBruto;
+        this.totalValorNetoUsuarioConectado = valorBruto * (1 - this.porcentajeDescuentoLiquidacion);
+        this.mostrarLiquidacionUsuarioConectado = true;
+      },
+      error: (err) => console.error('ERROR AL CALCULAR LA LIQUIDACIÓN DEL USUARIO CONECTADO: ', err)
+    });
+  }
+
+  //FORMATEA UN VALOR NUMÉRICO COMO MONEDA COLOMBIANA (IGUAL QUE liquidacion-empleados.component.ts):
+  formatearMonedaLiquidacionUsuarioConectado(valor: number): string {
+    return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(valor);
   }
 
   //CONSULTA LOS DATOS DEL USUARIO LOGUEADO PARA OBTENER EL NOMBRE DEL ARCHIVO DE SU FOTO Y RESOLVER LA VISTA
